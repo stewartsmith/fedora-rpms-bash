@@ -1,7 +1,7 @@
 Version: 3.0
 Name: bash
 Summary: The GNU Bourne Again shell (bash) version %{version}.
-Release: 5
+Release: 6
 Group: System Environment/Shells
 License: GPL
 Source0: ftp://ftp.gnu.org/gnu/bash/bash-%{version}.tar.gz
@@ -9,7 +9,6 @@ Source2: ftp://ftp.gnu.org/gnu/bash/bash-doc-%{version}.tar.gz
 Source3: dot-bashrc
 Source4: dot-bash_profile
 Source5: dot-bash_logout
-Source6: http://www.caliban.org/files/bash/bash-completion-20020220.tar.gz
 Patch0: bash-2.03-paths.patch
 Patch1: bash-2.02-security.patch
 Patch2: bash-fixes.patch
@@ -28,6 +27,9 @@ Patch14: bash-trap.patch
 Patch15: bash-2.05b-readline-oom.patch
 Patch16: bash-2.05b-utf8.patch
 Patch17: bash-2.05b-mbinc.patch
+Patch18: bash-pipefail.patch
+Patch19: bash-multibyteifs.patch
+Patch20: bash-history.patch
 Patch26: bash-2.05b-xcc.patch
 Patch27: bash-2.05b-pgrp_sync.patch
 Patch30: bash-2.05b-manso.patch
@@ -55,7 +57,7 @@ bash1 package. Bash is the default shell for Red Hat Linux.  It is
 popular and powerful, and you'll probably end up using it.
 
 %prep
-%setup -q -a 2 -a 6
+%setup -q -a 2
 %patch0 -p1 -b .paths
 %patch1 -p1 -b .security
 %patch2 -p1 -b .fixes
@@ -74,6 +76,9 @@ popular and powerful, and you'll probably end up using it.
 %patch15 -p1 -b .readline-oom
 %patch16 -p1 -b .utf8
 %patch17 -p1 -b .mbinc
+%patch18 -p1 -b .pipefail
+%patch19 -p1 -b .multibyteifs
+%patch20 -p1 -b .history
 %patch26 -p1 -b .xcc
 %patch27 -p1 -b .pgrp_sync
 %patch30 -p1 -b .manso
@@ -218,6 +223,15 @@ fi
 %doc doc/*.ps doc/*.0 doc/*.html doc/article.txt
 
 %changelog
+* Thu Aug 26 2004 Tim Waugh <twaugh@redhat.com> 3.0-6
+- Fixed history saved-line handling.
+
+* Tue Aug 24 2004 Tim Waugh <twaugh@redhat.com>
+- Fixed multibyte IFS handling.
+
+* Wed Aug 18 2004 Tim Waugh <twaugh@redhat.com>
+- Applied bug-bash list patch to fix pipefail.
+
 * Tue Aug 17 2004 Tim Waugh <twaugh@redhat.com> 3.0-5
 - Make trap usage string show POSIX usage (bug #128938).
 - Updated ${x[@]:1} expansion fix from bug-bash list.
