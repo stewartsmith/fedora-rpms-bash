@@ -1,7 +1,7 @@
 Version: 2.05b
 Name: bash
 Summary: The GNU Bourne Again shell (bash) version %{version}.
-Release: 36
+Release: 38
 Group: System Environment/Shells
 License: GPL
 Source0: ftp://ftp.gnu.org/gnu/bash/bash-%{version}.tar.bz2
@@ -43,6 +43,7 @@ Patch36: ftp://ftp.gnu.org/pub/gnu/bash/bash-2.05b-patches/bash205b-007
 Patch37: bash-2.05b-slow.patch
 Patch38: bash-2.05b-subst.patch
 Patch39: bash-2.05b-rereadline.patch
+Patch40: bash-2.05b-overread.patch
 Prefix: %{_prefix}
 Requires: mktemp
 Provides: bash2
@@ -98,6 +99,7 @@ popular and powerful, and you'll probably end up using it.
 %patch37 -p1 -b .slow
 %patch38 -p1 -b .subst
 %patch39 -p1 -b .rereadline
+%patch40 -p1 -b .overread
 echo %{version} > _distribution
 echo %{release} > _patchlevel
 
@@ -236,6 +238,15 @@ fi
 %doc doc/*.ps doc/*.0 doc/*.html doc/article.txt
 
 %changelog
+* Thu Mar 11 2004 Tim Waugh <twaugh@redhat.com> 2.05b-38
+- Apply patch from Nalin Dahyabhai fixing an overread.
+
+* Tue Mar 02 2004 Elliot Lee <sopwith@redhat.com>
+- rebuilt
+
+* Fri Feb 13 2004 Elliot Lee <sopwith@redhat.com>
+- rebuilt
+
 * Thu Jan 22 2004 Tim Waugh <twaugh@redhat.com> 2.05b-36
 - Fix the bug causing bindings to need reparsing .inputrc (bug #114101).
 
