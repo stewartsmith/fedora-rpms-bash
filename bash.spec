@@ -1,7 +1,7 @@
 Version: 3.0
 Name: bash
 Summary: The GNU Bourne Again shell (bash) version %{version}.
-Release: 2
+Release: 4
 Group: System Environment/Shells
 License: GPL
 Source0: ftp://ftp.gnu.org/gnu/bash/bash-%{version}.tar.gz
@@ -19,6 +19,8 @@ Patch5: bash-2.05a-requires.patch
 Patch6: bash-brace.patch
 Patch7: bash-2.05a-shellfunc.patch
 Patch8: bash-2.05-ia64.patch
+Patch9: bash-multilinePS1.patch
+Patch10: bash-changechar.patch
 Patch11: bash-2.05a-loadables.patch
 Patch12: bash-2.05a-interpreter.patch
 Patch15: bash-2.05b-readline-oom.patch
@@ -61,6 +63,8 @@ popular and powerful, and you'll probably end up using it.
 %patch6 -p1 -b .brace
 %patch7 -p1 -b .shellfunc
 %patch8 -p1 -b .ia64
+%patch9 -p1 -b .multilinePS1
+%patch10 -p1 -b .changechar
 %patch11 -p1 -b .loadables
 %patch12 -p1 -b .interpreter
 %patch15 -p1 -b .readline-oom
@@ -210,6 +214,12 @@ fi
 %doc doc/*.ps doc/*.0 doc/*.html doc/article.txt
 
 %changelog
+* Tue Aug 10 2004 Tim Waugh <twaugh@redhat.com> 3.0-4
+- Fix vi-change-char behaviour at EOL (bug #129526).
+
+* Mon Aug  9 2004 Tim Waugh <twaugh@redhat.com> 3.0-3
+- Applied bug-bash list patch to fix multiline PS1 prompting (bug #129382).
+
 * Wed Aug  4 2004 Tim Waugh <twaugh@redhat.com> 3.0-2
 - Fixed brace expansion (bug #129128).
 - Build with AFS support again, since bug #86514 seems fixed upstream
