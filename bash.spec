@@ -1,7 +1,7 @@
 Version: 2.05b
 Name: bash
 Summary: The GNU Bourne Again shell (bash) version %{version}.
-Release: 39
+Release: 40
 Group: System Environment/Shells
 License: GPL
 Source0: ftp://ftp.gnu.org/gnu/bash/bash-%{version}.tar.bz2
@@ -51,7 +51,7 @@ Obsoletes: bash2 etcskel
 Obsoletes: bash2-doc bash-doc
 BuildRoot: %{_tmppath}/%{name}-%{version}-root
 
-BuildRequires: texinfo
+BuildRequires: texinfo bison
 BuildRequires: libtermcap-devel
 
 %description
@@ -236,6 +236,12 @@ fi
 %doc doc/*.ps doc/*.0 doc/*.html doc/article.txt
 
 %changelog
+* Tue Jun 15 2004 Elliot Lee <sopwith@redhat.com>
+- rebuilt
+
+* Fri Jun  4 2004 Tim Waugh <twaugh@redhat.com>
+- Build requires bison (bug #125307).
+
 * Wed Jun  2 2004 Tim Waugh <twaugh@redhat.com> 2.05b-39
 - Build requires libtermcap-devel (bug #125068).
 
