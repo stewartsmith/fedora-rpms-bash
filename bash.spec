@@ -1,7 +1,7 @@
 Version: 2.05b
 Name: bash
 Summary: The GNU Bourne Again shell (bash) version %{version}.
-Release: 43
+Release: 44
 Group: System Environment/Shells
 License: GPL
 Source0: ftp://ftp.gnu.org/gnu/bash/bash-%{version}.tar.bz2
@@ -45,6 +45,7 @@ Patch38: bash-2.05b-subst.patch
 Patch39: bash-2.05b-rereadline.patch
 Patch40: bash-2.05b-overread.patch
 Patch41: bash-commsubst.patch
+Patch42: bash-sigpipe.patch
 Prefix: %{_prefix}
 Requires: mktemp
 Provides: bash2
@@ -103,6 +104,7 @@ popular and powerful, and you'll probably end up using it.
 %patch39 -p1 -b .rereadline
 %patch40 -p1 -b .overread
 %patch41 -p1 -b .commsubst
+%patch42 -p1 -b .sigpipe
 echo %{version} > _distribution
 echo %{release} > _patchlevel
 
@@ -239,6 +241,9 @@ fi
 %doc doc/*.ps doc/*.0 doc/*.html doc/article.txt
 
 %changelog
+* Wed Jul 21 2004 Tim Waugh <twaugh@redhat.com> 2.05b-44
+- Don't report SIGPIPE errors (bug #128274).
+
 * Thu Jul  8 2004 Tim Waugh <twaugh@redhat.com> 2.05b-43
 - Fixed command substitution problem (bug #127242).
 
