@@ -1,7 +1,7 @@
 Version: 2.05
 Name: bash
 Summary: The GNU Bourne Again shell (bash) version %{version}.
-Release: 7
+Release: 8
 Group: System Environment/Shells
 License: GPL
 Source0: ftp://ftp.gnu.org/gnu/bash/bash-%{version}.tar.bz2
@@ -23,6 +23,7 @@ Patch6: bash-2.04-compat.patch
 Patch7: bash-2.04-shellfunc.patch
 Patch8: bash-2.05-ia64.patch
 Patch9: bash-2.05-s390x-unwind.patch
+Patch10: bash-2.05-ipv6-20010418.patch
 Patch51: ftp://ftp.cwru.edu/pub/bash/bash-2.05-patches/bash205-001
 Patch52: ftp://ftp.cwru.edu/pub/bash/bash-2.05-patches/bash205-002
 Patch53: ftp://ftp.cwru.edu/pub/bash/bash-2.05-patches/bash205-003
@@ -74,6 +75,7 @@ cp %{SOURCE7} .
 %ifarch s390x
 %patch9 -p1 -b .s390x
 %endif
+%patch10 -p1 -b .ipv6
 %patch51 -p0 -b .pl1
 %patch52 -p0 -b .pl2
 %patch53 -p0 -b .pl3
@@ -87,6 +89,7 @@ echo %{release} > _patchlevel
 #CFLAGS="$RPM_OPT_FLAGS" LDFLAGS="-s" \
 #    ./configure --prefix=$RPM_BUILD_ROOT/usr $RPM_ARCH-redhat-linux
 
+autoreconf
 %configure
 make
 
@@ -208,6 +211,13 @@ fi
 %doc doc/*.ps doc/*.0 doc/*.html doc/article.txt
 
 %changelog
+* Mon Jul  9 2001 Bernhard Rosenkraenzer <bero@redhat.com> 2.05-8
+- Merge Pekka Savola's patch (RFE#47762)
+
+* Mon Jul  2 2001 Pekka Savola <pekkas@netcore.fi>
+- Add IPv6 patch from PLD (only redirection to /dev/{tcp,udp}/host/port
+  support)
+
 * Sun Jun 24 2001 Bernhard Rosenkraenzer <bero@redhat.com> 2.05-7
 - Add some bugfix patches from the maintainer
 
