@@ -45,7 +45,6 @@ Patch32: bash-tty-tests.patch
 Patch42: bash-sigpipe.patch
 Prefix: %{_prefix}
 Requires: mktemp
-Provides: bash2
 Obsoletes: bash2 etcskel
 Obsoletes: bash2-doc bash-doc
 BuildRoot: %{_tmppath}/%{name}-%{version}-root
@@ -163,7 +162,6 @@ rm -f $RPM_BUILD_ROOT/%{_mandir}/man1/printf.1
 pushd $RPM_BUILD_ROOT
 mkdir ./bin
 mv ./usr/bin/bash ./bin
-ln -sf bash ./bin/bash2
 ln -sf bash ./bin/sh
 gzip -9nf .%{_infodir}/bash.info
 rm -f .%{_infodir}/dir
@@ -187,7 +185,6 @@ rm -rf $RPM_BUILD_ROOT
 
 %post
 
-HASBASH2=""
 HASBASH=""
 HASSH=""
 
@@ -200,14 +197,9 @@ fi
 		HASBASH=1
 	elif [ $line = /bin/sh ]; then
 		HASSH=1
-	elif [ $line = /bin/bash2 ]; then
-		HASBASH2=1
 	fi
  done
 
- if [ -z "$HASBASH2" ]; then
-	echo "/bin/bash2" >> /etc/shells
- fi
  if [ -z "$HASBASH" ]; then
 	echo "/bin/bash" >> /etc/shells
  fi
@@ -217,8 +209,7 @@ fi) < /etc/shells
 
 %postun
 if [ "$1" = 0 ]; then
-    grep -v '^/bin/bash2$' < /etc/shells | \
-	grep -v '^/bin/bash$' | \
+    grep -v '^/bin/bash$' < /etc/shells | \
 	grep -v '^/bin/sh$' > /etc/shells.new
     mv /etc/shells.new /etc/shells
 fi
@@ -233,13 +224,15 @@ fi
 %config(noreplace) /etc/skel/.b*
 /bin/sh
 /bin/bash
-/bin/bash2
 %{_infodir}/bash.info*
 %{_mandir}/*/*
 %{_mandir}/*/..1*
 %doc doc/*.ps doc/*.0 doc/*.html doc/article.txt
 
 %changelog
+* Mon Sep 13 2004 Tim Waugh <twaugh@redhat.com>
+- Remove bash2.
+
 * Fri Sep 10 2004 Tim Waugh <twaugh@redhat.com> 3.0-14
 - Don't run tests that read from /dev/tty.
 - Patchlevel 13.
