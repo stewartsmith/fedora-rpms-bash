@@ -1,7 +1,7 @@
 Version: 2.05a
 Name: bash
 Summary: The GNU Bourne Again shell (bash) version %{version}.
-Release: 12
+Release: 13
 Group: System Environment/Shells
 License: GPL
 Source0: ftp://ftp.gnu.org/gnu/bash/bash-%{version}.tar.bz2
@@ -84,8 +84,8 @@ fi
 CFLAGS="$RPM_OPT_FLAGS" ./configure --prefix=%{_prefix} --with-afs
 make
 
-cd examples/loadables
-make
+#cd examples/loadables
+#make
 
 %install
 rm -rf $RPM_BUILD_ROOT
@@ -217,6 +217,10 @@ fi
 %doc doc/*.ps doc/*.0 doc/*.html doc/article.txt
 
 %changelog
+* Fri Apr 12 2002 Tim Powers <timp@redhat.com> 2.05a-13
+- don't build the stuff in examples/loadables. It breaks FHS
+  compliance
+
 * Fri Apr  5 2002 Bernhard Rosenkraenzer <bero@redhat.com> 2.05a-12
 - Fix the fix for #62418
 
