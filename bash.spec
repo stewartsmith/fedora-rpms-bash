@@ -23,25 +23,26 @@ Patch10: bash30-011
 Patch11: bash30-012
 Patch12: bash30-013
 Patch13: bash30-014
-Patch14: bash-2.03-paths.patch
-Patch15: bash-2.02-security.patch
-Patch16: bash-2.03-profile.patch
-Patch17: bash-2.05a-requires.patch
-Patch18: bash-2.05a-shellfunc.patch
-Patch19: bash-2.05-ia64.patch
-Patch20: bash-2.05a-loadables.patch
-Patch21: bash-2.05a-interpreter.patch
-Patch22: bash-2.05b-readline-oom.patch
-Patch23: bash-2.05b-utf8.patch
-Patch24: bash-2.05b-mbinc.patch
-Patch25: bash-multibyteifs.patch
-Patch26: bash-ulimit.patch
-Patch27: bash-jobs.patch
-Patch28: bash-2.05b-xcc.patch
-Patch29: bash-2.05b-pgrp_sync.patch
-Patch30: bash-2.05b-manso.patch
-Patch31: bash-2.05b-debuginfo.patch
-Patch32: bash-tty-tests.patch
+Patch14: bash30-015
+Patch15: bash-2.03-paths.patch
+Patch16: bash-2.02-security.patch
+Patch17: bash-2.03-profile.patch
+Patch18: bash-2.05a-requires.patch
+Patch19: bash-2.05a-shellfunc.patch
+Patch20: bash-2.05-ia64.patch
+Patch21: bash-2.05a-loadables.patch
+Patch22: bash-2.05a-interpreter.patch
+Patch23: bash-2.05b-readline-oom.patch
+Patch24: bash-2.05b-utf8.patch
+Patch25: bash-2.05b-mbinc.patch
+Patch26: bash-multibyteifs.patch
+Patch27: bash-ulimit.patch
+Patch28: bash-jobs.patch
+Patch29: bash-2.05b-xcc.patch
+Patch30: bash-2.05b-pgrp_sync.patch
+Patch31: bash-2.05b-manso.patch
+Patch32: bash-2.05b-debuginfo.patch
+Patch33: bash-tty-tests.patch
 Patch42: bash-sigpipe.patch
 Prefix: %{_prefix}
 Requires: mktemp
@@ -79,25 +80,26 @@ popular and powerful, and you'll probably end up using it.
 %patch11 -p0 -b .012
 %patch12 -p0 -b .013
 %patch13 -p0 -b .014
-%patch14 -p1 -b .paths
-%patch15 -p1 -b .security
-%patch16 -p1 -b .profile
-%patch17 -p1 -b .requires
-%patch18 -p1 -b .shellfunc
-%patch19 -p1 -b .ia64
-%patch20 -p1 -b .loadables
-%patch21 -p1 -b .interpreter
-%patch22 -p1 -b .readline-oom
-%patch23 -p1 -b .utf8
-%patch24 -p1 -b .mbinc
-%patch25 -p1 -b .multibyteifs
-%patch26 -p1 -b .ulimit
-%patch27 -p1 -b .jobs
-%patch28 -p1 -b .xcc
-%patch29 -p1 -b .pgrp_sync
-%patch30 -p1 -b .manso
-%patch31 -p1 -b .debuginfo
-%patch32 -p1 -b .tty-tests
+%patch14 -p0 -b .015
+%patch15 -p1 -b .paths
+%patch16 -p1 -b .security
+%patch17 -p1 -b .profile
+%patch18 -p1 -b .requires
+%patch19 -p1 -b .shellfunc
+%patch20 -p1 -b .ia64
+%patch21 -p1 -b .loadables
+%patch22 -p1 -b .interpreter
+%patch23 -p1 -b .readline-oom
+%patch24 -p1 -b .utf8
+%patch25 -p1 -b .mbinc
+%patch26 -p1 -b .multibyteifs
+%patch27 -p1 -b .ulimit
+%patch28 -p1 -b .jobs
+%patch29 -p1 -b .xcc
+%patch30 -p1 -b .pgrp_sync
+%patch31 -p1 -b .manso
+%patch32 -p1 -b .debuginfo
+%patch33 -p1 -b .tty-tests
 %patch42 -p1 -b .sigpipe
 echo %{version} > _distribution
 echo %{release} > _patchlevel
@@ -231,6 +233,9 @@ fi
 %doc doc/*.ps doc/*.0 doc/*.html doc/article.txt
 
 %changelog
+* Mon Nov  1 2004 Tim Waugh <twaugh@redhat.com>
+- Patchlevel 15.
+
 * Tue Oct 19 2004 Tim Waugh <twaugh@redhat.com> 3.0-17
 - Patchlevel 14.
 - No longer need brace patch.
