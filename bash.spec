@@ -1,7 +1,7 @@
 Version: 3.0
 Name: bash
 Summary: The GNU Bourne Again shell (bash) version %{version}.
-Release: 23
+Release: 24
 Group: System Environment/Shells
 License: GPL
 Source0: ftp://ftp.gnu.org/gnu/bash/bash-%{version}.tar.gz
@@ -109,7 +109,7 @@ popular and powerful, and you'll probably end up using it.
 %patch117 -p1 -b .debuginfo
 %patch118 -p1 -b .tty-tests
 %patch119 -p1 -b .sigpipe
-%patch120 -p1 -b .read-e-segfault
+%patch120 -p0 -b .read-e-segfault
 
 echo %{version} > _distribution
 echo %{release} > _patchlevel
@@ -243,6 +243,9 @@ fi
 %doc doc/*.ps doc/*.0 doc/*.html doc/article.txt
 
 %changelog
+* Thu Nov 18 2004 Tim Waugh <twaugh@redhat.com> 3.0-24
+- Use upstream patch to fix bug #139575 and bug #139306.
+
 * Thu Nov 18 2004 Tim Waugh <twaugh@redhat.com> 3.0-23
 - Fixed last patch to avoid regressions (bug #139575).
 
