@@ -1,7 +1,7 @@
-Version: 2.05
+Version: 2.05a
 Name: bash
 Summary: The GNU Bourne Again shell (bash) version %{version}.
-Release: 8
+Release: 12
 Group: System Environment/Shells
 License: GPL
 Source0: ftp://ftp.gnu.org/gnu/bash/bash-%{version}.tar.bz2
@@ -9,32 +9,26 @@ Source2: ftp://ftp.gnu.org/gnu/bash/bash-doc-%{version}.tar.bz2
 Source3: dot-bashrc
 Source4: dot-bash_profile
 Source5: dot-bash_logout
-# FIXME: Source6 and 7 MUST be removed at the next base version
-# update! They're fixing a bug in the current version.
-Source6: y.tab.c
-Source7: y.tab.h
+Source6: http://www.caliban.org/files/bash/bash-completion-20020220.tar.gz
 Patch0: bash-2.03-paths.patch
 Patch1: bash-2.02-security.patch
 Patch2: bash-2.04-arm.patch
 Patch3: bash-2.03-profile.patch
 Patch4: bash-2.05-readlinefixes.patch
-Patch5: bash-2.04-requires.patch
+Patch5: bash-2.05a-requires.patch
 Patch6: bash-2.04-compat.patch
-Patch7: bash-2.04-shellfunc.patch
+Patch7: bash-2.05a-shellfunc.patch
 Patch8: bash-2.05-ia64.patch
-Patch9: bash-2.05-s390x-unwind.patch
-Patch10: bash-2.05-ipv6-20010418.patch
-Patch51: ftp://ftp.cwru.edu/pub/bash/bash-2.05-patches/bash205-001
-Patch52: ftp://ftp.cwru.edu/pub/bash/bash-2.05-patches/bash205-002
-Patch53: ftp://ftp.cwru.edu/pub/bash/bash-2.05-patches/bash205-003
-Patch54: ftp://ftp.cwru.edu/pub/bash/bash-2.05-patches/bash205-004
-Patch55: ftp://ftp.cwru.edu/pub/bash/bash-2.05-patches/bash205-005
-Patch56: ftp://ftp.cwru.edu/pub/bash/bash-2.05-patches/bash205-006
+Patch9: bash-2.05a-mailcheck.patch
+Patch10: bash-2.05a-service_completion.patch
+Patch11: bash-2.05a-loadables.patch
+Patch12: bash-2.05a-interpreter.patch
+Patch13: bash-2.05a-killbuiltin.patch
 Prefix: %{_prefix}
 Requires: mktemp
 Provides: bash2
 Obsoletes: bash2 etcskel
-BuildRoot: /var/tmp/%{name}-root
+BuildRoot: %{_tmppath}/%{name}-%{version}-root
 
 %description
 The GNU Bourne Again shell (Bash) is a shell or command language
@@ -60,9 +54,7 @@ The bash-doc package contains documentation for the GNU Bourne
 Again shell version %{version}.
 
 %prep
-%setup -q -a 2
-cp %{SOURCE6} .
-cp %{SOURCE7} .
+%setup -q -a 2 -a 6
 %patch0 -p1 -b .paths
 %patch1 -p1 -b .security
 %patch2 -p1 -b .arm
@@ -72,16 +64,11 @@ cp %{SOURCE7} .
 %patch6 -p1 -b .compat
 %patch7 -p1 -b .shellfunc
 %patch8 -p1 -b .ia64
-%ifarch s390x
-%patch9 -p1 -b .s390x
-%endif
-%patch10 -p1 -b .ipv6
-%patch51 -p0 -b .pl1
-%patch52 -p0 -b .pl2
-%patch53 -p0 -b .pl3
-%patch54 -p0 -b .pl4
-%patch55 -p0 -b .pl5
-%patch56 -p0 -b .pl6
+%patch9 -p1 -b .mailcheck
+%patch10 -p1 -b .servicecomp
+%patch11 -p1 -b .loadables
+%patch12 -p1 -b .interpreter
+%patch13 -p1 -b .killbuiltin
 echo %{version} > _distribution
 echo %{release} > _patchlevel
 
@@ -89,14 +76,29 @@ echo %{release} > _patchlevel
 #CFLAGS="$RPM_OPT_FLAGS" LDFLAGS="-s" \
 #    ./configure --prefix=$RPM_BUILD_ROOT/usr $RPM_ARCH-redhat-linux
 
-autoreconf
-%configure
+if ! autoconf; then
+	# Yuck. We're using autoconf 2.1x.
+	ln -s /bin/true autoconf
+	export PATH=.:$PATH
+fi
+CFLAGS="$RPM_OPT_FLAGS" ./configure --prefix=%{_prefix} --with-afs
+make
+
+cd examples/loadables
 make
 
 %install
 rm -rf $RPM_BUILD_ROOT
 
+if [ -e autoconf ]; then
+	# Yuck. We're using autoconf 2.1x.
+	export PATH=.:$PATH
+fi
+
 %makeinstall
+
+mkdir -p $RPM_BUILD_ROOT/etc
+
 # make manpages for bash builtins as per suggestion in DOC/README
 cd doc
 sed -e '
@@ -118,15 +120,10 @@ install -c -m 644 builtins.1 ${RPM_BUILD_ROOT}%{_mandir}/man1/builtins.1
 
 for i in `cat man.pages` ; do
   echo .so man1/builtins.1 > ${RPM_BUILD_ROOT}%{_mandir}/man1/$i.1
+  chmod 0644 ${RPM_BUILD_ROOT}%{_mandir}/man1/$i.1
 done
-
-# now turn man.pages into a filelist for the man subpackage
-cat man.pages | tr -s ' ' '\n' | sed '
-1i\
-%defattr(0644,root,root,0755)
-s:^:%{_mandir}/man1/:
-s/$/.1*/
-' > ../man.pages
+# Not for printf (conflict with coreutils)
+rm -f $RPM_BUILD_ROOT/%{_mandir}/man1/printf.1
 
 { cd $RPM_BUILD_ROOT
   mkdir ./bin
@@ -137,14 +134,24 @@ s/$/.1*/
   gzip -9nf .%{_infodir}/bash.info
   rm -f .%{_infodir}/dir
 }
-mkdir -p $RPM_BUILD_ROOT/etc/skel
+mkdir -p $RPM_BUILD_ROOT/etc/skel $RPM_BUILD_ROOT/etc/profile.d
 install -c -m644 $RPM_SOURCE_DIR/dot-bashrc $RPM_BUILD_ROOT/etc/skel/.bashrc
 install -c -m644 $RPM_SOURCE_DIR/dot-bash_profile \
 	$RPM_BUILD_ROOT/etc/skel/.bash_profile
 install -c -m644 $RPM_SOURCE_DIR/dot-bash_logout \
 	$RPM_BUILD_ROOT/etc/skel/.bash_logout
-
-
+cat >>$RPM_BUILD_ROOT/etc/profile.d/bashopts.sh <<EOF
+# Edit bash settings
+if echo \$SHELL |grep -q bash; then
+	if [ -z "\$NO_BASH_SETTINGS" ]; then
+		export CDPATH=.:~:/:/usr/src/redhat
+		shopt -s cdspell
+	fi
+fi
+EOF
+mkdir -p $RPM_BUILD_ROOT%{_libdir}/bash
+find examples/loadables -type f -perm +0111 | \
+	xargs -i cp -pf {} $RPM_BUILD_ROOT%{_libdir}/bash
 %clean
 rm -rf $RPM_BUILD_ROOT
 
@@ -189,28 +196,77 @@ if [ "$1" = 0 ]; then
     mv /etc/shells.new /etc/shells
 fi
 
-%files -f man.pages
+%files
 %defattr(-,root,root)
 %doc CHANGES COMPAT NEWS NOTES CWRU/POSIX.NOTES
 %doc doc/FAQ doc/INTRO doc/article.ms
-%doc examples/bashdb/ examples/functions/ examples/misc/
-%doc examples/scripts.noah/ examples/scripts.v2/ examples/scripts/
-%doc examples/startup-files/
+%doc -P examples/bashdb/ examples/functions/ examples/misc/
+%doc -P examples/scripts.noah/ examples/scripts.v2/ examples/scripts/
+%doc -P examples/startup-files/ examples/complete/ examples/loadables/
 %config(noreplace) /etc/skel/.b*
 /bin/sh
 /bin/bash
 /bin/bash2
-%{_infodir}/bash.info*
-%{_mandir}/man1/bash.1*
-%{_mandir}/man1/builtins.1*
+%{_libdir}/bash
 %{_prefix}/bin/bashbug
-%{_mandir}/man1/bashbug.1*
+%{_infodir}/bash.info*
+%{_mandir}/*/*
 
 %files doc
 %defattr(-,root,root)
 %doc doc/*.ps doc/*.0 doc/*.html doc/article.txt
 
 %changelog
+* Fri Apr  5 2002 Bernhard Rosenkraenzer <bero@redhat.com> 2.05a-12
+- Fix the fix for #62418
+
+* Thu Apr  4 2002 Bernhard Rosenkraenzer <bero@redhat.com> 2.05a-11
+- Fix kill builtin (#62418)
+
+* Mon Mar 25 2002 Trond Eivind Glomsrød <teg@redhat.com> 2.0.5a-10
+- Get rid of completion subpackage
+- Use %%{_tmppath}
+
+* Mon Mar 11 2002 Bernhard Rosenkraenzer <bero@redhat.com> 2.05a-9
+- Add patch from Ulrich Drepper to get better error messages when trying
+  to launch an application with a bad ELF interpreter (e.g. libc5 ld.so)
+  (#60870)
+
+* Fri Feb 22 2002 Bernhard Rosenkraenzer <bero@redhat.com> 2.05a-8
+- Update completion
+
+* Wed Jan 30 2002 Bernhard Rosenkraenzer <bero@redhat.com> 2.05a-7
+- Update completion stuff and move it to a separate package
+
+* Sat Jan 26 2002 Bernhard Rosenkraenzer <bero@redhat.com> 2.05a-6
+- Add patches from Ian Macdonald <ian@caliban.org>
+
+* Wed Jan 23 2002 Bernhard Rosenkraenzer <bero@redhat.com> 2.05a-5
+- Add programmable completion (optional)
+
+* Thu Jan 17 2002 Bernhard Rosenkraenzer <bero@redhat.com> 2.05a-4
+- Fix mailcheck (#57792)
+
+* Tue Jan 15 2002 Bernhard Rosenkraenzer <bero@redhat.com> 2.05a-3
+- Fix autoconf mess
+- Build --with-afs, some users may be using it
+
+* Wed Jan 09 2002 Tim Powers <timp@redhat.com>
+- automated rebuild
+
+* Thu Nov 22 2001 Bernhard Rosenkraenzer <bero@redhat.com> 2.05a-2
+- Fix conflict with sh-utils (printf builtin manpage vs. printf binary manpage)
+  (#56590)
+
+* Tue Nov 20 2001 Bernhard Rosenkraenzer <bero@redhat.com> 2.05a-1
+- 2.05a
+
+* Wed Oct 10 2001 Florian La Roche <Florian.LaRoche@redhat.de>
+- disable s390x fix, not needed anymore
+
+* Mon Oct  1 2001 Bernhard Rosenkraenzer <bero@redhat.com> 2.05-9
+- Add patch from readline 4.2-3 to bash's internal libreadline
+
 * Mon Jul  9 2001 Bernhard Rosenkraenzer <bero@redhat.com> 2.05-8
 - Merge Pekka Savola's patch (RFE#47762)
 
