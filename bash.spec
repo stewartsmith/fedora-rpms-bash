@@ -12,17 +12,18 @@ Source5: dot-bash_logout
 Patch0: bash30-001
 Patch1: bash30-002
 Patch2: bash30-003
-Patch3: bash-2.03-paths.patch
-Patch4: bash-2.02-security.patch
-Patch5: bash-2.03-profile.patch
-Patch6: bash-2.05a-requires.patch
-Patch7: bash-brace.patch
-Patch8: bash-2.05a-shellfunc.patch
-Patch9: bash-2.05-ia64.patch
-Patch10: bash-changechar.patch
-Patch11: bash-2.05a-loadables.patch
-Patch12: bash-2.05a-interpreter.patch
-Patch13: bash-arrayvar.patch
+Patch3: bash30-004
+Patch4: bash-2.03-paths.patch
+Patch5: bash-2.02-security.patch
+Patch6: bash-2.03-profile.patch
+Patch7: bash-2.05a-requires.patch
+Patch8: bash-brace.patch
+Patch9: bash-2.05a-shellfunc.patch
+Patch10: bash-2.05-ia64.patch
+Patch11: bash-changechar.patch
+Patch12: bash-2.05a-loadables.patch
+Patch13: bash-2.05a-interpreter.patch
+Patch14: bash-arrayvar.patch
 Patch15: bash-2.05b-readline-oom.patch
 Patch16: bash-2.05b-utf8.patch
 Patch17: bash-2.05b-mbinc.patch
@@ -30,7 +31,6 @@ Patch18: bash-pipefail.patch
 Patch19: bash-multibyteifs.patch
 Patch20: bash-history.patch
 Patch21: bash-ulimit.patch
-Patch22: bash-mbslen.patch
 Patch23: bash-bashbug.patch
 Patch24: bash-jobs.patch
 Patch26: bash-2.05b-xcc.patch
@@ -64,17 +64,18 @@ popular and powerful, and you'll probably end up using it.
 %patch0 -p0 -b .001
 %patch1 -p0 -b .002
 %patch2 -p0 -b .003
-%patch3 -p1 -b .paths
-%patch4 -p1 -b .security
-%patch5 -p1 -b .profile
-%patch6 -p1 -b .requires
-%patch7 -p1 -b .brace
-%patch8 -p1 -b .shellfunc
-%patch9 -p1 -b .ia64
-%patch10 -p1 -b .changechar
-%patch11 -p1 -b .loadables
-%patch12 -p1 -b .interpreter
-%patch13 -p0 -b .arrayvar
+%patch3 -p0 -b .004
+%patch4 -p1 -b .paths
+%patch5 -p1 -b .security
+%patch6 -p1 -b .profile
+%patch7 -p1 -b .requires
+%patch8 -p1 -b .brace
+%patch9 -p1 -b .shellfunc
+%patch10 -p1 -b .ia64
+%patch11 -p1 -b .changechar
+%patch12 -p1 -b .loadables
+%patch13 -p1 -b .interpreter
+%patch14 -p0 -b .arrayvar
 %patch15 -p1 -b .readline-oom
 %patch16 -p1 -b .utf8
 %patch17 -p1 -b .mbinc
@@ -82,7 +83,6 @@ popular and powerful, and you'll probably end up using it.
 %patch19 -p1 -b .multibyteifs
 %patch20 -p1 -b .history
 %patch21 -p1 -b .ulimit
-%patch22 -p1 -b .mbslen
 %patch23 -p1 -b .bashbug
 %patch24 -p1 -b .jobs
 %patch26 -p1 -b .xcc
@@ -231,7 +231,7 @@ fi
 
 %changelog
 * Fri Sep 10 2004 Tim Waugh <twaugh@redhat.com>
-- Patchlevel 3.
+- Patchlevel 4.
 
 * Wed Sep  8 2004 Tim Waugh <twaugh@redhat.com> 3.0-13
 - Check for EINVAL from waitpid() and avoid WCONTINUED in that case.
