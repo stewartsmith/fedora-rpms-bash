@@ -1,7 +1,7 @@
-Version: 2.04
+Version: 2.05
 Name: bash
 Summary: The GNU Bourne Again shell (bash) version %{version}.
-Release: 22
+Release: 3
 Group: System Environment/Shells
 Copyright: GPL
 Source0: ftp://ftp.gnu.org/gnu/bash/bash-%{version}.tar.gz
@@ -17,9 +17,7 @@ Patch3: bash-2.03-profile.patch
 Patch5: bash-2.04-requires.patch
 Patch6: bash-2.04-compat.patch
 Patch7: bash-2.04-shellfunc.patch
-Patch8: bash-ia64.patch
-Patch9: bash-2.04-export.patch
-Patch10: bash-2.04-readline-i18n.patch
+Patch10: bash-2.05-s390x-unwind.patch
 Prefix: %{_prefix}
 Requires: mktemp
 Provides: bash2
@@ -58,9 +56,11 @@ Again shell version %{version}.
 %patch5 -p1 -b .requires
 %patch6 -p1 -b .compat
 %patch7 -p1 -b .shellfunc
-%patch8 -p1 -b .ia64
-%patch9 -p0
-%patch10 -p1 -b .readline
+
+%ifarch s390x 
+%patch10 -p1 -b .s390x
+%endif
+
 echo %{version} > _distribution
 echo %{release} > _patchlevel
 
@@ -191,8 +191,14 @@ fi
 %doc doc/*.ps doc/*.0 doc/*.html doc/article.txt
 
 %changelog
-* Tue May 23 2001 Leon Ho <llch@redhat.com>
-- Applied a patch for readline to support multibyte
+* Thu Feb 14 2002 Phil Knirsch <pknirsch@redhat.com>
+- Removed the unecessary chmod again as it generates a require loop
+
+* Mon May 28 2001 Oliver Paukstadt <oliver.paukstadt@millenux.com>
+- added chmod 644 when generated /etc/shells
+
+* Fri May  4 2001 Oliver Paukstadt <oliver.paukstadt@millenux.com>
+- ported to IBM zSeries (s390x, 64 bit)
 
 * Wed Feb 28 2001 Matt Wilson <msw@redhat.com>
 - don't Prereq: /sbin/install-info!
