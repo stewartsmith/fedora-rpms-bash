@@ -1,7 +1,7 @@
 Version: 2.05b
 Name: bash
 Summary: The GNU Bourne Again shell (bash) version %{version}.
-Release: 40
+Release: 42
 Group: System Environment/Shells
 License: GPL
 Source0: ftp://ftp.gnu.org/gnu/bash/bash-%{version}.tar.bz2
@@ -173,6 +173,8 @@ install -c -m644 $RPM_SOURCE_DIR/dot-bash_profile \
 	$RPM_BUILD_ROOT/etc/skel/.bash_profile
 install -c -m644 $RPM_SOURCE_DIR/dot-bash_logout \
 	$RPM_BUILD_ROOT/etc/skel/.bash_logout
+find $RPM_BUILD_ROOT/ $RPM_BUILD_DIR/ -name "bashbug*" \
+    -exec rm -vf {} \;
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -229,13 +231,19 @@ fi
 /bin/sh
 /bin/bash
 /bin/bash2
-%{_prefix}/bin/bashbug
 %{_infodir}/bash.info*
 %{_mandir}/*/*
 %{_mandir}/*/..1*
 %doc doc/*.ps doc/*.0 doc/*.html doc/article.txt
 
 %changelog
+* Mon Jun 28 2004 Tim Waugh <twaugh@redhat.com> 2.05b-42
+- Fixed multibyte variable substitution patch (bug #126399).
+
+* Thu Jun 17 2004 Karsten Hopp <karsten@redhat.de> 2.05b-41 
+- remove bashbug script/docs to avoid conflicting files in
+  biarch installs.
+
 * Tue Jun 15 2004 Elliot Lee <sopwith@redhat.com>
 - rebuilt
 
