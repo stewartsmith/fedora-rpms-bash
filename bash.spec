@@ -1,7 +1,7 @@
 Version: 3.0
 Name: bash
 Summary: The GNU Bourne Again shell (bash) version %{version}.
-Release: 15
+Release: 16
 Group: System Environment/Shells
 License: GPL
 Source0: ftp://ftp.gnu.org/gnu/bash/bash-%{version}.tar.gz
@@ -35,6 +35,7 @@ Patch22: bash-2.05b-utf8.patch
 Patch23: bash-2.05b-mbinc.patch
 Patch24: bash-multibyteifs.patch
 Patch25: bash-ulimit.patch
+Patch26: bash-brace.patch
 Patch27: bash-jobs.patch
 Patch28: bash-2.05b-xcc.patch
 Patch29: bash-2.05b-pgrp_sync.patch
@@ -90,6 +91,7 @@ popular and powerful, and you'll probably end up using it.
 %patch23 -p1 -b .mbinc
 %patch24 -p1 -b .multibyteifs
 %patch25 -p1 -b .ulimit
+%patch26 -p1 -b .brace
 %patch27 -p1 -b .jobs
 %patch28 -p1 -b .xcc
 %patch29 -p1 -b .pgrp_sync
@@ -229,6 +231,9 @@ fi
 %doc doc/*.ps doc/*.0 doc/*.html doc/article.txt
 
 %changelog
+* Wed Sep 29 2004 Tim Waugh <twaugh@redhat.com> 3.0-16
+- Apply patch from Chet Ramey to fix brace expansion.
+
 * Fri Sep 24 2004 Tim Waugh <twaugh@redhat.com> 3.0-15
 - Minor fix for job handling.
 
