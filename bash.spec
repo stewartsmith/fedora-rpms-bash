@@ -1,7 +1,7 @@
 Version: 3.0
 Name: bash
 Summary: The GNU Bourne Again shell (bash) version %{version}.
-Release: 25
+Release: 26
 Group: System Environment/Shells
 License: GPL
 Source0: ftp://ftp.gnu.org/gnu/bash/bash-%{version}.tar.gz
@@ -49,6 +49,7 @@ Patch118: bash-tty-tests.patch
 Patch119: bash-sigpipe.patch
 Patch120: bash-read-e-segfault.patch
 Patch121: bash-manpage.patch
+Patch122: bash-wrap.patch
 Prefix: %{_prefix}
 Requires: mktemp
 Obsoletes: bash2 etcskel
@@ -112,6 +113,7 @@ popular and powerful, and you'll probably end up using it.
 %patch119 -p1 -b .sigpipe
 %patch120 -p0 -b .read-e-segfault
 %patch121 -p1 -b .manpage
+%patch122 -p1 -b .wrap
 
 echo %{version} > _distribution
 echo %{release} > _patchlevel
@@ -245,6 +247,9 @@ fi
 %doc doc/*.ps doc/*.0 doc/*.html doc/article.txt
 
 %changelog
+* Fri Jan 28 2005 Tim Waugh <twaugh@redhat.com> 3.0-26
+- Fixed job handling bug (bug #145124).
+
 * Sun Dec  5 2004 Tim Waugh <twaugh@redhat.com> 3.0-25
 - Applied patch from Florian La Roche to fix CPPFLAGS quoting in spec file.
 
