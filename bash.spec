@@ -1,20 +1,20 @@
-Version: 2.05b
+Version: 3.0
 Name: bash
 Summary: The GNU Bourne Again shell (bash) version %{version}.
-Release: 44
+Release: 1
 Group: System Environment/Shells
 License: GPL
-Source0: ftp://ftp.gnu.org/gnu/bash/bash-%{version}.tar.bz2
-Source2: ftp://ftp.gnu.org/gnu/bash/bash-doc-%{version}.tar.bz2
+Source0: ftp://ftp.gnu.org/gnu/bash/bash-%{version}.tar.gz
+Source2: ftp://ftp.gnu.org/gnu/bash/bash-doc-%{version}.tar.gz
 Source3: dot-bashrc
 Source4: dot-bash_profile
 Source5: dot-bash_logout
 Source6: http://www.caliban.org/files/bash/bash-completion-20020220.tar.gz
 Patch0: bash-2.03-paths.patch
 Patch1: bash-2.02-security.patch
+Patch2: bash-fixes.patch
 Patch3: bash-2.03-profile.patch
 Patch5: bash-2.05a-requires.patch
-Patch6: bash-2.04-compat.patch
 Patch7: bash-2.05a-shellfunc.patch
 Patch8: bash-2.05-ia64.patch
 Patch11: bash-2.05a-loadables.patch
@@ -22,29 +22,10 @@ Patch12: bash-2.05a-interpreter.patch
 Patch15: bash-2.05b-readline-oom.patch
 Patch16: bash-2.05b-utf8.patch
 Patch17: bash-2.05b-mbinc.patch
-Patch18: ftp://ftp.gnu.org/pub/gnu/bash/bash-2.05b-patches/bash205b-001
-Patch19: ftp://ftp.gnu.org/pub/gnu/bash/bash-2.05b-patches/bash205b-002
-Patch20: ftp://ftp.gnu.org/pub/gnu/bash/bash-2.05b-patches/bash205b-003
-Patch21: ftp://ftp.gnu.org/pub/gnu/bash/bash-2.05b-patches/bash205b-004
-Patch22: bash-2.05b-locale.patch
-Patch23: bash-2.05b-readline-init.patch
-Patch24: bash-2.05b-restrict.patch
 Patch26: bash-2.05b-xcc.patch
 Patch27: bash-2.05b-pgrp_sync.patch
-Patch28: bash-2.05b-003fix.patch
-Patch29: bash-2.05b-display.patch
 Patch30: bash-2.05b-manso.patch
 Patch31: bash-2.05b-debuginfo.patch
-Patch32: bash-2.05b-warnings.patch
-Patch33: bash-2.05b-complete.patch
-Patch34: ftp://ftp.gnu.org/pub/gnu/bash/bash-2.05b-patches/bash205b-005
-Patch35: ftp://ftp.gnu.org/pub/gnu/bash/bash-2.05b-patches/bash205b-006
-Patch36: ftp://ftp.gnu.org/pub/gnu/bash/bash-2.05b-patches/bash205b-007
-Patch37: bash-2.05b-slow.patch
-Patch38: bash-2.05b-subst.patch
-Patch39: bash-2.05b-rereadline.patch
-Patch40: bash-2.05b-overread.patch
-Patch41: bash-commsubst.patch
 Patch42: bash-sigpipe.patch
 Prefix: %{_prefix}
 Requires: mktemp
@@ -71,9 +52,9 @@ popular and powerful, and you'll probably end up using it.
 %setup -q -a 2 -a 6
 %patch0 -p1 -b .paths
 %patch1 -p1 -b .security
+%patch2 -p1 -b .fixes
 %patch3 -p1 -b .profile
 %patch5 -p1 -b .requires
-%patch6 -p1 -b .compat
 %patch7 -p1 -b .shellfunc
 %patch8 -p1 -b .ia64
 %patch11 -p1 -b .loadables
@@ -81,29 +62,10 @@ popular and powerful, and you'll probably end up using it.
 %patch15 -p1 -b .readline-oom
 %patch16 -p1 -b .utf8
 %patch17 -p1 -b .mbinc
-%patch18 -p0 -b .001
-%patch19 -p0 -b .002
-%patch20 -p0 -b .003
-%patch21 -p0 -b .004
-%patch22 -p1 -b .locale
-%patch23 -p1 -b .readline-init
-%patch24 -p1 -b .restrict
 %patch26 -p1 -b .xcc
 %patch27 -p1 -b .pgrp_sync
-%patch28 -p1 -b .003fix
-%patch29 -p1 -b .display
 %patch30 -p1 -b .manso
 %patch31 -p1 -b .debuginfo
-%patch32 -p1 -b .warnings
-%patch33 -p1 -b .complete
-%patch34 -p0 -b .005
-%patch35 -p0 -b .006
-%patch36 -p0 -b .007
-%patch37 -p1 -b .slow
-%patch38 -p1 -b .subst
-%patch39 -p1 -b .rereadline
-%patch40 -p1 -b .overread
-%patch41 -p1 -b .commsubst
 %patch42 -p1 -b .sigpipe
 echo %{version} > _distribution
 echo %{release} > _patchlevel
@@ -134,7 +96,7 @@ perl -pi -e 's,bashref\.info,bash.info,' doc/bashref.info
 mkdir -p $RPM_BUILD_ROOT/etc
 
 # make manpages for bash builtins as per suggestion in DOC/README
-cd doc
+pushd doc
 sed -e '
 /^\.SH NAME/, /\\- bash built-in commands, see \\fBbash\\fR(1)$/{
 /^\.SH NAME/d
@@ -156,6 +118,7 @@ for i in `cat man.pages` ; do
   echo .so man1/builtins.1 > ${RPM_BUILD_ROOT}%{_mandir}/man1/$i.1
   chmod 0644 ${RPM_BUILD_ROOT}%{_mandir}/man1/$i.1
 done
+popd
 
 # Link bash man page to sh so that man sh works.
 ln -s bash.1 ${RPM_BUILD_ROOT}%{_mandir}/man1/sh.1
@@ -179,6 +142,8 @@ install -c -m644 $RPM_SOURCE_DIR/dot-bash_logout \
 	$RPM_BUILD_ROOT/etc/skel/.bash_logout
 find $RPM_BUILD_ROOT/ $RPM_BUILD_DIR/ -name "bashbug*" \
     -exec rm -vf {} \;
+
+%find_lang %{name}
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -224,7 +189,7 @@ if [ "$1" = 0 ]; then
     mv /etc/shells.new /etc/shells
 fi
 
-%files
+%files -f %{name}.lang
 %defattr(-,root,root)
 %doc CHANGES COMPAT NEWS NOTES POSIX
 %doc doc/FAQ doc/INTRO doc/article.ms
@@ -241,6 +206,9 @@ fi
 %doc doc/*.ps doc/*.0 doc/*.html doc/article.txt
 
 %changelog
+* Wed Jul 28 2004 Tim Waugh <twaugh@redhat.com> 3.0-1
+- 3.0.
+
 * Wed Jul 21 2004 Tim Waugh <twaugh@redhat.com> 2.05b-44
 - Don't report SIGPIPE errors (bug #128274).
 

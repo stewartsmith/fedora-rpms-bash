@@ -1,21 +1,21 @@
---- bash-2.03/config.h.in.paths	Thu Feb 18 11:48:31 1999
-+++ bash-2.03/config.h.in	Mon Feb 22 14:32:04 1999
-@@ -351,7 +351,7 @@
+--- bash-3.0/config.h.in.paths	2004-07-21 21:08:31.000000000 +0100
++++ bash-3.0/config.h.in	2004-07-28 09:16:27.257884999 +0100
+@@ -197,7 +197,7 @@
  
- #undef HAVE_POSIX_SIGSETJMP
+ /* System paths */
  
 -#define DEFAULT_MAIL_DIRECTORY "/usr/spool/mail"
 +#define DEFAULT_MAIL_DIRECTORY "/var/spool/mail"
  
- /* Define if you have the bcopy function.  */
- #undef HAVE_BCOPY
---- bash-2.03/config-top.h.paths	Tue Dec 15 13:24:38 1998
-+++ bash-2.03/config-top.h	Mon Feb 22 14:35:03 1999
-@@ -34,14 +34,14 @@
+ /* Characteristics of the system's header files and libraries that affect
+    the compilation environment. */
+--- bash-3.0/config-top.h.paths	2003-08-05 15:36:12.000000000 +0100
++++ bash-3.0/config-top.h	2004-07-28 09:36:27.117205637 +0100
+@@ -52,14 +52,14 @@
  /* The default value of the PATH variable. */
  #ifndef DEFAULT_PATH_VALUE
  #define DEFAULT_PATH_VALUE \
--  "/usr/gnu/bin:/usr/local/bin:/usr/ucb:/bin:/usr/bin:."
+-  "/usr/gnu/bin:/usr/local/bin:/bin:/usr/bin:."
 +  "/usr/local/bin:/bin:/usr/bin"
  #endif
  
@@ -23,7 +23,7 @@
     the Posix.2 confstr () function, or CS_PATH define are not present. */
  #ifndef STANDARD_UTILS_PATH
  #define STANDARD_UTILS_PATH \
--  "/bin:/usr/bin:/usr/ucb:/sbin:/usr/sbin:/etc:/usr/etc"
+-  "/bin:/usr/bin:/sbin:/usr/sbin:/etc:/usr/etc"
 +  "/bin:/usr/bin:/usr/sbin:/sbin"
  #endif
  

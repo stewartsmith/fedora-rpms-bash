@@ -1,6 +1,6 @@
---- bash-2.05b/config.h.in.interpreter	2002-07-22 12:30:53.000000000 +0200
-+++ bash-2.05b/config.h.in	2002-07-22 12:30:54.000000000 +0200
-@@ -579,6 +579,9 @@
+--- bash-3.0/config.h.in.interpreter	2004-07-28 09:40:15.259722811 +0100
++++ bash-3.0/config.h.in	2004-07-28 09:40:15.429690416 +0100
+@@ -601,6 +601,9 @@
  /* Define if you have the pathconf function. */
  #undef HAVE_PATHCONF
  
@@ -10,7 +10,7 @@
  /* Define if you have the putenv function.  */
  #undef HAVE_PUTENV
  
-@@ -722,6 +725,9 @@
+@@ -756,6 +759,9 @@
  /* Define if you have the <dlfcn.h> header file.  */
  #undef HAVE_DLFCN_H
  
@@ -20,28 +20,28 @@
  /* Define if you have the <grp.h> header file.  */
  #undef HAVE_GRP_H
  
---- bash-2.05b/configure.in.interpreter	2002-07-16 15:31:25.000000000 +0200
-+++ bash-2.05b/configure.in	2002-07-22 12:30:54.000000000 +0200
-@@ -525,7 +525,7 @@
+--- bash-3.0/configure.in.interpreter	2004-07-21 21:06:54.000000000 +0100
++++ bash-3.0/configure.in	2004-07-28 09:43:21.657196239 +0100
+@@ -573,7 +573,7 @@
  
  AC_CHECK_HEADERS(unistd.h stdlib.h stdarg.h varargs.h limits.h string.h \
  		 memory.h locale.h termcap.h termio.h termios.h dlfcn.h \
--		 stddef.h stdint.h netdb.h grp.h strings.h)
-+		 stddef.h stdint.h netdb.h grp.h strings.h elf.h)
+-		 stddef.h stdint.h netdb.h grp.h strings.h regex.h)
++		 stddef.h stdint.h netdb.h grp.h strings.h regex.h elf.h)
  AC_CHECK_HEADERS(sys/ptem.h sys/pte.h sys/stream.h sys/select.h sys/file.h \
- 		 sys/resource.h sys/param.h sys/socket.h \
- 		 sys/time.h sys/times.h sys/wait.h)
-@@ -588,7 +588,7 @@
- 		setlinebuf setvbuf setlocale strchr tcgetattr uname \
- 		ulimit tzset siginterrupt memmove ttyname times \
- 		getaddrinfo gethostbyname getservbyname getservent inet_aton \
--		vsnprintf snprintf vasprintf asprintf fnmatch)
-+		vsnprintf snprintf vasprintf asprintf fnmatch pread)
- AC_CHECK_FUNCS(isascii isblank isgraph isprint isspace isxdigit)
- AC_REPLACE_FUNCS(getcwd strcasecmp strerror strftime strpbrk memset)
- AC_REPLACE_FUNCS(strtod strtol strtoul strtoll strtoull strtoimax strtoumax)
---- bash-2.05b/execute_cmd.c.interpreter	2002-07-22 12:30:54.000000000 +0200
-+++ bash-2.05b/execute_cmd.c	2002-07-22 12:40:08.000000000 +0200
+ 		 sys/resource.h sys/param.h sys/socket.h sys/stat.h \
+ 		 sys/time.h sys/times.h sys/types.h sys/wait.h)
+@@ -628,7 +628,7 @@
+ AC_CHECK_FUNCS(dup2 select getdtablesize getgroups gethostname \
+ 		setdtablesize getpagesize killpg lstat getpeername sbrk \
+ 		getrlimit getrusage gettimeofday waitpid tcgetpgrp \
+-		readlink)
++		readlink pread)
+ AC_REPLACE_FUNCS(rename)
+ 
+ dnl checks for c library functions
+--- bash-3.0/execute_cmd.c.interpreter	2004-07-28 09:40:15.386698610 +0100
++++ bash-3.0/execute_cmd.c	2004-07-28 09:40:15.449686605 +0100
 @@ -40,6 +40,10 @@
  #  include <unistd.h>
  #endif
@@ -53,7 +53,7 @@
  #include "posixtime.h"
  
  #if defined (HAVE_SYS_RESOURCE_H) && !defined (RLIMTYPE)
-@@ -3496,12 +3500,20 @@
+@@ -3842,12 +3846,20 @@
  	{
  	  /* The file has the execute bits set, but the kernel refuses to
  	     run it for some reason.  See why. */
@@ -74,8 +74,8 @@
 +	      close (fd);
  	      interp = getinterp (sample, sample_len, (int *)NULL);
  	      errno = i;
- 	      sys_error ("%s: %s: bad interpreter", command, interp ? interp : "");
-@@ -3509,6 +3521,136 @@
+ 	      sys_error (_("%s: %s: bad interpreter"), command, interp ? interp : "");
+@@ -3855,6 +3867,136 @@
  	      return (EX_NOEXEC);
  	    }
  #endif
