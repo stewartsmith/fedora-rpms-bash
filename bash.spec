@@ -1,7 +1,7 @@
 Version: 3.0
 Name: bash
 Summary: The GNU Bourne Again shell (bash) version %{version}.
-Release: 4
+Release: 5
 Group: System Environment/Shells
 License: GPL
 Source0: ftp://ftp.gnu.org/gnu/bash/bash-%{version}.tar.gz
@@ -23,6 +23,8 @@ Patch9: bash-multilinePS1.patch
 Patch10: bash-changechar.patch
 Patch11: bash-2.05a-loadables.patch
 Patch12: bash-2.05a-interpreter.patch
+Patch13: bash-arrayvar.patch
+Patch14: bash-trap.patch
 Patch15: bash-2.05b-readline-oom.patch
 Patch16: bash-2.05b-utf8.patch
 Patch17: bash-2.05b-mbinc.patch
@@ -67,6 +69,8 @@ popular and powerful, and you'll probably end up using it.
 %patch10 -p1 -b .changechar
 %patch11 -p1 -b .loadables
 %patch12 -p1 -b .interpreter
+%patch13 -p0 -b .arrayvar
+%patch14 -p1 -b .trap
 %patch15 -p1 -b .readline-oom
 %patch16 -p1 -b .utf8
 %patch17 -p1 -b .mbinc
@@ -214,6 +218,14 @@ fi
 %doc doc/*.ps doc/*.0 doc/*.html doc/article.txt
 
 %changelog
+* Tue Aug 17 2004 Tim Waugh <twaugh@redhat.com> 3.0-5
+- Make trap usage string show POSIX usage (bug #128938).
+- Updated ${x[@]:1} expansion fix from bug-bash list.
+- Updated patch to fix unset array crash (from bug-bash list).
+
+* Sun Aug 15 2004 Tim Waugh <twaugh@redhat.com>
+- Fix ${x[@]:1} expansion (William Park, bug-bash list).
+
 * Tue Aug 10 2004 Tim Waugh <twaugh@redhat.com> 3.0-4
 - Fix vi-change-char behaviour at EOL (bug #129526).
 
