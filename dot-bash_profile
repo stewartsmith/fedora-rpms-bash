@@ -9,7 +9,7 @@ fi
 
 PATH=$PATH:$HOME/bin
 BASH_ENV=$HOME/.bashrc
-USERNAME=""
 
-export USERNAME BASH_ENV PATH
+export BASH_ENV PATH
+unset USERNAME
 
