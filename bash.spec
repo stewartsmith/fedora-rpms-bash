@@ -249,7 +249,7 @@ fi
 %doc doc/*.ps doc/*.0 doc/*.html doc/article.txt
 
 %changelog
-* Thu Feb 17 2005 Tim Waugh <twaugh@redhat.com>
+* Thu Feb 17 2005 Tim Waugh <twaugh@redhat.com> 3.0-28
 - Define _GNU_SOURCE in CPPFLAGS (bug #147573).
 
 * Mon Feb 14 2005 Tim Waugh <twaugh@redhat.com>
