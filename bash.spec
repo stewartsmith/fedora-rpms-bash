@@ -1,7 +1,7 @@
 Version: 3.0
 Name: bash
 Summary: The GNU Bourne Again shell (bash) version %{version}.
-Release: 22
+Release: 23
 Group: System Environment/Shells
 License: GPL
 Source0: ftp://ftp.gnu.org/gnu/bash/bash-%{version}.tar.gz
@@ -243,6 +243,9 @@ fi
 %doc doc/*.ps doc/*.0 doc/*.html doc/article.txt
 
 %changelog
+* Thu Nov 18 2004 Tim Waugh <twaugh@redhat.com> 3.0-23
+- Fixed last patch to avoid regressions (bug #139575).
+
 * Mon Nov 15 2004 Tim Waugh <twaugh@redhat.com> 3.0-22
 - Fixed prompt wrapping code to cope with zero-length prompts (bug #139306).
 
