@@ -1,7 +1,7 @@
 Version: 3.0
 Name: bash
 Summary: The GNU Bourne Again shell (bash) version %{version}.
-Release: 7
+Release: 8
 Group: System Environment/Shells
 License: GPL
 Source0: ftp://ftp.gnu.org/gnu/bash/bash-%{version}.tar.gz
@@ -30,6 +30,7 @@ Patch17: bash-2.05b-mbinc.patch
 Patch18: bash-pipefail.patch
 Patch19: bash-multibyteifs.patch
 Patch20: bash-history.patch
+Patch21: bash-ulimit.patch
 Patch26: bash-2.05b-xcc.patch
 Patch27: bash-2.05b-pgrp_sync.patch
 Patch30: bash-2.05b-manso.patch
@@ -79,6 +80,7 @@ popular and powerful, and you'll probably end up using it.
 %patch18 -p1 -b .pipefail
 %patch19 -p1 -b .multibyteifs
 %patch20 -p1 -b .history
+%patch21 -p1 -b .ulimit
 %patch26 -p1 -b .xcc
 %patch27 -p1 -b .pgrp_sync
 %patch30 -p1 -b .manso
@@ -223,6 +225,9 @@ fi
 %doc doc/*.ps doc/*.0 doc/*.html doc/article.txt
 
 %changelog
+* Fri Aug 27 2004 Tim Waugh <twaugh@redhat.com> 3.0-8
+- Provide support for new limits (bug #129800).
+
 * Thu Aug 26 2004 Tim Waugh <twaugh@redhat.com> 3.0-7
 - Use upstream patch for last fix.
 
