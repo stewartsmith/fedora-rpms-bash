@@ -1,7 +1,7 @@
 Version: 2.05b
 Name: bash
 Summary: The GNU Bourne Again shell (bash) version %{version}.
-Release: 2
+Release: 3
 Group: System Environment/Shells
 License: GPL
 Source0: ftp://ftp.gnu.org/gnu/bash/bash-%{version}.tar.bz2
@@ -12,19 +12,14 @@ Source5: dot-bash_logout
 Source6: http://www.caliban.org/files/bash/bash-completion-20020220.tar.gz
 Patch0: bash-2.03-paths.patch
 Patch1: bash-2.02-security.patch
-Patch2: bash-2.04-arm.patch
 Patch3: bash-2.03-profile.patch
-Patch4: bash-2.05-readlinefixes.patch
 Patch5: bash-2.05a-requires.patch
 Patch6: bash-2.04-compat.patch
 Patch7: bash-2.05a-shellfunc.patch
 Patch8: bash-2.05-ia64.patch
-Patch9: bash-2.05a-mailcheck.patch
-Patch10: bash-2.05a-service_completion.patch
 Patch11: bash-2.05a-loadables.patch
 Patch12: bash-2.05a-interpreter.patch
-Patch13: bash-2.05a-killbuiltin.patch
-Patch14: bash-2.05a-readline-utf8.patch
+Patch15: bash-2.05b-readline-oom.patch
 Prefix: %{_prefix}
 Requires: mktemp
 Provides: bash2
@@ -58,19 +53,14 @@ Again shell version %{version}.
 %setup -q -a 2 -a 6
 %patch0 -p1 -b .paths
 %patch1 -p1 -b .security
-#%patch2 -p1 -b .arm
 %patch3 -p1 -b .profile
-#%patch4 -p1 -b .readline
 %patch5 -p1 -b .requires
 %patch6 -p1 -b .compat
 %patch7 -p1 -b .shellfunc
 %patch8 -p1 -b .ia64
-#%patch9 -p1 -b .mailcheck
-#%patch10 -p1 -b .servicecomp
 %patch11 -p1 -b .loadables
 %patch12 -p1 -b .interpreter
-#%patch13 -p1 -b .killbuiltin
-#%patch14 -p1 -b .readline-utf8
+%patch15 -p1 -b .readline-oom
 echo %{version} > _distribution
 echo %{release} > _patchlevel
 
@@ -223,6 +213,9 @@ fi
 %doc doc/*.ps doc/*.0 doc/*.html doc/article.txt
 
 %changelog
+* Wed Aug 07 2002 Phil Knirsch <pknirsch@redhat.com> 2.05b-3
+- Fixed out of memory problem with readline.
+
 * Tue Jul 23 2002 Phil Knirsch <pknirsch@redhat.com> 2.05b-2
 - Added symlink for sh.1 in man1 section so that man sh works (#44039).
 
