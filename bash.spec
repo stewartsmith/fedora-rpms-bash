@@ -1,7 +1,7 @@
 Version: 2.05b
 Name: bash
 Summary: The GNU Bourne Again shell (bash) version %{version}.
-Release: 42
+Release: 43
 Group: System Environment/Shells
 License: GPL
 Source0: ftp://ftp.gnu.org/gnu/bash/bash-%{version}.tar.bz2
@@ -44,6 +44,7 @@ Patch37: bash-2.05b-slow.patch
 Patch38: bash-2.05b-subst.patch
 Patch39: bash-2.05b-rereadline.patch
 Patch40: bash-2.05b-overread.patch
+Patch41: bash-commsubst.patch
 Prefix: %{_prefix}
 Requires: mktemp
 Provides: bash2
@@ -101,6 +102,7 @@ popular and powerful, and you'll probably end up using it.
 %patch38 -p1 -b .subst
 %patch39 -p1 -b .rereadline
 %patch40 -p1 -b .overread
+%patch41 -p1 -b .commsubst
 echo %{version} > _distribution
 echo %{release} > _patchlevel
 
@@ -237,6 +239,9 @@ fi
 %doc doc/*.ps doc/*.0 doc/*.html doc/article.txt
 
 %changelog
+* Thu Jul  8 2004 Tim Waugh <twaugh@redhat.com> 2.05b-43
+- Fixed command substitution problem (bug #127242).
+
 * Mon Jun 28 2004 Tim Waugh <twaugh@redhat.com> 2.05b-42
 - Fixed multibyte variable substitution patch (bug #126399).
 
