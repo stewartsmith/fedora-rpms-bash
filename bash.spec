@@ -1,7 +1,8 @@
+%define OrigRelease 11
 Version: 2.04
 Name: bash
 Summary: The GNU Bourne Again shell (bash) version %{version}.
-Release: 11
+Release: %{OrigRelease}j3
 Group: System Environment/Shells
 Copyright: GPL
 Source0: ftp://ftp.gnu.org/gnu/bash/bash-%{version}.tar.gz
@@ -58,7 +59,7 @@ Again shell version %{version}.
 %patch7 -p1 -b .shellfunc
 %patch8 -p1 -b .ia64
 echo %{version} > _distribution
-echo %{release} > _patchlevel
+echo %{OrigRelease} > _patchlevel
 
 %build
 #CFLAGS="$RPM_OPT_FLAGS" LDFLAGS="-s" \
@@ -127,7 +128,6 @@ install -c -m644 $RPM_SOURCE_DIR/dot-bash_profile \
 	$RPM_BUILD_ROOT/etc/skel/.bash_profile
 install -c -m644 $RPM_SOURCE_DIR/dot-bash_logout \
 	$RPM_BUILD_ROOT/etc/skel/.bash_logout
-
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -198,6 +198,14 @@ fi
 %doc doc/*.ps doc/*.0 doc/*.html doc/article.txt
 
 %changelog
+* Wed Sep  6 2000 ISHIKAWA Mutsumi <ishikaw@redhat.com>
+- move back /etc/skel/{.bash_profile,.bashrc,.bash_logout} from
+  etcskel package
+- modify /etc/skel/.bashrc and /etc/bashrc for i18n
+
+* Wed Sep  6 2000 ISHIKAWA Mutsumi <ishikaw@redhat.com>
+- move /etc/skel/{.bash_profile,.bashrc,.bash_logout} to etcskel package
+
 * Tue Aug 22 2000 Matt Wilson <msw@redhat.com>
 - fixed the summary of bash-doc to use %%{version} instead of "2.03"
 

@@ -6,3 +6,8 @@
 if [ -f /etc/bashrc ]; then
 	. /etc/bashrc
 fi
+export EMACS_IM="canna"
+
+if [ "$LANG" = "ja" -o "$LANG" = "ja_JP.eucJP" ]; then
+	export JLESSCHARSET=japanese
+fi
