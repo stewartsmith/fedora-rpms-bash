@@ -1,7 +1,7 @@
 Version: 2.05b
 Name: bash
 Summary: The GNU Bourne Again shell (bash) version %{version}.
-Release: 20.1
+Release: 31
 Group: System Environment/Shells
 License: GPL
 Source0: ftp://ftp.gnu.org/gnu/bash/bash-%{version}.tar.bz2
@@ -35,10 +35,16 @@ Patch27: bash-2.05b-pgrp_sync.patch
 Patch28: bash-2.05b-003fix.patch
 Patch29: bash-2.05b-display.patch
 Patch30: bash-2.05b-manso.patch
+Patch31: bash-2.05b-debuginfo.patch
+Patch32: bash-2.05b-warnings.patch
+Patch33: bash-2.05b-complete.patch
+Patch34: bash-2.05b-crash.patch
+Patch35: bash205b-007
 Prefix: %{_prefix}
 Requires: mktemp
 Provides: bash2
 Obsoletes: bash2 etcskel
+Obsoletes: bash2-doc bash-doc
 BuildRoot: %{_tmppath}/%{name}-%{version}-root
 
 %description
@@ -51,18 +57,6 @@ compliance over previous versions. However, many old shell scripts
 will depend upon the behavior of bash 1.14, which is included in the
 bash1 package. Bash is the default shell for Red Hat Linux.  It is
 popular and powerful, and you'll probably end up using it.
-
-Documentation for bash version %{version} is contained in the bash-doc 
-package.
-
-%package doc
-Group: Documentation
-Summary: Documentation for the GNU Bourne Again shell (bash) version %{version}.
-Obsoletes: bash2-doc
-
-%description doc
-The bash-doc package contains documentation for the GNU Bourne
-Again shell version %{version}.
 
 %prep
 %setup -q -a 2 -a 6
@@ -91,6 +85,11 @@ Again shell version %{version}.
 %patch28 -p1 -b .003fix
 %patch29 -p1 -b .display
 %patch30 -p1 -b .manso
+%patch31 -p1 -b .debuginfo
+%patch32 -p1 -b .warnings
+%patch33 -p1 -b .complete
+%patch34 -p1 -b .crash
+%patch35 -p0 -b .007
 echo %{version} > _distribution
 echo %{release} > _patchlevel
 
@@ -100,8 +99,8 @@ if ! autoconf; then
 	ln -s /bin/true autoconf
 	export PATH=.:$PATH
 fi
-%configure --with-afs
-make
+%configure --with-bash-malloc=no
+make CPPFLAGS=`getconf LFS_CFLAGS`
 
 %install
 rm -rf $RPM_BUILD_ROOT
@@ -145,15 +144,14 @@ ln -s bash.1 ${RPM_BUILD_ROOT}%{_mandir}/man1/sh.1
 # Not for printf (conflict with coreutils)
 rm -f $RPM_BUILD_ROOT/%{_mandir}/man1/printf.1
 
-{ cd $RPM_BUILD_ROOT
-  mkdir ./bin
-  mv ./usr/bin/bash ./bin
-  ln -sf bash ./bin/bash2
-  ln -sf bash ./bin/sh
-  strip ./bin/* || :
-  gzip -9nf .%{_infodir}/bash.info
-  rm -f .%{_infodir}/dir
-}
+pushd $RPM_BUILD_ROOT
+mkdir ./bin
+mv ./usr/bin/bash ./bin
+ln -sf bash ./bin/bash2
+ln -sf bash ./bin/sh
+gzip -9nf .%{_infodir}/bash.info
+rm -f .%{_infodir}/dir
+popd
 mkdir -p $RPM_BUILD_ROOT/etc/skel
 install -c -m644 $RPM_SOURCE_DIR/dot-bashrc $RPM_BUILD_ROOT/etc/skel/.bashrc
 install -c -m644 $RPM_SOURCE_DIR/dot-bash_profile \
@@ -223,14 +221,57 @@ fi
 %{_infodir}/bash.info*
 %{_mandir}/*/*
 %{_mandir}/*/..1*
-
-%files doc
-%defattr(-,root,root)
 %doc doc/*.ps doc/*.0 doc/*.html doc/article.txt
 
 %changelog
-* Wed Apr  9 2003 Tim Waugh <twaugh@redhat.com> 2.05b-20.1
+* Tue Oct 28 2003 Tim Waugh <twaugh@redhat.com>  2.05b-31
+- Add bash205b-007 patch to fix bug #106876.
+
+* Thu Oct 23 2003 Tim Waugh <twaugh@redhat.com>  2.05b-30
+- Rebuilt.
+
+* Thu Sep 18 2003 Tim Waugh <twaugh@redhat.com>  2.05b-29.1
+- Rebuilt.
+
+* Thu Sep 18 2003 Tim Waugh <twaugh@redhat.com>  2.05b-29
+- Avoid crashing on multibyte input when locale is set incorrectly
+  (bug #74266).
+
+* Fri Sep  5 2003 Tim Waugh <twaugh@redhat.com>  2.05b-28.1
+- Rebuilt.
+
+* Fri Sep  5 2003 Tim Waugh <twaugh@redhat.com>  2.05b-28
+- Avoid built-in malloc implementation (bug #103768).
+
+* Wed Sep  3 2003 Tim Waugh <twaugh@redhat.com>  2.05b-27.1
+- Rebuilt.
+
+* Wed Sep  3 2003 Tim Waugh <twaugh@redhat.com>  2.05b-27
+- LFS support (bug #103627).
+
+* Thu Jul 31 2003 Tim Waugh <twaugh@redhat.com>  2.05b-26.1
+- Rebuilt.
+
+* Thu Jul 31 2003 Tim Waugh <twaugh@redhat.com>  2.05b-26
+- Merge bash-doc into main package (bug #100632).
+
+* Wed Jun 04 2003 Elliot Lee <sopwith@redhat.com> 2.05b-25
+- rebuilt
+
+* Mon May 12 2003 Tim Waugh <twaugh@redhat.com> 2.05b-24
+- Fix completion display when multibyte or control characters are to be
+  shown (bug #90201).
+
+* Tue Mar 26 2003 Tim Waugh <twaugh@redhat.com> 2.05b-23
+- Fix a warning message (bug #79629).
+- Don't remove generated source during build, for debuginfo package.
+- Don't build with AFS support (bug #86514).
+
+* Tue Mar 25 2003 Tim Waugh <twaugh@redhat.com> 2.05b-22
 - Really fix bug #78455.
+
+* Tue Mar 11 2003 Tim Waugh <twaugh@redhat.com> 2.05b-21
+- Don't explicitly strip binaries (bug #85995).
 
 * Tue Feb 11 2003 Tim Waugh <twaugh@redhat.com> 2.05b-20
 - Really fix bug #83331 for good.
