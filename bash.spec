@@ -249,6 +249,11 @@ fi
 %doc doc/*.ps doc/*.0 doc/*.html doc/article.txt
 
 %changelog
+* Mon Feb 14 2005 Tim Waugh <twaugh@redhat.com>
+- Reverted this change:
+  - Added code to /etc/skel/.bash_logout to support the gpm selection buffer
+    invalidation on virtual terminals (bug #115493).
+
 * Mon Jan 31 2005 Tim Waugh <twaugh@redhat.com> 3.0-27
 - Applied upstream patch to fix a potential NULL dereference.
 
