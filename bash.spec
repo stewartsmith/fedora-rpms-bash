@@ -35,7 +35,6 @@ Patch22: bash-2.05b-utf8.patch
 Patch23: bash-2.05b-mbinc.patch
 Patch24: bash-multibyteifs.patch
 Patch25: bash-ulimit.patch
-Patch26: bash-bashbug.patch
 Patch27: bash-jobs.patch
 Patch28: bash-2.05b-xcc.patch
 Patch29: bash-2.05b-pgrp_sync.patch
@@ -91,7 +90,6 @@ popular and powerful, and you'll probably end up using it.
 %patch23 -p1 -b .mbinc
 %patch24 -p1 -b .multibyteifs
 %patch25 -p1 -b .ulimit
-%patch26 -p1 -b .bashbug
 %patch27 -p1 -b .jobs
 %patch28 -p1 -b .xcc
 %patch29 -p1 -b .pgrp_sync
@@ -110,7 +108,6 @@ if ! autoconf; then
 fi
 %configure --with-bash-malloc=no --with-afs
 make CPPFLAGS=`getconf LFS_CFLAGS`
-make -C doc
 make check
 
 %install
@@ -172,8 +169,9 @@ install -c -m644 $RPM_SOURCE_DIR/dot-bash_profile \
 	$RPM_BUILD_ROOT/etc/skel/.bash_profile
 install -c -m644 $RPM_SOURCE_DIR/dot-bash_logout \
 	$RPM_BUILD_ROOT/etc/skel/.bash_logout
-find $RPM_BUILD_ROOT/ $RPM_BUILD_DIR/ -name "bashbug*" \
-    -exec rm -vf {} \;
+LONG_BIT=$(getconf LONG_BIT)
+mv $RPM_BUILD_ROOT%{_bindir}/bashbug \
+   $RPM_BUILD_ROOT%{_bindir}/bashbug-"${LONG_BIT}"
 
 %find_lang %{name}
 
@@ -224,12 +222,16 @@ fi
 %config(noreplace) /etc/skel/.b*
 /bin/sh
 /bin/bash
+%{_bindir}/bashbug-*
 %{_infodir}/bash.info*
 %{_mandir}/*/*
 %{_mandir}/*/..1*
 %doc doc/*.ps doc/*.0 doc/*.html doc/article.txt
 
 %changelog
+* Mon Sep 13 2004 Tim Waugh <twaugh@redhat.com>
+- Add bashbug back in (with suffix).
+
 * Mon Sep 13 2004 Tim Waugh <twaugh@redhat.com>
 - Remove bash2.
 
