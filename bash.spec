@@ -1,7 +1,7 @@
 Version: 2.05b
 Name: bash
 Summary: The GNU Bourne Again shell (bash) version %{version}.
-Release: 4
+Release: 5
 Group: System Environment/Shells
 License: GPL
 Source0: ftp://ftp.gnu.org/gnu/bash/bash-%{version}.tar.bz2
@@ -217,6 +217,9 @@ fi
 %doc doc/*.ps doc/*.0 doc/*.html doc/article.txt
 
 %changelog
+* Fri Aug 23 2002 Tim Powers <timp@redhat.com>
+- re-bzip the docs, something was corrupted
+
 * Thu Aug 22 2002 Tim Waugh <twaugh@redhat.com> 2.05b-4
 - Fix history substitution modifiers in UTF-8 (bug #70294, bug #71186).
 - Fix ADVANCE_CHAR at end of string (bug #70819).
