@@ -1,7 +1,7 @@
 Version: 3.0
 Name: bash
 Summary: The GNU Bourne Again shell (bash) version %{version}.
-Release: 6
+Release: 7
 Group: System Environment/Shells
 License: GPL
 Source0: ftp://ftp.gnu.org/gnu/bash/bash-%{version}.tar.gz
@@ -223,6 +223,9 @@ fi
 %doc doc/*.ps doc/*.0 doc/*.html doc/article.txt
 
 %changelog
+* Thu Aug 26 2004 Tim Waugh <twaugh@redhat.com> 3.0-7
+- Use upstream patch for last fix.
+
 * Thu Aug 26 2004 Tim Waugh <twaugh@redhat.com> 3.0-6
 - Fixed history saved-line handling.
 
