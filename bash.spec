@@ -1,7 +1,7 @@
 Version: 3.0
 Name: bash
 Summary: The GNU Bourne Again shell (bash) version %{version}.
-Release: 13
+Release: 14
 Group: System Environment/Shells
 License: GPL
 Source0: ftp://ftp.gnu.org/gnu/bash/bash-%{version}.tar.gz
@@ -238,7 +238,7 @@ fi
 %doc doc/*.ps doc/*.0 doc/*.html doc/article.txt
 
 %changelog
-* Fri Sep 10 2004 Tim Waugh <twaugh@redhat.com>
+* Fri Sep 10 2004 Tim Waugh <twaugh@redhat.com> 3.0-14
 - Patchlevel 13.
 
 * Wed Sep  8 2004 Tim Waugh <twaugh@redhat.com> 3.0-13
