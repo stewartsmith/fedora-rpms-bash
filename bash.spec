@@ -15,11 +15,11 @@ Patch2: bash30-003
 Patch3: bash30-004
 Patch4: bash30-005
 Patch5: bash30-006
-Patch6: bash-2.03-paths.patch
-Patch7: bash-2.02-security.patch
-Patch8: bash-2.03-profile.patch
-Patch9: bash-2.05a-requires.patch
-Patch10: bash-brace.patch
+Patch6: bash30-007
+Patch7: bash-2.03-paths.patch
+Patch8: bash-2.02-security.patch
+Patch9: bash-2.03-profile.patch
+Patch10: bash-2.05a-requires.patch
 Patch11: bash-2.05a-shellfunc.patch
 Patch12: bash-2.05-ia64.patch
 Patch13: bash-changechar.patch
@@ -68,11 +68,11 @@ popular and powerful, and you'll probably end up using it.
 %patch3 -p0 -b .004
 %patch4 -p0 -b .005
 %patch5 -p0 -b .006
-%patch6 -p1 -b .paths
-%patch7 -p1 -b .security
-%patch8 -p1 -b .profile
-%patch9 -p1 -b .requires
-%patch10 -p1 -b .brace
+%patch6 -p0 -b .007
+%patch7 -p1 -b .paths
+%patch8 -p1 -b .security
+%patch9 -p1 -b .profile
+%patch10 -p1 -b .requires
 %patch11 -p1 -b .shellfunc
 %patch12 -p1 -b .ia64
 %patch13 -p1 -b .changechar
@@ -233,7 +233,7 @@ fi
 
 %changelog
 * Fri Sep 10 2004 Tim Waugh <twaugh@redhat.com>
-- Patchlevel 6.
+- Patchlevel 7.
 
 * Wed Sep  8 2004 Tim Waugh <twaugh@redhat.com> 3.0-13
 - Check for EINVAL from waitpid() and avoid WCONTINUED in that case.
