@@ -1,7 +1,7 @@
 Version: 2.05b
 Name: bash
 Summary: The GNU Bourne Again shell (bash) version %{version}.
-Release: 3
+Release: 4
 Group: System Environment/Shells
 License: GPL
 Source0: ftp://ftp.gnu.org/gnu/bash/bash-%{version}.tar.bz2
@@ -20,6 +20,8 @@ Patch8: bash-2.05-ia64.patch
 Patch11: bash-2.05a-loadables.patch
 Patch12: bash-2.05a-interpreter.patch
 Patch15: bash-2.05b-readline-oom.patch
+Patch16: bash-2.05b-utf8.patch
+Patch17: bash-2.05b-mbinc.patch
 Prefix: %{_prefix}
 Requires: mktemp
 Provides: bash2
@@ -61,6 +63,8 @@ Again shell version %{version}.
 %patch11 -p1 -b .loadables
 %patch12 -p1 -b .interpreter
 %patch15 -p1 -b .readline-oom
+%patch16 -p1 -b .utf8
+%patch17 -p1 -b .mbinc
 echo %{version} > _distribution
 echo %{release} > _patchlevel
 
@@ -194,7 +198,7 @@ fi
 
 %files
 %defattr(-,root,root)
-%doc CHANGES COMPAT NEWS NOTES CWRU/POSIX.NOTES
+%doc CHANGES COMPAT NEWS NOTES POSIX
 %doc doc/FAQ doc/INTRO doc/article.ms
 %doc -P examples/bashdb/ examples/functions/ examples/misc/
 %doc -P examples/scripts.noah/ examples/scripts.v2/ examples/scripts/
@@ -213,6 +217,11 @@ fi
 %doc doc/*.ps doc/*.0 doc/*.html doc/article.txt
 
 %changelog
+* Thu Aug 22 2002 Tim Waugh <twaugh@redhat.com> 2.05b-4
+- Fix history substitution modifiers in UTF-8 (bug #70294, bug #71186).
+- Fix ADVANCE_CHAR at end of string (bug #70819).
+- docs: CWRU/POSIX.NOTES no longer exists, but ship POSIX.
+
 * Wed Aug 07 2002 Phil Knirsch <pknirsch@redhat.com> 2.05b-3
 - Fixed out of memory problem with readline.
 
