@@ -1,7 +1,7 @@
 Version: 3.0
 Name: bash
 Summary: The GNU Bourne Again shell (bash) version %{version}.
-Release: 9
+Release: 10
 Group: System Environment/Shells
 License: GPL
 Source0: ftp://ftp.gnu.org/gnu/bash/bash-%{version}.tar.gz
@@ -31,6 +31,7 @@ Patch18: bash-pipefail.patch
 Patch19: bash-multibyteifs.patch
 Patch20: bash-history.patch
 Patch21: bash-ulimit.patch
+Patch22: bash-mbslen.patch
 Patch26: bash-2.05b-xcc.patch
 Patch27: bash-2.05b-pgrp_sync.patch
 Patch30: bash-2.05b-manso.patch
@@ -81,6 +82,7 @@ popular and powerful, and you'll probably end up using it.
 %patch19 -p1 -b .multibyteifs
 %patch20 -p1 -b .history
 %patch21 -p1 -b .ulimit
+%patch22 -p1 -b .mbslen
 %patch26 -p1 -b .xcc
 %patch27 -p1 -b .pgrp_sync
 %patch30 -p1 -b .manso
@@ -225,6 +227,9 @@ fi
 %doc doc/*.ps doc/*.0 doc/*.html doc/article.txt
 
 %changelog
+* Thu Sep  2 2004 Tim Waugh <twaugh@redhat.com> 3.0-10
+- Fixed multibyte parameter length expansion.
+
 * Tue Aug 31 2004 Tim Waugh <twaugh@redhat.com> 3.0-9
 - Fix ulimits patch from Ulrich Drepper (bug #129800).
 
