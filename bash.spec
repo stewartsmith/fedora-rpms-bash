@@ -1,7 +1,7 @@
 Version: 2.04
 Name: bash
 Summary: The GNU Bourne Again shell (bash) version %{version}.
-Release: 21
+Release: 22
 Group: System Environment/Shells
 Copyright: GPL
 Source0: ftp://ftp.gnu.org/gnu/bash/bash-%{version}.tar.gz
@@ -19,6 +19,7 @@ Patch6: bash-2.04-compat.patch
 Patch7: bash-2.04-shellfunc.patch
 Patch8: bash-ia64.patch
 Patch9: bash-2.04-export.patch
+Patch10: bash-2.04-readline-i18n.patch
 Prefix: %{_prefix}
 Requires: mktemp
 Provides: bash2
@@ -59,6 +60,7 @@ Again shell version %{version}.
 %patch7 -p1 -b .shellfunc
 %patch8 -p1 -b .ia64
 %patch9 -p0
+%patch10 -p1 -b .readline
 echo %{version} > _distribution
 echo %{release} > _patchlevel
 
@@ -189,6 +191,9 @@ fi
 %doc doc/*.ps doc/*.0 doc/*.html doc/article.txt
 
 %changelog
+* Tue May 23 2001 Leon Ho <llch@redhat.com>
+- Applied a patch for readline to support multibyte
+
 * Wed Feb 28 2001 Matt Wilson <msw@redhat.com>
 - don't Prereq: /sbin/install-info!
 
