@@ -1,7 +1,7 @@
 Version: 3.0
 Name: bash
 Summary: The GNU Bourne Again shell (bash) version %{version}.
-Release: 20
+Release: 21
 Group: System Environment/Shells
 License: GPL
 Source0: ftp://ftp.gnu.org/gnu/bash/bash-%{version}.tar.gz
@@ -241,6 +241,10 @@ fi
 %doc doc/*.ps doc/*.0 doc/*.html doc/article.txt
 
 %changelog
+* Thu Nov 11 2004 Tim Waugh <twaugh@redhat.com> 3.0-21
+- Added code to /etc/skel/.bash_logout to support the gpm selection buffer
+  invalidation on virtual terminals (bug #115493).
+
 * Wed Nov 10 2004 Tim Waugh <twaugh@redhat.com> 3.0-20
 - Patchlevel 16.
 
