@@ -1,7 +1,7 @@
 Version: 2.05b
 Name: bash
 Summary: The GNU Bourne Again shell (bash) version %{version}.
-Release: 31
+Release: 34
 Group: System Environment/Shells
 License: GPL
 Source0: ftp://ftp.gnu.org/gnu/bash/bash-%{version}.tar.bz2
@@ -29,7 +29,6 @@ Patch21: ftp://ftp.gnu.org/pub/gnu/bash/bash-2.05b-patches/bash205b-004
 Patch22: bash-2.05b-locale.patch
 Patch23: bash-2.05b-readline-init.patch
 Patch24: bash-2.05b-restrict.patch
-Patch25: bash-2.05b-prompt.patch
 Patch26: bash-2.05b-xcc.patch
 Patch27: bash-2.05b-pgrp_sync.patch
 Patch28: bash-2.05b-003fix.patch
@@ -38,14 +37,18 @@ Patch30: bash-2.05b-manso.patch
 Patch31: bash-2.05b-debuginfo.patch
 Patch32: bash-2.05b-warnings.patch
 Patch33: bash-2.05b-complete.patch
-Patch34: bash-2.05b-crash.patch
-Patch35: bash205b-007
+Patch34: ftp://ftp.gnu.org/pub/gnu/bash/bash-2.05b-patches/bash205b-005
+Patch35: ftp://ftp.gnu.org/pub/gnu/bash/bash-2.05b-patches/bash205b-006
+Patch36: ftp://ftp.gnu.org/pub/gnu/bash/bash-2.05b-patches/bash205b-007
+Patch37: bash-2.05b-slow.patch
 Prefix: %{_prefix}
 Requires: mktemp
 Provides: bash2
 Obsoletes: bash2 etcskel
 Obsoletes: bash2-doc bash-doc
 BuildRoot: %{_tmppath}/%{name}-%{version}-root
+
+BuildRequires: texinfo
 
 %description
 The GNU Bourne Again shell (Bash) is a shell or command language
@@ -79,7 +82,6 @@ popular and powerful, and you'll probably end up using it.
 %patch22 -p1 -b .locale
 %patch23 -p1 -b .readline-init
 %patch24 -p1 -b .restrict
-%patch25 -p0 -b .prompt
 %patch26 -p1 -b .xcc
 %patch27 -p1 -b .pgrp_sync
 %patch28 -p1 -b .003fix
@@ -88,8 +90,10 @@ popular and powerful, and you'll probably end up using it.
 %patch31 -p1 -b .debuginfo
 %patch32 -p1 -b .warnings
 %patch33 -p1 -b .complete
-%patch34 -p1 -b .crash
-%patch35 -p0 -b .007
+%patch34 -p0 -b .005
+%patch35 -p0 -b .006
+%patch36 -p0 -b .007
+%patch37 -p1 -b .slow
 echo %{version} > _distribution
 echo %{release} > _patchlevel
 
@@ -109,6 +113,9 @@ if [ -e autoconf ]; then
 	# Yuck. We're using autoconf 2.1x.
 	export PATH=.:$PATH
 fi
+
+# Fix bug #83776
+perl -pi -e 's,bashref\.info,bash.info,' doc/bashref.info
 
 %makeinstall
 
@@ -224,35 +231,48 @@ fi
 %doc doc/*.ps doc/*.0 doc/*.html doc/article.txt
 
 %changelog
-* Tue Oct 28 2003 Tim Waugh <twaugh@redhat.com>  2.05b-31
+* Tue Dec  9 2003 Tim Waugh <twaugh@redhat.com> 2.05b-34
+- Build requires texinfo (bug #111171).
+
+* Fri Nov 28 2003 Tim Waugh <twaugh@redhat.com> 2.05b-33
+- Speed up UTF-8 command-line redrawing in the common case (bug #102353,
+  bug #110777).
+
+* Thu Nov  6 2003 Tim Waugh <twaugh@redhat.com> 2.05b-32
+- Apply upstream patches (bug #109269 among others).
+
+* Fri Oct 31 2003 Tim Waugh <twaugh@redhat.com>
+- Fix bash.info (bug #83776).
+
+* Tue Oct 28 2003 Tim Waugh <twaugh@redhat.com> 2.05b-31
 - Add bash205b-007 patch to fix bug #106876.
 
-* Thu Oct 23 2003 Tim Waugh <twaugh@redhat.com>  2.05b-30
+* Thu Oct 23 2003 Tim Waugh <twaugh@redhat.com> 2.05b-30
 - Rebuilt.
 
-* Thu Sep 18 2003 Tim Waugh <twaugh@redhat.com>  2.05b-29.1
+* Thu Sep 18 2003 Tim Waugh <twaugh@redhat.com> 2.05b-29.1
 - Rebuilt.
 
-* Thu Sep 18 2003 Tim Waugh <twaugh@redhat.com>  2.05b-29
+* Thu Sep 18 2003 Tim Waugh <twaugh@redhat.com> 2.05b-29
 - Avoid crashing on multibyte input when locale is set incorrectly
   (bug #74266).
 
-* Fri Sep  5 2003 Tim Waugh <twaugh@redhat.com>  2.05b-28.1
+* Fri Sep  5 2003 Tim Waugh <twaugh@redhat.com> 2.05b-28.1
 - Rebuilt.
 
-* Fri Sep  5 2003 Tim Waugh <twaugh@redhat.com>  2.05b-28
+* Fri Sep  5 2003 Tim Waugh <twaugh@redhat.com> 2.05b-28
 - Avoid built-in malloc implementation (bug #103768).
 
-* Wed Sep  3 2003 Tim Waugh <twaugh@redhat.com>  2.05b-27.1
+* Wed Sep  3 2003 Tim Waugh <twaugh@redhat.com> 2.05b-27.1
 - Rebuilt.
 
-* Wed Sep  3 2003 Tim Waugh <twaugh@redhat.com>  2.05b-27
+* Wed Sep  3 2003 Tim Waugh <twaugh@redhat.com> 2.05b-27
 - LFS support (bug #103627).
 
-* Thu Jul 31 2003 Tim Waugh <twaugh@redhat.com>  2.05b-26.1
+* Thu Jul 31 2003 Tim Waugh <twaugh@redhat.com> 2.05b-26.1
 - Rebuilt.
 
-* Thu Jul 31 2003 Tim Waugh <twaugh@redhat.com>  2.05b-26
+* Thu Jul 31 2003 Tim Waugh <twaugh@redhat.com> 2.05b-26
 - Merge bash-doc into main package (bug #100632).
 
 * Wed Jun 04 2003 Elliot Lee <sopwith@redhat.com> 2.05b-25
