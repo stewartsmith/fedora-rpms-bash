@@ -1,7 +1,7 @@
 Version: 3.0
 Name: bash
 Summary: The GNU Bourne Again shell (bash) version %{version}.
-Release: 21
+Release: 22
 Group: System Environment/Shells
 License: GPL
 Source0: ftp://ftp.gnu.org/gnu/bash/bash-%{version}.tar.gz
@@ -47,6 +47,7 @@ Patch116: bash-2.05b-manso.patch
 Patch117: bash-2.05b-debuginfo.patch
 Patch118: bash-tty-tests.patch
 Patch119: bash-sigpipe.patch
+Patch120: bash-read-e-segfault.patch
 Prefix: %{_prefix}
 Requires: mktemp
 Obsoletes: bash2 etcskel
@@ -108,6 +109,7 @@ popular and powerful, and you'll probably end up using it.
 %patch117 -p1 -b .debuginfo
 %patch118 -p1 -b .tty-tests
 %patch119 -p1 -b .sigpipe
+%patch120 -p1 -b .read-e-segfault
 
 echo %{version} > _distribution
 echo %{release} > _patchlevel
@@ -241,6 +243,9 @@ fi
 %doc doc/*.ps doc/*.0 doc/*.html doc/article.txt
 
 %changelog
+* Mon Nov 15 2004 Tim Waugh <twaugh@redhat.com> 3.0-22
+- Fixed prompt wrapping code to cope with zero-length prompts (bug #139306).
+
 * Thu Nov 11 2004 Tim Waugh <twaugh@redhat.com> 3.0-21
 - Added code to /etc/skel/.bash_logout to support the gpm selection buffer
   invalidation on virtual terminals (bug #115493).
