@@ -9,11 +9,10 @@ Source2: ftp://ftp.gnu.org/gnu/bash/bash-doc-%{version}.tar.gz
 Source3: dot-bashrc
 Source4: dot-bash_profile
 Source5: dot-bash_logout
-Patch0: bash-2.03-paths.patch
-Patch1: bash-2.02-security.patch
-Patch2: bash-fixes.patch
-Patch3: bash-2.03-profile.patch
-Patch4: bash-array.patch
+Patch0: bash30-001
+Patch1: bash-2.03-paths.patch
+Patch2: bash-2.02-security.patch
+Patch4: bash-2.03-profile.patch
 Patch5: bash-2.05a-requires.patch
 Patch6: bash-brace.patch
 Patch7: bash-2.05a-shellfunc.patch
@@ -62,11 +61,10 @@ popular and powerful, and you'll probably end up using it.
 
 %prep
 %setup -q -a 2
-%patch0 -p1 -b .paths
-%patch1 -p1 -b .security
-%patch2 -p1 -b .fixes
-%patch3 -p1 -b .profile
-%patch4 -p0 -b .array
+%patch0 -p0 -b .001
+%patch1 -p1 -b .paths
+%patch2 -p1 -b .security
+%patch4 -p1 -b .profile
 %patch5 -p1 -b .requires
 %patch6 -p1 -b .brace
 %patch7 -p1 -b .shellfunc
@@ -232,6 +230,9 @@ fi
 %doc doc/*.ps doc/*.0 doc/*.html doc/article.txt
 
 %changelog
+* Fri Sep 10 2004 Tim Waugh <twaugh@redhat.com>
+- Patchlevel 1.
+
 * Wed Sep  8 2004 Tim Waugh <twaugh@redhat.com> 3.0-13
 - Check for EINVAL from waitpid() and avoid WCONTINUED in that case.
 - Fixed jobs4 test.
