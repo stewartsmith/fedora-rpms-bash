@@ -1,0 +1,53 @@
+--- bash-3.0/doc/bash.1.bashbug	2004-09-07 18:12:05.102185374 +0100
++++ bash-3.0/doc/bash.1	2004-09-07 18:15:12.796455678 +0100
+@@ -8680,7 +8680,7 @@
+ .PP
+ Once you have determined that a bug actually exists, use the
+ .I bashbug
+-command to submit a bug report.
++command (from the source package) to submit a bug report.
+ If you have a fix, you are encouraged to mail that as well!
+ Suggestions and `philosophical' bug reports may be mailed
+ to \fIbug-bash@gnu.org\fP or posted to the Usenet
+@@ -8702,10 +8702,6 @@
+ A short script or `recipe' which exercises the bug
+ .PD
+ .PP
+-.I bashbug
+-inserts the first three items automatically into the template
+-it provides for filing a bug report.
+-.PP
+ Comments and bug reports concerning
+ this manual page should be directed to
+ .IR chet@po.CWRU.Edu .
+--- bash-3.0/doc/bashref.texi.bashbug	2004-09-07 18:13:53.305588178 +0100
++++ bash-3.0/doc/bashref.texi	2004-09-07 18:14:58.111251326 +0100
+@@ -6777,7 +6777,7 @@
+ @uref{ftp://ftp.gnu.org/pub/bash/}.
+ 
+ Once you have determined that a bug actually exists, use the
+-@code{bashbug} command to submit a bug report.
++@code{bashbug} command (from the source package) to submit a bug report.
+ If you have a fix, you are encouraged to mail that as well!
+ Suggestions and `philosophical' bug reports may be mailed
+ to @email{bug-bash@@gnu.org} or posted to the Usenet
+@@ -6799,9 +6799,6 @@
+ @end itemize
+ 
+ @noindent
+-@code{bashbug} inserts the first three items automatically into
+-the template it provides for filing a bug report.
+-
+ Please send all reports concerning this manual to
+ @email{chet@@po.CWRU.Edu}.
+ 
+--- bash-3.0/shell.c.bashbug	2004-09-07 18:11:10.580563335 +0100
++++ bash-3.0/shell.c	2004-09-07 18:11:23.650075642 +0100
+@@ -1763,7 +1763,6 @@
+     {
+       fprintf (fp, _("Type `%s -c \"help set\"' for more information about shell options.\n"), shell_name);
+       fprintf (fp, _("Type `%s -c help' for more information about shell builtin commands.\n"), shell_name);
+-      fprintf (fp, _("Use the `bashbug' command to report bugs.\n"));
+     }
+ }
+ 

@@ -1,7 +1,7 @@
 Version: 3.0
 Name: bash
 Summary: The GNU Bourne Again shell (bash) version %{version}.
-Release: 11
+Release: 13
 Group: System Environment/Shells
 License: GPL
 Source0: ftp://ftp.gnu.org/gnu/bash/bash-%{version}.tar.gz
@@ -32,6 +32,8 @@ Patch19: bash-multibyteifs.patch
 Patch20: bash-history.patch
 Patch21: bash-ulimit.patch
 Patch22: bash-mbslen.patch
+Patch23: bash-bashbug.patch
+Patch24: bash-jobs.patch
 Patch26: bash-2.05b-xcc.patch
 Patch27: bash-2.05b-pgrp_sync.patch
 Patch30: bash-2.05b-manso.patch
@@ -83,6 +85,8 @@ popular and powerful, and you'll probably end up using it.
 %patch20 -p1 -b .history
 %patch21 -p1 -b .ulimit
 %patch22 -p1 -b .mbslen
+%patch23 -p1 -b .bashbug
+%patch24 -p1 -b .jobs
 %patch26 -p1 -b .xcc
 %patch27 -p1 -b .pgrp_sync
 %patch30 -p1 -b .manso
@@ -99,6 +103,7 @@ if ! autoconf; then
 fi
 %configure --with-bash-malloc=no --with-afs
 make CPPFLAGS=`getconf LFS_CFLAGS`
+make -C doc
 make check
 
 %install
@@ -227,6 +232,16 @@ fi
 %doc doc/*.ps doc/*.0 doc/*.html doc/article.txt
 
 %changelog
+* Wed Sep  8 2004 Tim Waugh <twaugh@redhat.com> 3.0-13
+- Check for EINVAL from waitpid() and avoid WCONTINUED in that case.
+- Fixed jobs4 test.
+- Applied experimental upstream patch for trap compatibility.
+- Re-make documentation to reflect source changes.
+
+* Tue Sep  7 2004 Tim Waugh <twaugh@redhat.com> 3.0-12
+- Remove 'bashbug' from the documentation, because we don't ship it due
+  to biarch concerns.
+
 * Thu Sep  2 2004 Tim Waugh <twaugh@redhat.com> 3.0-11
 - Fixed multibyte parameter length expansion.
 
