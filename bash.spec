@@ -1,7 +1,7 @@
 Version: 2.05b
 Name: bash
 Summary: The GNU Bourne Again shell (bash) version %{version}.
-Release: 20
+Release: 20.1
 Group: System Environment/Shells
 License: GPL
 Source0: ftp://ftp.gnu.org/gnu/bash/bash-%{version}.tar.bz2
@@ -229,6 +229,9 @@ fi
 %doc doc/*.ps doc/*.0 doc/*.html doc/article.txt
 
 %changelog
+* Wed Apr  9 2003 Tim Waugh <twaugh@redhat.com> 2.05b-20.1
+- Really fix bug #78455.
+
 * Tue Feb 11 2003 Tim Waugh <twaugh@redhat.com> 2.05b-20
 - Really fix bug #83331 for good.
 
