@@ -1,7 +1,7 @@
 Version: 2.05b
 Name: bash
 Summary: The GNU Bourne Again shell (bash) version %{version}.
-Release: 5
+Release: 5.1
 Group: System Environment/Shells
 License: GPL
 Source0: ftp://ftp.gnu.org/gnu/bash/bash-%{version}.tar.bz2
@@ -22,6 +22,18 @@ Patch12: bash-2.05a-interpreter.patch
 Patch15: bash-2.05b-readline-oom.patch
 Patch16: bash-2.05b-utf8.patch
 Patch17: bash-2.05b-mbinc.patch
+
+Patch18: bash-2.05b-restrict.patch
+Patch19: bash-2.05b-locale.patch
+Patch20: ftp://ftp.gnu.org/pub/gnu/bash/bash-2.05b-patches/bash205b-001
+Patch21: ftp://ftp.gnu.org/pub/gnu/bash/bash-2.05b-patches/bash205b-002
+Patch22: ftp://ftp.gnu.org/pub/gnu/bash/bash-2.05b-patches/bash205b-003
+Patch23: ftp://ftp.gnu.org/pub/gnu/bash/bash-2.05b-patches/bash205b-004
+Patch24: bash-2.05b-readline-init.patch
+Patch25: bash-2.05b-prompt.patch
+Patch26: bash-2.05b-003fix.patch
+Patch27: bash-2.05b-display.patch
+
 Prefix: %{_prefix}
 Requires: mktemp
 Provides: bash2
@@ -65,6 +77,31 @@ Again shell version %{version}.
 %patch15 -p1 -b .readline-oom
 %patch16 -p1 -b .utf8
 %patch17 -p1 -b .mbinc
+
+# Fix '-rbash' (bug #78455).
+%patch18 -p1 -b .restrict
+
+# Locale shell variables fix (bug #74701).
+%patch19 -p1 -b .locale
+
+# Add the (4) patches from ftp.gnu.org (bug #75888, bug #72512).
+%patch20 -p0 -b .001
+%patch21 -p0 -b .002
+%patch22 -p0 -b .003
+%patch23 -p0 -b .004
+
+# Add readline-init patch (bug #79725).
+%patch24 -p1 -b .readline-init
+
+# Prevent prompt overwriting output (bug #74383).
+%patch25 -p0 -b .prompt
+
+# More tab-completion fixing (bug #72512).
+%patch26 -p1 -b .003fix
+
+# Fix history/UTF-8 bug (bug #83331).
+%patch27 -p1 -b .display
+
 echo %{version} > _distribution
 echo %{release} > _patchlevel
 
@@ -134,24 +171,16 @@ rm -f $RPM_BUILD_ROOT/%{_mandir}/man1/printf.1
   gzip -9nf .%{_infodir}/bash.info
   rm -f .%{_infodir}/dir
 }
-mkdir -p $RPM_BUILD_ROOT/etc/skel $RPM_BUILD_ROOT/etc/profile.d
+mkdir -p $RPM_BUILD_ROOT/etc/skel
 install -c -m644 $RPM_SOURCE_DIR/dot-bashrc $RPM_BUILD_ROOT/etc/skel/.bashrc
 install -c -m644 $RPM_SOURCE_DIR/dot-bash_profile \
 	$RPM_BUILD_ROOT/etc/skel/.bash_profile
 install -c -m644 $RPM_SOURCE_DIR/dot-bash_logout \
 	$RPM_BUILD_ROOT/etc/skel/.bash_logout
-cat >>$RPM_BUILD_ROOT/etc/profile.d/bashopts.sh <<EOF
-# Edit bash settings
-if echo \$SHELL |grep -q bash; then
-	if [ -z "\$NO_BASH_SETTINGS" ]; then
-		export CDPATH=.:~:/:/usr/src/redhat
-		shopt -s cdspell
-	fi
-fi
-EOF
 mkdir -p $RPM_BUILD_ROOT%{_libdir}/bash
 find examples/loadables -type f -perm +0111 | \
 	xargs -i cp -pf {} $RPM_BUILD_ROOT%{_libdir}/bash
+rm -f $RPM_BUILD_ROOT/etc/profile.d/bashopts.sh
 %clean
 rm -rf $RPM_BUILD_ROOT
 
@@ -211,12 +240,24 @@ fi
 %{_prefix}/bin/bashbug
 %{_infodir}/bash.info*
 %{_mandir}/*/*
+%{_mandir}/*/..1*
 
 %files doc
 %defattr(-,root,root)
 %doc doc/*.ps doc/*.0 doc/*.html doc/article.txt
 
 %changelog
+* Wed Apr  9 2003 Tim Waugh <twaugh@redhat.com> 2.05b-5.1
+- Fix history/UTF-8 bug (bug #83331).
+- More tab-completion fixing (bug #72512).
+- Prevent prompt overwriting output (bug #74383).
+- Add readline-init patch (bug #79725).
+- Add the (4) patches from ftp.gnu.org (bug #75888, bug #72512).
+- Locale shell variables fix (bug #74701).
+- Ship '.' man page, which doesn't get picked up by glob.
+- Don't install files not shipped when building.
+- Fix '-rbash' (bug #78455).
+
 * Fri Aug 23 2002 Tim Powers <timp@redhat.com>
 - re-bzip the docs, something was corrupted
 
