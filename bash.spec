@@ -1,7 +1,7 @@
 Version: 3.0
 Name: bash
 Summary: The GNU Bourne Again shell (bash) version %{version}.
-Release: 24
+Release: 25
 Group: System Environment/Shells
 License: GPL
 Source0: ftp://ftp.gnu.org/gnu/bash/bash-%{version}.tar.gz
@@ -123,7 +123,7 @@ if ! autoconf; then
 	export PATH=.:$PATH
 fi
 %configure --with-bash-malloc=no --with-afs
-make CPPFLAGS=`getconf LFS_CFLAGS`
+make "CPPFLAGS=`getconf LFS_CFLAGS`"
 make check
 
 %install
@@ -245,6 +245,9 @@ fi
 %doc doc/*.ps doc/*.0 doc/*.html doc/article.txt
 
 %changelog
+* Sun Dec  5 2004 Tim Waugh <twaugh@redhat.com> 3.0-25
+- Applied patch from Florian La Roche to fix CPPFLAGS quoting in spec file.
+
 * Tue Nov 30 2004 Tim Waugh <twaugh@redhat.com>
 - Fixed typo in man page (spotted on bug-bash).
 
