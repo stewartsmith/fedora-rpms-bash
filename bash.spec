@@ -1,7 +1,7 @@
 Version: 3.0
 Name: bash
 Summary: The GNU Bourne Again shell (bash) version %{version}.
-Release: 17
+Release: 18
 Group: System Environment/Shells
 License: GPL
 Source0: ftp://ftp.gnu.org/gnu/bash/bash-%{version}.tar.gz
@@ -9,41 +9,44 @@ Source2: ftp://ftp.gnu.org/gnu/bash/bash-doc-%{version}.tar.gz
 Source3: dot-bashrc
 Source4: dot-bash_profile
 Source5: dot-bash_logout
-Patch0: bash30-001
-Patch1: bash30-002
-Patch2: bash30-003
-Patch3: bash30-004
-Patch4: bash30-005
-Patch5: bash30-006
-Patch6: bash30-007
-Patch7: bash30-008
-Patch8: bash30-009
-Patch9: bash30-010
-Patch10: bash30-011
-Patch11: bash30-012
-Patch12: bash30-013
-Patch13: bash30-014
-Patch14: bash30-015
-Patch15: bash-2.03-paths.patch
-Patch16: bash-2.02-security.patch
-Patch17: bash-2.03-profile.patch
-Patch18: bash-2.05a-requires.patch
-Patch19: bash-2.05a-shellfunc.patch
-Patch20: bash-2.05-ia64.patch
-Patch21: bash-2.05a-loadables.patch
-Patch22: bash-2.05a-interpreter.patch
-Patch23: bash-2.05b-readline-oom.patch
-Patch24: bash-2.05b-utf8.patch
-Patch25: bash-2.05b-mbinc.patch
-Patch26: bash-multibyteifs.patch
-Patch27: bash-ulimit.patch
-Patch28: bash-jobs.patch
-Patch29: bash-2.05b-xcc.patch
-Patch30: bash-2.05b-pgrp_sync.patch
-Patch31: bash-2.05b-manso.patch
-Patch32: bash-2.05b-debuginfo.patch
-Patch33: bash-tty-tests.patch
-Patch42: bash-sigpipe.patch
+# Official upstream patches
+Patch1: bash30-001
+Patch2: bash30-002
+Patch3: bash30-003
+Patch4: bash30-004
+Patch5: bash30-005
+Patch6: bash30-006
+Patch7: bash30-007
+Patch8: bash30-008
+Patch9: bash30-009
+Patch10: bash30-010
+Patch11: bash30-011
+Patch12: bash30-012
+Patch13: bash30-013
+Patch14: bash30-014
+Patch15: bash30-015
+Patch16: bash30-016
+# Other patches
+Patch100: bash-2.03-paths.patch
+Patch101: bash-2.02-security.patch
+Patch102: bash-2.03-profile.patch
+Patch103: bash-2.05a-requires.patch
+Patch104: bash-2.05a-shellfunc.patch
+Patch105: bash-2.05-ia64.patch
+Patch106: bash-2.05a-loadables.patch
+Patch107: bash-2.05a-interpreter.patch
+Patch108: bash-2.05b-readline-oom.patch
+Patch109: bash-2.05b-utf8.patch
+Patch110: bash-2.05b-mbinc.patch
+Patch111: bash-multibyteifs.patch
+Patch112: bash-ulimit.patch
+Patch113: bash-jobs.patch
+Patch114: bash-2.05b-xcc.patch
+Patch115: bash-2.05b-pgrp_sync.patch
+Patch116: bash-2.05b-manso.patch
+Patch117: bash-2.05b-debuginfo.patch
+Patch118: bash-tty-tests.patch
+Patch119: bash-sigpipe.patch
 Prefix: %{_prefix}
 Requires: mktemp
 Obsoletes: bash2 etcskel
@@ -66,41 +69,46 @@ popular and powerful, and you'll probably end up using it.
 
 %prep
 %setup -q -a 2
-%patch0 -p0 -b .001
-%patch1 -p0 -b .002
-%patch2 -p0 -b .003
-%patch3 -p0 -b .004
-%patch4 -p0 -b .005
-%patch5 -p0 -b .006
-%patch6 -p0 -b .007
-%patch7 -p0 -b .008
-%patch8 -p0 -b .009
-%patch9 -p0 -b .010
-%patch10 -p0 -b .011
-%patch11 -p0 -b .012
-%patch12 -p0 -b .013
-%patch13 -p0 -b .014
-%patch14 -p0 -b .015
-%patch15 -p1 -b .paths
-%patch16 -p1 -b .security
-%patch17 -p1 -b .profile
-%patch18 -p1 -b .requires
-%patch19 -p1 -b .shellfunc
-%patch20 -p1 -b .ia64
-%patch21 -p1 -b .loadables
-%patch22 -p1 -b .interpreter
-%patch23 -p1 -b .readline-oom
-%patch24 -p1 -b .utf8
-%patch25 -p1 -b .mbinc
-%patch26 -p1 -b .multibyteifs
-%patch27 -p1 -b .ulimit
-%patch28 -p1 -b .jobs
-%patch29 -p1 -b .xcc
-%patch30 -p1 -b .pgrp_sync
-%patch31 -p1 -b .manso
-%patch32 -p1 -b .debuginfo
-%patch33 -p1 -b .tty-tests
-%patch42 -p1 -b .sigpipe
+# Official upstream patches
+%patch1 -p0 -b .001
+%patch2 -p0 -b .002
+%patch3 -p0 -b .003
+%patch4 -p0 -b .004
+%patch5 -p0 -b .005
+%patch6 -p0 -b .006
+%patch7 -p0 -b .007
+%patch8 -p0 -b .008
+%patch9 -p0 -b .009
+%patch10 -p0 -b .010
+%patch11 -p0 -b .011
+%patch12 -p0 -b .012
+%patch13 -p0 -b .013
+%patch14 -p0 -b .014
+%patch15 -p0 -b .015
+%patch16 -p0 -b .016
+
+# Other patches
+%patch100 -p1 -b .paths
+%patch101 -p1 -b .security
+%patch102 -p1 -b .profile
+%patch103 -p1 -b .requires
+%patch104 -p1 -b .shellfunc
+%patch105 -p1 -b .ia64
+%patch106 -p1 -b .loadables
+%patch107 -p1 -b .interpreter
+%patch108 -p1 -b .readline-oom
+%patch109 -p1 -b .utf8
+%patch110 -p1 -b .mbinc
+%patch111 -p1 -b .multibyteifs
+%patch112 -p1 -b .ulimit
+%patch113 -p1 -b .jobs
+%patch114 -p1 -b .xcc
+%patch115 -p1 -b .pgrp_sync
+%patch116 -p1 -b .manso
+%patch117 -p1 -b .debuginfo
+%patch118 -p1 -b .tty-tests
+%patch119 -p1 -b .sigpipe
+
 echo %{version} > _distribution
 echo %{release} > _patchlevel
 
@@ -233,6 +241,9 @@ fi
 %doc doc/*.ps doc/*.0 doc/*.html doc/article.txt
 
 %changelog
+* Wed Nov 10 2004 Tim Waugh <twaugh@redhat.com> 3.0-18
+- Patchlevel 16.
+
 * Mon Nov  1 2004 Tim Waugh <twaugh@redhat.com>
 - Patchlevel 15.
 
