@@ -1,7 +1,7 @@
 Version: 3.0
 Name: bash
 Summary: The GNU Bourne Again shell (bash) version %{version}.
-Release: 27
+Release: 28
 Group: System Environment/Shells
 License: GPL
 Source0: ftp://ftp.gnu.org/gnu/bash/bash-%{version}.tar.gz
@@ -127,7 +127,7 @@ if ! autoconf; then
 	export PATH=.:$PATH
 fi
 %configure --with-bash-malloc=no --with-afs
-make "CPPFLAGS=`getconf LFS_CFLAGS`"
+make "CPPFLAGS=-D_GNU_SOURCE `getconf LFS_CFLAGS`"
 make check
 
 %install
@@ -249,6 +249,9 @@ fi
 %doc doc/*.ps doc/*.0 doc/*.html doc/article.txt
 
 %changelog
+* Thu Feb 17 2005 Tim Waugh <twaugh@redhat.com>
+- Define _GNU_SOURCE in CPPFLAGS (bug #147573).
+
 * Mon Feb 14 2005 Tim Waugh <twaugh@redhat.com>
 - Reverted this change:
   - Added code to /etc/skel/.bash_logout to support the gpm selection buffer
