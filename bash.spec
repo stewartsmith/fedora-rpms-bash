@@ -1,7 +1,7 @@
 Version: 3.0
 Name: bash
 Summary: The GNU Bourne Again shell (bash) version %{version}.
-Release: 10
+Release: 11
 Group: System Environment/Shells
 License: GPL
 Source0: ftp://ftp.gnu.org/gnu/bash/bash-%{version}.tar.gz
@@ -227,7 +227,7 @@ fi
 %doc doc/*.ps doc/*.0 doc/*.html doc/article.txt
 
 %changelog
-* Thu Sep  2 2004 Tim Waugh <twaugh@redhat.com> 3.0-10
+* Thu Sep  2 2004 Tim Waugh <twaugh@redhat.com> 3.0-11
 - Fixed multibyte parameter length expansion.
 
 * Tue Aug 31 2004 Tim Waugh <twaugh@redhat.com> 3.0-9
