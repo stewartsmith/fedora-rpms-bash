@@ -48,6 +48,7 @@ Patch117: bash-2.05b-debuginfo.patch
 Patch118: bash-tty-tests.patch
 Patch119: bash-sigpipe.patch
 Patch120: bash-read-e-segfault.patch
+Patch121: bash-manpage.patch
 Prefix: %{_prefix}
 Requires: mktemp
 Obsoletes: bash2 etcskel
@@ -110,6 +111,7 @@ popular and powerful, and you'll probably end up using it.
 %patch118 -p1 -b .tty-tests
 %patch119 -p1 -b .sigpipe
 %patch120 -p0 -b .read-e-segfault
+%patch121 -p0 -b .manpage
 
 echo %{version} > _distribution
 echo %{release} > _patchlevel
@@ -243,6 +245,9 @@ fi
 %doc doc/*.ps doc/*.0 doc/*.html doc/article.txt
 
 %changelog
+* Tue Nov 30 2004 Tim Waugh <twaugh@redhat.com>
+- Fixed typo in man page (spotted on bug-bash).
+
 * Thu Nov 18 2004 Tim Waugh <twaugh@redhat.com> 3.0-24
 - Use upstream patch to fix bug #139575 and bug #139306.
 
