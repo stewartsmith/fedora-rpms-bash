@@ -20,24 +20,24 @@ Patch7: bash30-008
 Patch8: bash30-009
 Patch9: bash30-010
 Patch10: bash30-011
-Patch11: bash-2.03-paths.patch
-Patch12: bash-2.02-security.patch
-Patch13: bash-2.03-profile.patch
-Patch14: bash-2.05a-requires.patch
-Patch15: bash-2.05a-shellfunc.patch
-Patch16: bash-2.05-ia64.patch
-Patch17: bash-2.05a-loadables.patch
-Patch18: bash-2.05a-interpreter.patch
-Patch19: bash-2.05b-readline-oom.patch
-Patch20: bash-2.05b-utf8.patch
-Patch21: bash-2.05b-mbinc.patch
-Patch215: bash-pipefail.patch
-Patch22: bash-multibyteifs.patch
-Patch23: bash-ulimit.patch
-Patch24: bash-bashbug.patch
-Patch25: bash-jobs.patch
-Patch26: bash-2.05b-xcc.patch
-Patch27: bash-2.05b-pgrp_sync.patch
+Patch11: bash30-012
+Patch12: bash-2.03-paths.patch
+Patch13: bash-2.02-security.patch
+Patch14: bash-2.03-profile.patch
+Patch15: bash-2.05a-requires.patch
+Patch16: bash-2.05a-shellfunc.patch
+Patch17: bash-2.05-ia64.patch
+Patch18: bash-2.05a-loadables.patch
+Patch19: bash-2.05a-interpreter.patch
+Patch20: bash-2.05b-readline-oom.patch
+Patch21: bash-2.05b-utf8.patch
+Patch22: bash-2.05b-mbinc.patch
+Patch23: bash-multibyteifs.patch
+Patch24: bash-ulimit.patch
+Patch25: bash-bashbug.patch
+Patch26: bash-jobs.patch
+Patch27: bash-2.05b-xcc.patch
+Patch28: bash-2.05b-pgrp_sync.patch
 Patch30: bash-2.05b-manso.patch
 Patch31: bash-2.05b-debuginfo.patch
 Patch42: bash-sigpipe.patch
@@ -75,24 +75,24 @@ popular and powerful, and you'll probably end up using it.
 %patch8 -p0 -b .009
 %patch9 -p0 -b .010
 %patch10 -p0 -b .011
-%patch11 -p1 -b .paths
-%patch12 -p1 -b .security
-%patch13 -p1 -b .profile
-%patch14 -p1 -b .requires
-%patch15 -p1 -b .shellfunc
-%patch16 -p1 -b .ia64
-%patch17 -p1 -b .loadables
-%patch18 -p1 -b .interpreter
-%patch19 -p1 -b .readline-oom
-%patch20 -p1 -b .utf8
-%patch21 -p1 -b .mbinc
-%patch215 -p1 -b .pipefail
-%patch22 -p1 -b .multibyteifs
-%patch23 -p1 -b .ulimit
-%patch24 -p1 -b .bashbug
-%patch25 -p1 -b .jobs
-%patch26 -p1 -b .xcc
-%patch27 -p1 -b .pgrp_sync
+%patch11 -p0 -b .012
+%patch12 -p1 -b .paths
+%patch13 -p1 -b .security
+%patch14 -p1 -b .profile
+%patch15 -p1 -b .requires
+%patch16 -p1 -b .shellfunc
+%patch17 -p1 -b .ia64
+%patch18 -p1 -b .loadables
+%patch19 -p1 -b .interpreter
+%patch20 -p1 -b .readline-oom
+%patch21 -p1 -b .utf8
+%patch22 -p1 -b .mbinc
+%patch23 -p1 -b .multibyteifs
+%patch24 -p1 -b .ulimit
+%patch25 -p1 -b .bashbug
+%patch26 -p1 -b .jobs
+%patch27 -p1 -b .xcc
+%patch28 -p1 -b .pgrp_sync
 %patch30 -p1 -b .manso
 %patch31 -p1 -b .debuginfo
 %patch42 -p1 -b .sigpipe
@@ -237,7 +237,7 @@ fi
 
 %changelog
 * Fri Sep 10 2004 Tim Waugh <twaugh@redhat.com>
-- Patchlevel 11.
+- Patchlevel 12.
 
 * Wed Sep  8 2004 Tim Waugh <twaugh@redhat.com> 3.0-13
 - Check for EINVAL from waitpid() and avoid WCONTINUED in that case.
