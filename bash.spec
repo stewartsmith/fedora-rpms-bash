@@ -1,7 +1,7 @@
 Version: 2.05b
 Name: bash
 Summary: The GNU Bourne Again shell (bash) version %{version}.
-Release: 5.1
+Release: 20
 Group: System Environment/Shells
 License: GPL
 Source0: ftp://ftp.gnu.org/gnu/bash/bash-%{version}.tar.bz2
@@ -22,18 +22,19 @@ Patch12: bash-2.05a-interpreter.patch
 Patch15: bash-2.05b-readline-oom.patch
 Patch16: bash-2.05b-utf8.patch
 Patch17: bash-2.05b-mbinc.patch
-
-Patch18: bash-2.05b-restrict.patch
-Patch19: bash-2.05b-locale.patch
-Patch20: ftp://ftp.gnu.org/pub/gnu/bash/bash-2.05b-patches/bash205b-001
-Patch21: ftp://ftp.gnu.org/pub/gnu/bash/bash-2.05b-patches/bash205b-002
-Patch22: ftp://ftp.gnu.org/pub/gnu/bash/bash-2.05b-patches/bash205b-003
-Patch23: ftp://ftp.gnu.org/pub/gnu/bash/bash-2.05b-patches/bash205b-004
-Patch24: bash-2.05b-readline-init.patch
+Patch18: ftp://ftp.gnu.org/pub/gnu/bash/bash-2.05b-patches/bash205b-001
+Patch19: ftp://ftp.gnu.org/pub/gnu/bash/bash-2.05b-patches/bash205b-002
+Patch20: ftp://ftp.gnu.org/pub/gnu/bash/bash-2.05b-patches/bash205b-003
+Patch21: ftp://ftp.gnu.org/pub/gnu/bash/bash-2.05b-patches/bash205b-004
+Patch22: bash-2.05b-locale.patch
+Patch23: bash-2.05b-readline-init.patch
+Patch24: bash-2.05b-restrict.patch
 Patch25: bash-2.05b-prompt.patch
-Patch26: bash-2.05b-003fix.patch
-Patch27: bash-2.05b-display.patch
-
+Patch26: bash-2.05b-xcc.patch
+Patch27: bash-2.05b-pgrp_sync.patch
+Patch28: bash-2.05b-003fix.patch
+Patch29: bash-2.05b-display.patch
+Patch30: bash-2.05b-manso.patch
 Prefix: %{_prefix}
 Requires: mktemp
 Provides: bash2
@@ -77,48 +78,30 @@ Again shell version %{version}.
 %patch15 -p1 -b .readline-oom
 %patch16 -p1 -b .utf8
 %patch17 -p1 -b .mbinc
-
-# Fix '-rbash' (bug #78455).
-%patch18 -p1 -b .restrict
-
-# Locale shell variables fix (bug #74701).
-%patch19 -p1 -b .locale
-
-# Add the (4) patches from ftp.gnu.org (bug #75888, bug #72512).
-%patch20 -p0 -b .001
-%patch21 -p0 -b .002
-%patch22 -p0 -b .003
-%patch23 -p0 -b .004
-
-# Add readline-init patch (bug #79725).
-%patch24 -p1 -b .readline-init
-
-# Prevent prompt overwriting output (bug #74383).
+%patch18 -p0 -b .001
+%patch19 -p0 -b .002
+%patch20 -p0 -b .003
+%patch21 -p0 -b .004
+%patch22 -p1 -b .locale
+%patch23 -p1 -b .readline-init
+%patch24 -p1 -b .restrict
 %patch25 -p0 -b .prompt
-
-# More tab-completion fixing (bug #72512).
-%patch26 -p1 -b .003fix
-
-# Fix history/UTF-8 bug (bug #83331).
-%patch27 -p1 -b .display
-
+%patch26 -p1 -b .xcc
+%patch27 -p1 -b .pgrp_sync
+%patch28 -p1 -b .003fix
+%patch29 -p1 -b .display
+%patch30 -p1 -b .manso
 echo %{version} > _distribution
 echo %{release} > _patchlevel
 
 %build
-#CFLAGS="$RPM_OPT_FLAGS" LDFLAGS="-s" \
-#    ./configure --prefix=$RPM_BUILD_ROOT/usr $RPM_ARCH-redhat-linux
-
 if ! autoconf; then
 	# Yuck. We're using autoconf 2.1x.
 	ln -s /bin/true autoconf
 	export PATH=.:$PATH
 fi
-CFLAGS="$RPM_OPT_FLAGS" ./configure --prefix=%{_prefix} --with-afs
+%configure --with-afs
 make
-
-#cd examples/loadables
-#make
 
 %install
 rm -rf $RPM_BUILD_ROOT
@@ -180,7 +163,6 @@ install -c -m644 $RPM_SOURCE_DIR/dot-bash_logout \
 mkdir -p $RPM_BUILD_ROOT%{_libdir}/bash
 find examples/loadables -type f -perm +0111 | \
 	xargs -i cp -pf {} $RPM_BUILD_ROOT%{_libdir}/bash
-rm -f $RPM_BUILD_ROOT/etc/profile.d/bashopts.sh
 %clean
 rm -rf $RPM_BUILD_ROOT
 
@@ -247,18 +229,59 @@ fi
 %doc doc/*.ps doc/*.0 doc/*.html doc/article.txt
 
 %changelog
-* Wed Apr  9 2003 Tim Waugh <twaugh@redhat.com> 2.05b-5.1
+* Tue Feb 11 2003 Tim Waugh <twaugh@redhat.com> 2.05b-20
+- Really fix bug #83331 for good.
+
+* Mon Feb 10 2003 Tim Waugh <twaugh@redhat.com> 2.05b-19
+- Fix builtins.1.
+
+* Fri Feb  7 2003 Tim Waugh <twaugh@redhat.com> 2.05b-18
+- Actually apply the patch (bug #83331).
+
+* Wed Feb  5 2003 Tim Waugh <twaugh@redhat.com> 2.05b-17
 - Fix history/UTF-8 bug (bug #83331).
+
+* Sun Jan 26 2003 Tim Waugh <twaugh@redhat.com> 2.05b-16
 - More tab-completion fixing (bug #72512).
+
+* Wed Jan 22 2003 Tim Powers <timp@redhat.com> 2.05b-15
+- rebuilt
+
+* Wed Jan 15 2003 Tim Waugh <twaugh@redhat.com> 2.05b-14
+- Force pgrp synchronization (bug #81653).
+
+* Thu Dec 05 2002 Elliot Lee <sopwith@redhat.com> 2.05b-13
+- (patch26) Don't call 'size' in makefile. Pointless, and interferes with 
+  cross compiles.
+
+* Tue Dec  3 2002 Tim Waugh <twaugh@redhat.com> 2.05b-12
 - Prevent prompt overwriting output (bug #74383).
-- Add readline-init patch (bug #79725).
-- Add the (4) patches from ftp.gnu.org (bug #75888, bug #72512).
-- Locale shell variables fix (bug #74701).
-- Ship '.' man page, which doesn't get picked up by glob.
-- Don't install files not shipped when building.
+
+* Wed Nov 27 2002 Tim Waugh <twaugh@redhat.com> 2.05b-11
 - Fix '-rbash' (bug #78455).
 
-* Fri Aug 23 2002 Tim Powers <timp@redhat.com>
+* Thu Nov 21 2002 Tim Waugh <twaugh@redhat.com> 2.05b-10
+- Rebuild.
+
+* Wed Nov 20 2002 Elliot Lee <sopwith@redhat.com>
+- Use the configure macro instead of calling ./configure directly
+
+* Wed Nov 13 2002 Tim Waugh <twaugh@redhat.com>
+- Revert previous change.
+
+* Wed Nov 13 2002 Tim Waugh <twaugh@redhat.com> 2.05b-8
+- PreReq libtermcap.
+
+* Fri Oct 18 2002 Tim Waugh <twaugh@redhat.com> 2.05b-7
+- Add readline-init patch (bug #74925).
+
+* Wed Oct 16 2002 Tim Waugh <twaugh@redhat.com> 2.05b-6
+- Add the (4) patches from ftp.gnu.org (bug #75888, bug #72512).
+- Ship '.' man page, which doesn't get picked up by glob.
+- Don't install files not shipped when building.
+- Locale shell variables fix (bug #74701).
+
+* Fri Aug 23 2002 Tim Powers <timp@redhat.com> 2.05b-5
 - re-bzip the docs, something was corrupted
 
 * Thu Aug 22 2002 Tim Waugh <twaugh@redhat.com> 2.05b-4
