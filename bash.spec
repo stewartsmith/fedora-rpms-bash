@@ -11,18 +11,18 @@ Source4: dot-bash_profile
 Source5: dot-bash_logout
 Patch0: bash30-001
 Patch1: bash30-002
-Patch2: bash-2.03-paths.patch
-Patch3: bash-2.02-security.patch
-Patch4: bash-2.03-profile.patch
-Patch5: bash-2.05a-requires.patch
-Patch6: bash-brace.patch
-Patch7: bash-2.05a-shellfunc.patch
-Patch8: bash-2.05-ia64.patch
+Patch2: bash30-003
+Patch3: bash-2.03-paths.patch
+Patch4: bash-2.02-security.patch
+Patch5: bash-2.03-profile.patch
+Patch6: bash-2.05a-requires.patch
+Patch7: bash-brace.patch
+Patch8: bash-2.05a-shellfunc.patch
+Patch9: bash-2.05-ia64.patch
 Patch10: bash-changechar.patch
 Patch11: bash-2.05a-loadables.patch
 Patch12: bash-2.05a-interpreter.patch
 Patch13: bash-arrayvar.patch
-Patch14: bash-trap.patch
 Patch15: bash-2.05b-readline-oom.patch
 Patch16: bash-2.05b-utf8.patch
 Patch17: bash-2.05b-mbinc.patch
@@ -63,18 +63,18 @@ popular and powerful, and you'll probably end up using it.
 %setup -q -a 2
 %patch0 -p0 -b .001
 %patch1 -p0 -b .002
-%patch2 -p1 -b .paths
-%patch3 -p1 -b .security
-%patch4 -p1 -b .profile
-%patch5 -p1 -b .requires
-%patch6 -p1 -b .brace
-%patch7 -p1 -b .shellfunc
-%patch8 -p1 -b .ia64
+%patch2 -p0 -b .003
+%patch3 -p1 -b .paths
+%patch4 -p1 -b .security
+%patch5 -p1 -b .profile
+%patch6 -p1 -b .requires
+%patch7 -p1 -b .brace
+%patch8 -p1 -b .shellfunc
+%patch9 -p1 -b .ia64
 %patch10 -p1 -b .changechar
 %patch11 -p1 -b .loadables
 %patch12 -p1 -b .interpreter
 %patch13 -p0 -b .arrayvar
-%patch14 -p1 -b .trap
 %patch15 -p1 -b .readline-oom
 %patch16 -p1 -b .utf8
 %patch17 -p1 -b .mbinc
@@ -231,7 +231,7 @@ fi
 
 %changelog
 * Fri Sep 10 2004 Tim Waugh <twaugh@redhat.com>
-- Patchlevel 2.
+- Patchlevel 3.
 
 * Wed Sep  8 2004 Tim Waugh <twaugh@redhat.com> 3.0-13
 - Check for EINVAL from waitpid() and avoid WCONTINUED in that case.
