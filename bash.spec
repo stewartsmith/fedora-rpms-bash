@@ -41,6 +41,7 @@ Patch28: bash-2.05b-xcc.patch
 Patch29: bash-2.05b-pgrp_sync.patch
 Patch30: bash-2.05b-manso.patch
 Patch31: bash-2.05b-debuginfo.patch
+Patch32: bash-tty-tests.patch
 Patch42: bash-sigpipe.patch
 Prefix: %{_prefix}
 Requires: mktemp
@@ -97,6 +98,7 @@ popular and powerful, and you'll probably end up using it.
 %patch29 -p1 -b .pgrp_sync
 %patch30 -p1 -b .manso
 %patch31 -p1 -b .debuginfo
+%patch32 -p1 -b .tty-tests
 %patch42 -p1 -b .sigpipe
 echo %{version} > _distribution
 echo %{release} > _patchlevel
@@ -239,6 +241,7 @@ fi
 
 %changelog
 * Fri Sep 10 2004 Tim Waugh <twaugh@redhat.com> 3.0-14
+- Don't run tests that read from /dev/tty.
 - Patchlevel 13.
 
 * Wed Sep  8 2004 Tim Waugh <twaugh@redhat.com> 3.0-13
