@@ -1,7 +1,7 @@
-Version: 2.05a
+Version: 2.05b
 Name: bash
 Summary: The GNU Bourne Again shell (bash) version %{version}.
-Release: 13
+Release: 2
 Group: System Environment/Shells
 License: GPL
 Source0: ftp://ftp.gnu.org/gnu/bash/bash-%{version}.tar.bz2
@@ -24,6 +24,7 @@ Patch10: bash-2.05a-service_completion.patch
 Patch11: bash-2.05a-loadables.patch
 Patch12: bash-2.05a-interpreter.patch
 Patch13: bash-2.05a-killbuiltin.patch
+Patch14: bash-2.05a-readline-utf8.patch
 Prefix: %{_prefix}
 Requires: mktemp
 Provides: bash2
@@ -57,18 +58,19 @@ Again shell version %{version}.
 %setup -q -a 2 -a 6
 %patch0 -p1 -b .paths
 %patch1 -p1 -b .security
-%patch2 -p1 -b .arm
+#%patch2 -p1 -b .arm
 %patch3 -p1 -b .profile
-%patch4 -p1 -b .readline
+#%patch4 -p1 -b .readline
 %patch5 -p1 -b .requires
 %patch6 -p1 -b .compat
 %patch7 -p1 -b .shellfunc
 %patch8 -p1 -b .ia64
-%patch9 -p1 -b .mailcheck
-%patch10 -p1 -b .servicecomp
+#%patch9 -p1 -b .mailcheck
+#%patch10 -p1 -b .servicecomp
 %patch11 -p1 -b .loadables
 %patch12 -p1 -b .interpreter
-%patch13 -p1 -b .killbuiltin
+#%patch13 -p1 -b .killbuiltin
+#%patch14 -p1 -b .readline-utf8
 echo %{version} > _distribution
 echo %{release} > _patchlevel
 
@@ -122,6 +124,10 @@ for i in `cat man.pages` ; do
   echo .so man1/builtins.1 > ${RPM_BUILD_ROOT}%{_mandir}/man1/$i.1
   chmod 0644 ${RPM_BUILD_ROOT}%{_mandir}/man1/$i.1
 done
+
+# Link bash man page to sh so that man sh works.
+ln -s bash.1 ${RPM_BUILD_ROOT}%{_mandir}/man1/sh.1
+
 # Not for printf (conflict with coreutils)
 rm -f $RPM_BUILD_ROOT/%{_mandir}/man1/printf.1
 
@@ -217,6 +223,21 @@ fi
 %doc doc/*.ps doc/*.0 doc/*.html doc/article.txt
 
 %changelog
+* Tue Jul 23 2002 Phil Knirsch <pknirsch@redhat.com> 2.05b-2
+- Added symlink for sh.1 in man1 section so that man sh works (#44039).
+
+* Mon Jul 22 2002 Phil Knirsch <pknirsch@redhat.com> 2.05b-1
+- Update to 2.05b
+
+* Wed Jul 10 2002 Phil Knirsch <pknirsch@redhat.com> 2.05a-16
+- Fixed readline utf8 problem (#68313).
+
+* Fri Jun 21 2002 Tim Powers <timp@redhat.com> 2.05a-15
+- automated rebuild
+
+* Thu May 23 2002 Tim Powers <timp@redhat.com> 2.05a-14
+- automated rebuild
+
 * Fri Apr 12 2002 Tim Powers <timp@redhat.com> 2.05a-13
 - don't build the stuff in examples/loadables. It breaks FHS
   compliance

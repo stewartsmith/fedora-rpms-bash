@@ -1,6 +1,6 @@
---- bash-2.05a/config.h.in	Mon Oct 22 06:58:13 2001
-+++ bash-2.05a-ud/config.h.in	Thu Mar  7 17:33:03 2002
-@@ -541,6 +541,9 @@
+--- bash-2.05b/config.h.in.interpreter	2002-07-22 12:30:53.000000000 +0200
++++ bash-2.05b/config.h.in	2002-07-22 12:30:54.000000000 +0200
+@@ -579,6 +579,9 @@
  /* Define if you have the pathconf function. */
  #undef HAVE_PATHCONF
  
@@ -10,7 +10,7 @@
  /* Define if you have the putenv function.  */
  #undef HAVE_PUTENV
  
-@@ -675,6 +678,9 @@
+@@ -722,6 +725,9 @@
  /* Define if you have the <dlfcn.h> header file.  */
  #undef HAVE_DLFCN_H
  
@@ -20,9 +20,9 @@
  /* Define if you have the <grp.h> header file.  */
  #undef HAVE_GRP_H
  
---- bash-2.05a/configure.in	Mon Nov  5 12:45:35 2001
-+++ bash-2.05a-ud/configure.in	Thu Mar  7 17:28:32 2002
-@@ -484,7 +484,7 @@ BASH_HEADER_INTTYPES
+--- bash-2.05b/configure.in.interpreter	2002-07-16 15:31:25.000000000 +0200
++++ bash-2.05b/configure.in	2002-07-22 12:30:54.000000000 +0200
+@@ -525,7 +525,7 @@
  
  AC_CHECK_HEADERS(unistd.h stdlib.h stdarg.h varargs.h limits.h string.h \
  		 memory.h locale.h termcap.h termio.h termios.h dlfcn.h \
@@ -31,25 +31,17 @@
  AC_CHECK_HEADERS(sys/ptem.h sys/pte.h sys/stream.h sys/select.h sys/file.h \
  		 sys/resource.h sys/param.h sys/socket.h \
  		 sys/time.h sys/times.h sys/wait.h)
-@@ -546,7 +546,7 @@ AC_CHECK_FUNCS(bcopy bzero confstr sysco
+@@ -588,7 +588,7 @@
  		setlinebuf setvbuf setlocale strchr tcgetattr uname \
  		ulimit tzset siginterrupt memmove ttyname times \
- 		getaddrinfo gethostbyname getservbyname inet_aton \
+ 		getaddrinfo gethostbyname getservbyname getservent inet_aton \
 -		vsnprintf snprintf vasprintf asprintf fnmatch)
 +		vsnprintf snprintf vasprintf asprintf fnmatch pread)
  AC_CHECK_FUNCS(isascii isblank isgraph isprint isspace isxdigit)
- AC_REPLACE_FUNCS(getcwd strcasecmp strerror strpbrk strtod)
- AC_REPLACE_FUNCS(strtol strtoul strtoll strtoull strtoimax strtoumax)
---- bash-2.05a/execute_cmd.c	Mon Oct 29 11:03:18 2001
-+++ bash-2.05a-ud/execute_cmd.c	Fri Mar  8 00:50:53 2002
-@@ -1,6 +1,6 @@
- /* execute_command.c -- Execute a COMMAND structure. */
- 
--/* Copyright (C) 1987,1991 Free Software Foundation, Inc.
-+/* Copyright (C) 1987,1991, 2002 Free Software Foundation, Inc.
- 
-    This file is part of GNU Bash, the Bourne Again SHell.
- 
+ AC_REPLACE_FUNCS(getcwd strcasecmp strerror strftime strpbrk memset)
+ AC_REPLACE_FUNCS(strtod strtol strtoul strtoll strtoull strtoimax strtoumax)
+--- bash-2.05b/execute_cmd.c.interpreter	2002-07-22 12:30:54.000000000 +0200
++++ bash-2.05b/execute_cmd.c	2002-07-22 12:40:08.000000000 +0200
 @@ -40,6 +40,10 @@
  #  include <unistd.h>
  #endif
@@ -61,19 +53,18 @@
  #include "posixtime.h"
  
  #if defined (HAVE_SYS_RESOURCE_H) && !defined (RLIMTYPE)
-@@ -3499,12 +3503,21 @@ shell_execve (command, args, env)
- 	internal_error ("%s: is a directory", command);
-       else
+@@ -3496,12 +3500,20 @@
  	{
+ 	  /* The file has the execute bits set, but the kernel refuses to
+ 	     run it for some reason.  See why. */
 +#if defined (HAVE_HASH_BANG_EXEC) || defined (HAVE_ELF_H)
-+	  int fd = open (command, O_RDONLY);
++	int fd = open (command, O_RDONLY);
 +
-+	  if (fd >= 0)
-+	    sample_len = read (fd, sample, sizeof (sample));
-+	  else
-+	    sample_len = -1;
++	if (fd >= 0)
++		sample_len = read (fd, sample, sizeof (sample));
++	else
++		sample_len = -1;
 +#endif
-+
  #if defined (HAVE_HASH_BANG_EXEC)
 -	  READ_SAMPLE_BUF (command, sample, sample_len);
  	  if (sample_len > 2 && sample[0] == '#' && sample[1] == '!')
@@ -84,7 +75,7 @@
  	      interp = getinterp (sample, sample_len, (int *)NULL);
  	      errno = i;
  	      sys_error ("%s: %s: bad interpreter", command, interp ? interp : "");
-@@ -3512,6 +3525,136 @@ shell_execve (command, args, env)
+@@ -3509,6 +3521,136 @@
  	      return (EX_NOEXEC);
  	    }
  #endif
