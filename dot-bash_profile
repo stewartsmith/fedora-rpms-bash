@@ -8,8 +8,6 @@ fi
 # User specific environment and startup programs
 
 PATH=$PATH:$HOME/bin
-BASH_ENV=$HOME/.bashrc
 
-export BASH_ENV PATH
+export PATH
 unset USERNAME
-

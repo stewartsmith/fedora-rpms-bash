@@ -1,23 +1,34 @@
 Version: 2.05
 Name: bash
 Summary: The GNU Bourne Again shell (bash) version %{version}.
-Release: 3
+Release: 7
 Group: System Environment/Shells
-Copyright: GPL
-Source0: ftp://ftp.gnu.org/gnu/bash/bash-%{version}.tar.gz
-Source1: bashrc
-Source2: ftp://ftp.gnu.org/gnu/bash/bash-doc-%{version}.tar.gz
+License: GPL
+Source0: ftp://ftp.gnu.org/gnu/bash/bash-%{version}.tar.bz2
+Source2: ftp://ftp.gnu.org/gnu/bash/bash-doc-%{version}.tar.bz2
 Source3: dot-bashrc
 Source4: dot-bash_profile
 Source5: dot-bash_logout
+# FIXME: Source6 and 7 MUST be removed at the next base version
+# update! They're fixing a bug in the current version.
+Source6: y.tab.c
+Source7: y.tab.h
 Patch0: bash-2.03-paths.patch
 Patch1: bash-2.02-security.patch
 Patch2: bash-2.04-arm.patch
 Patch3: bash-2.03-profile.patch
+Patch4: bash-2.05-readlinefixes.patch
 Patch5: bash-2.04-requires.patch
 Patch6: bash-2.04-compat.patch
 Patch7: bash-2.04-shellfunc.patch
-Patch10: bash-2.05-s390x-unwind.patch
+Patch8: bash-2.05-ia64.patch
+Patch9: bash-2.05-s390x-unwind.patch
+Patch51: ftp://ftp.cwru.edu/pub/bash/bash-2.05-patches/bash205-001
+Patch52: ftp://ftp.cwru.edu/pub/bash/bash-2.05-patches/bash205-002
+Patch53: ftp://ftp.cwru.edu/pub/bash/bash-2.05-patches/bash205-003
+Patch54: ftp://ftp.cwru.edu/pub/bash/bash-2.05-patches/bash205-004
+Patch55: ftp://ftp.cwru.edu/pub/bash/bash-2.05-patches/bash205-005
+Patch56: ftp://ftp.cwru.edu/pub/bash/bash-2.05-patches/bash205-006
 Prefix: %{_prefix}
 Requires: mktemp
 Provides: bash2
@@ -49,18 +60,26 @@ Again shell version %{version}.
 
 %prep
 %setup -q -a 2
+cp %{SOURCE6} .
+cp %{SOURCE7} .
 %patch0 -p1 -b .paths
 %patch1 -p1 -b .security
 %patch2 -p1 -b .arm
 %patch3 -p1 -b .profile
+%patch4 -p1 -b .readline
 %patch5 -p1 -b .requires
 %patch6 -p1 -b .compat
 %patch7 -p1 -b .shellfunc
-
-%ifarch s390x 
-%patch10 -p1 -b .s390x
+%patch8 -p1 -b .ia64
+%ifarch s390x
+%patch9 -p1 -b .s390x
 %endif
-
+%patch51 -p0 -b .pl1
+%patch52 -p0 -b .pl2
+%patch53 -p0 -b .pl3
+%patch54 -p0 -b .pl4
+%patch55 -p0 -b .pl5
+%patch56 -p0 -b .pl6
 echo %{version} > _distribution
 echo %{release} > _patchlevel
 
@@ -116,7 +135,6 @@ s/$/.1*/
   rm -f .%{_infodir}/dir
 }
 mkdir -p $RPM_BUILD_ROOT/etc/skel
-install -c -m644 $RPM_SOURCE_DIR/bashrc $RPM_BUILD_ROOT/etc/bashrc
 install -c -m644 $RPM_SOURCE_DIR/dot-bashrc $RPM_BUILD_ROOT/etc/skel/.bashrc
 install -c -m644 $RPM_SOURCE_DIR/dot-bash_profile \
 	$RPM_BUILD_ROOT/etc/skel/.bash_profile
@@ -175,7 +193,6 @@ fi
 %doc examples/bashdb/ examples/functions/ examples/misc/
 %doc examples/scripts.noah/ examples/scripts.v2/ examples/scripts/
 %doc examples/startup-files/
-%config(noreplace) /etc/bashrc
 %config(noreplace) /etc/skel/.b*
 /bin/sh
 /bin/bash
@@ -191,14 +208,36 @@ fi
 %doc doc/*.ps doc/*.0 doc/*.html doc/article.txt
 
 %changelog
-* Thu Feb 14 2002 Phil Knirsch <pknirsch@redhat.com>
-- Removed the unecessary chmod again as it generates a require loop
+* Sun Jun 24 2001 Bernhard Rosenkraenzer <bero@redhat.com> 2.05-7
+- Add some bugfix patches from the maintainer
 
-* Mon May 28 2001 Oliver Paukstadt <oliver.paukstadt@millenux.com>
-- added chmod 644 when generated /etc/shells
+* Mon Jun 11 2001 Florian La Roche <Florian.LaRoche@redhat.de>
+- added patch for s390x from <oliver.paukstadt@millenux.com>
 
-* Fri May  4 2001 Oliver Paukstadt <oliver.paukstadt@millenux.com>
-- ported to IBM zSeries (s390x, 64 bit)
+* Wed May 23 2001 Bernhard Rosenkraenzer <bero@redhat.com> 2.05-5
+- Don't set BASH_ENV in .bash_profile, it causes .bashrc to be sourced
+  twice in interactive non-login shells.
+- s/Copyright/License/
+
+* Fri May  5 2001 Bernhard Rosenkraenzer <bero@redhat.com> 2.05-4
+- Fix tempfile creation in bashbug
+
+* Wed May  2 2001 Preston Brown <pbrown@redhat.com> 2.05-3
+- bashrc moved to setup package
+
+* Tue Apr 24 2001 Bernhard Rosenkraenzer <bero@redhat.com> 2.05-2
+- bash comes with its own copy of readline... Add the patches we're
+  applying in the readline package.
+
+* Tue Apr 24 2001 Bernhard Rosenkraenzer <bero@redhat.com> 2.05-1
+- Update to 2.05
+- Change PROMPT_COMMAND in bashrc for xterms
+  to something less space consuming (#24159)
+- Provide plugs for alternate prompt commands (#30634), but don't
+  default to them
+
+* Mon Mar 19 2001 Preston Brown <pbrown@redhat.com>
+- add default aliases for 'dir' and 'df' to have human readable output
 
 * Wed Feb 28 2001 Matt Wilson <msw@redhat.com>
 - don't Prereq: /sbin/install-info!
