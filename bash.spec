@@ -19,18 +19,19 @@ Patch6: bash30-007
 Patch7: bash30-008
 Patch8: bash30-009
 Patch9: bash30-010
-Patch10: bash-2.03-paths.patch
-Patch11: bash-2.02-security.patch
-Patch12: bash-2.03-profile.patch
-Patch13: bash-2.05a-requires.patch
-Patch14: bash-2.05a-shellfunc.patch
-Patch15: bash-2.05-ia64.patch
-Patch16: bash-2.05a-loadables.patch
-Patch17: bash-2.05a-interpreter.patch
-Patch18: bash-2.05b-readline-oom.patch
-Patch19: bash-2.05b-utf8.patch
-Patch20: bash-2.05b-mbinc.patch
-Patch21: bash-pipefail.patch
+Patch10: bash30-011
+Patch11: bash-2.03-paths.patch
+Patch12: bash-2.02-security.patch
+Patch13: bash-2.03-profile.patch
+Patch14: bash-2.05a-requires.patch
+Patch15: bash-2.05a-shellfunc.patch
+Patch16: bash-2.05-ia64.patch
+Patch17: bash-2.05a-loadables.patch
+Patch18: bash-2.05a-interpreter.patch
+Patch19: bash-2.05b-readline-oom.patch
+Patch20: bash-2.05b-utf8.patch
+Patch21: bash-2.05b-mbinc.patch
+Patch215: bash-pipefail.patch
 Patch22: bash-multibyteifs.patch
 Patch23: bash-ulimit.patch
 Patch24: bash-bashbug.patch
@@ -73,18 +74,19 @@ popular and powerful, and you'll probably end up using it.
 %patch7 -p0 -b .008
 %patch8 -p0 -b .009
 %patch9 -p0 -b .010
-%patch10 -p1 -b .paths
-%patch11 -p1 -b .security
-%patch12 -p1 -b .profile
-%patch13 -p1 -b .requires
-%patch14 -p1 -b .shellfunc
-%patch15 -p1 -b .ia64
-%patch16 -p1 -b .loadables
-%patch17 -p1 -b .interpreter
-%patch18 -p1 -b .readline-oom
-%patch19 -p1 -b .utf8
-%patch20 -p1 -b .mbinc
-%patch21 -p1 -b .pipefail
+%patch10 -p0 -b .011
+%patch11 -p1 -b .paths
+%patch12 -p1 -b .security
+%patch13 -p1 -b .profile
+%patch14 -p1 -b .requires
+%patch15 -p1 -b .shellfunc
+%patch16 -p1 -b .ia64
+%patch17 -p1 -b .loadables
+%patch18 -p1 -b .interpreter
+%patch19 -p1 -b .readline-oom
+%patch20 -p1 -b .utf8
+%patch21 -p1 -b .mbinc
+%patch215 -p1 -b .pipefail
 %patch22 -p1 -b .multibyteifs
 %patch23 -p1 -b .ulimit
 %patch24 -p1 -b .bashbug
@@ -235,7 +237,7 @@ fi
 
 %changelog
 * Fri Sep 10 2004 Tim Waugh <twaugh@redhat.com>
-- Patchlevel 10.
+- Patchlevel 11.
 
 * Wed Sep  8 2004 Tim Waugh <twaugh@redhat.com> 3.0-13
 - Check for EINVAL from waitpid() and avoid WCONTINUED in that case.
