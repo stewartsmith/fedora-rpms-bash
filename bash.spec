@@ -14,23 +14,24 @@ Patch1: bash30-002
 Patch2: bash30-003
 Patch3: bash30-004
 Patch4: bash30-005
-Patch5: bash-2.03-paths.patch
-Patch6: bash-2.02-security.patch
-Patch7: bash-2.03-profile.patch
-Patch8: bash-2.05a-requires.patch
-Patch9: bash-brace.patch
-Patch10: bash-2.05a-shellfunc.patch
-Patch11: bash-2.05-ia64.patch
-Patch12: bash-changechar.patch
-Patch13: bash-2.05a-loadables.patch
-Patch14: bash-2.05a-interpreter.patch
-Patch15: bash-arrayvar.patch
-Patch16: bash-2.05b-readline-oom.patch
-Patch17: bash-2.05b-utf8.patch
-Patch18: bash-2.05b-mbinc.patch
-Patch19: bash-pipefail.patch
-Patch20: bash-multibyteifs.patch
-Patch21: bash-ulimit.patch
+Patch5: bash30-006
+Patch6: bash-2.03-paths.patch
+Patch7: bash-2.02-security.patch
+Patch8: bash-2.03-profile.patch
+Patch9: bash-2.05a-requires.patch
+Patch10: bash-brace.patch
+Patch11: bash-2.05a-shellfunc.patch
+Patch12: bash-2.05-ia64.patch
+Patch13: bash-changechar.patch
+Patch14: bash-2.05a-loadables.patch
+Patch15: bash-2.05a-interpreter.patch
+Patch16: bash-arrayvar.patch
+Patch17: bash-2.05b-readline-oom.patch
+Patch18: bash-2.05b-utf8.patch
+Patch19: bash-2.05b-mbinc.patch
+Patch20: bash-pipefail.patch
+Patch21: bash-multibyteifs.patch
+Patch22: bash-ulimit.patch
 Patch23: bash-bashbug.patch
 Patch24: bash-jobs.patch
 Patch26: bash-2.05b-xcc.patch
@@ -66,23 +67,24 @@ popular and powerful, and you'll probably end up using it.
 %patch2 -p0 -b .003
 %patch3 -p0 -b .004
 %patch4 -p0 -b .005
-%patch5 -p1 -b .paths
-%patch6 -p1 -b .security
-%patch7 -p1 -b .profile
-%patch8 -p1 -b .requires
-%patch9 -p1 -b .brace
-%patch10 -p1 -b .shellfunc
-%patch11 -p1 -b .ia64
-%patch12 -p1 -b .changechar
-%patch13 -p1 -b .loadables
-%patch14 -p1 -b .interpreter
-%patch15 -p0 -b .arrayvar
-%patch16 -p1 -b .readline-oom
-%patch17 -p1 -b .utf8
-%patch18 -p1 -b .mbinc
-%patch19 -p1 -b .pipefail
-%patch20 -p1 -b .multibyteifs
-%patch21 -p1 -b .ulimit
+%patch5 -p0 -b .006
+%patch6 -p1 -b .paths
+%patch7 -p1 -b .security
+%patch8 -p1 -b .profile
+%patch9 -p1 -b .requires
+%patch10 -p1 -b .brace
+%patch11 -p1 -b .shellfunc
+%patch12 -p1 -b .ia64
+%patch13 -p1 -b .changechar
+%patch14 -p1 -b .loadables
+%patch15 -p1 -b .interpreter
+%patch16 -p0 -b .arrayvar
+%patch17 -p1 -b .readline-oom
+%patch18 -p1 -b .utf8
+%patch19 -p1 -b .mbinc
+%patch20 -p1 -b .pipefail
+%patch21 -p1 -b .multibyteifs
+%patch22 -p1 -b .ulimit
 %patch23 -p1 -b .bashbug
 %patch24 -p1 -b .jobs
 %patch26 -p1 -b .xcc
@@ -231,7 +233,7 @@ fi
 
 %changelog
 * Fri Sep 10 2004 Tim Waugh <twaugh@redhat.com>
-- Patchlevel 5.
+- Patchlevel 6.
 
 * Wed Sep  8 2004 Tim Waugh <twaugh@redhat.com> 3.0-13
 - Check for EINVAL from waitpid() and avoid WCONTINUED in that case.
