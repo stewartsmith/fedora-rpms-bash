@@ -1,7 +1,7 @@
 Version: 2.05b
 Name: bash
 Summary: The GNU Bourne Again shell (bash) version %{version}.
-Release: 34
+Release: 36
 Group: System Environment/Shells
 License: GPL
 Source0: ftp://ftp.gnu.org/gnu/bash/bash-%{version}.tar.bz2
@@ -41,6 +41,8 @@ Patch34: ftp://ftp.gnu.org/pub/gnu/bash/bash-2.05b-patches/bash205b-005
 Patch35: ftp://ftp.gnu.org/pub/gnu/bash/bash-2.05b-patches/bash205b-006
 Patch36: ftp://ftp.gnu.org/pub/gnu/bash/bash-2.05b-patches/bash205b-007
 Patch37: bash-2.05b-slow.patch
+Patch38: bash-2.05b-subst.patch
+Patch39: bash-2.05b-rereadline.patch
 Prefix: %{_prefix}
 Requires: mktemp
 Provides: bash2
@@ -94,6 +96,8 @@ popular and powerful, and you'll probably end up using it.
 %patch35 -p0 -b .006
 %patch36 -p0 -b .007
 %patch37 -p1 -b .slow
+%patch38 -p1 -b .subst
+%patch39 -p1 -b .rereadline
 echo %{version} > _distribution
 echo %{release} > _patchlevel
 
@@ -105,6 +109,7 @@ if ! autoconf; then
 fi
 %configure --with-bash-malloc=no
 make CPPFLAGS=`getconf LFS_CFLAGS`
+make check
 
 %install
 rm -rf $RPM_BUILD_ROOT
@@ -231,6 +236,13 @@ fi
 %doc doc/*.ps doc/*.0 doc/*.html doc/article.txt
 
 %changelog
+* Thu Jan 22 2004 Tim Waugh <twaugh@redhat.com> 2.05b-36
+- Fix the bug causing bindings to need reparsing .inputrc (bug #114101).
+
+* Mon Jan  5 2004 Tim Waugh <twaugh@redhat.com> 2.05b-35
+- Fix parameter expansion in multibyte locales (bug #112657).
+- Run 'make check'.
+
 * Tue Dec  9 2003 Tim Waugh <twaugh@redhat.com> 2.05b-34
 - Build requires texinfo (bug #111171).
 
