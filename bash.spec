@@ -1,7 +1,7 @@
 Version: 2.05b
 Name: bash
 Summary: The GNU Bourne Again shell (bash) version %{version}.
-Release: 38
+Release: 39
 Group: System Environment/Shells
 License: GPL
 Source0: ftp://ftp.gnu.org/gnu/bash/bash-%{version}.tar.bz2
@@ -52,6 +52,7 @@ Obsoletes: bash2-doc bash-doc
 BuildRoot: %{_tmppath}/%{name}-%{version}-root
 
 BuildRequires: texinfo
+BuildRequires: libtermcap-devel
 
 %description
 The GNU Bourne Again shell (Bash) is a shell or command language
@@ -172,9 +173,7 @@ install -c -m644 $RPM_SOURCE_DIR/dot-bash_profile \
 	$RPM_BUILD_ROOT/etc/skel/.bash_profile
 install -c -m644 $RPM_SOURCE_DIR/dot-bash_logout \
 	$RPM_BUILD_ROOT/etc/skel/.bash_logout
-mkdir -p $RPM_BUILD_ROOT%{_libdir}/bash
-find examples/loadables -type f -perm +0111 | \
-	xargs -i cp -pf {} $RPM_BUILD_ROOT%{_libdir}/bash
+
 %clean
 rm -rf $RPM_BUILD_ROOT
 
@@ -230,7 +229,6 @@ fi
 /bin/sh
 /bin/bash
 /bin/bash2
-%{_libdir}/bash
 %{_prefix}/bin/bashbug
 %{_infodir}/bash.info*
 %{_mandir}/*/*
@@ -238,6 +236,12 @@ fi
 %doc doc/*.ps doc/*.0 doc/*.html doc/article.txt
 
 %changelog
+* Wed Jun  2 2004 Tim Waugh <twaugh@redhat.com> 2.05b-39
+- Build requires libtermcap-devel (bug #125068).
+
+* Wed May 19 2004 Tim Waugh <twaugh@redhat.com>
+- Don't ship empty %%{_libdir}/bash (bug #123556).
+
 * Thu Mar 11 2004 Tim Waugh <twaugh@redhat.com> 2.05b-38
 - Apply patch from Nalin Dahyabhai fixing an overread.
 
