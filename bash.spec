@@ -1,7 +1,7 @@
 Version: 3.0
 Name: bash
 Summary: The GNU Bourne Again shell (bash) version %{version}.
-Release: 1
+Release: 2
 Group: System Environment/Shells
 License: GPL
 Source0: ftp://ftp.gnu.org/gnu/bash/bash-%{version}.tar.gz
@@ -14,7 +14,9 @@ Patch0: bash-2.03-paths.patch
 Patch1: bash-2.02-security.patch
 Patch2: bash-fixes.patch
 Patch3: bash-2.03-profile.patch
+Patch4: bash-array.patch
 Patch5: bash-2.05a-requires.patch
+Patch6: bash-brace.patch
 Patch7: bash-2.05a-shellfunc.patch
 Patch8: bash-2.05-ia64.patch
 Patch11: bash-2.05a-loadables.patch
@@ -54,7 +56,9 @@ popular and powerful, and you'll probably end up using it.
 %patch1 -p1 -b .security
 %patch2 -p1 -b .fixes
 %patch3 -p1 -b .profile
+%patch4 -p0 -b .array
 %patch5 -p1 -b .requires
+%patch6 -p1 -b .brace
 %patch7 -p1 -b .shellfunc
 %patch8 -p1 -b .ia64
 %patch11 -p1 -b .loadables
@@ -76,7 +80,7 @@ if ! autoconf; then
 	ln -s /bin/true autoconf
 	export PATH=.:$PATH
 fi
-%configure --with-bash-malloc=no
+%configure --with-bash-malloc=no --with-afs
 make CPPFLAGS=`getconf LFS_CFLAGS`
 make check
 
@@ -206,6 +210,14 @@ fi
 %doc doc/*.ps doc/*.0 doc/*.html doc/article.txt
 
 %changelog
+* Wed Aug  4 2004 Tim Waugh <twaugh@redhat.com> 3.0-2
+- Fixed brace expansion (bug #129128).
+- Build with AFS support again, since bug #86514 seems fixed upstream
+  (bug #129094).
+
+* Tue Aug  3 2004 Tim Waugh <twaugh@redhat.com>
+- Fixed crash when unsetting an unset array (from bug-bash list).
+
 * Wed Jul 28 2004 Tim Waugh <twaugh@redhat.com> 3.0-1
 - 3.0.
 
