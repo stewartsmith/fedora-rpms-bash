@@ -111,7 +111,7 @@ popular and powerful, and you'll probably end up using it.
 %patch118 -p1 -b .tty-tests
 %patch119 -p1 -b .sigpipe
 %patch120 -p0 -b .read-e-segfault
-%patch121 -p0 -b .manpage
+%patch121 -p1 -b .manpage
 
 echo %{version} > _distribution
 echo %{release} > _patchlevel
