@@ -52,6 +52,7 @@ Patch121: bash-manpage.patch
 Patch122: bash-wrap.patch
 Patch123: bash-crash.patch
 Patch124: bash-pwd.patch
+Patch125: bash-afs.patch
 Prefix: %{_prefix}
 Requires: mktemp
 Obsoletes: bash2 etcskel
@@ -118,6 +119,7 @@ popular and powerful, and you'll probably end up using it.
 %patch122 -p1 -b .wrap
 %patch123 -p0 -b .crash
 %patch124 -p1 -b .pwd
+%patch125 -p1 -b .afs
 
 echo %{version} > _distribution
 echo %{release} > _patchlevel
@@ -251,6 +253,10 @@ fi
 %doc doc/*.ps doc/*.0 doc/*.html doc/article.txt
 
 %changelog
+* Wed Apr 20 2005 Tim Waugh <twaugh@redhat.com>
+- Fixed AFS support for output redirection, so that the correct errors
+  are reported for other filesystems (bug #155373).
+
 * Tue Mar 15 2005 Tim Waugh <twaugh@redhat.com> 3.0-30
 - Fix PS1 expansion crash when PWD is unset (bg #151116).
 
