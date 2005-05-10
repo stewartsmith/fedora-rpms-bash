@@ -1,7 +1,7 @@
 Version: 3.0
 Name: bash
 Summary: The GNU Bourne Again shell (bash) version %{version}.
-Release: 30
+Release: 31
 Group: System Environment/Shells
 License: GPL
 Source0: ftp://ftp.gnu.org/gnu/bash/bash-%{version}.tar.gz
@@ -253,6 +253,9 @@ fi
 %doc doc/*.ps doc/*.0 doc/*.html doc/article.txt
 
 %changelog
+* Tue May 10 2005 Tim Waugh <twaugh@redhat.com>
+- Small fix for multibyteifs patch to prevent segfault (bug #157260).
+
 * Wed Apr 20 2005 Tim Waugh <twaugh@redhat.com>
 - Fixed AFS support for output redirection, so that the correct errors
   are reported for other filesystems (bug #155373).
