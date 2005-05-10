@@ -253,7 +253,7 @@ fi
 %doc doc/*.ps doc/*.0 doc/*.html doc/article.txt
 
 %changelog
-* Tue May 10 2005 Tim Waugh <twaugh@redhat.com>
+* Tue May 10 2005 Tim Waugh <twaugh@redhat.com> 3.0-31
 - Small fix for multibyteifs patch to prevent segfault (bug #157260).
 
 * Wed Apr 20 2005 Tim Waugh <twaugh@redhat.com>
