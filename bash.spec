@@ -253,6 +253,9 @@ fi
 %doc doc/*.ps doc/*.0 doc/*.html doc/article.txt
 
 %changelog
+* Wed Jun  8 2005 Tim Waugh <twaugh@redhat.com>
+- Move a comment in dot-bashrc (bug #159522).
+
 * Tue May 10 2005 Tim Waugh <twaugh@redhat.com> 3.0-31
 - Small fix for multibyteifs patch to prevent segfault (bug #157260).
 
