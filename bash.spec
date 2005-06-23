@@ -253,6 +253,9 @@ fi
 %doc doc/*.ps doc/*.0 doc/*.html doc/article.txt
 
 %changelog
+* Thu Jun 23 2005 Tim Waugh <twaugh@redhat.com>
+- Added ulimit support for RLIMIT_NICE and RLIMIT_RTPRIO (bug #157049).
+
 * Wed Jun  8 2005 Tim Waugh <twaugh@redhat.com>
 - Move a comment in dot-bashrc (bug #159522).
 
