@@ -1,7 +1,7 @@
 Version: 3.0
 Name: bash
 Summary: The GNU Bourne Again shell (bash) version %{version}.
-Release: 31
+Release: 32
 Group: System Environment/Shells
 License: GPL
 Source0: ftp://ftp.gnu.org/gnu/bash/bash-%{version}.tar.gz
@@ -255,7 +255,7 @@ fi
 %doc doc/*.ps doc/*.0 doc/*.html doc/article.txt
 
 %changelog
-* Mon Aug  8 2005 Tim Waugh <twaugh@redhat.com>
+* Mon Aug  8 2005 Tim Waugh <twaugh@redhat.com> 3.0-32
 - Fixed 'LC_ALL=C export LC_ALL' behaviour (bug #165249).
 
 * Thu Jun 23 2005 Tim Waugh <twaugh@redhat.com>
