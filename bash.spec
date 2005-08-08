@@ -53,6 +53,7 @@ Patch122: bash-wrap.patch
 Patch123: bash-crash.patch
 Patch124: bash-pwd.patch
 Patch125: bash-afs.patch
+Patch126: bash-setlocale.patch
 Prefix: %{_prefix}
 Requires: mktemp
 Obsoletes: bash2 etcskel
@@ -120,6 +121,7 @@ popular and powerful, and you'll probably end up using it.
 %patch123 -p0 -b .crash
 %patch124 -p1 -b .pwd
 %patch125 -p1 -b .afs
+%patch126 -p1 -b .setlocale
 
 echo %{version} > _distribution
 echo %{release} > _patchlevel
@@ -253,6 +255,9 @@ fi
 %doc doc/*.ps doc/*.0 doc/*.html doc/article.txt
 
 %changelog
+* Mon Aug  8 2005 Tim Waugh <twaugh@redhat.com>
+- Fixed 'LC_ALL=C export LC_ALL' behaviour (bug #165249).
+
 * Thu Jun 23 2005 Tim Waugh <twaugh@redhat.com>
 - Added ulimit support for RLIMIT_NICE and RLIMIT_RTPRIO (bug #157049).
 
