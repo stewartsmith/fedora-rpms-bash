@@ -1,7 +1,7 @@
 Version: 3.0
 Name: bash
 Summary: The GNU Bourne Again shell (bash) version %{version}.
-Release: 33
+Release: 34
 Group: System Environment/Shells
 License: GPL
 Source0: ftp://ftp.gnu.org/gnu/bash/bash-%{version}.tar.gz
@@ -257,7 +257,7 @@ fi
 %doc doc/*.ps doc/*.0 doc/*.html doc/article.txt
 
 %changelog
-* Wed Sep 21 2005 Tim Waugh <twaugh@redhat.com>
+* Wed Sep 21 2005 Tim Waugh <twaugh@redhat.com> 3.0-34
 - Avoid writing history files during signal handling (bug #163235).
 
 * Mon Aug  8 2005 Tim Waugh <twaugh@redhat.com> 3.0-33
