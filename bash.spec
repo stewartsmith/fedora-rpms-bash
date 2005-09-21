@@ -54,6 +54,7 @@ Patch123: bash-crash.patch
 Patch124: bash-pwd.patch
 Patch125: bash-afs.patch
 Patch126: bash-setlocale.patch
+Patch127: bash-sighandler.patch
 Prefix: %{_prefix}
 Requires: mktemp
 Obsoletes: bash2 etcskel
@@ -122,6 +123,7 @@ popular and powerful, and you'll probably end up using it.
 %patch124 -p1 -b .pwd
 %patch125 -p1 -b .afs
 %patch126 -p1 -b .setlocale
+%patch127 -p1 -b .sighandler
 
 echo %{version} > _distribution
 echo %{release} > _patchlevel
@@ -255,6 +257,9 @@ fi
 %doc doc/*.ps doc/*.0 doc/*.html doc/article.txt
 
 %changelog
+* Wed Sep 21 2005 Tim Waugh <twaugh@redhat.com>
+- Avoid writing history files during signal handling (bug #163235).
+
 * Mon Aug  8 2005 Tim Waugh <twaugh@redhat.com> 3.0-33
 - Fixed multibyte IFS handling for invalid input (bug #165243).
 
