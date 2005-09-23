@@ -257,6 +257,9 @@ fi
 %doc doc/*.ps doc/*.0 doc/*.html doc/article.txt
 
 %changelog
+* Fri Sep 23 2005 Tim Waugh <twaugh@redhat.com>
+- Use 'volatile' in sighandler patch.
+
 * Wed Sep 21 2005 Tim Waugh <twaugh@redhat.com> 3.0-34
 - Avoid writing history files during signal handling (bug #163235).
 
