@@ -1,7 +1,7 @@
 Version: 3.0
 Name: bash
 Summary: The GNU Bourne Again shell (bash) version %{version}.
-Release: 34
+Release: 35
 Group: System Environment/Shells
 License: GPL
 Source0: ftp://ftp.gnu.org/gnu/bash/bash-%{version}.tar.gz
@@ -257,6 +257,9 @@ fi
 %doc doc/*.ps doc/*.0 doc/*.html doc/article.txt
 
 %changelog
+* Thu Oct  6 2005 Tim Waugh <twaugh@redhat.com> 3.0-35
+- Fixed memory allocation bug in multibyteifs patch (bug #169996).
+
 * Fri Sep 23 2005 Tim Waugh <twaugh@redhat.com>
 - Use 'volatile' in sighandler patch.
 
