@@ -1,9 +1,10 @@
 Version: 3.0
 Name: bash
 Summary: The GNU Bourne Again shell (bash) version %{version}.
-Release: 35
+Release: 36
 Group: System Environment/Shells
 License: GPL
+Url: http://www.gnu.org/software/bash
 Source0: ftp://ftp.gnu.org/gnu/bash/bash-%{version}.tar.gz
 Source2: ftp://ftp.gnu.org/gnu/bash/bash-doc-%{version}.tar.gz
 Source3: dot-bashrc
@@ -188,7 +189,6 @@ pushd $RPM_BUILD_ROOT
 mkdir ./bin
 mv ./usr/bin/bash ./bin
 ln -sf bash ./bin/sh
-gzip -9nf .%{_infodir}/bash.info
 rm -f .%{_infodir}/dir
 popd
 mkdir -p $RPM_BUILD_ROOT/etc/skel
@@ -250,13 +250,18 @@ fi
 %config(noreplace) /etc/skel/.b*
 /bin/sh
 /bin/bash
-%{_bindir}/bashbug-*
+%attr(0755,root,root) %{_bindir}/bashbug-*
 %{_infodir}/bash.info*
 %{_mandir}/*/*
 %{_mandir}/*/..1*
 %doc doc/*.ps doc/*.0 doc/*.html doc/article.txt
 
 %changelog
+* Wed Nov  9 2005 Tim Waugh <twaugh@redhat.com> 3.0-36
+- Added Url: tag (bug #172770).
+- Do not explicitly gzip info pages (bug #172770).
+- Fix permissions on bashbug (bug #172770).
+
 * Thu Oct  6 2005 Tim Waugh <twaugh@redhat.com> 3.0-35
 - Fixed memory allocation bug in multibyteifs patch (bug #169996).
 
