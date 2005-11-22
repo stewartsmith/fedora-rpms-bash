@@ -56,6 +56,7 @@ Patch124: bash-pwd.patch
 Patch125: bash-afs.patch
 Patch126: bash-setlocale.patch
 Patch127: bash-sighandler.patch
+Patch128: bash-subshell.patch
 Prefix: %{_prefix}
 Requires: mktemp
 Obsoletes: bash2 etcskel
@@ -125,6 +126,7 @@ popular and powerful, and you'll probably end up using it.
 %patch125 -p1 -b .afs
 %patch126 -p1 -b .setlocale
 %patch127 -p1 -b .sighandler
+%patch128 -p1 -b .subshell
 
 echo %{version} > _distribution
 echo %{release} > _patchlevel
@@ -257,6 +259,9 @@ fi
 %doc doc/*.ps doc/*.0 doc/*.html doc/article.txt
 
 %changelog
+* Tue Nov 22 2005 Tim Waugh <twaugh@redhat.com>
+- Applied patch from upstream to fix parsing problem (bug #146638).
+
 * Wed Nov  9 2005 Tim Waugh <twaugh@redhat.com> 3.0-36
 - Added Url: tag (bug #172770).
 - Do not explicitly gzip info pages (bug #172770).
