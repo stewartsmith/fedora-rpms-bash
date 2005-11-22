@@ -259,7 +259,7 @@ fi
 %doc doc/*.ps doc/*.0 doc/*.html doc/article.txt
 
 %changelog
-* Tue Nov 22 2005 Tim Waugh <twaugh@redhat.com> 3.0-37
+* Tue Nov 22 2005 Tim Waugh <twaugh@redhat.com>  3.0-37
 - Applied patch from upstream to fix parsing problem (bug #146638).
 
 * Wed Nov  9 2005 Tim Waugh <twaugh@redhat.com> 3.0-36
