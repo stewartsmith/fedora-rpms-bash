@@ -1,7 +1,7 @@
 Version: 3.0
 Name: bash
 Summary: The GNU Bourne Again shell (bash) version %{version}.
-Release: 36
+Release: 37
 Group: System Environment/Shells
 License: GPL
 Url: http://www.gnu.org/software/bash
@@ -259,7 +259,7 @@ fi
 %doc doc/*.ps doc/*.0 doc/*.html doc/article.txt
 
 %changelog
-* Tue Nov 22 2005 Tim Waugh <twaugh@redhat.com>
+* Tue Nov 22 2005 Tim Waugh <twaugh@redhat.com> 3.0-37
 - Applied patch from upstream to fix parsing problem (bug #146638).
 
 * Wed Nov  9 2005 Tim Waugh <twaugh@redhat.com> 3.0-36
