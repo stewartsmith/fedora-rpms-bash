@@ -1,7 +1,7 @@
 Version: 3.0
 Name: bash
 Summary: The GNU Bourne Again shell (bash) version %{version}.
-Release: 39
+Release: 40
 Group: System Environment/Shells
 License: GPL
 Url: http://www.gnu.org/software/bash
@@ -259,13 +259,16 @@ fi
 %doc doc/*.ps doc/*.0 doc/*.html doc/article.txt
 
 %changelog
-* Wed Dec  7 2005 Tim Waugh <twaugh@redhat.com>  3.0-39
+* Thu Dec  8 2005 Tim Waugh <twaugh@redhat.com> 3.0-40
+- Missed another loop for improved sighandler patch (bug #169231).
+
+* Wed Dec  7 2005 Tim Waugh <twaugh@redhat.com> 3.0-39
 - Missed a loop for improved sighandler patch (bug #169231).
 
-* Tue Dec  6 2005 Tim Waugh <twaugh@redhat.com>  3.0-38
+* Tue Dec  6 2005 Tim Waugh <twaugh@redhat.com> 3.0-38
 - Test out improved sighandler patch (bug #169231).
 
-* Tue Nov 22 2005 Tim Waugh <twaugh@redhat.com>  3.0-37
+* Tue Nov 22 2005 Tim Waugh <twaugh@redhat.com> 3.0-37
 - Applied patch from upstream to fix parsing problem (bug #146638).
 
 * Wed Nov  9 2005 Tim Waugh <twaugh@redhat.com> 3.0-36
