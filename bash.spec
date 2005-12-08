@@ -57,6 +57,7 @@ Patch125: bash-afs.patch
 Patch126: bash-setlocale.patch
 Patch127: bash-sighandler.patch
 Patch128: bash-subshell.patch
+Patch129: bash-read-memleak.patch
 Prefix: %{_prefix}
 Requires: mktemp
 Obsoletes: bash2 etcskel
@@ -127,6 +128,7 @@ popular and powerful, and you'll probably end up using it.
 %patch126 -p1 -b .setlocale
 %patch127 -p1 -b .sighandler
 %patch128 -p1 -b .subshell
+%patch129 -p1 -b .read-memleak
 
 echo %{version} > _distribution
 echo %{release} > _patchlevel
@@ -260,6 +262,7 @@ fi
 
 %changelog
 * Thu Dec  8 2005 Tim Waugh <twaugh@redhat.com> 3.0-40
+- Fix read memleak when reading from non-blocking fd (bug #173283).
 - Missed another loop for improved sighandler patch (bug #169231).
 
 * Wed Dec  7 2005 Tim Waugh <twaugh@redhat.com> 3.0-39
