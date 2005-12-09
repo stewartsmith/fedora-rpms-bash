@@ -1,7 +1,7 @@
 Version: 3.0
 Name: bash
 Summary: The GNU Bourne Again shell (bash) version %{version}.
-Release: 40
+Release: 40.1
 Group: System Environment/Shells
 License: GPL
 Url: http://www.gnu.org/software/bash
@@ -261,6 +261,9 @@ fi
 %doc doc/*.ps doc/*.0 doc/*.html doc/article.txt
 
 %changelog
+* Fri Dec 09 2005 Jesse Keating <jkeating@redhat.com>
+- rebuilt
+
 * Thu Dec  8 2005 Tim Waugh <twaugh@redhat.com> 3.0-40
 - Fix read memleak when reading from non-blocking fd (bug #173283).
 - Missed another loop for improved sighandler patch (bug #169231).
