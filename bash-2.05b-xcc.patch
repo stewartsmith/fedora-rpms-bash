@@ -1,29 +1,19 @@
---- bash-2.05b/Makefile.in.sopwith	2002-12-05 14:03:50.000000000 -0500
-+++ bash-2.05b/Makefile.in	2002-12-05 14:04:13.000000000 -0500
-@@ -57,6 +57,7 @@
- AR = @AR@
+--- bash-3.1/Makefile.in.xcc	2005-10-25 19:37:52.000000000 +0100
++++ bash-3.1/Makefile.in	2005-12-23 16:11:09.000000000 +0000
+@@ -68,6 +68,7 @@
  ARFLAGS = @ARFLAGS@
  RANLIB = @RANLIB@
-+STRIP=strip
+ SIZE = @SIZE@
++STRIP = strip
  
  INSTALL = @INSTALL@
  INSTALL_PROGRAM = @INSTALL_PROGRAM@
-@@ -471,7 +472,6 @@
- 	$(RM) $@
- 	$(PURIFY) $(CC) $(BUILTINS_LDFLAGS) $(LIBRARY_LDFLAGS) $(LDFLAGS) -o $(Program) $(OBJECTS) $(LIBS)
- 	ls -l $(Program)
--	size $(Program)
- 
- .build:	$(SOURCES) config.h Makefile version.h $(VERSPROG)
- 	@echo
-@@ -491,9 +491,8 @@
+@@ -535,7 +536,7 @@
  	@chmod a+rx bashbug
  
  strip:	$(Program) .made
 -	strip $(Program)
 +	$(STRIP) $(Program)
  	ls -l $(Program)
--	size $(Program)
+ 	-$(SIZE) $(Program)
  
- lint:
- 	${MAKE} ${MFLAGS} CFLAGS='${GCC_LINT_FLAGS}' .made

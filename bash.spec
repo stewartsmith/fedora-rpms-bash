@@ -1,7 +1,7 @@
-Version: 3.0
+Version: 3.1
 Name: bash
 Summary: The GNU Bourne Again shell (bash) version %{version}.
-Release: 41
+Release: 1
 Group: System Environment/Shells
 License: GPL
 Url: http://www.gnu.org/software/bash
@@ -11,52 +11,26 @@ Source3: dot-bashrc
 Source4: dot-bash_profile
 Source5: dot-bash_logout
 # Official upstream patches
-Patch1: bash30-001
-Patch2: bash30-002
-Patch3: bash30-003
-Patch4: bash30-004
-Patch5: bash30-005
-Patch6: bash30-006
-Patch7: bash30-007
-Patch8: bash30-008
-Patch9: bash30-009
-Patch10: bash30-010
-Patch11: bash30-011
-Patch12: bash30-012
-Patch13: bash30-013
-Patch14: bash30-014
-Patch15: bash30-015
-Patch16: bash30-016
+Patch1: bash31-001
+Patch2: bash-arrays.patch
 # Other patches
 Patch100: bash-2.03-paths.patch
 Patch101: bash-2.02-security.patch
 Patch102: bash-2.03-profile.patch
 Patch103: bash-2.05a-requires.patch
 Patch104: bash-2.05a-shellfunc.patch
-Patch105: bash-2.05-ia64.patch
 Patch106: bash-2.05a-loadables.patch
 Patch107: bash-2.05a-interpreter.patch
 Patch108: bash-2.05b-readline-oom.patch
-Patch109: bash-2.05b-utf8.patch
 Patch110: bash-2.05b-mbinc.patch
-Patch111: bash-multibyteifs.patch
 Patch112: bash-ulimit.patch
-Patch113: bash-jobs.patch
 Patch114: bash-2.05b-xcc.patch
 Patch115: bash-2.05b-pgrp_sync.patch
 Patch116: bash-2.05b-manso.patch
 Patch117: bash-2.05b-debuginfo.patch
 Patch118: bash-tty-tests.patch
-Patch119: bash-sigpipe.patch
-Patch120: bash-read-e-segfault.patch
-Patch121: bash-manpage.patch
-Patch122: bash-wrap.patch
-Patch123: bash-crash.patch
-Patch124: bash-pwd.patch
-Patch125: bash-afs.patch
 Patch126: bash-setlocale.patch
 Patch127: bash-sighandler.patch
-Patch128: bash-subshell.patch
 Patch129: bash-read-memleak.patch
 Prefix: %{_prefix}
 Requires: mktemp
@@ -82,21 +56,7 @@ popular and powerful, and you'll probably end up using it.
 %setup -q -a 2
 # Official upstream patches
 %patch1 -p0 -b .001
-%patch2 -p0 -b .002
-%patch3 -p0 -b .003
-%patch4 -p0 -b .004
-%patch5 -p0 -b .005
-%patch6 -p0 -b .006
-%patch7 -p0 -b .007
-%patch8 -p0 -b .008
-%patch9 -p0 -b .009
-%patch10 -p0 -b .010
-%patch11 -p0 -b .011
-%patch12 -p0 -b .012
-%patch13 -p0 -b .013
-%patch14 -p0 -b .014
-%patch15 -p0 -b .015
-%patch16 -p0 -b .016
+%patch2 -p0 -b .arrays
 
 # Other patches
 %patch100 -p1 -b .paths
@@ -104,30 +64,18 @@ popular and powerful, and you'll probably end up using it.
 %patch102 -p1 -b .profile
 %patch103 -p1 -b .requires
 %patch104 -p1 -b .shellfunc
-%patch105 -p1 -b .ia64
 %patch106 -p1 -b .loadables
 %patch107 -p1 -b .interpreter
 %patch108 -p1 -b .readline-oom
-%patch109 -p1 -b .utf8
 %patch110 -p1 -b .mbinc
-%patch111 -p1 -b .multibyteifs
 %patch112 -p1 -b .ulimit
-%patch113 -p1 -b .jobs
 %patch114 -p1 -b .xcc
 %patch115 -p1 -b .pgrp_sync
 %patch116 -p1 -b .manso
 %patch117 -p1 -b .debuginfo
 %patch118 -p1 -b .tty-tests
-%patch119 -p1 -b .sigpipe
-%patch120 -p0 -b .read-e-segfault
-%patch121 -p1 -b .manpage
-%patch122 -p1 -b .wrap
-%patch123 -p0 -b .crash
-%patch124 -p1 -b .pwd
-%patch125 -p1 -b .afs
 %patch126 -p1 -b .setlocale
 %patch127 -p1 -b .sighandler
-%patch128 -p1 -b .subshell
 %patch129 -p1 -b .read-memleak
 
 echo %{version} > _distribution
@@ -261,6 +209,13 @@ fi
 %doc doc/*.ps doc/*.0 doc/*.html doc/article.txt
 
 %changelog
+* Mon Jan  2 2006 Tim Waugh <twaugh@redhat.com> 3.1-1
+- 3.1.
+- No longer need ia64, utf8, multibyteifs, jobs, sigpipe,
+  read-e-segfault, manpage, crash, pwd, afs, subshell patches.
+- Remove wrap patch for now.
+- Use upstream patch to fix arrays.
+
 * Thu Dec 15 2005 Tim Waugh <twaugh@redhat.com> 3.0-41
 - Missed another loop for improved sighandler patch (bug #169231).
 

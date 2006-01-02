@@ -1,6 +1,6 @@
---- bash-3.0/config.h.in.interpreter	2004-07-28 09:40:15.259722811 +0100
-+++ bash-3.0/config.h.in	2004-07-28 09:40:15.429690416 +0100
-@@ -601,6 +601,9 @@
+--- bash-3.1/config.h.in.interpreter	2005-12-23 15:53:21.000000000 +0000
++++ bash-3.1/config.h.in	2005-12-23 15:53:21.000000000 +0000
+@@ -622,6 +622,9 @@
  /* Define if you have the pathconf function. */
  #undef HAVE_PATHCONF
  
@@ -10,7 +10,7 @@
  /* Define if you have the putenv function.  */
  #undef HAVE_PUTENV
  
-@@ -756,6 +759,9 @@
+@@ -783,6 +786,9 @@
  /* Define if you have the <dlfcn.h> header file.  */
  #undef HAVE_DLFCN_H
  
@@ -20,28 +20,28 @@
  /* Define if you have the <grp.h> header file.  */
  #undef HAVE_GRP_H
  
---- bash-3.0/configure.in.interpreter	2004-07-21 21:06:54.000000000 +0100
-+++ bash-3.0/configure.in	2004-07-28 09:43:21.657196239 +0100
-@@ -573,7 +573,7 @@
+--- bash-3.1/configure.in.interpreter	2005-12-01 14:36:03.000000000 +0000
++++ bash-3.1/configure.in	2005-12-23 15:55:10.000000000 +0000
+@@ -632,7 +632,7 @@
  
  AC_CHECK_HEADERS(unistd.h stdlib.h stdarg.h varargs.h limits.h string.h \
  		 memory.h locale.h termcap.h termio.h termios.h dlfcn.h \
--		 stddef.h stdint.h netdb.h grp.h strings.h regex.h)
-+		 stddef.h stdint.h netdb.h grp.h strings.h regex.h elf.h)
- AC_CHECK_HEADERS(sys/ptem.h sys/pte.h sys/stream.h sys/select.h sys/file.h \
+-		 stddef.h stdint.h netdb.h pwd.h grp.h strings.h regex.h)
++		 stddef.h stdint.h netdb.h pwd.h grp.h strings.h regex.h elf.h)
+ AC_CHECK_HEADERS(sys/pte.h sys/stream.h sys/select.h sys/file.h \
  		 sys/resource.h sys/param.h sys/socket.h sys/stat.h \
  		 sys/time.h sys/times.h sys/types.h sys/wait.h)
-@@ -628,7 +628,7 @@
- AC_CHECK_FUNCS(dup2 select getdtablesize getgroups gethostname \
- 		setdtablesize getpagesize killpg lstat getpeername sbrk \
- 		getrlimit getrusage gettimeofday waitpid tcgetpgrp \
--		readlink)
-+		readlink pread)
+@@ -695,7 +695,7 @@
+ AC_CHECK_FUNCS(dup2 fcntl getdtablesize getgroups gethostname getpagesize \
+ 		getpeername getrlimit getrusage gettimeofday kill killpg \
+ 		lstat readlink sbrk select setdtablesize tcgetpgrp uname \
+-		ulimit waitpid)
++		ulimit waitpid pread)
  AC_REPLACE_FUNCS(rename)
  
  dnl checks for c library functions
---- bash-3.0/execute_cmd.c.interpreter	2004-07-28 09:40:15.386698610 +0100
-+++ bash-3.0/execute_cmd.c	2004-07-28 09:40:15.449686605 +0100
+--- bash-3.1/execute_cmd.c.interpreter	2005-12-23 15:53:21.000000000 +0000
++++ bash-3.1/execute_cmd.c	2005-12-23 15:56:44.000000000 +0000
 @@ -40,6 +40,10 @@
  #  include <unistd.h>
  #endif
@@ -53,7 +53,7 @@
  #include "posixtime.h"
  
  #if defined (HAVE_SYS_RESOURCE_H) && !defined (RLIMTYPE)
-@@ -3842,12 +3846,20 @@
+@@ -3872,13 +3876,21 @@
  	{
  	  /* The file has the execute bits set, but the kernel refuses to
  	     run it for some reason.  See why. */
@@ -70,12 +70,13 @@
  	  if (sample_len > 2 && sample[0] == '#' && sample[1] == '!')
  	    {
  	      char *interp;
+ 	      int ilen;
  
 +	      close (fd);
  	      interp = getinterp (sample, sample_len, (int *)NULL);
+ 	      ilen = strlen (interp);
  	      errno = i;
- 	      sys_error (_("%s: %s: bad interpreter"), command, interp ? interp : "");
-@@ -3855,6 +3867,136 @@
+@@ -3894,6 +3906,136 @@
  	      return (EX_NOEXEC);
  	    }
  #endif
