@@ -19,6 +19,7 @@ Patch101: bash-2.02-security.patch
 Patch102: bash-2.03-profile.patch
 Patch103: bash-2.05a-requires.patch
 Patch104: bash-2.05a-shellfunc.patch
+Patch105: bash-aq.patch
 Patch106: bash-2.05a-loadables.patch
 Patch107: bash-2.05a-interpreter.patch
 Patch108: bash-2.05b-readline-oom.patch
@@ -64,6 +65,7 @@ popular and powerful, and you'll probably end up using it.
 %patch102 -p1 -b .profile
 %patch103 -p1 -b .requires
 %patch104 -p1 -b .shellfunc
+%patch105 -p1 -b .aq
 %patch106 -p1 -b .loadables
 %patch107 -p1 -b .interpreter
 %patch108 -p1 -b .readline-oom
@@ -209,6 +211,9 @@ fi
 %doc doc/*.ps doc/*.0 doc/*.html doc/article.txt
 
 %changelog
+* Fri Jan  6 2006 Tim Waugh <twaugh@redhat.com>
+- Use literal single-quote in bash man page where appropriate (bug #177051).
+
 * Mon Jan  2 2006 Tim Waugh <twaugh@redhat.com> 3.1-1
 - 3.1.
 - No longer need ia64, utf8, multibyteifs, jobs, sigpipe,
