@@ -1,7 +1,7 @@
 Version: 3.1
 Name: bash
 Summary: The GNU Bourne Again shell (bash) version %{version}.
-Release: 1
+Release: 2
 Group: System Environment/Shells
 License: GPL
 Url: http://www.gnu.org/software/bash
@@ -18,12 +18,9 @@ Patch100: bash-2.03-paths.patch
 Patch101: bash-2.02-security.patch
 Patch102: bash-2.03-profile.patch
 Patch103: bash-2.05a-requires.patch
-Patch104: bash-2.05a-shellfunc.patch
 Patch105: bash-aq.patch
-Patch106: bash-2.05a-loadables.patch
 Patch107: bash-2.05a-interpreter.patch
 Patch108: bash-2.05b-readline-oom.patch
-Patch110: bash-2.05b-mbinc.patch
 Patch112: bash-ulimit.patch
 Patch114: bash-2.05b-xcc.patch
 Patch115: bash-2.05b-pgrp_sync.patch
@@ -64,12 +61,9 @@ popular and powerful, and you'll probably end up using it.
 %patch101 -p1 -b .security
 %patch102 -p1 -b .profile
 %patch103 -p1 -b .requires
-%patch104 -p1 -b .shellfunc
 %patch105 -p1 -b .aq
-%patch106 -p1 -b .loadables
 %patch107 -p1 -b .interpreter
 %patch108 -p1 -b .readline-oom
-%patch110 -p1 -b .mbinc
 %patch112 -p1 -b .ulimit
 %patch114 -p1 -b .xcc
 %patch115 -p1 -b .pgrp_sync
@@ -211,7 +205,8 @@ fi
 %doc doc/*.ps doc/*.0 doc/*.html doc/article.txt
 
 %changelog
-* Fri Jan  6 2006 Tim Waugh <twaugh@redhat.com>
+* Fri Jan  6 2006 Tim Waugh <twaugh@redhat.com> 3.1-2
+- No longer need loadables, mbinc or shellfunc patches.
 - Use literal single-quote in bash man page where appropriate (bug #177051).
 
 * Mon Jan  2 2006 Tim Waugh <twaugh@redhat.com> 3.1-1
