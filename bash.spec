@@ -11,8 +11,11 @@ Source3: dot-bashrc
 Source4: dot-bash_profile
 Source5: dot-bash_logout
 # Official upstream patches
-Patch1: bash31-001
-Patch2: bash-arrays.patch
+Patch1: ftp://ftp.gnu.org/gnu/bash/bash-3.1-patches/bash31-001
+Patch2: ftp://ftp.gnu.org/gnu/bash/bash-3.1-patches/bash31-002
+Patch3: ftp://ftp.gnu.org/gnu/bash/bash-3.1-patches/bash31-003
+Patch4: ftp://ftp.gnu.org/gnu/bash/bash-3.1-patches/bash31-004
+Patch5: ftp://ftp.gnu.org/gnu/bash/bash-3.1-patches/bash31-005
 # Other patches
 Patch100: bash-2.03-paths.patch
 Patch101: bash-2.02-security.patch
@@ -54,7 +57,10 @@ popular and powerful, and you'll probably end up using it.
 %setup -q -a 2
 # Official upstream patches
 %patch1 -p0 -b .001
-%patch2 -p0 -b .arrays
+%patch2 -p0 -b .002
+%patch3 -p0 -b .003
+%patch4 -p0 -b .004
+%patch5 -p0 -b .005
 
 # Other patches
 %patch100 -p1 -b .paths
@@ -205,6 +211,9 @@ fi
 %doc doc/*.ps doc/*.0 doc/*.html doc/article.txt
 
 %changelog
+* Tue Jan 10 2006 Tim Waugh <twaugh@redhat.com>
+- Patchlevel 5.
+
 * Fri Jan  6 2006 Tim Waugh <twaugh@redhat.com> 3.1-2
 - No longer need loadables, mbinc or shellfunc patches.
 - Use literal single-quote in bash man page where appropriate (bug #177051).
