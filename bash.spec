@@ -1,7 +1,7 @@
 Version: 3.1
 Name: bash
 Summary: The GNU Bourne Again shell (bash) version %{version}.
-Release: 2
+Release: 3
 Group: System Environment/Shells
 License: GPL
 Url: http://www.gnu.org/software/bash
@@ -211,7 +211,7 @@ fi
 %doc doc/*.ps doc/*.0 doc/*.html doc/article.txt
 
 %changelog
-* Tue Jan 10 2006 Tim Waugh <twaugh@redhat.com>
+* Tue Jan 10 2006 Tim Waugh <twaugh@redhat.com> 3.1-3
 - Patchlevel 5.
 
 * Fri Jan  6 2006 Tim Waugh <twaugh@redhat.com> 3.1-2
