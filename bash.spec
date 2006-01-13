@@ -22,6 +22,7 @@ Patch101: bash-2.02-security.patch
 Patch102: bash-2.03-profile.patch
 Patch103: bash-2.05a-requires.patch
 Patch105: bash-aq.patch
+Patch106: bash-login.patch
 Patch107: bash-2.05a-interpreter.patch
 Patch108: bash-2.05b-readline-oom.patch
 Patch112: bash-ulimit.patch
@@ -68,6 +69,7 @@ popular and powerful, and you'll probably end up using it.
 %patch102 -p1 -b .profile
 %patch103 -p1 -b .requires
 %patch105 -p1 -b .aq
+%patch106 -p1 -b .login
 %patch107 -p1 -b .interpreter
 %patch108 -p1 -b .readline-oom
 %patch112 -p1 -b .ulimit
@@ -211,6 +213,9 @@ fi
 %doc doc/*.ps doc/*.0 doc/*.html doc/article.txt
 
 %changelog
+* Fri Jan 13 2006 Tim Waugh <twaugh@redhat.com>
+- Fix 'exec -l /bin/bash'.
+
 * Thu Jan 12 2006 Tim Waugh <twaugh@redhat.com> 3.1-4
 - Fix sighandler patch bug (bug #177545).
 
