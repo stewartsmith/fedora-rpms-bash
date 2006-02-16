@@ -1,7 +1,7 @@
 Version: 3.1
 Name: bash
 Summary: The GNU Bourne Again shell (bash) version %{version}.
-Release: 6.2
+Release: 7
 Group: System Environment/Shells
 License: GPL
 Url: http://www.gnu.org/software/bash
@@ -18,6 +18,7 @@ Patch4: ftp://ftp.gnu.org/gnu/bash/bash-3.1-patches/bash31-004
 Patch5: ftp://ftp.gnu.org/gnu/bash/bash-3.1-patches/bash31-005
 Patch6: ftp://ftp.gnu.org/gnu/bash/bash-3.1-patches/bash31-006
 Patch7: ftp://ftp.gnu.org/gnu/bash/bash-3.1-patches/bash31-007
+Patch8: ftp://ftp.gnu.org/gnu/bash/bash-3.1-patches/bash31-008
 # Other patches
 Patch100: bash-2.03-paths.patch
 Patch101: bash-2.02-security.patch
@@ -63,6 +64,7 @@ compliance over previous versions.
 %patch5 -p0 -b .005
 %patch6 -p0 -b .006
 %patch7 -p0 -b .007
+%patch8 -p0 -b .008
 
 # Other patches
 %patch100 -p1 -b .paths
@@ -214,6 +216,9 @@ fi
 %doc doc/*.ps doc/*.0 doc/*.html doc/article.txt
 
 %changelog
+* Thu Feb 16 2006 Tim Waugh <twaugh@redhat.com> 3.1-7
+- Patchlevel 8.
+
 * Fri Feb 10 2006 Jesse Keating <jkeating@redhat.com> - 3.1-6.2
 - bump again for double-long bug on ppc(64)
 
