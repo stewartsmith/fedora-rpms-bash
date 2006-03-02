@@ -220,6 +220,10 @@ fi
 %doc doc/*.ps doc/*.0 doc/*.html doc/article.txt
 
 %changelog
+* Thu Mar  2 2006 Tim Waugh <twaugh@redhat.com>
+- Fixed duplicate documentation of ulimit '-x' option introduced by
+  ulimit patch (bug #183596).
+
 * Tue Feb 21 2006 Tim Waugh <twaugh@redhat.com> 3.1-8
 - Patchlevel 10.
 
