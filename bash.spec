@@ -1,7 +1,7 @@
 Version: 3.1
 Name: bash
 Summary: The GNU Bourne Again shell (bash) version %{version}.
-Release: 8
+Release: 9
 Group: System Environment/Shells
 License: GPL
 Url: http://www.gnu.org/software/bash
@@ -220,7 +220,7 @@ fi
 %doc doc/*.ps doc/*.0 doc/*.html doc/article.txt
 
 %changelog
-* Thu Mar  2 2006 Tim Waugh <twaugh@redhat.com>
+* Thu Mar  2 2006 Tim Waugh <twaugh@redhat.com> 3.1-9
 - Fixed duplicate documentation of ulimit '-x' option introduced by
   ulimit patch (bug #183596).
 
