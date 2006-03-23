@@ -21,6 +21,10 @@ Patch7: ftp://ftp.gnu.org/gnu/bash/bash-3.1-patches/bash31-007
 Patch8: ftp://ftp.gnu.org/gnu/bash/bash-3.1-patches/bash31-008
 Patch9: ftp://ftp.gnu.org/gnu/bash/bash-3.1-patches/bash31-009
 Patch10: ftp://ftp.gnu.org/gnu/bash/bash-3.1-patches/bash31-010
+Patch11: ftp://ftp.gnu.org/gnu/bash/bash-3.1-patches/bash31-011
+Patch12: ftp://ftp.gnu.org/gnu/bash/bash-3.1-patches/bash31-012
+Patch13: ftp://ftp.gnu.org/gnu/bash/bash-3.1-patches/bash31-013
+Patch14: ftp://ftp.gnu.org/gnu/bash/bash-3.1-patches/bash31-014
 # Other patches
 Patch100: bash-2.03-paths.patch
 Patch101: bash-2.02-security.patch
@@ -69,6 +73,10 @@ compliance over previous versions.
 %patch8 -p0 -b .008
 %patch9 -p0 -b .009
 %patch10 -p0 -b .010
+%patch11 -p0 -b .011
+%patch12 -p0 -b .012
+%patch13 -p0 -b .013
+%patch14 -p0 -b .014
 
 # Other patches
 %patch100 -p1 -b .paths
@@ -220,6 +228,9 @@ fi
 %doc doc/*.ps doc/*.0 doc/*.html doc/article.txt
 
 %changelog
+* Thu Mar 23 2006 Tim Waugh <twaugh@redhat.com>
+- Patchlevel 14.
+
 * Thu Mar  2 2006 Tim Waugh <twaugh@redhat.com> 3.1-9
 - Fixed duplicate documentation of ulimit '-x' option introduced by
   ulimit patch (bug #183596).
