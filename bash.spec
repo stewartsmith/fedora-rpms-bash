@@ -233,7 +233,7 @@ fi
 
 %changelog
 * Tue Apr  4 2006 Tim Waugh <twaugh@redhat.com> 3.1-11
-- Patchlevel 15.
+- Patchlevel 16.
 
 * Thu Mar 23 2006 Tim Waugh <twaugh@redhat.com> 3.1-10
 - Patchlevel 14.
