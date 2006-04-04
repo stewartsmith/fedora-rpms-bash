@@ -1,7 +1,7 @@
 Version: 3.1
 Name: bash
 Summary: The GNU Bourne Again shell (bash) version %{version}.
-Release: 10
+Release: 11
 Group: System Environment/Shells
 License: GPL
 Url: http://www.gnu.org/software/bash
@@ -25,6 +25,8 @@ Patch11: ftp://ftp.gnu.org/gnu/bash/bash-3.1-patches/bash31-011
 Patch12: ftp://ftp.gnu.org/gnu/bash/bash-3.1-patches/bash31-012
 Patch13: ftp://ftp.gnu.org/gnu/bash/bash-3.1-patches/bash31-013
 Patch14: ftp://ftp.gnu.org/gnu/bash/bash-3.1-patches/bash31-014
+Patch15: ftp://ftp.gnu.org/gnu/bash/bash-3.1-patches/bash31-015
+Patch16: ftp://ftp.gnu.org/gnu/bash/bash-3.1-patches/bash31-016
 # Other patches
 Patch100: bash-2.03-paths.patch
 Patch101: bash-2.02-security.patch
@@ -77,6 +79,8 @@ compliance over previous versions.
 %patch12 -p0 -b .012
 %patch13 -p0 -b .013
 %patch14 -p0 -b .014
+%patch15 -p0 -b .015
+%patch16 -p0 -b .016
 
 # Other patches
 %patch100 -p1 -b .paths
@@ -228,6 +232,9 @@ fi
 %doc doc/*.ps doc/*.0 doc/*.html doc/article.txt
 
 %changelog
+* Tue Apr  4 2006 Tim Waugh <twaugh@redhat.com> 3.1-11
+- Patchlevel 15.
+
 * Thu Mar 23 2006 Tim Waugh <twaugh@redhat.com> 3.1-10
 - Patchlevel 14.
 
