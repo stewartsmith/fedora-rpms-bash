@@ -1,7 +1,7 @@
 Version: 3.1
 Name: bash
 Summary: The GNU Bourne Again shell (bash) version %{version}.
-Release: 13
+Release: 14
 Group: System Environment/Shells
 License: GPL
 Url: http://www.gnu.org/software/bash
@@ -234,6 +234,9 @@ fi
 %doc doc/*.ps doc/*.0 doc/*.html doc/article.txt
 
 %changelog
+* Wed May 31 2006 Tim Waugh <twaugh@redhat.com> 3.1-14
+- More sighandler fixes, this time hypothetical.
+
 * Thu May 26 2006 Tim Waugh <twaugh@redhat.com> 3.1-13
 - Another fix for the sighandler patch (bug #192297).
 
