@@ -1,7 +1,7 @@
 Version: 3.1
 Name: bash
 Summary: The GNU Bourne Again shell (bash) version %{version}.
-Release: 14
+Release: 15
 Group: System Environment/Shells
 License: GPL
 Url: http://www.gnu.org/software/bash
@@ -32,7 +32,7 @@ Patch17: ftp://ftp.gnu.org/gnu/bash/bash-3.1-patches/bash31-017
 Patch100: bash-2.03-paths.patch
 Patch101: bash-2.02-security.patch
 Patch102: bash-2.03-profile.patch
-Patch103: bash-2.05a-requires.patch
+Patch103: bash-requires.patch
 Patch105: bash-aq.patch
 Patch106: bash-login.patch
 Patch107: bash-2.05a-interpreter.patch
@@ -234,6 +234,9 @@ fi
 %doc doc/*.ps doc/*.0 doc/*.html doc/article.txt
 
 %changelog
+* Thu Jun 15 2006 Tim Waugh <twaugh@redhat.com> 3.1-15
+- Updated requires patch to the ALT version.
+
 * Wed May 31 2006 Tim Waugh <twaugh@redhat.com> 3.1-14
 - More sighandler fixes, this time hypothetical.
 
