@@ -1,7 +1,7 @@
 Version: 3.1
 Name: bash
 Summary: The GNU Bourne Again shell (bash) version %{version}.
-Release: 15
+Release: 16
 Group: System Environment/Shells
 License: GPL
 Url: http://www.gnu.org/software/bash
@@ -234,6 +234,9 @@ fi
 %doc doc/*.ps doc/*.0 doc/*.html doc/article.txt
 
 %changelog
+* Wed Jun 28 2006 Tim Waugh <twaugh@redhat.com> 3.1-16
+- Removed 'unset USERNAME' from default .bash_profile (bug #196735).
+
 * Thu Jun 15 2006 Tim Waugh <twaugh@redhat.com> 3.1-15
 - Updated requires patch to the ALT version.
 
