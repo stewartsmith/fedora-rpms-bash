@@ -46,6 +46,7 @@ Patch118: bash-tty-tests.patch
 Patch126: bash-setlocale.patch
 Patch127: bash-sighandler.patch
 Patch129: bash-read-memleak.patch
+Patch130: bash-infotags.patch
 Prefix: %{_prefix}
 Requires: mktemp
 Obsoletes: bash2 etcskel
@@ -102,6 +103,7 @@ compliance over previous versions.
 %patch126 -p1 -b .setlocale
 %patch127 -p1 -b .sighandler
 %patch129 -p1 -b .read-memleak
+%patch130 -p1 -b .infotags
 
 echo %{version} > _distribution
 echo %{release} > _patchlevel
@@ -234,6 +236,9 @@ fi
 %doc doc/*.ps doc/*.0 doc/*.html doc/article.txt
 
 %changelog
+* Wed Jul 12 2006 Tim Waugh <twaugh@redhat.com> 3.1-17
+- Fixed 'tags out of date' problem with 'info bash' (bug #150118).
+
 * Wed Jul 12 2006 Jesse Keating <jkeating@redhat.com> - 3.1-16.1
 - rebuild
 
