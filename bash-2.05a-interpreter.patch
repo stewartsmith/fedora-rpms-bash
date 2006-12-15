@@ -1,28 +1,6 @@
---- bash-3.1/config.h.in.interpreter	2005-12-23 15:53:21.000000000 +0000
-+++ bash-3.1/config.h.in	2005-12-23 15:53:21.000000000 +0000
-@@ -622,6 +622,9 @@
- /* Define if you have the pathconf function. */
- #undef HAVE_PATHCONF
- 
-+/* Define if you have the pread function. */
-+#undef HAVE_PREAD
-+
- /* Define if you have the putenv function.  */
- #undef HAVE_PUTENV
- 
-@@ -783,6 +786,9 @@
- /* Define if you have the <dlfcn.h> header file.  */
- #undef HAVE_DLFCN_H
- 
-+/* Define if you have the <elf.h> header file.  */
-+#undef HAVE_ELF_H
-+
- /* Define if you have the <grp.h> header file.  */
- #undef HAVE_GRP_H
- 
---- bash-3.1/configure.in.interpreter	2005-12-01 14:36:03.000000000 +0000
-+++ bash-3.1/configure.in	2005-12-23 15:55:10.000000000 +0000
-@@ -632,7 +632,7 @@
+--- bash-3.2/configure.in.interpreter	2006-09-26 16:05:45.000000000 +0100
++++ bash-3.2/configure.in	2006-12-15 17:56:15.000000000 +0000
+@@ -634,7 +634,7 @@
  
  AC_CHECK_HEADERS(unistd.h stdlib.h stdarg.h varargs.h limits.h string.h \
  		 memory.h locale.h termcap.h termio.h termios.h dlfcn.h \
@@ -31,17 +9,17 @@
  AC_CHECK_HEADERS(sys/pte.h sys/stream.h sys/select.h sys/file.h \
  		 sys/resource.h sys/param.h sys/socket.h sys/stat.h \
  		 sys/time.h sys/times.h sys/types.h sys/wait.h)
-@@ -695,7 +695,7 @@
- AC_CHECK_FUNCS(dup2 fcntl getdtablesize getgroups gethostname getpagesize \
- 		getpeername getrlimit getrusage gettimeofday kill killpg \
- 		lstat readlink sbrk select setdtablesize tcgetpgrp uname \
--		ulimit waitpid)
-+		ulimit waitpid pread)
+@@ -698,7 +698,7 @@
+ AC_CHECK_FUNCS(dup2 eaccess fcntl getdtablesize getgroups gethostname \
+ 		getpagesize getpeername getrlimit getrusage gettimeofday \
+ 		kill killpg lstat readlink sbrk select setdtablesize \
+-		tcgetpgrp uname ulimit waitpid)
++		tcgetpgrp uname ulimit waitpid pread)
  AC_REPLACE_FUNCS(rename)
  
  dnl checks for c library functions
---- bash-3.1/execute_cmd.c.interpreter	2005-12-23 15:53:21.000000000 +0000
-+++ bash-3.1/execute_cmd.c	2005-12-23 15:56:44.000000000 +0000
+--- bash-3.2/execute_cmd.c.interpreter	2006-12-15 17:55:53.000000000 +0000
++++ bash-3.2/execute_cmd.c	2006-12-15 17:55:53.000000000 +0000
 @@ -40,6 +40,10 @@
  #  include <unistd.h>
  #endif
@@ -53,7 +31,7 @@
  #include "posixtime.h"
  
  #if defined (HAVE_SYS_RESOURCE_H) && !defined (RLIMTYPE)
-@@ -3872,13 +3876,21 @@
+@@ -3953,13 +3957,21 @@
  	{
  	  /* The file has the execute bits set, but the kernel refuses to
  	     run it for some reason.  See why. */
@@ -76,7 +54,7 @@
  	      interp = getinterp (sample, sample_len, (int *)NULL);
  	      ilen = strlen (interp);
  	      errno = i;
-@@ -3894,6 +3906,136 @@
+@@ -3975,6 +3987,136 @@
  	      return (EX_NOEXEC);
  	    }
  #endif
@@ -213,3 +191,25 @@
  	  errno = i;
  	  file_error (command);
  	}
+--- bash-3.2/config.h.in.interpreter	2006-12-15 17:55:53.000000000 +0000
++++ bash-3.2/config.h.in	2006-12-15 17:55:53.000000000 +0000
+@@ -646,6 +646,9 @@
+ /* Define if you have the pathconf function. */
+ #undef HAVE_PATHCONF
+ 
++/* Define if you have the pread function. */
++#undef HAVE_PREAD
++
+ /* Define if you have the putenv function.  */
+ #undef HAVE_PUTENV
+ 
+@@ -823,6 +826,9 @@
+ /* Define if you have the <dlfcn.h> header file.  */
+ #undef HAVE_DLFCN_H
+ 
++/* Define if you have the <elf.h> header file.  */
++#undef HAVE_ELF_H
++
+ /* Define if you have the <grp.h> header file.  */
+ #undef HAVE_GRP_H
+ 

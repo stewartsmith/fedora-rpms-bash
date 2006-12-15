@@ -1,7 +1,7 @@
-Version: 3.1
+Version: 3.2
 Name: bash
 Summary: The GNU Bourne Again shell (bash) version %{version}.
-Release: 16.1
+Release: 1%{?dist}
 Group: System Environment/Shells
 License: GPL
 Url: http://www.gnu.org/software/bash
@@ -11,41 +11,28 @@ Source3: dot-bashrc
 Source4: dot-bash_profile
 Source5: dot-bash_logout
 # Official upstream patches
-Patch1: ftp://ftp.gnu.org/gnu/bash/bash-3.1-patches/bash31-001
-Patch2: ftp://ftp.gnu.org/gnu/bash/bash-3.1-patches/bash31-002
-Patch3: ftp://ftp.gnu.org/gnu/bash/bash-3.1-patches/bash31-003
-Patch4: ftp://ftp.gnu.org/gnu/bash/bash-3.1-patches/bash31-004
-Patch5: ftp://ftp.gnu.org/gnu/bash/bash-3.1-patches/bash31-005
-Patch6: ftp://ftp.gnu.org/gnu/bash/bash-3.1-patches/bash31-006
-Patch7: ftp://ftp.gnu.org/gnu/bash/bash-3.1-patches/bash31-007
-Patch8: ftp://ftp.gnu.org/gnu/bash/bash-3.1-patches/bash31-008
-Patch9: ftp://ftp.gnu.org/gnu/bash/bash-3.1-patches/bash31-009
-Patch10: ftp://ftp.gnu.org/gnu/bash/bash-3.1-patches/bash31-010
-Patch11: ftp://ftp.gnu.org/gnu/bash/bash-3.1-patches/bash31-011
-Patch12: ftp://ftp.gnu.org/gnu/bash/bash-3.1-patches/bash31-012
-Patch13: ftp://ftp.gnu.org/gnu/bash/bash-3.1-patches/bash31-013
-Patch14: ftp://ftp.gnu.org/gnu/bash/bash-3.1-patches/bash31-014
-Patch15: ftp://ftp.gnu.org/gnu/bash/bash-3.1-patches/bash31-015
-Patch16: ftp://ftp.gnu.org/gnu/bash/bash-3.1-patches/bash31-016
-Patch17: ftp://ftp.gnu.org/gnu/bash/bash-3.1-patches/bash31-017
+Patch1: ftp://ftp.gnu.org/gnu/bash/bash-3.2-patches/bash32-001
+Patch2: ftp://ftp.gnu.org/gnu/bash/bash-3.2-patches/bash32-002
+Patch3: ftp://ftp.gnu.org/gnu/bash/bash-3.2-patches/bash32-003
+Patch4: ftp://ftp.gnu.org/gnu/bash/bash-3.2-patches/bash32-004
+Patch5: ftp://ftp.gnu.org/gnu/bash/bash-3.2-patches/bash32-005
+Patch6: ftp://ftp.gnu.org/gnu/bash/bash-3.2-patches/bash32-006
+Patch7: ftp://ftp.gnu.org/gnu/bash/bash-3.2-patches/bash32-007
+Patch8: ftp://ftp.gnu.org/gnu/bash/bash-3.2-patches/bash32-008
+Patch9: ftp://ftp.gnu.org/gnu/bash/bash-3.2-patches/bash32-009
 # Other patches
 Patch100: bash-2.03-paths.patch
 Patch101: bash-2.02-security.patch
 Patch102: bash-2.03-profile.patch
 Patch103: bash-requires.patch
-Patch105: bash-aq.patch
-Patch106: bash-login.patch
 Patch107: bash-2.05a-interpreter.patch
 Patch108: bash-2.05b-readline-oom.patch
-Patch112: bash-ulimit.patch
 Patch114: bash-2.05b-xcc.patch
 Patch115: bash-2.05b-pgrp_sync.patch
 Patch116: bash-2.05b-manso.patch
 Patch117: bash-2.05b-debuginfo.patch
 Patch118: bash-tty-tests.patch
 Patch126: bash-setlocale.patch
-Patch127: bash-sighandler.patch
-Patch129: bash-read-memleak.patch
 Patch130: bash-infotags.patch
 Prefix: %{_prefix}
 Requires: mktemp
@@ -76,33 +63,20 @@ compliance over previous versions.
 %patch7 -p0 -b .007
 %patch8 -p0 -b .008
 %patch9 -p0 -b .009
-%patch10 -p0 -b .010
-%patch11 -p0 -b .011
-%patch12 -p0 -b .012
-%patch13 -p0 -b .013
-%patch14 -p0 -b .014
-%patch15 -p0 -b .015
-%patch16 -p0 -b .016
-%patch17 -p0 -b .017
 
 # Other patches
 %patch100 -p1 -b .paths
 %patch101 -p1 -b .security
 %patch102 -p1 -b .profile
 %patch103 -p1 -b .requires
-%patch105 -p1 -b .aq
-%patch106 -p1 -b .login
 %patch107 -p1 -b .interpreter
 %patch108 -p1 -b .readline-oom
-%patch112 -p1 -b .ulimit
 %patch114 -p1 -b .xcc
 %patch115 -p1 -b .pgrp_sync
 %patch116 -p1 -b .manso
 %patch117 -p1 -b .debuginfo
 %patch118 -p1 -b .tty-tests
 %patch126 -p1 -b .setlocale
-%patch127 -p1 -b .sighandler
-%patch129 -p1 -b .read-memleak
 %patch130 -p1 -b .infotags
 
 echo %{version} > _distribution
@@ -236,6 +210,10 @@ fi
 %doc doc/*.ps doc/*.0 doc/*.html doc/article.txt
 
 %changelog
+* Fri Dec 15 2006 Tim Waugh <twaugh@redhat.com>
+- 3.2.  No longer need aq, login, ulimit, sighandler or read-memleak
+  patches.
+
 * Wed Jul 12 2006 Tim Waugh <twaugh@redhat.com> 3.1-17
 - Fixed 'tags out of date' problem with 'info bash' (bug #150118).
 
