@@ -210,7 +210,7 @@ fi
 %doc doc/*.ps doc/*.0 doc/*.html doc/article.txt
 
 %changelog
-* Fri Dec 15 2006 Tim Waugh <twaugh@redhat.com>
+* Fri Dec 15 2006 Tim Waugh <twaugh@redhat.com> 3.2-1
 - 3.2.  No longer need aq, login, ulimit, sighandler or read-memleak
   patches.
 
