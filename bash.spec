@@ -42,7 +42,7 @@ BuildRoot: %{_tmppath}/%{name}-%{version}-root
 
 BuildRequires: texinfo bison
 BuildRequires: libtermcap-devel
-BuildRequires: autoconf
+BuildRequires: autoconf, gettext
 
 %description
 The GNU Bourne Again shell (Bash) is a shell or command language
@@ -208,7 +208,7 @@ fi
 
 %changelog
 * Fri Dec 15 2006 Tim Waugh <twaugh@redhat.com> 3.2-1
-- Build requires autoconf.
+- Build requires autoconf and gettext.
 - 3.2.  No longer need aq, login, ulimit, sighandler or read-memleak
   patches.
 
