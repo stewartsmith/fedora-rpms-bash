@@ -42,6 +42,7 @@ BuildRoot: %{_tmppath}/%{name}-%{version}-root
 
 BuildRequires: texinfo bison
 BuildRequires: libtermcap-devel
+BuildRequires: autoconf
 
 %description
 The GNU Bourne Again shell (Bash) is a shell or command language
@@ -83,11 +84,7 @@ echo %{version} > _distribution
 echo %{release} > _patchlevel
 
 %build
-if ! autoconf; then
-	# Yuck. We're using autoconf 2.1x.
-	ln -s /bin/true autoconf
-	export PATH=.:$PATH
-fi
+autoconf
 %configure --with-bash-malloc=no --with-afs
 make "CPPFLAGS=-D_GNU_SOURCE `getconf LFS_CFLAGS`"
 make check
@@ -211,6 +208,7 @@ fi
 
 %changelog
 * Fri Dec 15 2006 Tim Waugh <twaugh@redhat.com> 3.2-1
+- Build requires autoconf.
 - 3.2.  No longer need aq, login, ulimit, sighandler or read-memleak
   patches.
 
