@@ -1,7 +1,7 @@
 Version: 3.2
 Name: bash
 Summary: The GNU Bourne Again shell (bash) version %{version}.
-Release: 1%{?dist}
+Release: 2%{?dist}
 Group: System Environment/Shells
 License: GPL
 Url: http://www.gnu.org/software/bash
@@ -41,7 +41,7 @@ Obsoletes: bash2-doc bash-doc
 BuildRoot: %{_tmppath}/%{name}-%{version}-root
 
 BuildRequires: texinfo bison
-BuildRequires: libtermcap-devel
+BuildRequires: ncurses-devel
 BuildRequires: autoconf, gettext
 
 %description
@@ -207,6 +207,9 @@ fi
 %doc doc/*.ps doc/*.0 doc/*.html doc/article.txt
 
 %changelog
+* Tue Jan 16 2007 Miroslav Lichvar <mlichvar@redhat.com> 3.2-2
+- Link with ncurses.
+
 * Fri Dec 15 2006 Tim Waugh <twaugh@redhat.com> 3.2-1
 - Build requires autoconf and gettext.
 - 3.2.  No longer need aq, login, ulimit, sighandler or read-memleak
