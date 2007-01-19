@@ -1,7 +1,7 @@
 Version: 3.2
 Name: bash
 Summary: The GNU Bourne Again shell (bash) version %{version}.
-Release: 2%{?dist}
+Release: 3%{?dist}
 Group: System Environment/Shells
 License: GPL
 Url: http://www.gnu.org/software/bash
@@ -34,6 +34,7 @@ Patch117: bash-2.05b-debuginfo.patch
 Patch118: bash-tty-tests.patch
 Patch126: bash-setlocale.patch
 Patch130: bash-infotags.patch
+Patch131: bash-cond-rmatch.patch
 Prefix: %{_prefix}
 Requires: mktemp
 Obsoletes: bash2 etcskel
@@ -79,6 +80,7 @@ compliance over previous versions.
 %patch118 -p1 -b .tty-tests
 %patch126 -p1 -b .setlocale
 %patch130 -p1 -b .infotags
+%patch131 -p1 -b .cond-rmatch
 
 echo %{version} > _distribution
 echo %{release} > _patchlevel
@@ -207,6 +209,9 @@ fi
 %doc doc/*.ps doc/*.0 doc/*.html doc/article.txt
 
 %changelog
+* Fri Jan 19 2007 Tim Waugh <twaugh@redhat.com> 3.2-3
+- Back out rmatch change introduced in 3.2 (bug #220087).
+
 * Tue Jan 16 2007 Miroslav Lichvar <mlichvar@redhat.com> 3.2-2
 - Link with ncurses.
 

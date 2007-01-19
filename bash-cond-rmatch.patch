@@ -1,0 +1,11 @@
+--- bash-3.2/execute_cmd.c.cond_rmatch	2007-01-19 16:29:03.000000000 +0000
++++ bash-3.2/execute_cmd.c	2007-01-19 16:29:25.000000000 +0000
+@@ -2560,7 +2560,7 @@
+       arg1 = cond_expand_word (cond->left->op, 0);
+       if (arg1 == 0)
+ 	arg1 = nullstr;
+-      arg2 = cond_expand_word (cond->right->op, patmatch||rmatch);
++      arg2 = cond_expand_word (cond->right->op, patmatch);
+       if (arg2 == 0)
+ 	arg2 = nullstr;
+ 
