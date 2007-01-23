@@ -1,7 +1,7 @@
 Version: 3.2
 Name: bash
 Summary: The GNU Bourne Again shell (bash) version %{version}.
-Release: 3%{?dist}
+Release: 4%{?dist}
 Group: System Environment/Shells
 License: GPL
 Url: http://www.gnu.org/software/bash
@@ -209,6 +209,9 @@ fi
 %doc doc/*.ps doc/*.0 doc/*.html doc/article.txt
 
 %changelog
+* Tue Jan 23 2007 Tim Waugh <twaugh@redhat.com> 3.2-4
+- Slightly better .bash_logout (bug #223960).
+
 * Fri Jan 19 2007 Tim Waugh <twaugh@redhat.com> 3.2-3
 - Back out rmatch change introduced in 3.2 (bug #220087).
 
