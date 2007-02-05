@@ -36,6 +36,7 @@ Patch126: bash-setlocale.patch
 Patch130: bash-infotags.patch
 Patch131: bash-cond-rmatch.patch
 Requires: mktemp
+Requires(post): ncurses
 BuildRoot: %{_tmppath}/%{name}-%{version}--%{release}-root-%(%{__id_u} -n)
 
 BuildRequires: texinfo bison
@@ -207,6 +208,7 @@ fi
 
 %changelog
 * Mon Feb  5 2007 Tim Waugh <twaugh@redhat.com>
+- Post requires ncurses (bug #224567).
 - Removed Prefix tag (bug #225609).
 - Fixed BuildRoot tag (bug #225609).
 - Removed trailing full-stop from summary (bug #225609).
