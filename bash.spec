@@ -37,6 +37,7 @@ Patch130: bash-infotags.patch
 Patch131: bash-cond-rmatch.patch
 Requires: mktemp
 Requires(post): ncurses
+PreReq: /sbin/install-info
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 BuildRequires: texinfo bison
@@ -196,11 +197,23 @@ fi
   echo "/bin/sh" >> /etc/shells
 fi) < /etc/shells
 
+if [ "$1" = 1 ]; then
+  [ -e %{_infodir}/bash.info.gz ] && /sbin/install-info --quiet --info-dir=%{_infodir} %{_infodir}/bash.info.gz || :
+fi
+
 %postun
 if [ "$1" = 0 ]; then
     /bin/grep -v '^/bin/bash$' < /etc/shells | \
       /bin/grep -v '^/bin/sh$' > /etc/shells.new
     /bin/mv /etc/shells.new /etc/shells
+fi
+
+%triggerin -- info
+[ -e %{_infodir}/bash.info.gz ] && /sbin/install-info --quiet --info-dir=%{_infodir} %{_infodir}/bash.info.gz || :
+
+%triggerun -- info
+if [ $2 -eq 0 ] ; then
+  [ -e %{_infodir}/bash.info.gz ] && /sbin/install-info --quiet --info-dir=%{_infodir} --delete %{_infodir}/bash.info.gz || :
 fi
 
 %files -f %{name}.lang
@@ -221,6 +234,7 @@ fi
 
 %changelog
 * Mon Feb  5 2007 Tim Waugh <twaugh@redhat.com>
+- Added triggers for install-info (bug #225609).
 - Use full path to utilities in scriptlets (bug #225609).
 - Fix missing sh-bangs in example scripts (bug #225609).
 - Post requires ncurses (bug #224567).
