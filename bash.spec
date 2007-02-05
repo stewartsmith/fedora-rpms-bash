@@ -1,6 +1,6 @@
 Version: 3.2
 Name: bash
-Summary: The GNU Bourne Again shell (bash) version %{version}.
+Summary: The GNU Bourne Again shell (bash) version %{version}
 Release: 4%{?dist}
 Group: System Environment/Shells
 License: GPL
@@ -35,11 +35,8 @@ Patch118: bash-tty-tests.patch
 Patch126: bash-setlocale.patch
 Patch130: bash-infotags.patch
 Patch131: bash-cond-rmatch.patch
-Prefix: %{_prefix}
 Requires: mktemp
-Obsoletes: bash2 etcskel
-Obsoletes: bash2-doc bash-doc
-BuildRoot: %{_tmppath}/%{name}-%{version}-root
+BuildRoot: %{_tmppath}/%{name}-%{version}--%{release}-root-%(%{__id_u} -n)
 
 BuildRequires: texinfo bison
 BuildRequires: ncurses-devel
@@ -89,14 +86,16 @@ echo %{release} > _patchlevel
 autoconf
 %configure --with-bash-malloc=no --with-afs
 make "CPPFLAGS=-D_GNU_SOURCE `getconf LFS_CFLAGS`"
+
+%check
 make check
 
 %install
 rm -rf $RPM_BUILD_ROOT
 
 if [ -e autoconf ]; then
-	# Yuck. We're using autoconf 2.1x.
-	export PATH=.:$PATH
+  # Yuck. We're using autoconf 2.1x.
+  export PATH=.:$PATH
 fi
 
 # Fix bug #83776
@@ -144,11 +143,9 @@ ln -sf bash ./bin/sh
 rm -f .%{_infodir}/dir
 popd
 mkdir -p $RPM_BUILD_ROOT/etc/skel
-install -c -m644 $RPM_SOURCE_DIR/dot-bashrc $RPM_BUILD_ROOT/etc/skel/.bashrc
-install -c -m644 $RPM_SOURCE_DIR/dot-bash_profile \
-	$RPM_BUILD_ROOT/etc/skel/.bash_profile
-install -c -m644 $RPM_SOURCE_DIR/dot-bash_logout \
-	$RPM_BUILD_ROOT/etc/skel/.bash_logout
+install -c -m644 %SOURCE3 $RPM_BUILD_ROOT/etc/skel/.bashrc
+install -c -m644 %SOURCE4 $RPM_BUILD_ROOT/etc/skel/.bash_profile
+install -c -m644 %SOURCE5 $RPM_BUILD_ROOT/etc/skel/.bash_logout
 LONG_BIT=$(getconf LONG_BIT)
 mv $RPM_BUILD_ROOT%{_bindir}/bashbug \
    $RPM_BUILD_ROOT%{_bindir}/bashbug-"${LONG_BIT}"
@@ -167,28 +164,28 @@ HASBASH=""
 HASSH=""
 
 if [ ! -f /etc/shells ]; then
-	> /etc/shells
+  > /etc/shells
 fi
 
 (while read line ; do
-	if [ $line = /bin/bash ]; then
-		HASBASH=1
-	elif [ $line = /bin/sh ]; then
-		HASSH=1
-	fi
+  if [ $line = /bin/bash ]; then
+    HASBASH=1
+  elif [ $line = /bin/sh ]; then
+    HASSH=1
+  fi
  done
 
  if [ -z "$HASBASH" ]; then
-	echo "/bin/bash" >> /etc/shells
+  echo "/bin/bash" >> /etc/shells
  fi
  if [ -z "$HASSH" ]; then
-	echo "/bin/sh" >> /etc/shells
+  echo "/bin/sh" >> /etc/shells
 fi) < /etc/shells
 
 %postun
 if [ "$1" = 0 ]; then
     grep -v '^/bin/bash$' < /etc/shells | \
-	grep -v '^/bin/sh$' > /etc/shells.new
+      grep -v '^/bin/sh$' > /etc/shells.new
     mv /etc/shells.new /etc/shells
 fi
 
@@ -209,6 +206,17 @@ fi
 %doc doc/*.ps doc/*.0 doc/*.html doc/article.txt
 
 %changelog
+* Mon Feb  5 2007 Tim Waugh <twaugh@redhat.com>
+- Removed Prefix tag (bug #225609).
+- Fixed BuildRoot tag (bug #225609).
+- Removed trailing full-stop from summary (bug #225609).
+- Spec file is now UTF-8 (bug #225609).
+- Removed obsolete Obsoletes (bug #225609).
+- Moved 'make check' to new 'check' section (bug #225609).
+- Removed uses of RPM_SOURCE_DIR (bug #225609).
+- Fixed macros in changelog (bug #225609).
+- Changed tabs to spaces (bug #225609).
+
 * Tue Jan 23 2007 Tim Waugh <twaugh@redhat.com> 3.2-4
 - Slightly better .bash_logout (bug #223960).
 
@@ -656,7 +664,7 @@ fi
 * Thu Apr  4 2002 Bernhard Rosenkraenzer <bero@redhat.com> 2.05a-11
 - Fix kill builtin (#62418)
 
-* Mon Mar 25 2002 Trond Eivind Glomsrød <teg@redhat.com> 2.0.5a-10
+* Mon Mar 25 2002 Trond Eivind GlomsrÃ¸d <teg@redhat.com> 2.0.5a-10
 - Get rid of completion subpackage
 - Use %%{_tmppath}
 
@@ -863,7 +871,7 @@ fi
 - use $RPM_ARCH-redhat-linux as the build target
 
 * Tue Oct  6 1998 Bill Nottingham <notting@redhat.com>
-- rewrite %pre, axe %postun (to avoid prereq loops)
+- rewrite %%pre, axe %%postun (to avoid prereq loops)
 
 * Wed Aug 19 1998 Jeff Johnson <jbj@redhat.com>
 - resurrect for RH 6.0.
@@ -891,7 +899,7 @@ fi
   problems with suspends and fg.
 
 * Mon Oct 20 1997 Donnie Barnes <djb@redhat.com>
-- added %clean
+- added %%clean
 
 * Mon Oct 20 1997 Erik Troan <ewt@redhat.com>
 - added comment explaining why install-info isn't used
