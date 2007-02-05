@@ -198,9 +198,9 @@ fi) < /etc/shells
 
 %postun
 if [ "$1" = 0 ]; then
-    grep -v '^/bin/bash$' < /etc/shells | \
-      grep -v '^/bin/sh$' > /etc/shells.new
-    mv /etc/shells.new /etc/shells
+    /bin/grep -v '^/bin/bash$' < /etc/shells | \
+      /bin/grep -v '^/bin/sh$' > /etc/shells.new
+    /bin/mv /etc/shells.new /etc/shells
 fi
 
 %files -f %{name}.lang
@@ -221,6 +221,7 @@ fi
 
 %changelog
 * Mon Feb  5 2007 Tim Waugh <twaugh@redhat.com>
+- Use full path to utilities in scriptlets (bug #225609).
 - Fix missing sh-bangs in example scripts (bug #225609).
 - Post requires ncurses (bug #224567).
 - Removed Prefix tag (bug #225609).
