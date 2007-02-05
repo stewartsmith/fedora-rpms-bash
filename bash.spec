@@ -1,7 +1,7 @@
 Version: 3.2
 Name: bash
 Summary: The GNU Bourne Again shell (bash) version %{version}
-Release: 4%{?dist}
+Release: 5%{?dist}
 Group: System Environment/Shells
 License: GPL
 Url: http://www.gnu.org/software/bash
@@ -233,7 +233,7 @@ fi
 %doc doc/*.ps doc/*.0 doc/*.html doc/article.txt
 
 %changelog
-* Mon Feb  5 2007 Tim Waugh <twaugh@redhat.com>
+* Mon Feb  5 2007 Tim Waugh <twaugh@redhat.com> 3.2-5
 - Added triggers for install-info (bug #225609).
 - Use full path to utilities in scriptlets (bug #225609).
 - Fix missing sh-bangs in example scripts (bug #225609).
