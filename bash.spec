@@ -37,7 +37,7 @@ Patch130: bash-infotags.patch
 Patch131: bash-cond-rmatch.patch
 Requires: mktemp
 Requires(post): ncurses
-BuildRoot: %{_tmppath}/%{name}-%{version}--%{release}-root-%(%{__id_u} -n)
+BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 BuildRequires: texinfo bison
 BuildRequires: ncurses-devel
@@ -151,6 +151,19 @@ LONG_BIT=$(getconf LONG_BIT)
 mv $RPM_BUILD_ROOT%{_bindir}/bashbug \
    $RPM_BUILD_ROOT%{_bindir}/bashbug-"${LONG_BIT}"
 
+# Fix missing sh-bangs in example scripts (bug #225609).
+for script in \
+  examples/scripts/krand.bash \
+  examples/scripts/bcsh.sh \
+  examples/scripts/precedence \
+  examples/scripts/shprompt
+do
+  cp "$script" "$script"-orig
+  echo '#!/bin/bash' > "$script"
+  cat "$script"-orig >> "$script"
+  rm -f "$script"-orig
+done
+
 %find_lang %{name}
 
 %clean
@@ -208,6 +221,7 @@ fi
 
 %changelog
 * Mon Feb  5 2007 Tim Waugh <twaugh@redhat.com>
+- Fix missing sh-bangs in example scripts (bug #225609).
 - Post requires ncurses (bug #224567).
 - Removed Prefix tag (bug #225609).
 - Fixed BuildRoot tag (bug #225609).
