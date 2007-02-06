@@ -1,7 +1,7 @@
 Version: 3.2
 Name: bash
 Summary: The GNU Bourne Again shell (bash) version %{version}
-Release: 6%{?dist}
+Release: 7%{?dist}
 Group: System Environment/Shells
 License: GPL
 Url: http://www.gnu.org/software/bash
@@ -36,7 +36,7 @@ Patch126: bash-setlocale.patch
 Patch130: bash-infotags.patch
 Patch131: bash-cond-rmatch.patch
 Requires: mktemp
-PreReq: /sbin/install-info
+Requires(post): ncurses
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 BuildRequires: texinfo bison
@@ -196,23 +196,11 @@ fi
   echo "/bin/sh" >> /etc/shells
 fi) < /etc/shells
 
-if [ "$1" = 1 ]; then
-  [ -e %{_infodir}/bash.info.gz ] && /sbin/install-info --quiet --info-dir=%{_infodir} %{_infodir}/bash.info.gz || :
-fi
-
 %postun
 if [ "$1" = 0 ]; then
     /bin/grep -v '^/bin/bash$' < /etc/shells | \
       /bin/grep -v '^/bin/sh$' > /etc/shells.new
     /bin/mv /etc/shells.new /etc/shells
-fi
-
-%triggerin -- info
-[ -e %{_infodir}/bash.info.gz ] && /sbin/install-info --quiet --info-dir=%{_infodir} %{_infodir}/bash.info.gz || :
-
-%triggerun -- info
-if [ $2 -eq 0 ] ; then
-  [ -e %{_infodir}/bash.info.gz ] && /sbin/install-info --quiet --info-dir=%{_infodir} --delete %{_infodir}/bash.info.gz || :
 fi
 
 %files -f %{name}.lang
@@ -232,6 +220,12 @@ fi
 %doc doc/*.ps doc/*.0 doc/*.html doc/article.txt
 
 %changelog
+* Tue Feb  6 2007 Tim Waugh <twaugh@redhat.com> 3.2-7
+- Reinstated this change:
+  - Post requires ncurses (bug #224567).
+- Reverted this change:
+  - Added triggers for install-info (bug #225609).
+
 * Tue Feb  6 2007 Tim Waugh <twaugh@redhat.com> 3.2-6
 - Reverted this change:
   - Post requires ncurses (bug #224567).
