@@ -1,7 +1,7 @@
 Version: 3.2
 Name: bash
 Summary: The GNU Bourne Again shell (bash) version %{version}
-Release: 5%{?dist}
+Release: 6%{?dist}
 Group: System Environment/Shells
 License: GPL
 Url: http://www.gnu.org/software/bash
@@ -36,7 +36,6 @@ Patch126: bash-setlocale.patch
 Patch130: bash-infotags.patch
 Patch131: bash-cond-rmatch.patch
 Requires: mktemp
-Requires(post): ncurses
 PreReq: /sbin/install-info
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
@@ -233,6 +232,10 @@ fi
 %doc doc/*.ps doc/*.0 doc/*.html doc/article.txt
 
 %changelog
+* Tue Feb  6 2007 Tim Waugh <twaugh@redhat.com> 3.2-6
+- Reverted this change:
+  - Post requires ncurses (bug #224567).
+
 * Mon Feb  5 2007 Tim Waugh <twaugh@redhat.com> 3.2-5
 - Added triggers for install-info (bug #225609).
 - Use full path to utilities in scriptlets (bug #225609).
