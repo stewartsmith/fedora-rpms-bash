@@ -1,7 +1,7 @@
 Version: 3.2
 Name: bash
 Summary: The GNU Bourne Again shell (bash) version %{version}
-Release: 7%{?dist}
+Release: 8%{?dist}
 Group: System Environment/Shells
 License: GPL
 Url: http://www.gnu.org/software/bash
@@ -102,7 +102,7 @@ fi
 # Fix bug #83776
 perl -pi -e 's,bashref\.info,bash.info,' doc/bashref.info
 
-%makeinstall
+make DESTDIR=$RPM_BUILD_ROOT install
 
 mkdir -p $RPM_BUILD_ROOT/etc
 
@@ -220,6 +220,9 @@ fi
 %doc doc/*.ps doc/*.0 doc/*.html doc/article.txt
 
 %changelog
+* Wed Feb  7 2007 Tim Waugh <twaugh@redhat.com> 3.2-8
+- Avoid %%makeinstall (bug #225609).
+
 * Tue Feb  6 2007 Tim Waugh <twaugh@redhat.com> 3.2-7
 - Reinstated this change:
   - Post requires ncurses (bug #224567).
