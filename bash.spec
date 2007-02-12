@@ -1,7 +1,7 @@
 Version: 3.2
 Name: bash
 Summary: The GNU Bourne Again shell (bash) version %{version}
-Release: 8%{?dist}
+Release: 9%{?dist}
 Group: System Environment/Shells
 License: GPL
 Url: http://www.gnu.org/software/bash
@@ -220,6 +220,9 @@ fi
 %doc doc/*.ps doc/*.0 doc/*.html doc/article.txt
 
 %changelog
+* Mon Feb 12 2007 Tim Waugh <twaugh@redhat.com> 3.2-9
+- Rebuild to link with libtinfo instead of libncurses.
+
 * Wed Feb  7 2007 Tim Waugh <twaugh@redhat.com> 3.2-8
 - Avoid %%makeinstall (bug #225609).
 
