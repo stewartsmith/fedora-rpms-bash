@@ -1,7 +1,7 @@
 Version: 3.2
 Name: bash
 Summary: The GNU Bourne Again shell (bash) version %{version}
-Release: 9%{?dist}
+Release: 10%{?dist}
 Group: System Environment/Shells
 License: GPL
 Url: http://www.gnu.org/software/bash
@@ -35,6 +35,7 @@ Patch118: bash-tty-tests.patch
 Patch126: bash-setlocale.patch
 Patch130: bash-infotags.patch
 Patch131: bash-cond-rmatch.patch
+Patch132: bash-ulimit-m.patch
 Requires: mktemp
 Requires(post): ncurses
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
@@ -79,6 +80,7 @@ compliance over previous versions.
 %patch126 -p1 -b .setlocale
 %patch130 -p1 -b .infotags
 %patch131 -p1 -b .cond-rmatch
+%patch132 -p1 -b .ulimit-m
 
 echo %{version} > _distribution
 echo %{release} > _patchlevel
@@ -220,6 +222,9 @@ fi
 %doc doc/*.ps doc/*.0 doc/*.html doc/article.txt
 
 %changelog
+* Wed Jul  4 2007 Tim Waugh <twaugh@redhat.com> 3.2-10
+- Clarification in the ulimit man page (bug #220657).
+
 * Mon Feb 12 2007 Tim Waugh <twaugh@redhat.com> 3.2-9
 - Rebuild to link with libtinfo instead of libncurses.
 
