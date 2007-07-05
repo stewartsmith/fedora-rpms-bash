@@ -1,7 +1,7 @@
 Version: 3.2
 Name: bash
 Summary: The GNU Bourne Again shell (bash) version %{version}
-Release: 10%{?dist}
+Release: 11%{?dist}
 Group: System Environment/Shells
 License: GPL
 Url: http://www.gnu.org/software/bash
@@ -20,6 +20,14 @@ Patch6: ftp://ftp.gnu.org/gnu/bash/bash-3.2-patches/bash32-006
 Patch7: ftp://ftp.gnu.org/gnu/bash/bash-3.2-patches/bash32-007
 Patch8: ftp://ftp.gnu.org/gnu/bash/bash-3.2-patches/bash32-008
 Patch9: ftp://ftp.gnu.org/gnu/bash/bash-3.2-patches/bash32-009
+Patch10: ftp://ftp.gnu.org/gnu/bash/bash-3.2-patches/bash32-010
+Patch11: ftp://ftp.gnu.org/gnu/bash/bash-3.2-patches/bash32-011
+Patch12: ftp://ftp.gnu.org/gnu/bash/bash-3.2-patches/bash32-012
+Patch13: ftp://ftp.gnu.org/gnu/bash/bash-3.2-patches/bash32-013
+Patch14: ftp://ftp.gnu.org/gnu/bash/bash-3.2-patches/bash32-014
+Patch15: ftp://ftp.gnu.org/gnu/bash/bash-3.2-patches/bash32-015
+Patch16: ftp://ftp.gnu.org/gnu/bash/bash-3.2-patches/bash32-016
+Patch17: ftp://ftp.gnu.org/gnu/bash/bash-3.2-patches/bash32-017
 # Other patches
 Patch100: bash-2.03-paths.patch
 Patch101: bash-2.02-security.patch
@@ -64,6 +72,14 @@ compliance over previous versions.
 %patch7 -p0 -b .007
 %patch8 -p0 -b .008
 %patch9 -p0 -b .009
+%patch10 -p0 -b .010
+%patch11 -p0 -b .011
+%patch12 -p0 -b .012
+%patch13 -p0 -b .013
+%patch14 -p0 -b .014
+%patch15 -p0 -b .015
+%patch16 -p0 -b .016
+%patch17 -p0 -b .017
 
 # Other patches
 %patch100 -p1 -b .paths
@@ -222,6 +238,9 @@ fi
 %doc doc/*.ps doc/*.0 doc/*.html doc/article.txt
 
 %changelog
+* Thu Jul  5 2007 Tim Waugh <twaugh@redhat.com> 3.2-11
+- Patchlevel 17 (bug #241647).
+
 * Wed Jul  4 2007 Tim Waugh <twaugh@redhat.com> 3.2-10
 - Clarification in the ulimit man page (bug #220657).
 
