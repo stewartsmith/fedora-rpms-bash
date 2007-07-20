@@ -1,7 +1,7 @@
 Version: 3.2
 Name: bash
 Summary: The GNU Bourne Again shell (bash) version %{version}
-Release: 11%{?dist}
+Release: 12%{?dist}
 Group: System Environment/Shells
 License: GPL
 Url: http://www.gnu.org/software/bash
@@ -200,9 +200,9 @@ if [ ! -f /etc/shells ]; then
 fi
 
 (while read line ; do
-  if [ $line = /bin/bash ]; then
+  if [ "$line" = "/bin/bash" ]; then
     HASBASH=1
-  elif [ $line = /bin/sh ]; then
+  elif [ "$line" = "/bin/sh" ]; then
     HASSH=1
   fi
  done
@@ -238,6 +238,10 @@ fi
 %doc doc/*.ps doc/*.0 doc/*.html doc/article.txt
 
 %changelog
+* Fri Jul 20 2007 Tim Waugh <twaugh@redhat.com> 3.2-12
+- Quote environment variables in the post scriptlet to prevent upgrade
+  failures (bug #249005).
+
 * Thu Jul  5 2007 Tim Waugh <twaugh@redhat.com> 3.2-11
 - Patchlevel 17 (bug #241647).
 
