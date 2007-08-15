@@ -44,7 +44,7 @@ Patch126: bash-setlocale.patch
 Patch130: bash-infotags.patch
 Patch131: bash-cond-rmatch.patch
 Patch132: bash-ulimit-m.patch
-Patch131: bash-3.2-rng.patch
+Patch133: bash-3.2-rng.patch
 Requires: mktemp
 Requires(post): ncurses
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
@@ -98,7 +98,7 @@ compliance over previous versions.
 %patch130 -p1 -b .infotags
 %patch131 -p1 -b .cond-rmatch
 %patch132 -p1 -b .ulimit-m
-%patch131 -p1 -b .rng.patch
+%patch133 -p1 -b .rng.patch
 
 echo %{version} > _distribution
 echo %{release} > _patchlevel
