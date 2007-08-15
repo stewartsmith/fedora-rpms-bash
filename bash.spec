@@ -1,7 +1,7 @@
 Version: 3.2
 Name: bash
 Summary: The GNU Bourne Again shell (bash) version %{version}
-Release: 12%{?dist}
+Release: 13%{?dist}
 Group: System Environment/Shells
 License: GPL
 Url: http://www.gnu.org/software/bash
@@ -44,6 +44,7 @@ Patch126: bash-setlocale.patch
 Patch130: bash-infotags.patch
 Patch131: bash-cond-rmatch.patch
 Patch132: bash-ulimit-m.patch
+Patch131: bash-3.2-rng.patch
 Requires: mktemp
 Requires(post): ncurses
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
@@ -97,6 +98,7 @@ compliance over previous versions.
 %patch130 -p1 -b .infotags
 %patch131 -p1 -b .cond-rmatch
 %patch132 -p1 -b .ulimit-m
+%patch131 -p1 -b .rng.patch
 
 echo %{version} > _distribution
 echo %{release} > _patchlevel
@@ -238,6 +240,9 @@ fi
 %doc doc/*.ps doc/*.0 doc/*.html doc/article.txt
 
 %changelog
+* Wed Aug 15 2007 Pete Graner <pgraner@redhat.com> - 3.2-13
+- Improve bash $RANDOM pseudo RNG (bug #234906)
+
 * Fri Jul 20 2007 Tim Waugh <twaugh@redhat.com> 3.2-12
 - Quote environment variables in the post scriptlet to prevent upgrade
   failures (bug #249005).

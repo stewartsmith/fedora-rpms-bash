@@ -1,0 +1,169 @@
+--- bash-3.2/configure.in.rng	2007-04-05 11:07:40.000000000 +0200
++++ bash-3.2/configure.in	2007-04-05 11:07:41.000000000 +0200
+@@ -111,6 +111,7 @@
+ AC_ARG_WITH(installed-readline, AC_HELP_STRING([--with-installed-readline], [use a version of the readline library that is already installed]), opt_with_installed_readline=$withval)
+ AC_ARG_WITH(purecov, AC_HELP_STRING([--with-purecov], [configure to postprocess with pure coverage]), opt_purecov=$withval)
+ AC_ARG_WITH(purify, AC_HELP_STRING([--with-purify], [configure to postprocess with purify]), opt_purify=$withval)
++AC_ARG_WITH(random, AC_HELP_STRING([--with-randomdev=path], [use specified random device instead of /dev/urandom]), opt_randomdev=$withval)
+ 
+ if test "$opt_bash_malloc" = yes; then
+ 	MALLOC_TARGET=malloc
+@@ -152,6 +153,15 @@
+ 	DEBUGGER_START_FILE=${ac_default_prefix}/share/bashdb/bashdb-main.inc
+ fi
+ 
++if test "$opt_randomdev" = yes -o -z "$opt_randomdev"; then
++	opt_randomdev="/dev/urandom"
++elif test "$opt_randomdev" = no; then
++	opt_randomdev=
++fi
++if test -n "$opt_randomdev"; then
++	AC_DEFINE_UNQUOTED(PATH_RANDOMDEV, "$opt_randomdev", [Random device path.])
++fi
++
+ dnl optional shell features in config.h.in
+ opt_minimal_config=no
+ 
+@@ -708,6 +718,8 @@
+ 		setenv setlinebuf setlocale setvbuf siginterrupt strchr \
+ 		sysconf tcgetattr times ttyname tzset unsetenv)
+ 
++AC_CHECK_FUNCS(random srandom)
++
+ AC_CHECK_FUNCS(vsnprintf snprintf vasprintf asprintf)
+ AC_CHECK_FUNCS(isascii isblank isgraph isprint isspace isxdigit)
+ AC_CHECK_FUNCS(getpwent getpwnam getpwuid)
+--- bash-3.2/config.h.in.rng	2007-04-05 11:07:40.000000000 +0200
++++ bash-3.2/config.h.in	2007-04-05 11:07:41.000000000 +0200
+@@ -203,6 +203,8 @@
+ 
+ #define DEFAULT_MAIL_DIRECTORY "/var/spool/mail"
+ 
++#undef PATH_RANDOMDEV
++
+ /* Characteristics of the system's header files and libraries that affect
+    the compilation environment. */
+ 
+@@ -815,6 +817,10 @@
+ /* Define if you have the wcwidth function.  */
+ #undef HAVE_WCWIDTH
+ 
++#undef HAVE_RANDOM
++
++#undef HAVE_SRANDOM
++
+ /* Presence of certain system include files. */
+ 
+ /* Define if you have the <arpa/inet.h> header file. */
+--- bash-3.2/variables.c.rng	2006-09-08 19:33:32.000000000 +0200
++++ bash-3.2/variables.c	2007-04-05 11:53:03.000000000 +0200
+@@ -42,6 +42,11 @@
+ #include "bashansi.h"
+ #include "bashintl.h"
+ 
++#if defined (PATH_RANDOMDEV)
++#  include <errno.h>
++#  include "filecntl.h"
++#endif
++
+ #include "shell.h"
+ #include "flags.h"
+ #include "execute_cmd.h"
+@@ -182,7 +187,8 @@
+ static SHELL_VAR *init_seconds_var __P((void));
+ 
+ static int brand __P((void));
+-static void sbrand __P((unsigned long));		/* set bash random number generator. */
++static void sbrand __P((unsigned int));		/* set bash random number generator. */
++static void seed_random __P((void));                    /* seed the generator randomly */
+ static SHELL_VAR *assign_random __P((SHELL_VAR *, char *, arrayind_t));
+ static SHELL_VAR *get_random __P((SHELL_VAR *));
+ 
+@@ -495,7 +501,7 @@
+ #endif /* HISTORY */
+ 
+   /* Seed the random number generator. */
+-  sbrand (dollar_dollar_pid + shell_start_time);
++  seed_random();
+ 
+   /* Handle some "special" variables that we may have inherited from a
+      parent shell. */
+@@ -1143,7 +1149,9 @@
+ }
+      
+ /* The random number seed.  You can change this by setting RANDOM. */
++#if !defined (HAVE_RANDOM)
+ static unsigned long rseed = 1;
++#endif
+ static int last_random_value;
+ static int seeded_subshell = 0;
+ 
+@@ -1155,26 +1163,56 @@
+ static int
+ brand ()
+ {
++#if defined (HAVE_RANDOM)
++  unsigned int rseed;
++  rseed = random();
++#else
+   rseed = rseed * 1103515245 + 12345;
++#endif
+   return ((unsigned int)((rseed >> 16) & 32767));	/* was % 32768 */
+ }
+-
+ /* Set the random number generator seed to SEED. */
+ static void
+ sbrand (seed)
+-     unsigned long seed;
++     unsigned int seed;
+ {
++#if defined (HAVE_RANDOM)
++  srandom((unsigned int)seed);
++#else
+   rseed = seed;
++#endif
+   last_random_value = 0;
+ }
+ 
++static void
++seed_random ()
++{
++  unsigned int seed;
++#if defined (PATH_RANDOMDEV)
++  int fd;
++  int rv;
++  if ((rv = fd = open (PATH_RANDOMDEV, O_RDONLY)) != -1) { 
++    while ((rv = read(fd, &seed, sizeof(seed))) != sizeof(seed) && errno == EINTR);
++    close (fd);
++  }
++  if (rv != sizeof(seed)) {
++#endif
++    struct timeval tv;
++    gettimeofday(&tv, NULL);
++    seed = (unsigned int)tv.tv_sec + (unsigned int)tv.tv_usec + getpid();
++#if defined (PATH_RANDOMDEV)
++  }
++#endif
++  sbrand (seed);
++}
++
+ static SHELL_VAR *
+ assign_random (self, value, unused)
+      SHELL_VAR *self;
+      char *value;
+      arrayind_t unused;
+ {
+-  sbrand (strtoul (value, (char **)NULL, 10));
++  sbrand ((unsigned int)strtoul (value, (char **)NULL, 10));
+   if (subshell_environment)
+     seeded_subshell = 1;
+   return (self);
+@@ -1188,7 +1226,7 @@
+   /* Reset for command and process substitution. */
+   if (subshell_environment && seeded_subshell == 0)
+     {
+-      sbrand (rseed + getpid() + NOW);
++      seed_random ();
+       seeded_subshell = 1;
+     }
+ 
