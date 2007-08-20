@@ -1,7 +1,7 @@
 Version: 3.2
 Name: bash
 Summary: The GNU Bourne Again shell (bash) version %{version}
-Release: 14%{?dist}
+Release: 15%{?dist}
 Group: System Environment/Shells
 License: GPLv2+
 Url: http://www.gnu.org/software/bash
@@ -240,12 +240,12 @@ fi
 %doc doc/*.ps doc/*.0 doc/*.html doc/article.txt
 
 %changelog
-* Mon Aug 20 2007 Pete Graner <pgraner@redhat.com> - 3.2-14
+* Mon Aug 20 2007 Pete Graner <pgraner@redhat.com> - 3.2-15
 - Update to the Improve bash $RANDOM pseudo RNG (bug #234906) 
   now works with subshells and make $RANDOM on demand thus reducing the 
   amount of AVCs thrown.
 
-* Thu Aug 16 2007 Pete Graner <pgraner@redhat.com> - 3.2-14
+* Thu Aug 16 2007 Pete Graner <pgraner@redhat.com> - 3.2-15
 - Changed spec file License to GPLv2+
 
 * Wed Aug 15 2007 Pete Graner <pgraner@redhat.com> - 3.2-13
