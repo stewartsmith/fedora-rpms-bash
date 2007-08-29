@@ -1,7 +1,7 @@
 Version: 3.2
 Name: bash
 Summary: The GNU Bourne Again shell (bash) version %{version}
-Release: 16%{?dist}
+Release: 17%{?dist}
 Group: System Environment/Shells
 License: GPLv2+
 Url: http://www.gnu.org/software/bash
@@ -28,6 +28,9 @@ Patch14: ftp://ftp.gnu.org/gnu/bash/bash-3.2-patches/bash32-014
 Patch15: ftp://ftp.gnu.org/gnu/bash/bash-3.2-patches/bash32-015
 Patch16: ftp://ftp.gnu.org/gnu/bash/bash-3.2-patches/bash32-016
 Patch17: ftp://ftp.gnu.org/gnu/bash/bash-3.2-patches/bash32-017
+Patch18: ftp://ftp.gnu.org/gnu/bash/bash-3.2-patches/bash32-018
+Patch19: ftp://ftp.gnu.org/gnu/bash/bash-3.2-patches/bash32-019
+Patch20: ftp://ftp.gnu.org/gnu/bash/bash-3.2-patches/bash32-020
 # Other patches
 Patch100: bash-2.03-paths.patch
 Patch101: bash-2.02-security.patch
@@ -81,6 +84,9 @@ compliance over previous versions.
 %patch15 -p0 -b .015
 %patch16 -p0 -b .016
 %patch17 -p0 -b .017
+%patch18 -p0 -b .018
+%patch19 -p0 -b .019
+%patch20 -p0 -b .020
 
 # Other patches
 %patch100 -p1 -b .paths
@@ -240,6 +246,11 @@ fi
 %doc doc/*.ps doc/*.0 doc/*.html doc/article.txt
 
 %changelog
+* Wed Aug 29 2007 Pete Graner <pgraner@redhat.com> - 3.2-17
+- Added bash32-018 upstream official patch
+- Added bash32-020 upstream official patch
+- Added bash32-019 upstream official patch
+
 * Thu Aug 23 2007 Pete Graner <pgraner@redhat.com> - 3.2-16
 - Rebuild
 
