@@ -1,7 +1,7 @@
 Version: 3.2
 Name: bash
 Summary: The GNU Bourne Again shell (bash) version %{version}
-Release: 17%{?dist}
+Release: 18%{?dist}
 Group: System Environment/Shells
 License: GPLv2+
 Url: http://www.gnu.org/software/bash
@@ -31,6 +31,11 @@ Patch17: ftp://ftp.gnu.org/gnu/bash/bash-3.2-patches/bash32-017
 Patch18: ftp://ftp.gnu.org/gnu/bash/bash-3.2-patches/bash32-018
 Patch19: ftp://ftp.gnu.org/gnu/bash/bash-3.2-patches/bash32-019
 Patch20: ftp://ftp.gnu.org/gnu/bash/bash-3.2-patches/bash32-020
+Patch21: ftp://ftp.gnu.org/gnu/bash/bash-3.2-patches/bash32-021
+Patch22: ftp://ftp.gnu.org/gnu/bash/bash-3.2-patches/bash32-022
+Patch23: ftp://ftp.gnu.org/gnu/bash/bash-3.2-patches/bash32-023
+Patch24: ftp://ftp.gnu.org/gnu/bash/bash-3.2-patches/bash32-024
+Patch25: ftp://ftp.gnu.org/gnu/bash/bash-3.2-patches/bash32-025
 # Other patches
 Patch100: bash-2.03-paths.patch
 Patch101: bash-2.02-security.patch
@@ -87,6 +92,11 @@ compliance over previous versions.
 %patch18 -p0 -b .018
 %patch19 -p0 -b .019
 %patch20 -p0 -b .020
+%patch21 -p0 -b .021
+%patch22 -p0 -b .022
+%patch23 -p0 -b .023
+%patch24 -p0 -b .024
+%patch25 -p0 -b .025
 
 # Other patches
 %patch100 -p1 -b .paths
@@ -246,6 +256,13 @@ fi
 %doc doc/*.ps doc/*.0 doc/*.html doc/article.txt
 
 %changelog
+* Fri Aug 31 2007 Pete Graner <pgraner@redhat.com> - 3.2-18
+- Added bash32-021 upstream official patch
+- Added bash32-025 upstream official patch
+- Added bash32-024 upstream official patch
+- Added bash32-023 upstream official patch
+- Added bash32-022 upstream official patch
+
 * Wed Aug 29 2007 Pete Graner <pgraner@redhat.com> - 3.2-17
 - Added bash32-018 upstream official patch
 - Added bash32-020 upstream official patch
