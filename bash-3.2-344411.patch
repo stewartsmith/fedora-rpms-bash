@@ -1,0 +1,46 @@
+344411: $RANDOM stays the same when job executed in the background
+
+In bash 3.0, random was seeded whenever subshell_environment != 0.
+
+In bash 3.2, random was seeded whenever subshell_environment != 0 &&
+seeded_subshell == 0. And when it was seeded, seeded_subshell was set to 1.
+
+Therefore, in 3.2, if you seeded random in a subshell and in this subshell
+invoked another one, it wasn't reseeded as it should have been. A testcase for
+that is this:
+    ( echo $RANDOM; ( echo $RANDOM ); ( echo $RANDOM ) )
+
+Tomas's patch (bash-3.2-rng.patch) changed the code to use subshell_level.
+subshell_level is not increased for simple async commands, however. So,
+although he fixed the previous case, he introduced another. Here's a testcase:
+    echo $RANDOM; echo $RANDOM & echo $RANDOM &
+
+I decided to just compare the pids, that should be safe enough.
+
+Written-by: Tomas Janousek <tjanouse@redhat.com>
+Reviewed-by: Tomas Mraz <tmraz@redhat.com>
+
+--- bash-3.2/variables.c.344411	2007-11-06 19:26:42.000000000 +0100
++++ bash-3.2/variables.c	2007-11-06 20:27:25.000000000 +0100
+@@ -1211,7 +1211,7 @@
+      arrayind_t unused;
+ {
+   sbrand ((unsigned int)strtoul (value, (char **)NULL, 10));
+-  seeded_subshell = subshell_level;
++  seeded_subshell = getpid();
+   return (self);
+ }
+ 
+@@ -1221,10 +1221,10 @@
+   int rv;
+ 
+   /* Reset for command and process substitution. */
+-  if (seeded_subshell < subshell_level)
++  if (seeded_subshell != getpid())
+     {
+       seed_random ();
+-      seeded_subshell = subshell_level;
++      seeded_subshell = getpid();
+     }
+ 
+   do

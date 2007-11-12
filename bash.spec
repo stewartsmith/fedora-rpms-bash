@@ -1,7 +1,7 @@
 Version: 3.2
 Name: bash
 Summary: The GNU Bourne Again shell (bash) version %{version}
-Release: 18%{?dist}
+Release: 19%{?dist}
 Group: System Environment/Shells
 License: GPLv2+
 Url: http://www.gnu.org/software/bash
@@ -53,6 +53,9 @@ Patch130: bash-infotags.patch
 Patch131: bash-cond-rmatch.patch
 Patch132: bash-ulimit-m.patch
 Patch133: bash-3.2-rng.patch
+Patch134: readline-5.2-inv.patch
+Patch135: bash-3.2-286861.patch
+Patch136: bash-3.2-344411.patch
 Requires: mktemp
 Requires(post): ncurses
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
@@ -115,6 +118,9 @@ compliance over previous versions.
 %patch131 -p1 -b .cond-rmatch
 %patch132 -p1 -b .ulimit-m
 %patch133 -p1 -b .rng.patch
+%patch134 -p1 -b .readline-inv
+%patch135 -p1 -b .286861
+%patch136 -p1 -b .344411
 
 echo %{version} > _distribution
 echo %{release} > _patchlevel
@@ -245,7 +251,7 @@ fi
 %doc doc/FAQ doc/INTRO doc/article.ms
 %doc -P examples/bashdb/ examples/functions/ examples/misc/
 %doc -P examples/scripts.noah/ examples/scripts.v2/ examples/scripts/
-%doc -P examples/startup-files/ examples/complete/ examples/loadables/
+%doc -P examples/startup-files/ examples/complete/
 %config(noreplace) /etc/skel/.b*
 /bin/sh
 /bin/bash
@@ -256,6 +262,13 @@ fi
 %doc doc/*.ps doc/*.0 doc/*.html doc/article.txt
 
 %changelog
+* Tue Nov 06 2007 Tomas Janousek <tjanouse@redhat.com> - 3.2-19
+- fix cursor position when prompt has one invisible character (#358231)
+- dropped examples/loadables/ from docs, since it wasn't possible to build them
+  anyway (#174380)
+- fix #286861: Wrong input confuses bash's arithmetic unit permanently
+- fix #344411: $RANDOM stays the same when job executed in the background
+
 * Fri Aug 31 2007 Pete Graner <pgraner@redhat.com> - 3.2-18
 - Added bash32-021 upstream official patch
 - Added bash32-025 upstream official patch
