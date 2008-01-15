@@ -1,7 +1,7 @@
 Version: 3.2
 Name: bash
 Summary: The GNU Bourne Again shell (bash) version %{version}
-Release: 19%{?dist}
+Release: 20%{?dist}
 Group: System Environment/Shells
 License: GPLv2+
 Url: http://www.gnu.org/software/bash
@@ -36,6 +36,14 @@ Patch22: ftp://ftp.gnu.org/gnu/bash/bash-3.2-patches/bash32-022
 Patch23: ftp://ftp.gnu.org/gnu/bash/bash-3.2-patches/bash32-023
 Patch24: ftp://ftp.gnu.org/gnu/bash/bash-3.2-patches/bash32-024
 Patch25: ftp://ftp.gnu.org/gnu/bash/bash-3.2-patches/bash32-025
+Patch26: ftp://ftp.gnu.org/gnu/bash/bash-3.2-patches/bash32-026
+Patch27: ftp://ftp.gnu.org/gnu/bash/bash-3.2-patches/bash32-027
+Patch28: ftp://ftp.gnu.org/gnu/bash/bash-3.2-patches/bash32-028
+Patch29: ftp://ftp.gnu.org/gnu/bash/bash-3.2-patches/bash32-029
+Patch30: ftp://ftp.gnu.org/gnu/bash/bash-3.2-patches/bash32-030
+Patch31: ftp://ftp.gnu.org/gnu/bash/bash-3.2-patches/bash32-031
+Patch32: ftp://ftp.gnu.org/gnu/bash/bash-3.2-patches/bash32-032
+Patch33: ftp://ftp.gnu.org/gnu/bash/bash-3.2-patches/bash32-033
 # Other patches
 Patch100: bash-2.03-paths.patch
 Patch101: bash-2.02-security.patch
@@ -53,9 +61,8 @@ Patch130: bash-infotags.patch
 Patch131: bash-cond-rmatch.patch
 Patch132: bash-ulimit-m.patch
 Patch133: bash-3.2-rng.patch
-Patch134: readline-5.2-inv.patch
-Patch135: bash-3.2-286861.patch
 Patch136: bash-3.2-344411.patch
+Patch137: bash-3.2-190350.patch
 Requires: mktemp
 Requires(post): ncurses
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
@@ -100,6 +107,14 @@ compliance over previous versions.
 %patch23 -p0 -b .023
 %patch24 -p0 -b .024
 %patch25 -p0 -b .025
+%patch26 -p0 -b .026
+%patch27 -p0 -b .027
+%patch28 -p0 -b .028
+%patch29 -p0 -b .029
+%patch30 -p0 -b .030
+%patch31 -p0 -b .031
+%patch32 -p0 -b .032
+%patch33 -p0 -b .033
 
 # Other patches
 %patch100 -p1 -b .paths
@@ -118,9 +133,8 @@ compliance over previous versions.
 %patch131 -p1 -b .cond-rmatch
 %patch132 -p1 -b .ulimit-m
 %patch133 -p1 -b .rng.patch
-%patch134 -p1 -b .readline-inv
-%patch135 -p1 -b .286861
 %patch136 -p1 -b .344411
+%patch137 -p1 -b .190350
 
 echo %{version} > _distribution
 echo %{release} > _patchlevel
@@ -262,6 +276,17 @@ fi
 %doc doc/*.ps doc/*.0 doc/*.html doc/article.txt
 
 %changelog
+* Mon Jan 14 2008 Tomas Janousek <tjanouse@redhat.com> - 3.2-20
+- Added bash32-026 upstream official patch
+- Added bash32-027 upstream official patch (#249987)
+- Added bash32-028 upstream official patch
+- Added bash32-029 upstream official patch (#286861)
+- Added bash32-030 upstream official patch
+- Added bash32-031 upstream official patch (#358231)
+- Added bash32-032 upstream official patch
+- Added bash32-033 upstream official patch
+- Fix insert command repeating in vi mode (#190350)
+
 * Tue Nov 06 2007 Tomas Janousek <tjanouse@redhat.com> - 3.2-19
 - fix cursor position when prompt has one invisible character (#358231)
 - dropped examples/loadables/ from docs, since it wasn't possible to build them
