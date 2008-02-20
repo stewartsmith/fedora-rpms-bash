@@ -1,7 +1,7 @@
 Version: 3.2
 Name: bash
 Summary: The GNU Bourne Again shell (bash) version %{version}
-Release: 20%{?dist}
+Release: 21%{?dist}
 Group: System Environment/Shells
 License: GPLv2+
 Url: http://www.gnu.org/software/bash
@@ -276,6 +276,9 @@ fi
 %doc doc/*.ps doc/*.0 doc/*.html doc/article.txt
 
 %changelog
+* Wed Feb 20 2008 Fedora Release Engineering <rel-eng@fedoraproject.org> - 3.2-21
+- Autorebuild for GCC 4.3
+
 * Mon Jan 14 2008 Tomas Janousek <tjanouse@redhat.com> - 3.2-20
 - Added bash32-026 upstream official patch
 - Added bash32-027 upstream official patch (#249987)
