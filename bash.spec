@@ -1,7 +1,7 @@
 Version: 3.2
 Name: bash
 Summary: The GNU Bourne Again shell (bash) version %{version}
-Release: 21%{?dist}
+Release: 22%{?dist}
 Group: System Environment/Shells
 License: GPLv2+
 Url: http://www.gnu.org/software/bash
@@ -276,6 +276,9 @@ fi
 %doc doc/*.ps doc/*.0 doc/*.html doc/article.txt
 
 %changelog
+* Fri Feb 29 2008 Tomas Janousek <tjanouse@redhat.com> - 3.2-22
+- drop /usr/bin/clear from /etc/skel/.bash_logout as suggested by #429406
+
 * Wed Feb 20 2008 Fedora Release Engineering <rel-eng@fedoraproject.org> - 3.2-21
 - Autorebuild for GCC 4.3
 
