@@ -11,7 +11,7 @@ that becomes the command-to-repeat and no further insertions may be repeated.
 This patch fixes it and tries to fix redoing the 'I' command as well.
 I'm not sure about 'c', though.
 
-Signed-off-by: Tomas Janousek <tomi@nomi.cz>
+Signed-off-by: Tomas Janousek <tjanouse@redhat.com>
 ---
  lib/readline/misc.c      |    2 +-
  lib/readline/readline.c  |    2 +-
