@@ -1,0 +1,26 @@
+diff -up bash-3.2/shell.c.comp_wordbreaks bash-3.2/shell.c
+--- bash-3.2/shell.c.comp_wordbreaks	2008-05-22 13:11:54.000000000 +0200
++++ bash-3.2/shell.c	2008-05-22 13:29:04.000000000 +0200
+@@ -71,6 +71,10 @@
+ #  include <readline/history.h>
+ #endif
+ 
++#if defined (READLINE)
++#include "bashline.h"
++#endif
++
+ #include <tilde/tilde.h>
+ #include <glob/strmatch.h>
+ 
+@@ -1729,6 +1733,11 @@ shell_reinitialize ()
+   delete_all_contexts (shell_variables);
+   delete_all_variables (shell_functions);
+ 
++#if defined (READLINE)
++  sv_comp_wordbreaks ("COMP_WORDBREAKS");
++  bash_readline_initialized = 0;
++#endif /* READLINE */
++
+   shell_reinitialized = 1;
+ }
+ 
