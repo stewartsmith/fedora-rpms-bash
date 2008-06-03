@@ -1,7 +1,7 @@
 Version: 3.2
 Name: bash
 Summary: The GNU Bourne Again shell (bash) version %{version}
-Release: 24%{?dist}
+Release: 25%{?dist}
 Group: System Environment/Shells
 License: GPLv2+
 Url: http://www.gnu.org/software/bash
@@ -144,8 +144,8 @@ echo %{release} > _patchlevel
 %build
 autoconf
 %configure --with-bash-malloc=no --with-afs
-#make "CPPFLAGS=-D_GNU_SOURCE `getconf LFS_CFLAGS`"
-make "CPPFLAGS=-DUSE_POSIX_GLOB_LIBRARY -D_GNU_SOURCE `getconf LFS_CFLAGS`"
+make "CPPFLAGS=-D_GNU_SOURCE `getconf LFS_CFLAGS`"
+#make "CPPFLAGS=-DUSE_POSIX_GLOB_LIBRARY -D_GNU_SOURCE `getconf LFS_CFLAGS`"
 %check
 make check
 
@@ -278,10 +278,13 @@ fi
 %doc doc/*.ps doc/*.0 doc/*.html doc/article.txt
 
 %changelog
-* Wed May 28 2008 Roman Rakus <rrakus@redhat.cz> - 3.2-24
+* Tue Jun  3 2008 Roman Rakus <rrakus@redhat.com> - 3.2-25
+- #449512 - reverting back last change - don't use glob library
+
+* Wed May 28 2008 Roman Rakus <rrakus@redhat.com> - 3.2-24
 - #217359 - use posix glob library
 
-* Thu May 22 2008 Roman Rakus <rrakus@redhat.cz> - 3.2-23
+* Thu May 22 2008 Roman Rakus <rrakus@redhat.com> - 3.2-23
 - #446420 - COMP_WORDBREAKS settings now works
 
 * Fri Feb 29 2008 Tomas Janousek <tjanouse@redhat.com> - 3.2-22
