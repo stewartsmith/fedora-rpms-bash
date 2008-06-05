@@ -1,11 +1,15 @@
---- bash-3.2/execute_cmd.c.cond-rmatch	2007-07-05 10:07:27.000000000 +0100
-+++ bash-3.2/execute_cmd.c	2007-07-05 10:09:02.000000000 +0100
-@@ -2560,7 +2560,7 @@
+diff -up bash-3.2/execute_cmd.c.cond-rmatch bash-3.2/execute_cmd.c
+--- bash-3.2/execute_cmd.c.cond-rmatch	2008-06-05 17:21:20.000000000 +0200
++++ bash-3.2/execute_cmd.c	2008-06-05 17:23:54.000000000 +0200
+@@ -2560,8 +2560,9 @@ execute_cond_node (cond)
        arg1 = cond_expand_word (cond->left->op, 0);
        if (arg1 == 0)
  	arg1 = nullstr;
--      arg2 = cond_expand_word (cond->right->op, rmatch ? 2 : (patmatch ? 1 : 0));
+-      arg2 = cond_expand_word (cond->right->op,
+-			       (rmatch && shell_compatibility_level > 31) ? 2 : (patmatch ? 1 : 0));
++
 +      arg2 = cond_expand_word (cond->right->op, patmatch ? 1 : 0);
++
        if (arg2 == 0)
  	arg2 = nullstr;
  

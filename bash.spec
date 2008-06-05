@@ -1,7 +1,7 @@
 Version: 3.2
 Name: bash
 Summary: The GNU Bourne Again shell (bash) version %{version}
-Release: 25%{?dist}
+Release: 26%{?dist}
 Group: System Environment/Shells
 License: GPLv2+
 Url: http://www.gnu.org/software/bash
@@ -44,6 +44,13 @@ Patch30: ftp://ftp.gnu.org/gnu/bash/bash-3.2-patches/bash32-030
 Patch31: ftp://ftp.gnu.org/gnu/bash/bash-3.2-patches/bash32-031
 Patch32: ftp://ftp.gnu.org/gnu/bash/bash-3.2-patches/bash32-032
 Patch33: ftp://ftp.gnu.org/gnu/bash/bash-3.2-patches/bash32-033
+Patch34: ftp://ftp.gnu.org/gnu/bash/bash-3.2-patches/bash32-034
+Patch35: ftp://ftp.gnu.org/gnu/bash/bash-3.2-patches/bash32-035
+Patch36: ftp://ftp.gnu.org/gnu/bash/bash-3.2-patches/bash32-036
+Patch37: ftp://ftp.gnu.org/gnu/bash/bash-3.2-patches/bash32-037
+Patch38: ftp://ftp.gnu.org/gnu/bash/bash-3.2-patches/bash32-038
+Patch39: ftp://ftp.gnu.org/gnu/bash/bash-3.2-patches/bash32-039
+
 # Other patches
 Patch100: bash-2.03-paths.patch
 Patch101: bash-2.02-security.patch
@@ -116,6 +123,12 @@ compliance over previous versions.
 %patch31 -p0 -b .031
 %patch32 -p0 -b .032
 %patch33 -p0 -b .033
+%patch34 -p0 -b .034
+%patch35 -p0 -b .035
+%patch36 -p0 -b .036
+%patch37 -p0 -b .037
+%patch38 -p0 -b .038
+%patch39 -p0 -b .039
 
 # Other patches
 %patch100 -p1 -b .paths
@@ -278,6 +291,9 @@ fi
 %doc doc/*.ps doc/*.0 doc/*.html doc/article.txt
 
 %changelog
+* Thu Jun  5 2008 Roman Rakus <rrakus@redhat.com> - 3.2-26
+- Patchlevel 39
+
 * Tue Jun  3 2008 Roman Rakus <rrakus@redhat.com> - 3.2-25
 - #449512 - reverting back last change - don't use glob library
 
