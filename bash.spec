@@ -73,6 +73,7 @@ Patch137: bash-3.2-190350.patch
 Patch138: bash-3.2-comp_wordbreaks.patch
 Patch139: bash-3.2-manpage.patch
 Patch140: bash-3.2-man-page-suspend.patch
+Patch141: bash-3.2-patch035.patch
 
 Requires: mktemp
 Requires(post): ncurses
@@ -91,7 +92,11 @@ package (bash) contains bash version %{version}, which improves POSIX
 compliance over previous versions.
 
 %prep
+
 %setup -q -a 2
+# patching official upstream patches
+%patch141 -p0 -b .patch035
+
 # Official upstream patches
 %patch1 -p0 -b .001
 %patch2 -p0 -b .002
@@ -155,7 +160,6 @@ compliance over previous versions.
 %patch138 -p1 -b .comp_wordbreaks
 %patch139 -p1 -b .manpage
 %patch140 -p1 -b .man-page-suspend
-
 
 echo %{version} > _distribution
 echo %{release} > _patchlevel
@@ -299,6 +303,7 @@ fi
 %changelog
 * Thu Jul 17 2008 Roman Rakus <rrakus@redhat.com> - 3.2-27
 - Changes in man page - #442018, #445692, #446625, #453409
+- Changed patches to satisfy fuzz=0
 
 * Thu Jun  5 2008 Roman Rakus <rrakus@redhat.com> - 3.2-26
 - Patchlevel 39
