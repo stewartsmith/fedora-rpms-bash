@@ -1,0 +1,64 @@
+diff -up bash-3.2/doc/bash.1.manpage bash-3.2/doc/bash.1
+--- bash-3.2/doc/bash.1.manpage	2008-07-15 13:11:39.000000000 +0200
++++ bash-3.2/doc/bash.1	2008-07-15 13:37:39.000000000 +0200
+@@ -4139,6 +4139,9 @@ The 
+ .I "previous job"
+ may be referenced using
+ .BR %\- .
++When there is the current job only, 
++.BR %\- 
++refers to the shell's notion of the current job.
+ In output pertaining to jobs (e.g., the output of the
+ .B jobs
+ command), the current job is always flagged with a
+@@ -6105,10 +6108,9 @@ loop.  If \fIn\fP is specified, break \f
+ must be \(>= 1.  If
+ .I n
+ is greater than the number of enclosing loops, all enclosing loops
+-are exited.  The return value is 0 unless the shell is not executing
+-a loop when
+-.B break
+-is executed.
++are exited.  The return value is non-zero when 
++.I n
++is \(<= 0; Otherwise, break returns 0 value.
+ .TP
+ \fBbuiltin\fP \fIshell\-builtin\fP [\fIarguments\fP]
+ Execute the specified shell builtin, passing it
+@@ -6448,10 +6450,11 @@ is specified, resume at the \fIn\fPth en
+ must be \(>= 1.  If
+ .I n
+ is greater than the number of enclosing loops, the last enclosing loop
+-(the ``top-level'' loop) is resumed.  The return value is 0 unless the
+-shell is not executing a loop when
+-.B continue
+-is executed.
++(the ``top-level'' loop) is resumed.  When continue is executed inside
++of loop, the return value is non-zero when
++.I n
++is \(<= 0; Otherwise, continue returns 0 value.
++When continue is executed outside of loop, the return value is 0.
+ .TP
+ \fBdeclare\fP [\fB\-afFirtx\fP] [\fB\-p\fP] [\fIname\fP[=\fIvalue\fP] ...]
+ .PD 0
+@@ -8217,7 +8220,9 @@ by default.
+ Suspend the execution of this shell until it receives a
+ .SM
+ .B SIGCONT
+-signal.  The
++signal.  When the suspended shell is a background process, it can be restarted by the fg command. For more information, read the
++.B JOB CONTROL 
++section. The
+ .B \-f
+ option says not to complain if this is 
+ a login shell; just suspend anyway.  The return status is 0 unless
+@@ -8901,5 +8907,9 @@ unmatched parentheses, even inside shell
+ error messages while the construct is being read.
+ .PP
+ Array variables may not (yet) be exported.
++.PP
++When breaking out of multiple loops, if the outermost loop
++consists of more than one command, the exit status of break and continue
++is lost.
+ .zZ
+ .zY

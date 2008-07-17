@@ -1,7 +1,7 @@
 Version: 3.2
 Name: bash
 Summary: The GNU Bourne Again shell (bash) version %{version}
-Release: 26%{?dist}
+Release: 27%{?dist}
 Group: System Environment/Shells
 License: GPLv2+
 Url: http://www.gnu.org/software/bash
@@ -71,6 +71,9 @@ Patch133: bash-3.2-rng.patch
 Patch136: bash-3.2-344411.patch
 Patch137: bash-3.2-190350.patch
 Patch138: bash-3.2-comp_wordbreaks.patch
+Patch139: bash-3.2-manpage.patch
+Patch140: bash-3.2-man-page-suspend.patch
+
 Requires: mktemp
 Requires(post): ncurses
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
@@ -150,6 +153,9 @@ compliance over previous versions.
 %patch136 -p1 -b .344411
 %patch137 -p1 -b .190350
 %patch138 -p1 -b .comp_wordbreaks
+%patch139 -p1 -b .manpage
+%patch140 -p1 -b .man-page-suspend
+
 
 echo %{version} > _distribution
 echo %{release} > _patchlevel
@@ -291,6 +297,9 @@ fi
 %doc doc/*.ps doc/*.0 doc/*.html doc/article.txt
 
 %changelog
+* Thu Jul 17 2008 Roman Rakus <rrakus@redhat.com> - 3.2-27
+- Changes in man page - #442018, #445692, #446625, #453409
+
 * Thu Jun  5 2008 Roman Rakus <rrakus@redhat.com> - 3.2-26
 - Patchlevel 39
 
