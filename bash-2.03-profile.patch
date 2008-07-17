@@ -1,11 +1,12 @@
---- bash-2.03/config-top.h.profile	Mon Feb 22 14:37:17 1999
-+++ bash-2.03/config-top.h	Mon Feb 22 14:37:29 1999
-@@ -3,6 +3,8 @@
- /* This contains various user-settable options not under the control of
-    autoconf. */
+diff -up bash-3.2/config-top.h.profile bash-3.2/config-top.h
+--- bash-3.2/config-top.h.profile	2008-07-17 13:35:39.000000000 +0200
++++ bash-3.2/config-top.h	2008-07-17 13:42:18.000000000 +0200
+@@ -26,6 +26,8 @@
+    what POSIX.2 specifies. */
+ #define CONTINUE_AFTER_KILL_ERROR
  
 +#define NON_INTERACTIVE_LOGIN_SHELLS
 +
- /* Define CONTINUE_AFTER_KILL_ERROR if you want the kill command to
-    continue processing arguments after one of them fails.  This is
-    what POSIX.2 specifies. */
+ /* Define BREAK_COMPLAINS if you want the non-standard, but useful
+    error messages about `break' and `continue' out of context. */
+ #define BREAK_COMPLAINS
