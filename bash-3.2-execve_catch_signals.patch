@@ -1,0 +1,20 @@
+diff -up bash-3.2/execute_cmd.c.execve_catch_signals bash-3.2/execute_cmd.c
+--- bash-3.2/execute_cmd.c.execve_catch_signals	2008-09-16 14:28:25.000000000 +0200
++++ bash-3.2/execute_cmd.c	2008-09-16 14:52:14.000000000 +0200
+@@ -99,6 +99,8 @@ extern int errno;
+ #  include "bashhist.h"
+ #endif
+ 
++#include "quit.h"
++
+ extern int posixly_correct;
+ extern int breaking, continuing, loop_level;
+ extern int expand_aliases;
+@@ -3943,6 +3945,7 @@ shell_execve (command, args, env)
+   SETOSTYPE (0);		/* Some systems use for USG/POSIX semantics */
+   execve (command, args, env);
+   i = errno;			/* error from execve() */
++  CHECK_TERMSIG;
+   SETOSTYPE (1);
+ 
+   /* If we get to this point, then start checking out the file.
