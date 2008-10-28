@@ -1,7 +1,7 @@
 Version: 3.2
 Name: bash
 Summary: The GNU Bourne Again shell (bash) version %{version}
-Release: 28%{?dist}
+Release: 29%{?dist}
 Group: System Environment/Shells
 License: GPLv2+
 Url: http://www.gnu.org/software/bash
@@ -77,6 +77,7 @@ Patch141: bash-3.2-patch035.patch
 Patch142: bash-3.2-execve_catch_signals.patch
 Patch143: bash-3.2-ssh_source_bash.patch
 
+Requires(post): ncurses-libs
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 BuildRequires: texinfo bison
@@ -303,6 +304,12 @@ fi
 %doc doc/*.ps doc/*.0 doc/*.html doc/article.txt
 
 %changelog
+* Tue Oct 28 2008 Jesse Keating <jkeating@redhat.com> - 3.2-29
+- Add the Requires(post) back for ncurses-libs, so that rpm knows
+  where to break the loop.  The post actually does require the curses
+  libs for the sh calls.  Could consider doing this in LUA and not have
+  any external deps.
+
 * Thu Oct 23 2008 Roman Rakus <rrakus@redhat.com> - 3.2-28
 - Removing Requires for mktemp and ncurses, which cause
   dependencing loop
