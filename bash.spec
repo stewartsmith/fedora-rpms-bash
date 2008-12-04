@@ -1,7 +1,7 @@
 Version: 3.2
 Name: bash
 Summary: The GNU Bourne Again shell (bash) version %{version}
-Release: 29%{?dist}
+Release: 30%{?dist}
 Group: System Environment/Shells
 License: GPLv2+
 Url: http://www.gnu.org/software/bash
@@ -76,6 +76,7 @@ Patch140: bash-3.2-man-page-suspend.patch
 Patch141: bash-3.2-patch035.patch
 Patch142: bash-3.2-execve_catch_signals.patch
 Patch143: bash-3.2-ssh_source_bash.patch
+Patch144: bash-3.2-command_not_found.patch
 
 Requires(post): ncurses-libs
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
@@ -163,6 +164,7 @@ compliance over previous versions.
 %patch140 -p1 -b .man-page-suspend
 %patch142 -p1 -b .execve_catch_signals
 %patch143 -p1 -b .ssh_source_bash
+%patch144 -p1 -b .command_not_found
 
 echo %{version} > _distribution
 echo %{release} > _patchlevel
@@ -304,6 +306,10 @@ fi
 %doc doc/*.ps doc/*.0 doc/*.html doc/article.txt
 
 %changelog
+* Thu Dec 04 2008 Roman Rakus <rrakus@redhat.com> - 3.2-30
+- Added check for `command_not_found_handler' shell function
+  Resolves: #432579
+
 * Tue Oct 28 2008 Jesse Keating <jkeating@redhat.com> - 3.2-29
 - Add the Requires(post) back for ncurses-libs, so that rpm knows
   where to break the loop.  The post actually does require the curses
