@@ -1,7 +1,7 @@
 Version: 3.2
 Name: bash
 Summary: The GNU Bourne Again shell (bash) version %{version}
-Release: 30%{?dist}
+Release: 31%{?dist}
 Group: System Environment/Shells
 License: GPLv2+
 Url: http://www.gnu.org/software/bash
@@ -10,6 +10,7 @@ Source2: ftp://ftp.gnu.org/gnu/bash/bash-doc-%{version}.tar.gz
 Source3: dot-bashrc
 Source4: dot-bash_profile
 Source5: dot-bash_logout
+
 # Official upstream patches
 Patch1: ftp://ftp.gnu.org/gnu/bash/bash-3.2-patches/bash32-001
 Patch2: ftp://ftp.gnu.org/gnu/bash/bash-3.2-patches/bash32-002
@@ -50,6 +51,15 @@ Patch36: ftp://ftp.gnu.org/gnu/bash/bash-3.2-patches/bash32-036
 Patch37: ftp://ftp.gnu.org/gnu/bash/bash-3.2-patches/bash32-037
 Patch38: ftp://ftp.gnu.org/gnu/bash/bash-3.2-patches/bash32-038
 Patch39: ftp://ftp.gnu.org/gnu/bash/bash-3.2-patches/bash32-039
+Patch40: ftp://ftp.gnu.org/gnu/bash/bash-3.2-patches/bash32-040
+Patch41: ftp://ftp.gnu.org/gnu/bash/bash-3.2-patches/bash32-041
+Patch42: ftp://ftp.gnu.org/gnu/bash/bash-3.2-patches/bash32-042
+Patch43: ftp://ftp.gnu.org/gnu/bash/bash-3.2-patches/bash32-043
+Patch44: ftp://ftp.gnu.org/gnu/bash/bash-3.2-patches/bash32-044
+Patch45: ftp://ftp.gnu.org/gnu/bash/bash-3.2-patches/bash32-045
+Patch46: ftp://ftp.gnu.org/gnu/bash/bash-3.2-patches/bash32-046
+Patch47: ftp://ftp.gnu.org/gnu/bash/bash-3.2-patches/bash32-047
+Patch48: ftp://ftp.gnu.org/gnu/bash/bash-3.2-patches/bash32-048
 
 # Other patches
 Patch100: bash-2.03-paths.patch
@@ -139,6 +149,15 @@ compliance over previous versions.
 %patch37 -p0 -b .037
 %patch38 -p0 -b .038
 %patch39 -p0 -b .039
+%patch40 -p0 -b .040
+%patch41 -p0 -b .041
+%patch42 -p0 -b .042
+%patch43 -p0 -b .043
+%patch44 -p0 -b .044
+%patch45 -p0 -b .045
+%patch46 -p0 -b .046
+%patch47 -p0 -b .047
+%patch48 -p0 -b .048
 
 # Other patches
 %patch100 -p1 -b .paths
@@ -306,6 +325,9 @@ fi
 %doc doc/*.ps doc/*.0 doc/*.html doc/article.txt
 
 %changelog
+* Tue Dec 09 2008 Roman Rakus <rrakus@redhat.com> - 3.2-31
+- Patchlevel 48
+
 * Thu Dec 04 2008 Roman Rakus <rrakus@redhat.com> - 3.2-30
 - Added check for `command_not_found_handler' shell function
   Resolves: #432579
