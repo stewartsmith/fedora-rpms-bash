@@ -1,7 +1,7 @@
 Version: 3.2
 Name: bash
 Summary: The GNU Bourne Again shell (bash) version %{version}
-Release: 31%{?dist}
+Release: 32%{?dist}
 Group: System Environment/Shells
 License: GPLv2+
 Url: http://www.gnu.org/software/bash
@@ -87,6 +87,7 @@ Patch141: bash-3.2-patch035.patch
 Patch142: bash-3.2-execve_catch_signals.patch
 Patch143: bash-3.2-ssh_source_bash.patch
 Patch144: bash-3.2-command_not_found.patch
+Patch145: bash-3.2-audit.patch
 
 Requires(post): ncurses-libs
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
@@ -184,6 +185,7 @@ compliance over previous versions.
 %patch142 -p1 -b .execve_catch_signals
 %patch143 -p1 -b .ssh_source_bash
 %patch144 -p1 -b .command_not_found
+%patch145 -p1 -b .audit
 
 echo %{version} > _distribution
 echo %{release} > _patchlevel
@@ -325,6 +327,10 @@ fi
 %doc doc/*.ps doc/*.0 doc/*.html doc/article.txt
 
 %changelog
+* Mon Dec 15 2008 Roman Rakus <rrakus@redhat.com> - 3.2-32
+- Enabling auditing
+  Resolves: #476216
+
 * Tue Dec 09 2008 Roman Rakus <rrakus@redhat.com> - 3.2-31
 - Patchlevel 48
 
