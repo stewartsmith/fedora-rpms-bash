@@ -1,94 +1,43 @@
-Version: 3.2
+Version: 4.0
 Name: bash
 Summary: The GNU Bourne Again shell version %{version}
-Release: 33%{?dist}
+Release: rc1.1%{?dist}
 Group: System Environment/Shells
 License: GPLv2+
 Url: http://www.gnu.org/software/bash
 Source0: ftp://ftp.gnu.org/gnu/bash/bash-%{version}.tar.gz
-Source2: ftp://ftp.gnu.org/gnu/bash/bash-doc-%{version}.tar.gz
-Source3: dot-bashrc
-Source4: dot-bash_profile
-Source5: dot-bash_logout
+
+# For now there isn't any doc
+#Source2: ftp://ftp.gnu.org/gnu/bash/bash-doc-%{version}.tar.gz
+
+Source1: dot-bashrc
+Source2: dot-bash_profile
+Source3: dot-bash_logout
 
 # Official upstream patches
-Patch1: ftp://ftp.gnu.org/gnu/bash/bash-3.2-patches/bash32-001
-Patch2: ftp://ftp.gnu.org/gnu/bash/bash-3.2-patches/bash32-002
-Patch3: ftp://ftp.gnu.org/gnu/bash/bash-3.2-patches/bash32-003
-Patch4: ftp://ftp.gnu.org/gnu/bash/bash-3.2-patches/bash32-004
-Patch5: ftp://ftp.gnu.org/gnu/bash/bash-3.2-patches/bash32-005
-Patch6: ftp://ftp.gnu.org/gnu/bash/bash-3.2-patches/bash32-006
-Patch7: ftp://ftp.gnu.org/gnu/bash/bash-3.2-patches/bash32-007
-Patch8: ftp://ftp.gnu.org/gnu/bash/bash-3.2-patches/bash32-008
-Patch9: ftp://ftp.gnu.org/gnu/bash/bash-3.2-patches/bash32-009
-Patch10: ftp://ftp.gnu.org/gnu/bash/bash-3.2-patches/bash32-010
-Patch11: ftp://ftp.gnu.org/gnu/bash/bash-3.2-patches/bash32-011
-Patch12: ftp://ftp.gnu.org/gnu/bash/bash-3.2-patches/bash32-012
-Patch13: ftp://ftp.gnu.org/gnu/bash/bash-3.2-patches/bash32-013
-Patch14: ftp://ftp.gnu.org/gnu/bash/bash-3.2-patches/bash32-014
-Patch15: ftp://ftp.gnu.org/gnu/bash/bash-3.2-patches/bash32-015
-Patch16: ftp://ftp.gnu.org/gnu/bash/bash-3.2-patches/bash32-016
-Patch17: ftp://ftp.gnu.org/gnu/bash/bash-3.2-patches/bash32-017
-Patch18: ftp://ftp.gnu.org/gnu/bash/bash-3.2-patches/bash32-018
-Patch19: ftp://ftp.gnu.org/gnu/bash/bash-3.2-patches/bash32-019
-Patch20: ftp://ftp.gnu.org/gnu/bash/bash-3.2-patches/bash32-020
-Patch21: ftp://ftp.gnu.org/gnu/bash/bash-3.2-patches/bash32-021
-Patch22: ftp://ftp.gnu.org/gnu/bash/bash-3.2-patches/bash32-022
-Patch23: ftp://ftp.gnu.org/gnu/bash/bash-3.2-patches/bash32-023
-Patch24: ftp://ftp.gnu.org/gnu/bash/bash-3.2-patches/bash32-024
-Patch25: ftp://ftp.gnu.org/gnu/bash/bash-3.2-patches/bash32-025
-Patch26: ftp://ftp.gnu.org/gnu/bash/bash-3.2-patches/bash32-026
-Patch27: ftp://ftp.gnu.org/gnu/bash/bash-3.2-patches/bash32-027
-Patch28: ftp://ftp.gnu.org/gnu/bash/bash-3.2-patches/bash32-028
-Patch29: ftp://ftp.gnu.org/gnu/bash/bash-3.2-patches/bash32-029
-Patch30: ftp://ftp.gnu.org/gnu/bash/bash-3.2-patches/bash32-030
-Patch31: ftp://ftp.gnu.org/gnu/bash/bash-3.2-patches/bash32-031
-Patch32: ftp://ftp.gnu.org/gnu/bash/bash-3.2-patches/bash32-032
-Patch33: ftp://ftp.gnu.org/gnu/bash/bash-3.2-patches/bash32-033
-Patch34: ftp://ftp.gnu.org/gnu/bash/bash-3.2-patches/bash32-034
-Patch35: ftp://ftp.gnu.org/gnu/bash/bash-3.2-patches/bash32-035
-Patch36: ftp://ftp.gnu.org/gnu/bash/bash-3.2-patches/bash32-036
-Patch37: ftp://ftp.gnu.org/gnu/bash/bash-3.2-patches/bash32-037
-Patch38: ftp://ftp.gnu.org/gnu/bash/bash-3.2-patches/bash32-038
-Patch39: ftp://ftp.gnu.org/gnu/bash/bash-3.2-patches/bash32-039
-Patch40: ftp://ftp.gnu.org/gnu/bash/bash-3.2-patches/bash32-040
-Patch41: ftp://ftp.gnu.org/gnu/bash/bash-3.2-patches/bash32-041
-Patch42: ftp://ftp.gnu.org/gnu/bash/bash-3.2-patches/bash32-042
-Patch43: ftp://ftp.gnu.org/gnu/bash/bash-3.2-patches/bash32-043
-Patch44: ftp://ftp.gnu.org/gnu/bash/bash-3.2-patches/bash32-044
-Patch45: ftp://ftp.gnu.org/gnu/bash/bash-3.2-patches/bash32-045
-Patch46: ftp://ftp.gnu.org/gnu/bash/bash-3.2-patches/bash32-046
-Patch47: ftp://ftp.gnu.org/gnu/bash/bash-3.2-patches/bash32-047
-Patch48: ftp://ftp.gnu.org/gnu/bash/bash-3.2-patches/bash32-048
+# not any :)
 
 # Other patches
-Patch100: bash-2.03-paths.patch
 Patch101: bash-2.02-security.patch
-Patch102: bash-2.03-profile.patch
-Patch103: bash-requires.patch
-Patch107: bash-2.05a-interpreter.patch
+Patch102: bash-2.03-paths.patch
+Patch103: bash-2.03-profile.patch
+Patch104: bash-2.05a-interpreter.patch
+Patch105: bash-2.05b-debuginfo.patch
+Patch106: bash-2.05b-manso.patch
+Patch107: bash-2.05b-pgrp_sync.patch
 Patch108: bash-2.05b-readline-oom.patch
-Patch114: bash-2.05b-xcc.patch
-Patch115: bash-2.05b-pgrp_sync.patch
-Patch116: bash-2.05b-manso.patch
-Patch117: bash-2.05b-debuginfo.patch
+Patch109: bash-2.05b-xcc.patch
+Patch110: bash-3.2-audit.patch
+#Patch111: bash-3.2-rng.patch
+Patch112: bash-3.2-ssh_source_bash.patch
+Patch113: bash-bashbug.patch
+Patch114: bash-cond-rmatch.patch
+Patch115: bash-infotags.patch
+Patch116: bash-requires.patch
+Patch117: bash-setlocale.patch
 Patch118: bash-tty-tests.patch
-Patch126: bash-setlocale.patch
-Patch130: bash-infotags.patch
-Patch131: bash-cond-rmatch.patch
-Patch132: bash-ulimit-m.patch
-Patch133: bash-3.2-rng.patch
-Patch136: bash-3.2-344411.patch
-Patch137: bash-3.2-190350.patch
-Patch138: bash-3.2-comp_wordbreaks.patch
-Patch139: bash-3.2-manpage.patch
-Patch140: bash-3.2-man-page-suspend.patch
-Patch141: bash-3.2-patch035.patch
-Patch142: bash-3.2-execve_catch_signals.patch
-Patch143: bash-3.2-ssh_source_bash.patch
-Patch144: bash-3.2-command_not_found.patch
-Patch145: bash-3.2-audit.patch
-Patch146: bash-3.2-fc.patch
+Patch119: bash-ulimit-m.patch
+Patch120: bash-4.0-no_debug_output.patch
 
 Requires(post): ncurses-libs
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
@@ -107,92 +56,37 @@ compliance over previous versions.
 
 %prep
 
-%setup -q -a 2
-# patching official upstream patches
-#%patch141 -p0 -b .patch035
+#%setup -q -a 2
+%setup -q
 
 # Official upstream patches
-%patch1 -p0 -b .001
-%patch2 -p0 -b .002
-%patch3 -p0 -b .003
-%patch4 -p0 -b .004
-%patch5 -p0 -b .005
-%patch6 -p0 -b .006
-%patch7 -p0 -b .007
-%patch8 -p0 -b .008
-%patch9 -p0 -b .009
-%patch10 -p0 -b .010
-%patch11 -p0 -b .011
-%patch12 -p0 -b .012
-%patch13 -p0 -b .013
-%patch14 -p0 -b .014
-%patch15 -p0 -b .015
-%patch16 -p0 -b .016
-%patch17 -p0 -b .017
-%patch18 -p0 -b .018
-%patch19 -p0 -b .019
-%patch20 -p0 -b .020
-%patch21 -p0 -b .021
-%patch22 -p0 -b .022
-%patch23 -p0 -b .023
-%patch24 -p0 -b .024
-%patch25 -p0 -b .025
-%patch26 -p0 -b .026
-%patch27 -p0 -b .027
-%patch28 -p0 -b .028
-%patch29 -p0 -b .029
-%patch30 -p0 -b .030
-%patch31 -p0 -b .031
-%patch32 -p0 -b .032
-%patch33 -p0 -b .033
-%patch34 -p0 -b .034
-%patch35 -p0 -b .035
-%patch36 -p0 -b .036
-%patch37 -p0 -b .037
-%patch38 -p0 -b .038
-%patch39 -p0 -b .039
-%patch40 -p0 -b .040
-%patch41 -p0 -b .041
-%patch42 -p0 -b .042
-%patch43 -p0 -b .043
-%patch44 -p0 -b .044
-%patch45 -p0 -b .045
-%patch46 -p0 -b .046
-%patch47 -p0 -b .047
-%patch48 -p0 -b .048
-
 # Other patches
-%patch100 -p1 -b .paths
 %patch101 -p1 -b .security
-%patch102 -p1 -b .profile
-%patch103 -p1 -b .requires
-%patch107 -p1 -b .interpreter
-%patch108 -p1 -b .readline-oom
-%patch114 -p1 -b .xcc
-%patch115 -p1 -b .pgrp_sync
-%patch116 -p1 -b .manso
-%patch117 -p1 -b .debuginfo
-%patch118 -p1 -b .tty-tests
-%patch126 -p1 -b .setlocale
-%patch130 -p1 -b .infotags
-%patch131 -p1 -b .cond-rmatch
-%patch132 -p1 -b .ulimit-m
-%patch133 -p1 -b .rng.patch
-%patch136 -p1 -b .344411
-%patch137 -p1 -b .190350
-%patch138 -p1 -b .comp_wordbreaks
-%patch139 -p1 -b .manpage
-%patch140 -p1 -b .man-page-suspend
-%patch142 -p1 -b .execve_catch_signals
-%patch143 -p1 -b .ssh_source_bash
-%patch144 -p1 -b .command_not_found
-%patch145 -p1 -b .audit
-%patch146 -p1 -b .fc
+%patch102 -p1 -b .paths
+%patch103 -p1 -b .profile
+%patch104 -p1 -b .interpreter
+%patch105 -p1 -b .debuginfo
+%patch106 -p1 -b .manso
+%patch107 -p1 -b .pgrp_sync
+%patch108 -p1 -b .readline_oom
+%patch109 -p1 -b .xcc
+%patch110 -p1 -b .audit
+#%patch111 -p1 -b .rng
+%patch112 -p1 -b .ssh_source_bash
+%patch113 -p1 -b .bashbug
+%patch114 -p1 -b .cond_rmatch
+%patch115 -p1 -b .infotags
+%patch116 -p1 -b .requires
+%patch117 -p1 -b .setlocale
+%patch118 -p1 -b .tty_tests
+%patch119 -p1 -b .ulimit-m
+%patch120 -p1 -b .no_debug_output
 
 echo %{version} > _distribution
 echo %{release} > _patchlevel
 
 %build
+chmod a+x ./configure
 autoconf
 %configure --with-bash-malloc=no --with-afs
 make "CPPFLAGS=-D_GNU_SOURCE `getconf LFS_CFLAGS`"
@@ -243,8 +137,10 @@ popd
 # Link bash man page to sh so that man sh works.
 ln -s bash.1 ${RPM_BUILD_ROOT}%{_mandir}/man1/sh.1
 
-# Not for printf (conflict with coreutils)
+# Not for printf, true and false (conflict with coreutils)
 rm -f $RPM_BUILD_ROOT/%{_mandir}/man1/printf.1
+rm -f $RPM_BUILD_ROOT/%{_mandir}/man1/true.1
+rm -f $RPM_BUILD_ROOT/%{_mandir}/man1/false.1
 
 pushd $RPM_BUILD_ROOT
 mkdir ./bin
@@ -253,9 +149,9 @@ ln -sf bash ./bin/sh
 rm -f .%{_infodir}/dir
 popd
 mkdir -p $RPM_BUILD_ROOT/etc/skel
-install -c -m644 %SOURCE3 $RPM_BUILD_ROOT/etc/skel/.bashrc
-install -c -m644 %SOURCE4 $RPM_BUILD_ROOT/etc/skel/.bash_profile
-install -c -m644 %SOURCE5 $RPM_BUILD_ROOT/etc/skel/.bash_logout
+install -c -m644 %SOURCE1 $RPM_BUILD_ROOT/etc/skel/.bashrc
+install -c -m644 %SOURCE2 $RPM_BUILD_ROOT/etc/skel/.bash_profile
+install -c -m644 %SOURCE3 $RPM_BUILD_ROOT/etc/skel/.bash_logout
 LONG_BIT=$(getconf LONG_BIT)
 mv $RPM_BUILD_ROOT%{_bindir}/bashbug \
    $RPM_BUILD_ROOT%{_bindir}/bashbug-"${LONG_BIT}"
@@ -316,7 +212,7 @@ fi
 %defattr(-,root,root)
 %doc CHANGES COMPAT NEWS NOTES POSIX
 %doc doc/FAQ doc/INTRO doc/article.ms
-%doc -P examples/bashdb/ examples/functions/ examples/misc/
+%doc -P examples/obashdb/ examples/functions/ examples/misc/
 %doc -P examples/scripts.noah/ examples/scripts.v2/ examples/scripts/
 %doc -P examples/startup-files/ examples/complete/
 %config(noreplace) /etc/skel/.b*
@@ -326,9 +222,14 @@ fi
 %{_infodir}/bash.info*
 %{_mandir}/*/*
 %{_mandir}/*/..1*
-%doc doc/*.ps doc/*.0 doc/*.html doc/article.txt
+
+# For now there isn't any doc
+#%doc doc/*.ps doc/*.0 doc/*.html doc/article.txt
 
 %changelog
+* Wed Jan 21 2009 Roman Rakus <rrakus@redhat.com> - 4.0-rc1.1
+- Bump to upstream bash-4.0-rc1
+
 * Mon Dec 15 2008 Roman Rakus <rrakus@redhat.com> - 3.2-33
 - fc builtin fix
   Resolves: #438841

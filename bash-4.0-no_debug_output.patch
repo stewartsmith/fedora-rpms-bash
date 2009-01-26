@@ -1,0 +1,12 @@
+diff -up bash-4.0/builtins/evalstring.c.rr bash-4.0/builtins/evalstring.c
+--- bash-4.0/builtins/evalstring.c.rr	2009-01-26 04:40:10.000000000 -0500
++++ bash-4.0/builtins/evalstring.c	2009-01-26 04:40:52.000000000 -0500
+@@ -268,7 +268,7 @@ parse_and_execute (string, from_file, fl
+ 	      if ((subshell_environment & SUBSHELL_COMSUB) && comsub_ignore_return)
+ {
+ 		command->flags |= CMD_IGNORE_RETURN;
+-itrace("parse_and_execute: turned on CMD_IGNORE_RETURN from comsub_ignore_return");
++/* itrace("parse_and_execute: turned on CMD_IGNORE_RETURN from comsub_ignore_return"); */
+ }
+ 
+ #if defined (ONESHOT)
