@@ -1,11 +1,13 @@
+%define beta_tag rc1
+
 Version: 4.0
 Name: bash
 Summary: The GNU Bourne Again shell version %{version}
-Release: rc1.1%{?dist}
+Release: 0.1.%{?beta_tag}%{?dist}
 Group: System Environment/Shells
 License: GPLv2+
 Url: http://www.gnu.org/software/bash
-Source0: ftp://ftp.gnu.org/gnu/bash/bash-%{version}.tar.gz
+Source0: ftp://ftp.gnu.org/gnu/bash/bash-%{version}-%{beta_tag}.tar.gz
 
 # For now there isn't any doc
 #Source2: ftp://ftp.gnu.org/gnu/bash/bash-doc-%{version}.tar.gz
@@ -57,7 +59,7 @@ compliance over previous versions.
 %prep
 
 #%setup -q -a 2
-%setup -q
+%setup -q -n bash-%{version}-%{beta_tag}
 
 # Official upstream patches
 # Other patches
@@ -227,6 +229,9 @@ fi
 #%doc doc/*.ps doc/*.0 doc/*.html doc/article.txt
 
 %changelog
+* Mon Jan 26 2009 Roman Rakus <rrakus@redhat.com> - 4.0-0.1.rc1
+- Fixed release tag
+
 * Wed Jan 21 2009 Roman Rakus <rrakus@redhat.com> - 4.0-rc1.1
 - Bump to upstream bash-4.0-rc1
 
