@@ -182,7 +182,7 @@ rm -rf $RPM_BUILD_ROOT
 # post is in lua so that we can run it without any external deps.  Helps
 # for bootstrapping a new install.
 # Jesse Keating 2009-01-29 (code from Ignacio Vazquez-Abrams)
-%post -p lua
+%post -p <lua>
 bashfound = false;
 shfound = false;
  
