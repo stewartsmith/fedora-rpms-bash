@@ -3,7 +3,7 @@
 Version: 4.0
 Name: bash
 Summary: The GNU Bourne Again shell version %{version}
-Release: 0.2.%{?beta_tag}%{?dist}
+Release: 0.3.%{?beta_tag}%{?dist}
 Group: System Environment/Shells
 License: GPLv2+
 Url: http://www.gnu.org/software/bash
@@ -242,6 +242,10 @@ fi
 #%doc doc/*.ps doc/*.0 doc/*.html doc/article.txt
 
 %changelog
+* Thu Jan 29 2009 Roman Rakus <rrakus@redhat.com> - 4.0-0.3.rc1
+- No more debug output
+  Resolves: #483002
+
 * Wed Jan 28 2009 Jesse Keating <jkeating@redhat.com> - 4.0-0.2.rc1
 - Replace post code with lua to be able to not have external deps
 
