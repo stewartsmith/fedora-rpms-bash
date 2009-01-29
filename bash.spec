@@ -3,7 +3,7 @@
 Version: 4.0
 Name: bash
 Summary: The GNU Bourne Again shell version %{version}
-Release: 0.1.%{?beta_tag}%{?dist}
+Release: 0.2.%{?beta_tag}%{?dist}
 Group: System Environment/Shells
 License: GPLv2+
 Url: http://www.gnu.org/software/bash
@@ -179,29 +179,42 @@ rm -rf $RPM_BUILD_ROOT
 # ***** bash doesn't use install-info. It's always listed in %{_infodir}/dir
 # to prevent prereq loops
 
-%post
-
-HASBASH=""
-HASSH=""
-
-if [ ! -f /etc/shells ]; then
-  > /etc/shells
-fi
-
-(while read line ; do
-  if [ "$line" = "/bin/bash" ]; then
-    HASBASH=1
-  elif [ "$line" = "/bin/sh" ]; then
-    HASSH=1
-  fi
- done
-
- if [ -z "$HASBASH" ]; then
-  echo "/bin/bash" >> /etc/shells
- fi
- if [ -z "$HASSH" ]; then
-  echo "/bin/sh" >> /etc/shells
-fi) < /etc/shells
+# post is in lua so that we can run it without any external deps.  Helps
+# for bootstrapping a new install.
+# Jesse Keating 2009-01-29 (code from Ignacio Vazquez-Abrams)
+%post -p lua
+bashfound = false;
+shfound = false;
+ 
+f = io.open("/etc/shells", "r");
+if f == nil
+then
+  f = io.open("/etc/shells", "w");
+else
+  repeat
+    t = f:read();
+    if t == "/bin/bash"
+    then
+      bashfound = true;
+    end
+    if t == "/bin/sh"
+    then
+      shfound = true;
+    end
+  until t == nil;
+end
+f:close()
+ 
+f = io.open("/etc/shells", "a");
+if not bashfound
+then
+  f:write("/bin/bash\n")
+end
+if not shfound
+then
+  f:write("/bin/sh\n")
+end
+f:close()
 
 %postun
 if [ "$1" = 0 ]; then
@@ -229,6 +242,9 @@ fi
 #%doc doc/*.ps doc/*.0 doc/*.html doc/article.txt
 
 %changelog
+* Wed Jan 28 2009 Jesse Keating <jkeating@redhat.com> - 4.0-0.2.rc1
+- Replace post code with lua to be able to not have external deps
+
 * Mon Jan 26 2009 Roman Rakus <rrakus@redhat.com> - 4.0-0.1.rc1
 - Fixed release tag
 
