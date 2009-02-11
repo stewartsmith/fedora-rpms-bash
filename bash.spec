@@ -3,7 +3,7 @@
 Version: 4.0
 Name: bash
 Summary: The GNU Bourne Again shell version %{version}
-Release: 0.3.%{?beta_tag}%{?dist}
+Release: 0.4.%{?beta_tag}%{?dist}
 Group: System Environment/Shells
 License: GPLv2+
 Url: http://www.gnu.org/software/bash
@@ -40,6 +40,7 @@ Patch117: bash-setlocale.patch
 Patch118: bash-tty-tests.patch
 Patch119: bash-ulimit-m.patch
 Patch120: bash-4.0-no_debug_output.patch
+Patch121: bash-4.0-shell_pipelines_handling.patch
 
 Requires(post): ncurses-libs
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
@@ -83,6 +84,7 @@ compliance over previous versions.
 %patch118 -p1 -b .tty_tests
 %patch119 -p1 -b .ulimit-m
 %patch120 -p1 -b .no_debug_output
+%patch121 -p1 -b .pipelines_handling
 
 echo %{version} > _distribution
 echo %{release} > _patchlevel
@@ -242,6 +244,10 @@ fi
 #%doc doc/*.ps doc/*.0 doc/*.html doc/article.txt
 
 %changelog
+* Wed Feb 11 2009 Roman Rakus <rrakus@redhat.com> - 4.0-0.4.rc1
+- Fix handling pipelines with `set -e'
+  Resolves: #483385
+
 * Thu Jan 29 2009 Roman Rakus <rrakus@redhat.com> - 4.0-0.3.rc1
 - No more debug output
   Resolves: #483002
