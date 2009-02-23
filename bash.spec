@@ -3,7 +3,7 @@
 Version: 4.0
 Name: bash
 Summary: The GNU Bourne Again shell version %{version}
-Release: 0.4.%{?beta_tag}%{?dist}
+Release: 0.5.%{?beta_tag}%{?dist}
 Group: System Environment/Shells
 License: GPLv2+
 Url: http://www.gnu.org/software/bash
@@ -244,6 +244,9 @@ fi
 #%doc doc/*.ps doc/*.0 doc/*.html doc/article.txt
 
 %changelog
+* Mon Feb 23 2009 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 4.0-0.5.rc1
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_11_Mass_Rebuild
+
 * Wed Feb 11 2009 Roman Rakus <rrakus@redhat.com> - 4.0-0.4.rc1
 - Fix handling pipelines with `set -e'
   Resolves: #483385
