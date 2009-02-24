@@ -1,13 +1,13 @@
-%define beta_tag rc1
+#%define beta_tag rc1
 
 Version: 4.0
 Name: bash
 Summary: The GNU Bourne Again shell version %{version}
-Release: 0.5.%{?beta_tag}%{?dist}
+Release: 1%{?dist}
 Group: System Environment/Shells
 License: GPLv2+
 Url: http://www.gnu.org/software/bash
-Source0: ftp://ftp.gnu.org/gnu/bash/bash-%{version}-%{beta_tag}.tar.gz
+Source0: ftp://ftp.gnu.org/gnu/bash/bash-%{version}.tar.gz
 
 # For now there isn't any doc
 #Source2: ftp://ftp.gnu.org/gnu/bash/bash-doc-%{version}.tar.gz
@@ -38,9 +38,9 @@ Patch115: bash-infotags.patch
 Patch116: bash-requires.patch
 Patch117: bash-setlocale.patch
 Patch118: bash-tty-tests.patch
-Patch119: bash-ulimit-m.patch
-Patch120: bash-4.0-no_debug_output.patch
-Patch121: bash-4.0-shell_pipelines_handling.patch
+#Patch119: bash-ulimit-m.patch
+#Patch120: bash-4.0-no_debug_output.patch
+#Patch121: bash-4.0-shell_pipelines_handling.patch
 
 Requires(post): ncurses-libs
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
@@ -60,7 +60,7 @@ compliance over previous versions.
 %prep
 
 #%setup -q -a 2
-%setup -q -n bash-%{version}-%{beta_tag}
+%setup -q -n bash-%{version}
 
 # Official upstream patches
 # Other patches
@@ -82,15 +82,14 @@ compliance over previous versions.
 %patch116 -p1 -b .requires
 %patch117 -p1 -b .setlocale
 %patch118 -p1 -b .tty_tests
-%patch119 -p1 -b .ulimit-m
-%patch120 -p1 -b .no_debug_output
-%patch121 -p1 -b .pipelines_handling
+#%patch119 -p1 -b .ulimit-m
+#%patch120 -p1 -b .no_debug_output
+#%patch121 -p1 -b .pipelines_handling
 
 echo %{version} > _distribution
 echo %{release} > _patchlevel
 
 %build
-chmod a+x ./configure
 autoconf
 %configure --with-bash-malloc=no --with-afs
 make "CPPFLAGS=-D_GNU_SOURCE `getconf LFS_CFLAGS`"
@@ -244,6 +243,9 @@ fi
 #%doc doc/*.ps doc/*.0 doc/*.html doc/article.txt
 
 %changelog
+* Tue Feb 24 2009 Roman Rakus <rrakus@rehat.com> - 4.0-1
+- Release of bash-4.0
+
 * Mon Feb 23 2009 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 4.0-0.5.rc1
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_11_Mass_Rebuild
 

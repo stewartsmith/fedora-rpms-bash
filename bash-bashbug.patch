@@ -1,7 +1,7 @@
 diff -up bash-4.0/doc/bash.1.bashbug bash-4.0/doc/bash.1
---- bash-4.0/doc/bash.1.bashbug	2008-12-29 16:49:25.000000000 -0500
-+++ bash-4.0/doc/bash.1	2009-01-21 11:43:34.000000000 -0500
-@@ -9325,7 +9325,7 @@ The latest version is always available f
+--- bash-4.0/doc/bash.1.bashbug	2009-02-18 15:13:56.000000000 -0500
++++ bash-4.0/doc/bash.1	2009-02-23 10:56:00.000000000 -0500
+@@ -9344,7 +9344,7 @@ The latest version is always available f
  .PP
  Once you have determined that a bug actually exists, use the
  .I bashbug
@@ -10,7 +10,7 @@ diff -up bash-4.0/doc/bash.1.bashbug bash-4.0/doc/bash.1
  If you have a fix, you are encouraged to mail that as well!
  Suggestions and `philosophical' bug reports may be mailed
  to \fIbug-bash@gnu.org\fP or posted to the Usenet
-@@ -9347,10 +9347,6 @@ A description of the bug behaviour
+@@ -9366,10 +9366,6 @@ A description of the bug behaviour
  A short script or `recipe' which exercises the bug
  .PD
  .PP
@@ -22,9 +22,9 @@ diff -up bash-4.0/doc/bash.1.bashbug bash-4.0/doc/bash.1
  this manual page should be directed to
  .IR chet@po.cwru.edu .
 diff -up bash-4.0/doc/bashref.texi.bashbug bash-4.0/doc/bashref.texi
---- bash-4.0/doc/bashref.texi.bashbug	2009-01-04 14:32:25.000000000 -0500
-+++ bash-4.0/doc/bashref.texi	2009-01-21 11:41:07.000000000 -0500
-@@ -7292,7 +7292,7 @@ The latest version of Bash is always ava
+--- bash-4.0/doc/bashref.texi.bashbug	2009-02-18 15:14:43.000000000 -0500
++++ bash-4.0/doc/bashref.texi	2009-02-23 11:02:27.000000000 -0500
+@@ -7320,7 +7320,7 @@ The latest version of Bash is always ava
  @uref{ftp://ftp.gnu.org/pub/bash/}.
  
  Once you have determined that a bug actually exists, use the
@@ -33,7 +33,7 @@ diff -up bash-4.0/doc/bashref.texi.bashbug bash-4.0/doc/bashref.texi
  If you have a fix, you are encouraged to mail that as well!
  Suggestions and `philosophical' bug reports may be mailed
  to @email{bug-bash@@gnu.org} or posted to the Usenet
-@@ -7314,9 +7314,6 @@ to reproduce it.
+@@ -7342,9 +7342,6 @@ to reproduce it.
  @end itemize
  
  @noindent
@@ -41,11 +41,11 @@ diff -up bash-4.0/doc/bashref.texi.bashbug bash-4.0/doc/bashref.texi
 -the template it provides for filing a bug report.
 -
  Please send all reports concerning this manual to
- @email{chet@@po.CWRU.Edu}.
+ @email{chet.ramey@@case.edu}.
  
 diff -up bash-4.0/shell.c.bashbug bash-4.0/shell.c
 --- bash-4.0/shell.c.bashbug	2009-01-04 14:32:41.000000000 -0500
-+++ bash-4.0/shell.c	2009-01-21 11:41:07.000000000 -0500
++++ bash-4.0/shell.c	2009-02-23 10:56:00.000000000 -0500
 @@ -1806,7 +1806,6 @@ show_shell_usage (fp, extra)
      {
        fprintf (fp, _("Type `%s -c \"help set\"' for more information about shell options.\n"), shell_name);
