@@ -3,7 +3,7 @@
 Version: 4.0
 Name: bash
 Summary: The GNU Bourne Again shell version %{version}
-Release: 1%{?dist}
+Release: 2%{?dist}
 Group: System Environment/Shells
 License: GPLv2+
 Url: http://www.gnu.org/software/bash
@@ -38,6 +38,7 @@ Patch115: bash-infotags.patch
 Patch116: bash-requires.patch
 Patch117: bash-setlocale.patch
 Patch118: bash-tty-tests.patch
+Patch119: pcomplete-save-parser-state.patch
 #Patch119: bash-ulimit-m.patch
 #Patch120: bash-4.0-no_debug_output.patch
 #Patch121: bash-4.0-shell_pipelines_handling.patch
@@ -82,6 +83,7 @@ compliance over previous versions.
 %patch116 -p1 -b .requires
 %patch117 -p1 -b .setlocale
 %patch118 -p1 -b .tty_tests
+%patch119 -p1 -b .parser-state
 #%patch119 -p1 -b .ulimit-m
 #%patch120 -p1 -b .no_debug_output
 #%patch121 -p1 -b .pipelines_handling
@@ -243,7 +245,11 @@ fi
 #%doc doc/*.ps doc/*.0 doc/*.html doc/article.txt
 
 %changelog
-* Tue Feb 24 2009 Roman Rakus <rrakus@rehat.com> - 4.0-1
+* Wed Feb 25 2009 Roman Rakus <rrakus@redhat.com> - 4.0-2
+- Save parser state in pcomplete.
+  Resolves: #487257
+
+* Tue Feb 24 2009 Roman Rakus <rrakus@redhat.com> - 4.0-1
 - Release of bash-4.0
 
 * Mon Feb 23 2009 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 4.0-0.5.rc1
