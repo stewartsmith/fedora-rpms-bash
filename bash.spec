@@ -3,7 +3,7 @@
 Version: 4.0
 Name: bash
 Summary: The GNU Bourne Again shell version %{version}
-Release: 2%{?dist}
+Release: 3%{?dist}
 Group: System Environment/Shells
 License: GPLv2+
 Url: http://www.gnu.org/software/bash
@@ -17,6 +17,17 @@ Source2: dot-bash_profile
 Source3: dot-bash_logout
 
 # Official upstream patches
+Patch001: bash40-001
+Patch002: bash40-002
+Patch003: bash40-003
+Patch004: bash40-004
+Patch005: bash40-005
+Patch006: bash40-006
+Patch007: bash40-007
+Patch008: bash40-008
+Patch009: bash40-009
+Patch010: bash40-010
+
 # not any :)
 
 # Other patches
@@ -38,7 +49,6 @@ Patch115: bash-infotags.patch
 Patch116: bash-requires.patch
 Patch117: bash-setlocale.patch
 Patch118: bash-tty-tests.patch
-Patch119: pcomplete-save-parser-state.patch
 #Patch119: bash-ulimit-m.patch
 #Patch120: bash-4.0-no_debug_output.patch
 #Patch121: bash-4.0-shell_pipelines_handling.patch
@@ -64,6 +74,17 @@ compliance over previous versions.
 %setup -q -n bash-%{version}
 
 # Official upstream patches
+%patch001 -p0 -b .001
+%patch002 -p0 -b .002
+%patch003 -p0 -b .003
+%patch004 -p0 -b .004
+%patch005 -p0 -b .005
+%patch006 -p0 -b .006
+%patch007 -p0 -b .007
+%patch008 -p0 -b .008
+%patch009 -p0 -b .009
+%patch010 -p0 -b .010
+
 # Other patches
 %patch101 -p1 -b .security
 %patch102 -p1 -b .paths
@@ -83,7 +104,6 @@ compliance over previous versions.
 %patch116 -p1 -b .requires
 %patch117 -p1 -b .setlocale
 %patch118 -p1 -b .tty_tests
-%patch119 -p1 -b .parser-state
 #%patch119 -p1 -b .ulimit-m
 #%patch120 -p1 -b .no_debug_output
 #%patch121 -p1 -b .pipelines_handling
@@ -245,6 +265,9 @@ fi
 #%doc doc/*.ps doc/*.0 doc/*.html doc/article.txt
 
 %changelog
+* Wed Mar 11 2009 Roman Rakus <rrakus@redhat.com> - 4.0-3
+- Official upstream patch level 10
+
 * Wed Feb 25 2009 Roman Rakus <rrakus@redhat.com> - 4.0-2
 - Save parser state in pcomplete.
   Resolves: #487257
