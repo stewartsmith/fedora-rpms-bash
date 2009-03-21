@@ -2,8 +2,8 @@
 
 Version: 4.0
 Name: bash
-Summary: The GNU Bourne Again shell version %{version}
-Release: 3%{?dist}
+Summary: The GNU Bourne Again shell
+Release: 4%{?dist}
 Group: System Environment/Shells
 License: GPLv2+
 Url: http://www.gnu.org/software/bash
@@ -17,18 +17,16 @@ Source2: dot-bash_profile
 Source3: dot-bash_logout
 
 # Official upstream patches
-Patch001: bash40-001
-Patch002: bash40-002
-Patch003: bash40-003
-Patch004: bash40-004
-Patch005: bash40-005
-Patch006: bash40-006
-Patch007: bash40-007
-Patch008: bash40-008
-Patch009: bash40-009
-Patch010: bash40-010
-
-# not any :)
+Patch001: ftp://ftp.gnu.org/pub/gnu/bash/bash-4.0-patches/bash40-001
+Patch002: ftp://ftp.gnu.org/pub/gnu/bash/bash-4.0-patches/bash40-002
+Patch003: ftp://ftp.gnu.org/pub/gnu/bash/bash-4.0-patches/bash40-003
+Patch004: ftp://ftp.gnu.org/pub/gnu/bash/bash-4.0-patches/bash40-004
+Patch005: ftp://ftp.gnu.org/pub/gnu/bash/bash-4.0-patches/bash40-005
+Patch006: ftp://ftp.gnu.org/pub/gnu/bash/bash-4.0-patches/bash40-006
+Patch007: ftp://ftp.gnu.org/pub/gnu/bash/bash-4.0-patches/bash40-007
+Patch008: ftp://ftp.gnu.org/pub/gnu/bash/bash-4.0-patches/bash40-008
+Patch009: ftp://ftp.gnu.org/pub/gnu/bash/bash-4.0-patches/bash40-009
+Patch010: ftp://ftp.gnu.org/pub/gnu/bash/bash-4.0-patches/bash40-010
 
 # Other patches
 Patch101: bash-2.02-security.patch
@@ -64,9 +62,7 @@ BuildRequires: autoconf, gettext
 The GNU Bourne Again shell (Bash) is a shell or command language
 interpreter that is compatible with the Bourne shell (sh). Bash
 incorporates useful features from the Korn shell (ksh) and the C shell
-(csh). Most sh scripts can be run by bash without modification. This
-package (bash) contains bash version %{version}, which improves POSIX
-compliance over previous versions.
+(csh). Most sh scripts can be run by bash without modification.
 
 %prep
 
@@ -265,6 +261,10 @@ fi
 #%doc doc/*.ps doc/*.0 doc/*.html doc/article.txt
 
 %changelog
+* Sat Mar 21 2009 Lubomir Rintel <lkundrak@v3.sk> - 4.0-4
+- Add full URLs to upstream patches
+- Don't uselessly use %%version macro
+
 * Wed Mar 11 2009 Roman Rakus <rrakus@redhat.com> - 4.0-3
 - Official upstream patch level 10
 
