@@ -3,7 +3,7 @@
 Version: 4.0
 Name: bash
 Summary: The GNU Bourne Again shell
-Release: 4%{?dist}
+Release: 5%{?dist}
 Group: System Environment/Shells
 License: GPLv2+
 Url: http://www.gnu.org/software/bash
@@ -63,6 +63,16 @@ The GNU Bourne Again shell (Bash) is a shell or command language
 interpreter that is compatible with the Bourne shell (sh). Bash
 incorporates useful features from the Korn shell (ksh) and the C shell
 (csh). Most sh scripts can be run by bash without modification.
+
+%package doc
+Summary: Documentation files for %{name}
+Group: Development/Languages
+Requires: %{name} = %{version}-%{release}
+
+%description doc
+This package contains documentation files for %{name}.
+
+%define pkgdocdir %{_datadir}/doc/%{name}-%{version}
 
 %prep
 
@@ -192,6 +202,12 @@ done
 
 %find_lang %{name}
 
+# copy doc to /usr/share/doc
+mkdir -p $RPM_BUILD_ROOT/%{pkgdocdir}
+for file in CHANGES COMPAT NEWS NOTES POSIX doc examples
+do
+  cp -r "$file" $RPM_BUILD_ROOT/%{pkgdocdir}
+done
 %clean
 rm -rf $RPM_BUILD_ROOT
 
@@ -244,11 +260,6 @@ fi
 
 %files -f %{name}.lang
 %defattr(-,root,root)
-%doc CHANGES COMPAT NEWS NOTES POSIX
-%doc doc/FAQ doc/INTRO doc/article.ms
-%doc -P examples/obashdb/ examples/functions/ examples/misc/
-%doc -P examples/scripts.noah/ examples/scripts.v2/ examples/scripts/
-%doc -P examples/startup-files/ examples/complete/
 %config(noreplace) /etc/skel/.b*
 /bin/sh
 /bin/bash
@@ -257,10 +268,18 @@ fi
 %{_mandir}/*/*
 %{_mandir}/*/..1*
 
+%files doc
+%defattr(-, root, root)
+%doc %{pkgdocdir}
+
 # For now there isn't any doc
 #%doc doc/*.ps doc/*.0 doc/*.html doc/article.txt
 
 %changelog
+* Mon Mar 30 2009 Roman Rakus <rrakus@redhat.com> - 4.0-5
+- Split documentation, use bash-doc package
+  Resolves: #492447
+
 * Sat Mar 21 2009 Lubomir Rintel <lkundrak@v3.sk> - 4.0-4
 - Add full URLs to upstream patches
 - Don't uselessly use %%version macro
