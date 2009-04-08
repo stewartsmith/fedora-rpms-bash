@@ -3,7 +3,7 @@
 Version: 4.0
 Name: bash
 Summary: The GNU Bourne Again shell
-Release: 5%{?dist}
+Release: 6%{?dist}
 Group: System Environment/Shells
 License: GPLv2+
 Url: http://www.gnu.org/software/bash
@@ -27,6 +27,12 @@ Patch007: ftp://ftp.gnu.org/pub/gnu/bash/bash-4.0-patches/bash40-007
 Patch008: ftp://ftp.gnu.org/pub/gnu/bash/bash-4.0-patches/bash40-008
 Patch009: ftp://ftp.gnu.org/pub/gnu/bash/bash-4.0-patches/bash40-009
 Patch010: ftp://ftp.gnu.org/pub/gnu/bash/bash-4.0-patches/bash40-010
+Patch011: ftp://ftp.gnu.org/pub/gnu/bash/bash-4.0-patches/bash40-011
+Patch012: ftp://ftp.gnu.org/pub/gnu/bash/bash-4.0-patches/bash40-012
+Patch013: ftp://ftp.gnu.org/pub/gnu/bash/bash-4.0-patches/bash40-013
+Patch014: ftp://ftp.gnu.org/pub/gnu/bash/bash-4.0-patches/bash40-014
+Patch015: ftp://ftp.gnu.org/pub/gnu/bash/bash-4.0-patches/bash40-015
+Patch016: ftp://ftp.gnu.org/pub/gnu/bash/bash-4.0-patches/bash40-016
 
 # Other patches
 Patch101: bash-2.02-security.patch
@@ -90,6 +96,12 @@ This package contains documentation files for %{name}.
 %patch008 -p0 -b .008
 %patch009 -p0 -b .009
 %patch010 -p0 -b .010
+%patch011 -p0 -b .011
+%patch012 -p0 -b .012
+%patch013 -p0 -b .013
+%patch014 -p0 -b .014
+%patch015 -p0 -b .015
+%patch016 -p0 -b .016
 
 # Other patches
 %patch101 -p1 -b .security
@@ -276,6 +288,9 @@ fi
 #%doc doc/*.ps doc/*.0 doc/*.html doc/article.txt
 
 %changelog
+* Wed Apr 08 2009 Roman Rakus <rrakus@redhat.com> - 4.0-6
+- Official upstream patch level 16
+
 * Mon Mar 30 2009 Roman Rakus <rrakus@redhat.com> - 4.0-5
 - Split documentation, use bash-doc package
   Resolves: #492447
