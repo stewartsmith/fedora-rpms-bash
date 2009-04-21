@@ -1,9 +1,10 @@
 #%define beta_tag rc1
+%define patchlevel .16
 
 Version: 4.0
 Name: bash
 Summary: The GNU Bourne Again shell
-Release: 6%{?dist}
+Release: 7%{patchlevel}%{?dist}
 Group: System Environment/Shells
 License: GPLv2+
 Url: http://www.gnu.org/software/bash
@@ -288,6 +289,9 @@ fi
 #%doc doc/*.ps doc/*.0 doc/*.html doc/article.txt
 
 %changelog
+* Tue Apr 21 2009 Roman Rakus <rrakus@redhat.com> - 4.0-7.16
+- Use patch level in Release tag
+
 * Wed Apr 08 2009 Roman Rakus <rrakus@redhat.com> - 4.0-6
 - Official upstream patch level 16
 
