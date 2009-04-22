@@ -1,14 +1,15 @@
 #%define beta_tag rc1
 %define patchlevel .16
+%define baseversion 4.0
 
-Version: 4.0
+Version: %{baseversion}%{patchlevel}
 Name: bash
 Summary: The GNU Bourne Again shell
-Release: 7%{patchlevel}%{?dist}
+Release: 1%{?dist}
 Group: System Environment/Shells
 License: GPLv2+
 Url: http://www.gnu.org/software/bash
-Source0: ftp://ftp.gnu.org/gnu/bash/bash-%{version}.tar.gz
+Source0: ftp://ftp.gnu.org/gnu/bash/bash-%{baseversion}.tar.gz
 
 # For now there isn't any doc
 #Source2: ftp://ftp.gnu.org/gnu/bash/bash-doc-%{version}.tar.gz
@@ -82,9 +83,8 @@ This package contains documentation files for %{name}.
 %define pkgdocdir %{_datadir}/doc/%{name}-%{version}
 
 %prep
-
 #%setup -q -a 2
-%setup -q -n bash-%{version}
+%setup -q -n %{name}-%{baseversion}
 
 # Official upstream patches
 %patch001 -p0 -b .001
@@ -289,6 +289,9 @@ fi
 #%doc doc/*.ps doc/*.0 doc/*.html doc/article.txt
 
 %changelog
+* Wed Apr 22 2009 Roman Rakus <rrakus@redhat.com> - 4.0.16-1
+- better to use patch level in version tag like vim do
+
 * Tue Apr 21 2009 Roman Rakus <rrakus@redhat.com> - 4.0-7.16
 - Use patch level in Release tag
 
