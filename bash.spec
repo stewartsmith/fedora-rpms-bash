@@ -1,5 +1,5 @@
 #%define beta_tag rc1
-%define patchlevel .16
+%define patchlevel .24
 %define baseversion 4.0
 
 Version: %{baseversion}%{patchlevel}
@@ -35,6 +35,14 @@ Patch013: ftp://ftp.gnu.org/pub/gnu/bash/bash-4.0-patches/bash40-013
 Patch014: ftp://ftp.gnu.org/pub/gnu/bash/bash-4.0-patches/bash40-014
 Patch015: ftp://ftp.gnu.org/pub/gnu/bash/bash-4.0-patches/bash40-015
 Patch016: ftp://ftp.gnu.org/pub/gnu/bash/bash-4.0-patches/bash40-016
+Patch017: ftp://ftp.gnu.org/pub/gnu/bash/bash-4.0-patches/bash40-017
+Patch018: ftp://ftp.gnu.org/pub/gnu/bash/bash-4.0-patches/bash40-018
+Patch019: ftp://ftp.gnu.org/pub/gnu/bash/bash-4.0-patches/bash40-019
+Patch020: ftp://ftp.gnu.org/pub/gnu/bash/bash-4.0-patches/bash40-020
+Patch021: ftp://ftp.gnu.org/pub/gnu/bash/bash-4.0-patches/bash40-021
+Patch022: ftp://ftp.gnu.org/pub/gnu/bash/bash-4.0-patches/bash40-022
+Patch023: ftp://ftp.gnu.org/pub/gnu/bash/bash-4.0-patches/bash40-023
+Patch024: ftp://ftp.gnu.org/pub/gnu/bash/bash-4.0-patches/bash40-024
 
 # Other patches
 Patch101: bash-2.02-security.patch
@@ -103,6 +111,14 @@ This package contains documentation files for %{name}.
 %patch014 -p0 -b .014
 %patch015 -p0 -b .015
 %patch016 -p0 -b .016
+%patch017 -p0 -b .017
+%patch018 -p0 -b .018
+%patch019 -p0 -b .019
+%patch020 -p0 -b .020
+%patch021 -p0 -b .021
+%patch022 -p0 -b .022
+%patch023 -p0 -b .023
+%patch024 -p0 -b .024
 
 # Other patches
 %patch101 -p1 -b .security
@@ -289,6 +305,9 @@ fi
 #%doc doc/*.ps doc/*.0 doc/*.html doc/article.txt
 
 %changelog
+* Tue May 19 2009 Roman Rakus <rrakus@redhat.com> - 4.0.24-1
+- Upstream patch level 24
+
 * Wed Apr 22 2009 Roman Rakus <rrakus@redhat.com> - 4.0.16-1
 - better to use patch level in version tag like vim do
 
