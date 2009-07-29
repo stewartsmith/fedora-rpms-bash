@@ -1,11 +1,11 @@
 #%define beta_tag rc1
-%define patchlevel .24
+%define patchlevel .28
 %define baseversion 4.0
 
 Version: %{baseversion}%{patchlevel}
 Name: bash
 Summary: The GNU Bourne Again shell
-Release: 2%{?dist}
+Release: 1%{?dist}
 Group: System Environment/Shells
 License: GPLv2+
 Url: http://www.gnu.org/software/bash
@@ -43,6 +43,10 @@ Patch021: ftp://ftp.gnu.org/pub/gnu/bash/bash-4.0-patches/bash40-021
 Patch022: ftp://ftp.gnu.org/pub/gnu/bash/bash-4.0-patches/bash40-022
 Patch023: ftp://ftp.gnu.org/pub/gnu/bash/bash-4.0-patches/bash40-023
 Patch024: ftp://ftp.gnu.org/pub/gnu/bash/bash-4.0-patches/bash40-024
+Patch025: ftp://ftp.gnu.org/pub/gnu/bash/bash-4.0-patches/bash40-025
+Patch026: ftp://ftp.gnu.org/pub/gnu/bash/bash-4.0-patches/bash40-026
+Patch027: ftp://ftp.gnu.org/pub/gnu/bash/bash-4.0-patches/bash40-027
+Patch028: ftp://ftp.gnu.org/pub/gnu/bash/bash-4.0-patches/bash40-028
 
 # Other patches
 Patch101: bash-2.02-security.patch
@@ -119,6 +123,10 @@ This package contains documentation files for %{name}.
 %patch022 -p0 -b .022
 %patch023 -p0 -b .023
 %patch024 -p0 -b .024
+%patch025 -p0 -b .025
+%patch026 -p0 -b .026
+%patch027 -p0 -b .027
+%patch028 -p0 -b .028
 
 # Other patches
 %patch101 -p1 -b .security
@@ -305,6 +313,9 @@ fi
 #%doc doc/*.ps doc/*.0 doc/*.html doc/article.txt
 
 %changelog
+* Tue Jul 28 2009 Roman Rakus <rrakus@redhat.com> - 4.0.28-1
+- Upstream patch level 28
+
 * Fri Jul 24 2009 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 4.0.24-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_12_Mass_Rebuild
 
