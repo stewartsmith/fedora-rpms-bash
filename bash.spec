@@ -71,6 +71,9 @@ Patch118: bash-tty-tests.patch
 #Patch120: bash-4.0-no_debug_output.patch
 #Patch121: bash-4.0-shell_pipelines_handling.patch
 
+# 518644, alloc memory for key in associative array creation
+Patch122: bash-4.0-key_alloc.patch
+
 Requires(post): ncurses-libs
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
@@ -150,6 +153,7 @@ This package contains documentation files for %{name}.
 #%patch119 -p1 -b .ulimit-m
 #%patch120 -p1 -b .no_debug_output
 #%patch121 -p1 -b .pipelines_handling
+%patch122 -p1 -b .key_alloc
 
 echo %{version} > _distribution
 echo %{release} > _patchlevel
@@ -313,6 +317,9 @@ fi
 #%doc doc/*.ps doc/*.0 doc/*.html doc/article.txt
 
 %changelog
+* Wed Aug 26 2009 Roman Rakus <rrakus@redhat.com> - 4.0.28-2
+- alloc memory for key in creation associative array (#518644)
+
 * Tue Jul 28 2009 Roman Rakus <rrakus@redhat.com> - 4.0.28-1
 - Upstream patch level 28
 
