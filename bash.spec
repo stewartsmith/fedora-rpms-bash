@@ -74,6 +74,9 @@ Patch118: bash-tty-tests.patch
 # 518644, alloc memory for key in associative array creation
 Patch122: bash-4.0-key_alloc.patch
 
+# 484809, check if interp section is NOBITS
+Patch123: bash-4.0-nobits.patch
+
 Requires(post): ncurses-libs
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
@@ -154,6 +157,7 @@ This package contains documentation files for %{name}.
 #%patch120 -p1 -b .no_debug_output
 #%patch121 -p1 -b .pipelines_handling
 %patch122 -p1 -b .key_alloc
+%patch123 -p1 -b .nobits
 
 echo %{version} > _distribution
 echo %{release} > _patchlevel
@@ -161,8 +165,11 @@ echo %{release} > _patchlevel
 %build
 autoconf
 %configure --with-bash-malloc=no --with-afs
-make "CPPFLAGS=-D_GNU_SOURCE `getconf LFS_CFLAGS`"
-#make "CPPFLAGS=-DUSE_POSIX_GLOB_LIBRARY -D_GNU_SOURCE `getconf LFS_CFLAGS`"
+
+# Recycles pids is neccessary. When bash's last fork's pid was X
+# and new fork's pid is also X, bash has to wait for this same pid.
+# Without Recycles pids bash will not wait.
+make "CPPFLAGS=-D_GNU_SOURCE -DRECYCLES_PIDS `getconf LFS_CFLAGS`"
 %check
 make check
 
@@ -317,6 +324,10 @@ fi
 #%doc doc/*.ps doc/*.0 doc/*.html doc/article.txt
 
 %changelog
+* Fri Sep 04 2009 Roman Rakus <rrakus@redhat.com> - 4.0.28-3
+- check if interp section is NOBITS
+- define Recycles pids
+
 * Wed Aug 26 2009 Roman Rakus <rrakus@redhat.com> - 4.0.28-2
 - alloc memory for key in creation associative array (#518644)
 
