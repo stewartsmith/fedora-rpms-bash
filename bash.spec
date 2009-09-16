@@ -1,11 +1,11 @@
 #%define beta_tag rc1
-%define patchlevel .28
+%define patchlevel .33
 %define baseversion 4.0
 
 Version: %{baseversion}%{patchlevel}
 Name: bash
 Summary: The GNU Bourne Again shell
-Release: 3%{?dist}
+Release: 1%{?dist}
 Group: System Environment/Shells
 License: GPLv2+
 Url: http://www.gnu.org/software/bash
@@ -47,6 +47,11 @@ Patch025: ftp://ftp.gnu.org/pub/gnu/bash/bash-4.0-patches/bash40-025
 Patch026: ftp://ftp.gnu.org/pub/gnu/bash/bash-4.0-patches/bash40-026
 Patch027: ftp://ftp.gnu.org/pub/gnu/bash/bash-4.0-patches/bash40-027
 Patch028: ftp://ftp.gnu.org/pub/gnu/bash/bash-4.0-patches/bash40-028
+Patch029: ftp://ftp.gnu.org/pub/gnu/bash/bash-4.0-patches/bash40-029
+Patch030: ftp://ftp.gnu.org/pub/gnu/bash/bash-4.0-patches/bash40-030
+Patch031: ftp://ftp.gnu.org/pub/gnu/bash/bash-4.0-patches/bash40-031
+Patch032: ftp://ftp.gnu.org/pub/gnu/bash/bash-4.0-patches/bash40-032
+Patch033: ftp://ftp.gnu.org/pub/gnu/bash/bash-4.0-patches/bash40-033
 
 # Other patches
 Patch101: bash-2.02-security.patch
@@ -59,7 +64,6 @@ Patch107: bash-2.05b-pgrp_sync.patch
 Patch108: bash-2.05b-readline-oom.patch
 Patch109: bash-2.05b-xcc.patch
 Patch110: bash-3.2-audit.patch
-#Patch111: bash-3.2-rng.patch
 Patch112: bash-3.2-ssh_source_bash.patch
 Patch113: bash-bashbug.patch
 Patch114: bash-cond-rmatch.patch
@@ -67,12 +71,7 @@ Patch115: bash-infotags.patch
 Patch116: bash-requires.patch
 Patch117: bash-setlocale.patch
 Patch118: bash-tty-tests.patch
-#Patch119: bash-ulimit-m.patch
-#Patch120: bash-4.0-no_debug_output.patch
-#Patch121: bash-4.0-shell_pipelines_handling.patch
 
-# 518644, alloc memory for key in associative array creation
-Patch122: bash-4.0-key_alloc.patch
 
 # 484809, check if interp section is NOBITS
 Patch123: bash-4.0-nobits.patch
@@ -133,6 +132,11 @@ This package contains documentation files for %{name}.
 %patch026 -p0 -b .026
 %patch027 -p0 -b .027
 %patch028 -p0 -b .028
+%patch029 -p0 -b .029
+%patch030 -p0 -b .030
+%patch031 -p0 -b .031
+%patch032 -p0 -b .032
+%patch033 -p0 -b .033
 
 # Other patches
 %patch101 -p1 -b .security
@@ -145,7 +149,6 @@ This package contains documentation files for %{name}.
 %patch108 -p1 -b .readline_oom
 %patch109 -p1 -b .xcc
 %patch110 -p1 -b .audit
-#%patch111 -p1 -b .rng
 %patch112 -p1 -b .ssh_source_bash
 %patch113 -p1 -b .bashbug
 %patch114 -p1 -b .cond_rmatch
@@ -153,10 +156,6 @@ This package contains documentation files for %{name}.
 %patch116 -p1 -b .requires
 %patch117 -p1 -b .setlocale
 %patch118 -p1 -b .tty_tests
-#%patch119 -p1 -b .ulimit-m
-#%patch120 -p1 -b .no_debug_output
-#%patch121 -p1 -b .pipelines_handling
-%patch122 -p1 -b .key_alloc
 %patch123 -p1 -b .nobits
 
 echo %{version} > _distribution
@@ -324,6 +323,10 @@ fi
 #%doc doc/*.ps doc/*.0 doc/*.html doc/article.txt
 
 %changelog
+* Wed Sep 16 2009 Roman Rakus <rrakus@redhat.com> - 4.0.33-1
+- Patch level 33
+- spec file cleanup
+
 * Fri Sep 04 2009 Roman Rakus <rrakus@redhat.com> - 4.0.28-3
 - check if interp section is NOBITS
 - define Recycles pids
