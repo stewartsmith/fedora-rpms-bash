@@ -5,7 +5,7 @@
 Version: %{baseversion}%{patchlevel}
 Name: bash
 Summary: The GNU Bourne Again shell
-Release: 1%{?dist}
+Release: 2%{?dist}
 Group: System Environment/Shells
 License: GPLv2+
 Url: http://www.gnu.org/software/bash
@@ -233,6 +233,7 @@ install -c -m644 %SOURCE3 $RPM_BUILD_ROOT/etc/skel/.bash_logout
 LONG_BIT=$(getconf LONG_BIT)
 mv $RPM_BUILD_ROOT%{_bindir}/bashbug \
    $RPM_BUILD_ROOT%{_bindir}/bashbug-"${LONG_BIT}"
+ln -s bashbug.1 $RPM_BUILD_ROOT/%{_mandir}/man1/bashbug-"$LONG_BIT".1
 
 # Fix missing sh-bangs in example scripts (bug #225609).
 for script in \
@@ -323,6 +324,9 @@ fi
 #%doc doc/*.ps doc/*.0 doc/*.html doc/article.txt
 
 %changelog
+* Mon Oct 05 2009 Roman Rakus <rrakus@redhat.com> - 4.0.33-2
+- Make symlink from bashbug-suffix to bashbug man pages
+
 * Wed Sep 16 2009 Roman Rakus <rrakus@redhat.com> - 4.0.33-1
 - Patch level 33
 - spec file cleanup
