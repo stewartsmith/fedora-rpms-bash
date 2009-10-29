@@ -1,11 +1,11 @@
 #%define beta_tag rc1
-%define patchlevel .33
+%define patchlevel .35
 %define baseversion 4.0
 
 Version: %{baseversion}%{patchlevel}
 Name: bash
 Summary: The GNU Bourne Again shell
-Release: 2%{?dist}
+Release: 1%{?dist}
 Group: System Environment/Shells
 License: GPLv2+
 Url: http://www.gnu.org/software/bash
@@ -52,6 +52,8 @@ Patch030: ftp://ftp.gnu.org/pub/gnu/bash/bash-4.0-patches/bash40-030
 Patch031: ftp://ftp.gnu.org/pub/gnu/bash/bash-4.0-patches/bash40-031
 Patch032: ftp://ftp.gnu.org/pub/gnu/bash/bash-4.0-patches/bash40-032
 Patch033: ftp://ftp.gnu.org/pub/gnu/bash/bash-4.0-patches/bash40-033
+Patch034: ftp://ftp.gnu.org/pub/gnu/bash/bash-4.0-patches/bash40-034
+Patch035: ftp://ftp.gnu.org/pub/gnu/bash/bash-4.0-patches/bash40-035
 
 # Other patches
 Patch101: bash-2.02-security.patch
@@ -137,6 +139,8 @@ This package contains documentation files for %{name}.
 %patch031 -p0 -b .031
 %patch032 -p0 -b .032
 %patch033 -p0 -b .033
+%patch034 -p0 -b .034
+%patch035 -p0 -b .035
 
 # Other patches
 %patch101 -p1 -b .security
@@ -324,6 +328,9 @@ fi
 #%doc doc/*.ps doc/*.0 doc/*.html doc/article.txt
 
 %changelog
+* Thu Oct 29 2009 Roman Rakus <rrakus@redhat.com> - 4.0.35-1
+- Patch level 35
+
 * Mon Oct 05 2009 Roman Rakus <rrakus@redhat.com> - 4.0.33-2
 - Make symlink from bashbug-suffix to bashbug man pages
 
