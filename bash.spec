@@ -5,7 +5,7 @@
 Version: %{baseversion}%{patchlevel}
 Name: bash
 Summary: The GNU Bourne Again shell
-Release: 1%{?dist}
+Release: 2%{?dist}
 Group: System Environment/Shells
 License: GPLv2+
 Url: http://www.gnu.org/software/bash
@@ -61,7 +61,7 @@ Patch102: bash-2.03-paths.patch
 Patch103: bash-2.03-profile.patch
 Patch104: bash-2.05a-interpreter.patch
 Patch105: bash-2.05b-debuginfo.patch
-Patch106: bash-2.05b-manso.patch
+#Patch106: bash-2.05b-manso.patch
 Patch107: bash-2.05b-pgrp_sync.patch
 Patch108: bash-2.05b-readline-oom.patch
 Patch109: bash-2.05b-xcc.patch
@@ -77,6 +77,9 @@ Patch118: bash-tty-tests.patch
 
 # 484809, check if interp section is NOBITS
 Patch123: bash-4.0-nobits.patch
+
+# 530911, bash was segfaulting when TERM=eterm* and EMACS was unset
+Patch124: bash-4.0-emacs.patch
 
 Requires(post): ncurses-libs
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
@@ -139,8 +142,8 @@ This package contains documentation files for %{name}.
 %patch031 -p0 -b .031
 %patch032 -p0 -b .032
 %patch033 -p0 -b .033
-%patch034 -p0 -b .034
-%patch035 -p0 -b .035
+#%patch034 -p0 -b .034
+#%patch035 -p0 -b .035
 
 # Other patches
 %patch101 -p1 -b .security
@@ -148,7 +151,7 @@ This package contains documentation files for %{name}.
 %patch103 -p1 -b .profile
 %patch104 -p1 -b .interpreter
 %patch105 -p1 -b .debuginfo
-%patch106 -p1 -b .manso
+#%patch106 -p1 -b .manso
 %patch107 -p1 -b .pgrp_sync
 %patch108 -p1 -b .readline_oom
 %patch109 -p1 -b .xcc
@@ -161,6 +164,7 @@ This package contains documentation files for %{name}.
 %patch117 -p1 -b .setlocale
 %patch118 -p1 -b .tty_tests
 %patch123 -p1 -b .nobits
+%patch124 -p1 -b .emacs
 
 echo %{version} > _distribution
 echo %{release} > _patchlevel
@@ -328,6 +332,9 @@ fi
 #%doc doc/*.ps doc/*.0 doc/*.html doc/article.txt
 
 %changelog
+* Fri Dec 11 2009 Roman Rakus <rrakus@redhat.com> - 4.0.35-2
+- Don't segfault when TERM=eterm* and EMACS is unset (#530911)
+
 * Thu Oct 29 2009 Roman Rakus <rrakus@redhat.com> - 4.0.35-1
 - Patch level 35
 
