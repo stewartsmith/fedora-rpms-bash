@@ -1,15 +1,16 @@
-#%define beta_tag rc1
-%define patchlevel .35
-%define baseversion 4.0
+%define beta_tag rc1
+%define patchleveltag .0
+%define baseversion 4.1
 
-Version: %{baseversion}%{patchlevel}
+Version: %{baseversion}%{?patchleveltag}
 Name: bash
 Summary: The GNU Bourne Again shell
-Release: 2%{?dist}
+Release: 0.1.%{beta_tag}%{?dist}
 Group: System Environment/Shells
-License: GPLv2+
+License: GPLv3+
 Url: http://www.gnu.org/software/bash
-Source0: ftp://ftp.gnu.org/gnu/bash/bash-%{baseversion}.tar.gz
+#Source0: ftp://ftp.gnu.org/gnu/bash/bash-%{baseversion}.tar.gz
+Source0: ftp://ftp.cwru.edu/pub/bash/%{name}-%{baseversion}-%{beta_tag}.tar.gz
 
 # For now there isn't any doc
 #Source2: ftp://ftp.gnu.org/gnu/bash/bash-doc-%{version}.tar.gz
@@ -19,49 +20,12 @@ Source2: dot-bash_profile
 Source3: dot-bash_logout
 
 # Official upstream patches
-Patch001: ftp://ftp.gnu.org/pub/gnu/bash/bash-4.0-patches/bash40-001
-Patch002: ftp://ftp.gnu.org/pub/gnu/bash/bash-4.0-patches/bash40-002
-Patch003: ftp://ftp.gnu.org/pub/gnu/bash/bash-4.0-patches/bash40-003
-Patch004: ftp://ftp.gnu.org/pub/gnu/bash/bash-4.0-patches/bash40-004
-Patch005: ftp://ftp.gnu.org/pub/gnu/bash/bash-4.0-patches/bash40-005
-Patch006: ftp://ftp.gnu.org/pub/gnu/bash/bash-4.0-patches/bash40-006
-Patch007: ftp://ftp.gnu.org/pub/gnu/bash/bash-4.0-patches/bash40-007
-Patch008: ftp://ftp.gnu.org/pub/gnu/bash/bash-4.0-patches/bash40-008
-Patch009: ftp://ftp.gnu.org/pub/gnu/bash/bash-4.0-patches/bash40-009
-Patch010: ftp://ftp.gnu.org/pub/gnu/bash/bash-4.0-patches/bash40-010
-Patch011: ftp://ftp.gnu.org/pub/gnu/bash/bash-4.0-patches/bash40-011
-Patch012: ftp://ftp.gnu.org/pub/gnu/bash/bash-4.0-patches/bash40-012
-Patch013: ftp://ftp.gnu.org/pub/gnu/bash/bash-4.0-patches/bash40-013
-Patch014: ftp://ftp.gnu.org/pub/gnu/bash/bash-4.0-patches/bash40-014
-Patch015: ftp://ftp.gnu.org/pub/gnu/bash/bash-4.0-patches/bash40-015
-Patch016: ftp://ftp.gnu.org/pub/gnu/bash/bash-4.0-patches/bash40-016
-Patch017: ftp://ftp.gnu.org/pub/gnu/bash/bash-4.0-patches/bash40-017
-Patch018: ftp://ftp.gnu.org/pub/gnu/bash/bash-4.0-patches/bash40-018
-Patch019: ftp://ftp.gnu.org/pub/gnu/bash/bash-4.0-patches/bash40-019
-Patch020: ftp://ftp.gnu.org/pub/gnu/bash/bash-4.0-patches/bash40-020
-Patch021: ftp://ftp.gnu.org/pub/gnu/bash/bash-4.0-patches/bash40-021
-Patch022: ftp://ftp.gnu.org/pub/gnu/bash/bash-4.0-patches/bash40-022
-Patch023: ftp://ftp.gnu.org/pub/gnu/bash/bash-4.0-patches/bash40-023
-Patch024: ftp://ftp.gnu.org/pub/gnu/bash/bash-4.0-patches/bash40-024
-Patch025: ftp://ftp.gnu.org/pub/gnu/bash/bash-4.0-patches/bash40-025
-Patch026: ftp://ftp.gnu.org/pub/gnu/bash/bash-4.0-patches/bash40-026
-Patch027: ftp://ftp.gnu.org/pub/gnu/bash/bash-4.0-patches/bash40-027
-Patch028: ftp://ftp.gnu.org/pub/gnu/bash/bash-4.0-patches/bash40-028
-Patch029: ftp://ftp.gnu.org/pub/gnu/bash/bash-4.0-patches/bash40-029
-Patch030: ftp://ftp.gnu.org/pub/gnu/bash/bash-4.0-patches/bash40-030
-Patch031: ftp://ftp.gnu.org/pub/gnu/bash/bash-4.0-patches/bash40-031
-Patch032: ftp://ftp.gnu.org/pub/gnu/bash/bash-4.0-patches/bash40-032
-Patch033: ftp://ftp.gnu.org/pub/gnu/bash/bash-4.0-patches/bash40-033
-Patch034: ftp://ftp.gnu.org/pub/gnu/bash/bash-4.0-patches/bash40-034
-Patch035: ftp://ftp.gnu.org/pub/gnu/bash/bash-4.0-patches/bash40-035
-
 # Other patches
 Patch101: bash-2.02-security.patch
 Patch102: bash-2.03-paths.patch
 Patch103: bash-2.03-profile.patch
 Patch104: bash-2.05a-interpreter.patch
 Patch105: bash-2.05b-debuginfo.patch
-#Patch106: bash-2.05b-manso.patch
 Patch107: bash-2.05b-pgrp_sync.patch
 Patch108: bash-2.05b-readline-oom.patch
 Patch109: bash-2.05b-xcc.patch
@@ -77,9 +41,6 @@ Patch118: bash-tty-tests.patch
 
 # 484809, check if interp section is NOBITS
 Patch123: bash-4.0-nobits.patch
-
-# 530911, bash was segfaulting when TERM=eterm* and EMACS was unset
-Patch124: bash-4.0-emacs.patch
 
 Requires(post): ncurses-libs
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
@@ -106,52 +67,15 @@ This package contains documentation files for %{name}.
 
 %prep
 #%setup -q -a 2
-%setup -q -n %{name}-%{baseversion}
+%setup -q -n %{name}-%{baseversion}-%{beta_tag}
 
 # Official upstream patches
-%patch001 -p0 -b .001
-%patch002 -p0 -b .002
-%patch003 -p0 -b .003
-%patch004 -p0 -b .004
-%patch005 -p0 -b .005
-%patch006 -p0 -b .006
-%patch007 -p0 -b .007
-%patch008 -p0 -b .008
-%patch009 -p0 -b .009
-%patch010 -p0 -b .010
-%patch011 -p0 -b .011
-%patch012 -p0 -b .012
-%patch013 -p0 -b .013
-%patch014 -p0 -b .014
-%patch015 -p0 -b .015
-%patch016 -p0 -b .016
-%patch017 -p0 -b .017
-%patch018 -p0 -b .018
-%patch019 -p0 -b .019
-%patch020 -p0 -b .020
-%patch021 -p0 -b .021
-%patch022 -p0 -b .022
-%patch023 -p0 -b .023
-%patch024 -p0 -b .024
-%patch025 -p0 -b .025
-%patch026 -p0 -b .026
-%patch027 -p0 -b .027
-%patch028 -p0 -b .028
-%patch029 -p0 -b .029
-%patch030 -p0 -b .030
-%patch031 -p0 -b .031
-%patch032 -p0 -b .032
-%patch033 -p0 -b .033
-#%patch034 -p0 -b .034
-#%patch035 -p0 -b .035
-
 # Other patches
 %patch101 -p1 -b .security
 %patch102 -p1 -b .paths
 %patch103 -p1 -b .profile
 %patch104 -p1 -b .interpreter
 %patch105 -p1 -b .debuginfo
-#%patch106 -p1 -b .manso
 %patch107 -p1 -b .pgrp_sync
 %patch108 -p1 -b .readline_oom
 %patch109 -p1 -b .xcc
@@ -164,7 +88,6 @@ This package contains documentation files for %{name}.
 %patch117 -p1 -b .setlocale
 %patch118 -p1 -b .tty_tests
 %patch123 -p1 -b .nobits
-%patch124 -p1 -b .emacs
 
 echo %{version} > _distribution
 echo %{release} > _patchlevel
@@ -332,6 +255,9 @@ fi
 #%doc doc/*.ps doc/*.0 doc/*.html doc/article.txt
 
 %changelog
+* Sun Dec 27 2009 Roman Rakus <rrakus@redhat.com> - 4.1-0.1.rc1
+- Upstream 4.1.rc1
+
 * Fri Dec 11 2009 Roman Rakus <rrakus@redhat.com> - 4.0.35-2
 - Don't segfault when TERM=eterm* and EMACS is unset (#530911)
 
