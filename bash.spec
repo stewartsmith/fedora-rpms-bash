@@ -5,7 +5,7 @@
 Version: %{baseversion}%{?patchleveltag}
 Name: bash
 Summary: The GNU Bourne Again shell
-Release: 0.1.%{beta_tag}%{?dist}
+Release: 0.2.%{beta_tag}%{?dist}
 Group: System Environment/Shells
 License: GPLv3+
 Url: http://www.gnu.org/software/bash
@@ -255,6 +255,9 @@ fi
 #%doc doc/*.ps doc/*.0 doc/*.html doc/article.txt
 
 %changelog
+* Sun Dec 27 2009 Roman Rakus <rrakus@redhat.com> - 4.1-0.2.rc1
+- Fixed patch for fuzz=0
+
 * Sun Dec 27 2009 Roman Rakus <rrakus@redhat.com> - 4.1-0.1.rc1
 - Upstream 4.1.rc1
 
