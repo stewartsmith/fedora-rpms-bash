@@ -1,16 +1,15 @@
-%define beta_tag rc1
+#% define beta_tag rc1
 %define patchleveltag .0
 %define baseversion 4.1
 
 Version: %{baseversion}%{?patchleveltag}
 Name: bash
 Summary: The GNU Bourne Again shell
-Release: 0.2.%{beta_tag}%{?dist}
+Release: 1%{?dist}
 Group: System Environment/Shells
 License: GPLv3+
 Url: http://www.gnu.org/software/bash
-#Source0: ftp://ftp.gnu.org/gnu/bash/bash-%{baseversion}.tar.gz
-Source0: ftp://ftp.cwru.edu/pub/bash/%{name}-%{baseversion}-%{beta_tag}.tar.gz
+Source0: ftp://ftp.gnu.org/gnu/bash/bash-%{baseversion}.tar.gz
 
 # For now there isn't any doc
 #Source2: ftp://ftp.gnu.org/gnu/bash/bash-doc-%{version}.tar.gz
@@ -67,7 +66,7 @@ This package contains documentation files for %{name}.
 
 %prep
 #%setup -q -a 2
-%setup -q -n %{name}-%{baseversion}-%{beta_tag}
+%setup -q -n %{name}-%{baseversion}
 
 # Official upstream patches
 # Other patches
@@ -255,6 +254,9 @@ fi
 #%doc doc/*.ps doc/*.0 doc/*.html doc/article.txt
 
 %changelog
+* Mon Jan 04 2010 Roman Rakus <rrakus@redhat.com> - 4.1.0-1
+- Upstream 4.1
+
 * Sun Dec 27 2009 Roman Rakus <rrakus@redhat.com> - 4.1-0.2.rc1
 - Fixed patch for fuzz=0
 
