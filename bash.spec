@@ -5,7 +5,7 @@
 Version: %{baseversion}%{?patchleveltag}
 Name: bash
 Summary: The GNU Bourne Again shell
-Release: 1%{?dist}
+Release: 2%{?dist}
 Group: System Environment/Shells
 License: GPLv3+
 Url: http://www.gnu.org/software/bash
@@ -182,7 +182,7 @@ done
 
 # copy doc to /usr/share/doc
 mkdir -p $RPM_BUILD_ROOT/%{pkgdocdir}
-for file in CHANGES COMPAT NEWS NOTES POSIX doc examples
+for file in COPYING CHANGES COMPAT NEWS NOTES POSIX doc examples
 do
   cp -r "$file" $RPM_BUILD_ROOT/%{pkgdocdir}
 done
@@ -254,6 +254,9 @@ fi
 #%doc doc/*.ps doc/*.0 doc/*.html doc/article.txt
 
 %changelog
+* Fri Jan 08 2010 Roman Rakus rrakus@redhat.com 4.1.0-2
+- Include COPYING in doc dir
+
 * Mon Jan 04 2010 Roman Rakus <rrakus@redhat.com> - 4.1.0-1
 - Upstream 4.1
 
