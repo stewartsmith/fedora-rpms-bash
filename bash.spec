@@ -1,11 +1,11 @@
 #% define beta_tag rc1
-%define patchleveltag .0
+%define patchleveltag .2
 %define baseversion 4.1
 
 Version: %{baseversion}%{patchleveltag}
 Name: bash
 Summary: The GNU Bourne Again shell
-Release: 1%{?dist}
+Release: 2%{?dist}
 Group: System Environment/Shells
 License: GPLv3+
 Url: http://www.gnu.org/software/bash
@@ -261,6 +261,9 @@ fi
 #%doc doc/*.ps doc/*.0 doc/*.html doc/article.txt
 
 %changelog
+* Fri Jan 22 2010 rrakus@redhat.com 4.1.2-2
+- Correct patchlevel 2
+
 * Fri Jan 22 2010 Roman Rakus rrakus@redhat.com 4.1.2-1
 - Patchlevel 4.2
 - Removed old patch
