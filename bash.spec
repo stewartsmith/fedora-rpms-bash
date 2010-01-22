@@ -5,7 +5,7 @@
 Version: %{baseversion}%{patchleveltag}
 Name: bash
 Summary: The GNU Bourne Again shell
-Release: 2%{?dist}
+Release: 3%{?dist}
 Group: System Environment/Shells
 License: GPLv3+
 Url: http://www.gnu.org/software/bash
@@ -28,13 +28,13 @@ Patch102: bash-2.03-paths.patch
 Patch103: bash-2.03-profile.patch
 Patch104: bash-2.05a-interpreter.patch
 Patch105: bash-2.05b-debuginfo.patch
+Patch106: bash-2.05b-manso.patch
 Patch107: bash-2.05b-pgrp_sync.patch
 Patch108: bash-2.05b-readline-oom.patch
 Patch109: bash-2.05b-xcc.patch
 Patch110: bash-3.2-audit.patch
 Patch112: bash-3.2-ssh_source_bash.patch
 Patch113: bash-bashbug.patch
-Patch114: bash-cond-rmatch.patch
 Patch115: bash-infotags.patch
 Patch116: bash-requires.patch
 Patch117: bash-setlocale.patch
@@ -82,13 +82,13 @@ This package contains documentation files for %{name}.
 %patch103 -p1 -b .profile
 %patch104 -p1 -b .interpreter
 %patch105 -p1 -b .debuginfo
+%patch106 -p1 -b .manso
 %patch107 -p1 -b .pgrp_sync
 %patch108 -p1 -b .readline_oom
 %patch109 -p1 -b .xcc
 %patch110 -p1 -b .audit
 %patch112 -p1 -b .ssh_source_bash
 %patch113 -p1 -b .bashbug
-%patch114 -p1 -b .cond_rmatch
 %patch115 -p1 -b .infotags
 %patch116 -p1 -b .requires
 %patch117 -p1 -b .setlocale
@@ -248,6 +248,7 @@ fi
 %config(noreplace) /etc/skel/.b*
 /bin/sh
 /bin/bash
+%doc %{pkgdocdir}/COPYING
 %attr(0755,root,root) %{_bindir}/bashbug-*
 %{_infodir}/bash.info*
 %{_mandir}/*/*
@@ -261,6 +262,11 @@ fi
 #%doc doc/*.ps doc/*.0 doc/*.html doc/article.txt
 
 %changelog
+* Fri Jan 22 2010 rrakus@redhat.com 4.1.2-3
+- Don't use cond-rmatch patch
+- Use manso patch
+- Include COPYING in base bash rpm
+
 * Fri Jan 22 2010 rrakus@redhat.com 4.1.2-2
 - Correct patchlevel 2
 
