@@ -2,10 +2,10 @@
 %define patchleveltag .0
 %define baseversion 4.1
 
-Version: %{baseversion}%{?patchleveltag}
+Version: %{baseversion}%{patchleveltag}
 Name: bash
 Summary: The GNU Bourne Again shell
-Release: 2%{?dist}
+Release: 1%{?dist}
 Group: System Environment/Shells
 License: GPLv3+
 Url: http://www.gnu.org/software/bash
@@ -19,6 +19,9 @@ Source2: dot-bash_profile
 Source3: dot-bash_logout
 
 # Official upstream patches
+Patch001: ftp://ftp.gnu.org/pub/gnu/bash/bash-4.1-patches/bash41-001
+Patch002: ftp://ftp.gnu.org/pub/gnu/bash/bash-4.1-patches/bash41-002
+
 # Other patches
 Patch101: bash-2.02-security.patch
 Patch102: bash-2.03-paths.patch
@@ -69,6 +72,10 @@ This package contains documentation files for %{name}.
 %setup -q -n %{name}-%{baseversion}
 
 # Official upstream patches
+%patch001 -p0 -b .001
+%patch002 -p0 -b .002
+
+
 # Other patches
 %patch101 -p1 -b .security
 %patch102 -p1 -b .paths
@@ -254,6 +261,11 @@ fi
 #%doc doc/*.ps doc/*.0 doc/*.html doc/article.txt
 
 %changelog
+* Fri Jan 22 2010 Roman Rakus rrakus@redhat.com 4.1.2-1
+- Patchlevel 4.2
+- Removed old patch
+- Returned back manso patch
+
 * Fri Jan 08 2010 Roman Rakus rrakus@redhat.com 4.1.0-2
 - Include COPYING in doc dir
 
