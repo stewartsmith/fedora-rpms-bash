@@ -5,7 +5,7 @@
 Version: %{baseversion}%{patchleveltag}
 Name: bash
 Summary: The GNU Bourne Again shell
-Release: 3%{?dist}
+Release: 4%{?dist}
 Group: System Environment/Shells
 License: GPLv3+
 Url: http://www.gnu.org/software/bash
@@ -262,6 +262,9 @@ fi
 #%doc doc/*.ps doc/*.0 doc/*.html doc/article.txt
 
 %changelog
+* Tue Mar 30 2010 Roman Rakus <rrakus@redhat.com> - 4.1.2-4
+- Corrected requires patch (#563301)
+
 * Fri Jan 22 2010 rrakus@redhat.com 4.1.2-3
 - Don't use cond-rmatch patch
 - Use manso patch
