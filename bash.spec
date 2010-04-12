@@ -1,11 +1,11 @@
 #% define beta_tag rc1
-%define patchleveltag .2
+%define patchleveltag .5
 %define baseversion 4.1
 
 Version: %{baseversion}%{patchleveltag}
 Name: bash
 Summary: The GNU Bourne Again shell
-Release: 4%{?dist}
+Release: 1%{?dist}
 Group: System Environment/Shells
 License: GPLv3+
 Url: http://www.gnu.org/software/bash
@@ -21,6 +21,9 @@ Source3: dot-bash_logout
 # Official upstream patches
 Patch001: ftp://ftp.gnu.org/pub/gnu/bash/bash-4.1-patches/bash41-001
 Patch002: ftp://ftp.gnu.org/pub/gnu/bash/bash-4.1-patches/bash41-002
+Patch003: ftp://ftp.gnu.org/pub/gnu/bash/bash-4.1-patches/bash41-003
+Patch004: ftp://ftp.gnu.org/pub/gnu/bash/bash-4.1-patches/bash41-004
+Patch005: ftp://ftp.gnu.org/pub/gnu/bash/bash-4.1-patches/bash41-005
 
 # Other patches
 Patch101: bash-2.02-security.patch
@@ -44,7 +47,6 @@ Patch118: bash-tty-tests.patch
 # 484809, check if interp section is NOBITS
 Patch123: bash-4.0-nobits.patch
 
-Requires(post): ncurses-libs
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 BuildRequires: texinfo bison
@@ -74,6 +76,9 @@ This package contains documentation files for %{name}.
 # Official upstream patches
 %patch001 -p0 -b .001
 %patch002 -p0 -b .002
+%patch003 -p0 -b .003
+%patch004 -p0 -b .004
+%patch005 -p0 -b .005
 
 
 # Other patches
@@ -262,6 +267,10 @@ fi
 #%doc doc/*.ps doc/*.0 doc/*.html doc/article.txt
 
 %changelog
+* Mon Apr 12 2010 Roman Rakus <rrakus@redhat.com> - 4.1.5-1
+- Patch level 5
+- There's no more need for Requires(post) ncurses-libs
+
 * Tue Mar 30 2010 Roman Rakus <rrakus@redhat.com> - 4.1.2-4
 - Corrected requires patch (#563301)
 
