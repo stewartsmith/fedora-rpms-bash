@@ -5,7 +5,7 @@
 Version: %{baseversion}%{patchleveltag}
 Name: bash
 Summary: The GNU Bourne Again shell
-Release: 1%{?dist}
+Release: 2%{?dist}
 Group: System Environment/Shells
 License: GPLv3+
 Url: http://www.gnu.org/software/bash
@@ -48,6 +48,9 @@ Patch118: bash-tty-tests.patch
 
 # 484809, check if interp section is NOBITS
 Patch123: bash-4.0-nobits.patch
+
+# Do the same CFLAGS in generated Makefile in examples
+Patch124: bash-4.1-examples.patch
 
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
@@ -102,6 +105,7 @@ This package contains documentation files for %{name}.
 %patch117 -p1 -b .setlocale
 %patch118 -p1 -b .tty_tests
 %patch123 -p1 -b .nobits
+%patch124 -p1 -b .examples
 
 echo %{version} > _distribution
 echo %{release} > _patchlevel
@@ -270,6 +274,9 @@ fi
 #%doc doc/*.ps doc/*.0 doc/*.html doc/article.txt
 
 %changelog
+* Tue Jun 22 2010 Roman Rakus <rrakus@redhat.com> - 4.1.7-2
+- Do the same CFLAGS in generated Makefile in examples
+
 * Fri May 21 2010 Roman Rakus <rrakus@redhat.com> - 4.1.7-1
 - Patch level 7
 
