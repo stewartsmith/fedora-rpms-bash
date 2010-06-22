@@ -5,7 +5,7 @@
 Version: %{baseversion}%{patchleveltag}
 Name: bash
 Summary: The GNU Bourne Again shell
-Release: 2%{?dist}
+Release: 3%{?dist}
 Group: System Environment/Shells
 License: GPLv3+
 Url: http://www.gnu.org/software/bash
@@ -274,6 +274,9 @@ fi
 #%doc doc/*.ps doc/*.0 doc/*.html doc/article.txt
 
 %changelog
+* Tue Jun 22 2010 Roman Rakus <rrakus@redhat.com> - 4.1.7-3
+- Added missing patch
+
 * Tue Jun 22 2010 Roman Rakus <rrakus@redhat.com> - 4.1.7-2
 - Do the same CFLAGS in generated Makefile in examples
 
