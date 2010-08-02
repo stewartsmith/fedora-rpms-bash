@@ -5,7 +5,7 @@
 Version: %{baseversion}%{patchleveltag}
 Name: bash
 Summary: The GNU Bourne Again shell
-Release: 3%{?dist}
+Release: 4%{?dist}
 Group: System Environment/Shells
 License: GPLv3+
 Url: http://www.gnu.org/software/bash
@@ -274,6 +274,9 @@ fi
 #%doc doc/*.ps doc/*.0 doc/*.html doc/article.txt
 
 %changelog
+* Mon Aug 02 2010 Roman Rakus <rrakus@redhat.com> - 4.1.7-4
+- Use better nomenclature for --rpm-requires bash option (#557134)
+
 * Tue Jun 22 2010 Roman Rakus <rrakus@redhat.com> - 4.1.7-3
 - Added missing patch
 

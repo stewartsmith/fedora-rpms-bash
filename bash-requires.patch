@@ -1,6 +1,6 @@
 diff -up bash-4.1/builtins.h.requires bash-4.1/builtins.h
 --- bash-4.1/builtins.h.requires	2009-01-04 20:32:23.000000000 +0100
-+++ bash-4.1/builtins.h	2010-03-30 10:50:38.000000000 +0200
++++ bash-4.1/builtins.h	2010-08-02 17:42:41.000000000 +0200
 @@ -41,6 +41,8 @@
  #define SPECIAL_BUILTIN 0x08	/* This is a Posix `special' builtin. */
  #define ASSIGNMENT_BUILTIN 0x10	/* This builtin takes assignment statements. */
@@ -12,7 +12,7 @@ diff -up bash-4.1/builtins.h.requires bash-4.1/builtins.h
  
 diff -up bash-4.1/builtins/mkbuiltins.c.requires bash-4.1/builtins/mkbuiltins.c
 --- bash-4.1/builtins/mkbuiltins.c.requires	2009-01-04 20:32:23.000000000 +0100
-+++ bash-4.1/builtins/mkbuiltins.c	2010-03-30 10:50:38.000000000 +0200
++++ bash-4.1/builtins/mkbuiltins.c	2010-08-02 17:42:41.000000000 +0200
 @@ -69,9 +69,15 @@ extern char *strcpy ();
  #define whitespace(c) (((c) == ' ') || ((c) == '\t'))
  
@@ -87,9 +87,9 @@ diff -up bash-4.1/builtins/mkbuiltins.c.requires bash-4.1/builtins/mkbuiltins.c
  static int
  rename (from, to)
 diff -up bash-4.1/doc/bash.1.requires bash-4.1/doc/bash.1
---- bash-4.1/doc/bash.1.requires	2010-03-30 10:50:38.000000000 +0200
-+++ bash-4.1/doc/bash.1	2010-03-30 10:50:38.000000000 +0200
-@@ -231,6 +231,13 @@ The shell becomes restricted (see
+--- bash-4.1/doc/bash.1.requires	2010-08-02 17:42:41.000000000 +0200
++++ bash-4.1/doc/bash.1	2010-08-02 18:09:27.000000000 +0200
+@@ -231,6 +231,14 @@ The shell becomes restricted (see
  .B "RESTRICTED SHELL"
  below).
  .TP
@@ -97,15 +97,16 @@ diff -up bash-4.1/doc/bash.1.requires bash-4.1/doc/bash.1
 +Produce the list of files that are required for the 
 +shell script to run.  This implies '-n' and is subject
 +to the same limitations as compile time error checking checking;
-+Backticks, [] tests,  and evals are not parsed so some 
-+dependencies may be missed.
++Command substitutions, Conditional expressions and
++.BR eval
++builtin are not parsed so some dependencies may be missed.
 +.TP
  .B \-\-verbose
  Equivalent to  \fB\-v\fP.
  .TP
 diff -up bash-4.1/doc/bashref.texi.requires bash-4.1/doc/bashref.texi
---- bash-4.1/doc/bashref.texi.requires	2010-03-30 10:50:38.000000000 +0200
-+++ bash-4.1/doc/bashref.texi	2010-03-30 10:50:38.000000000 +0200
+--- bash-4.1/doc/bashref.texi.requires	2010-08-02 17:42:41.000000000 +0200
++++ bash-4.1/doc/bashref.texi	2010-08-02 18:11:58.000000000 +0200
 @@ -5343,6 +5343,13 @@ standard.  @xref{Bash POSIX Mode}, for a
  @item --restricted
  Make the shell a restricted shell (@pxref{The Restricted Shell}).
@@ -114,15 +115,15 @@ diff -up bash-4.1/doc/bashref.texi.requires bash-4.1/doc/bashref.texi
 +Produce the list of files that are required for the 
 +shell script to run.  This implies '-n' and is subject
 +to the same limitations as compile time error checking checking;
-+Backticks, [] tests,  and evals are not parsed so some 
-+dependencies may be missed.
++Command substitutions, Conditional expressions and @command{eval}
++are not parsed so some dependencies may be missed.
 +
  @item --verbose
  Equivalent to @option{-v}.  Print shell input lines as they're read.
  
 diff -up bash-4.1/eval.c.requires bash-4.1/eval.c
 --- bash-4.1/eval.c.requires	2009-01-04 20:32:26.000000000 +0100
-+++ bash-4.1/eval.c	2010-03-30 10:50:38.000000000 +0200
++++ bash-4.1/eval.c	2010-08-02 17:42:41.000000000 +0200
 @@ -53,6 +53,7 @@ extern int last_command_exit_value, stdi
  extern int need_here_doc;
  extern int current_command_number, current_command_line_count, line_number;
@@ -141,8 +142,8 @@ diff -up bash-4.1/eval.c.requires bash-4.1/eval.c
  	      last_command_exit_value = EXECUTION_SUCCESS;
  	      dispose_command (global_command);
 diff -up bash-4.1/execute_cmd.c.requires bash-4.1/execute_cmd.c
---- bash-4.1/execute_cmd.c.requires	2010-03-30 10:50:37.000000000 +0200
-+++ bash-4.1/execute_cmd.c	2010-03-30 10:52:03.000000000 +0200
+--- bash-4.1/execute_cmd.c.requires	2010-08-02 17:42:41.000000000 +0200
++++ bash-4.1/execute_cmd.c	2010-08-02 17:42:41.000000000 +0200
 @@ -503,6 +503,8 @@ async_redirect_stdin ()
  
  #define DESCRIBE_PID(pid) do { if (interactive) describe_pid (pid); } while (0)
@@ -178,7 +179,7 @@ diff -up bash-4.1/execute_cmd.c.requires bash-4.1/execute_cmd.c
  	  jump_to_top_level (ERREXIT);
 diff -up bash-4.1/execute_cmd.h.requires bash-4.1/execute_cmd.h
 --- bash-4.1/execute_cmd.h.requires	2009-01-16 22:20:15.000000000 +0100
-+++ bash-4.1/execute_cmd.h	2010-03-30 10:50:38.000000000 +0200
++++ bash-4.1/execute_cmd.h	2010-08-02 17:42:41.000000000 +0200
 @@ -22,6 +22,8 @@
  #define _EXECUTE_CMD_H_
  
@@ -190,7 +191,7 @@ diff -up bash-4.1/execute_cmd.h.requires bash-4.1/execute_cmd.h
  extern void dispose_fd_bitmap __P((struct fd_bitmap *));
 diff -up bash-4.1/make_cmd.c.requires bash-4.1/make_cmd.c
 --- bash-4.1/make_cmd.c.requires	2009-09-11 23:26:12.000000000 +0200
-+++ bash-4.1/make_cmd.c	2010-03-30 10:50:38.000000000 +0200
++++ bash-4.1/make_cmd.c	2010-08-02 17:42:41.000000000 +0200
 @@ -42,11 +42,15 @@
  #include "flags.h"
  #include "make_cmd.h"
@@ -275,8 +276,8 @@ diff -up bash-4.1/make_cmd.c.requires bash-4.1/make_cmd.c
    return (command);
  }
 diff -up bash-4.1/shell.c.requires bash-4.1/shell.c
---- bash-4.1/shell.c.requires	2010-03-30 10:50:38.000000000 +0200
-+++ bash-4.1/shell.c	2010-03-30 10:50:38.000000000 +0200
+--- bash-4.1/shell.c.requires	2010-08-02 17:42:41.000000000 +0200
++++ bash-4.1/shell.c	2010-08-02 17:42:41.000000000 +0200
 @@ -193,6 +193,9 @@ int have_devfd = 0;
  /* The name of the .(shell)rc file. */
  static char *bashrc_file = "~/.bashrc";
