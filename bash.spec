@@ -1,11 +1,11 @@
 #% define beta_tag rc1
-%define patchleveltag .7
+%define patchleveltag .9
 %define baseversion 4.1
 
 Version: %{baseversion}%{patchleveltag}
 Name: bash
 Summary: The GNU Bourne Again shell
-Release: 4%{?dist}
+Release: 1%{?dist}
 Group: System Environment/Shells
 License: GPLv3+
 Url: http://www.gnu.org/software/bash
@@ -26,6 +26,8 @@ Patch004: ftp://ftp.gnu.org/pub/gnu/bash/bash-4.1-patches/bash41-004
 Patch005: ftp://ftp.gnu.org/pub/gnu/bash/bash-4.1-patches/bash41-005
 Patch006: ftp://ftp.gnu.org/pub/gnu/bash/bash-4.1-patches/bash41-006
 Patch007: ftp://ftp.gnu.org/pub/gnu/bash/bash-4.1-patches/bash41-007
+Patch008: ftp://ftp.gnu.org/pub/gnu/bash/bash-4.1-patches/bash41-008
+Patch009: ftp://ftp.gnu.org/pub/gnu/bash/bash-4.1-patches/bash41-009
 
 # Other patches
 Patch101: bash-2.02-security.patch
@@ -86,6 +88,9 @@ This package contains documentation files for %{name}.
 %patch005 -p0 -b .005
 %patch006 -p0 -b .006
 %patch007 -p0 -b .007
+%patch008 -p0 -b .008
+%patch009 -p0 -b .009
+
 
 # Other patches
 %patch101 -p1 -b .security
@@ -274,6 +279,9 @@ fi
 #%doc doc/*.ps doc/*.0 doc/*.html doc/article.txt
 
 %changelog
+* Thu Oct 14 2010 Roman Rakus <rrakus@redhat.com> - 4.1.9-1
+- Patch level 9
+
 * Mon Aug 02 2010 Roman Rakus <rrakus@redhat.com> - 4.1.7-4
 - Use better nomenclature for --rpm-requires bash option (#557134)
 
