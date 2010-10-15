@@ -1,11 +1,12 @@
 #% define beta_tag rc1
 %define patchleveltag .9
 %define baseversion 4.1
+%bcond_without tests
 
 Version: %{baseversion}%{patchleveltag}
 Name: bash
 Summary: The GNU Bourne Again shell
-Release: 1%{?dist}
+Release: 2%{?dist}
 Group: System Environment/Shells
 License: GPLv3+
 Url: http://www.gnu.org/software/bash
@@ -123,8 +124,6 @@ autoconf
 # and new fork's pid is also X, bash has to wait for this same pid.
 # Without Recycles pids bash will not wait.
 make "CPPFLAGS=-D_GNU_SOURCE -DRECYCLES_PIDS `getconf LFS_CFLAGS`"
-%check
-make check
 
 %install
 rm -rf $RPM_BUILD_ROOT
@@ -205,11 +204,20 @@ done
 %find_lang %{name}
 
 # copy doc to /usr/share/doc
+cat /dev/null > %{name}-doc.files
 mkdir -p $RPM_BUILD_ROOT/%{pkgdocdir}
-for file in COPYING CHANGES COMPAT NEWS NOTES POSIX doc examples
+cp -p COPYING $RPM_BUILD_ROOT/%{pkgdocdir}
+for file in CHANGES COMPAT NEWS NOTES POSIX doc examples
 do
-  cp -r "$file" $RPM_BUILD_ROOT/%{pkgdocdir}
+  cp -rp "$file" $RPM_BUILD_ROOT/%{pkgdocdir}
+  echo "%%doc %{pkgdocdir}/$file" >> %{name}-doc.files
 done
+
+%if %{with tests}
+%check
+make check
+%endif
+
 %clean
 rm -rf $RPM_BUILD_ROOT
 
@@ -265,20 +273,25 @@ fi
 %config(noreplace) /etc/skel/.b*
 /bin/sh
 /bin/bash
+%dir %{pkgdocdir}/
 %doc %{pkgdocdir}/COPYING
 %attr(0755,root,root) %{_bindir}/bashbug-*
 %{_infodir}/bash.info*
 %{_mandir}/*/*
 %{_mandir}/*/..1*
 
-%files doc
+%files doc -f %{name}-doc.files
 %defattr(-, root, root)
-%doc %{pkgdocdir}
 
 # For now there isn't any doc
 #%doc doc/*.ps doc/*.0 doc/*.html doc/article.txt
 
 %changelog
+* Fri Oct 15 2010 Ville Skyttä <ville.skytta@iki.fi> - 4.1.9-2
+- Move doc dir ownership to main package.
+- Preserve doc timestamps.
+- Add --without tests option for building without running the test suite.
+
 * Thu Oct 14 2010 Roman Rakus <rrakus@redhat.com> - 4.1.9-1
 - Patch level 9
 
