@@ -6,7 +6,7 @@
 Version: %{baseversion}%{patchleveltag}
 Name: bash
 Summary: The GNU Bourne Again shell
-Release: 3%{?dist}
+Release: 4%{?dist}
 Group: System Environment/Shells
 License: GPLv3+
 Url: http://www.gnu.org/software/bash
@@ -212,11 +212,14 @@ done
 cat /dev/null > %{name}-doc.files
 mkdir -p $RPM_BUILD_ROOT/%{pkgdocdir}
 cp -p COPYING $RPM_BUILD_ROOT/%{pkgdocdir}
+# loadables aren't buildable
+rm -rf examples/loadables
 for file in CHANGES COMPAT NEWS NOTES POSIX doc examples
 do
   cp -rp "$file" $RPM_BUILD_ROOT/%{pkgdocdir}
   echo "%%doc %{pkgdocdir}/$file" >> %{name}-doc.files
 done
+
 
 %if %{with tests}
 %check
@@ -292,6 +295,9 @@ fi
 #%doc doc/*.ps doc/*.0 doc/*.html doc/article.txt
 
 %changelog
+* Thu Dec 16 2010 Roman Rakus <rrakus@redhat.com> - 4.1.9-4
+- Drop doc/examples/loadables
+
 * Wed Dec 01 2010 Roman Rakus <rrakus@redhat.com> - 4.1.9-3
 - don't segfault when trying to bind int variable to array
   with bad array subsrcipt
