@@ -6,7 +6,7 @@
 Version: %{baseversion}%{patchleveltag}
 Name: bash
 Summary: The GNU Bourne Again shell
-Release: 4%{?dist}
+Release: 5%{?dist}
 Group: System Environment/Shells
 License: GPLv3+
 Url: http://www.gnu.org/software/bash
@@ -58,6 +58,10 @@ Patch124: bash-4.1-examples.patch
 # 618289, don't segfault when trying to bind int variable to array
 # with bad array subsrcipt
 Patch125: bash-4.1-bind_int_variable.patch
+
+# Builtins like echo and printf won't report errors
+# when output does not succeed due to EPIPE
+Patch126: bash-4.1-broken_pipe.patch
 
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
@@ -117,6 +121,7 @@ This package contains documentation files for %{name}.
 %patch123 -p1 -b .nobits
 %patch124 -p1 -b .examples
 %patch125 -p1 -b .bind_int_variable
+%patch126 -p1 -b .broken_pipe
 
 echo %{version} > _distribution
 echo %{release} > _patchlevel
@@ -295,6 +300,10 @@ fi
 #%doc doc/*.ps doc/*.0 doc/*.html doc/article.txt
 
 %changelog
+* Thu Jan 06 2011 Roman Rakus <rrakus@redhat.com> - 4.1.9-5
+- Builtins like echo and printf won't report errors
+  when output does not succeed due to EPIPE
+
 * Thu Dec 16 2010 Roman Rakus <rrakus@redhat.com> - 4.1.9-4
 - Drop doc/examples/loadables
 
