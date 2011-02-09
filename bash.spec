@@ -1,16 +1,16 @@
-#% define beta_tag rc1
-%define patchleveltag .9
-%define baseversion 4.1
+%define beta_tag rc2
+%define patchleveltag .0
+%define baseversion 4.2
 %bcond_without tests
 
 Version: %{baseversion}%{patchleveltag}
 Name: bash
 Summary: The GNU Bourne Again shell
-Release: 5%{?dist}
+Release: 0.1.%{beta_tag}%{?dist}
 Group: System Environment/Shells
 License: GPLv3+
 Url: http://www.gnu.org/software/bash
-Source0: ftp://ftp.gnu.org/gnu/bash/bash-%{baseversion}.tar.gz
+Source0: ftp://ftp.gnu.org/gnu/bash/bash-%{baseversion}-%{beta_tag}.tar.gz
 
 # For now there isn't any doc
 #Source2: ftp://ftp.gnu.org/gnu/bash/bash-doc-%{version}.tar.gz
@@ -20,15 +20,7 @@ Source2: dot-bash_profile
 Source3: dot-bash_logout
 
 # Official upstream patches
-Patch001: ftp://ftp.gnu.org/pub/gnu/bash/bash-4.1-patches/bash41-001
-Patch002: ftp://ftp.gnu.org/pub/gnu/bash/bash-4.1-patches/bash41-002
-Patch003: ftp://ftp.gnu.org/pub/gnu/bash/bash-4.1-patches/bash41-003
-Patch004: ftp://ftp.gnu.org/pub/gnu/bash/bash-4.1-patches/bash41-004
-Patch005: ftp://ftp.gnu.org/pub/gnu/bash/bash-4.1-patches/bash41-005
-Patch006: ftp://ftp.gnu.org/pub/gnu/bash/bash-4.1-patches/bash41-006
-Patch007: ftp://ftp.gnu.org/pub/gnu/bash/bash-4.1-patches/bash41-007
-Patch008: ftp://ftp.gnu.org/pub/gnu/bash/bash-4.1-patches/bash41-008
-Patch009: ftp://ftp.gnu.org/pub/gnu/bash/bash-4.1-patches/bash41-009
+# none yet
 
 # Other patches
 Patch101: bash-2.02-security.patch
@@ -54,10 +46,6 @@ Patch123: bash-4.0-nobits.patch
 
 # Do the same CFLAGS in generated Makefile in examples
 Patch124: bash-4.1-examples.patch
-
-# 618289, don't segfault when trying to bind int variable to array
-# with bad array subsrcipt
-Patch125: bash-4.1-bind_int_variable.patch
 
 # Builtins like echo and printf won't report errors
 # when output does not succeed due to EPIPE
@@ -87,19 +75,10 @@ This package contains documentation files for %{name}.
 
 %prep
 #%setup -q -a 2
-%setup -q -n %{name}-%{baseversion}
+%setup -q -n %{name}-%{baseversion}-%{beta_tag}
 
 # Official upstream patches
-%patch001 -p0 -b .001
-%patch002 -p0 -b .002
-%patch003 -p0 -b .003
-%patch004 -p0 -b .004
-%patch005 -p0 -b .005
-%patch006 -p0 -b .006
-%patch007 -p0 -b .007
-%patch008 -p0 -b .008
-%patch009 -p0 -b .009
-
+# none yet
 
 # Other patches
 %patch101 -p1 -b .security
@@ -120,9 +99,7 @@ This package contains documentation files for %{name}.
 %patch118 -p1 -b .tty_tests
 %patch123 -p1 -b .nobits
 %patch124 -p1 -b .examples
-%patch125 -p1 -b .bind_int_variable
 %patch126 -p1 -b .broken_pipe
-
 echo %{version} > _distribution
 echo %{release} > _patchlevel
 
@@ -300,6 +277,9 @@ fi
 #%doc doc/*.ps doc/*.0 doc/*.html doc/article.txt
 
 %changelog
+* Wed Feb 09 2011 Roman Rakus <rrakus@redhat.com> - 4.2.0-0.1.rc2
+- Update to bash-4.2-rc2
+
 * Thu Jan 06 2011 Roman Rakus <rrakus@redhat.com> - 4.1.9-5
 - Builtins like echo and printf won't report errors
   when output does not succeed due to EPIPE
