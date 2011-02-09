@@ -280,6 +280,9 @@ fi
 * Wed Feb 09 2011 Roman Rakus <rrakus@redhat.com> - 4.2.0-0.1.rc2
 - Update to bash-4.2-rc2
 
+* Mon Feb 07 2011 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 4.1.9-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_15_Mass_Rebuild
+
 * Thu Jan 06 2011 Roman Rakus <rrakus@redhat.com> - 4.1.9-5
 - Builtins like echo and printf won't report errors
   when output does not succeed due to EPIPE
