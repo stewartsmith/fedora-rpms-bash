@@ -6,7 +6,7 @@
 Version: %{baseversion}%{patchleveltag}
 Name: bash
 Summary: The GNU Bourne Again shell
-Release: 0.1.%{beta_tag}%{?dist}
+Release: 0.2.%{beta_tag}%{?dist}
 Group: System Environment/Shells
 License: GPLv3+
 Url: http://www.gnu.org/software/bash
@@ -50,6 +50,9 @@ Patch124: bash-4.1-examples.patch
 # Builtins like echo and printf won't report errors
 # when output does not succeed due to EPIPE
 Patch126: bash-4.1-broken_pipe.patch
+
+# Enable system-wide .bash_logout for login shells
+Patch127: bash-4.2-rc2-logout.patch
 
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
@@ -100,6 +103,8 @@ This package contains documentation files for %{name}.
 %patch123 -p1 -b .nobits
 %patch124 -p1 -b .examples
 %patch126 -p1 -b .broken_pipe
+%patch127 -p1 -b .logout
+
 echo %{version} > _distribution
 echo %{release} > _patchlevel
 
@@ -277,6 +282,9 @@ fi
 #%doc doc/*.ps doc/*.0 doc/*.html doc/article.txt
 
 %changelog
+* Mon Feb 14 2011 Roman Rakus <rrakus@redhat.com> - 4.2.0-0.2.rc2
+- Enable system-wide .bash_logout for login shells
+
 * Wed Feb 09 2011 Roman Rakus <rrakus@redhat.com> - 4.2.0-0.1.rc2
 - Update to bash-4.2-rc2
 
