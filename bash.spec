@@ -1,4 +1,4 @@
-%define beta_tag rc2
+#% define beta_tag rc2
 %define patchleveltag .0
 %define baseversion 4.2
 %bcond_without tests
@@ -6,11 +6,11 @@
 Version: %{baseversion}%{patchleveltag}
 Name: bash
 Summary: The GNU Bourne Again shell
-Release: 0.2.%{beta_tag}%{?dist}
+Release: 1%{?dist}
 Group: System Environment/Shells
 License: GPLv3+
 Url: http://www.gnu.org/software/bash
-Source0: ftp://ftp.gnu.org/gnu/bash/bash-%{baseversion}-%{beta_tag}.tar.gz
+Source0: ftp://ftp.gnu.org/gnu/bash/bash-%{baseversion}.tar.gz
 
 # For now there isn't any doc
 #Source2: ftp://ftp.gnu.org/gnu/bash/bash-doc-%{version}.tar.gz
@@ -78,7 +78,7 @@ This package contains documentation files for %{name}.
 
 %prep
 #%setup -q -a 2
-%setup -q -n %{name}-%{baseversion}-%{beta_tag}
+%setup -q -n %{name}-%{baseversion}
 
 # Official upstream patches
 # none yet
@@ -282,6 +282,9 @@ fi
 #%doc doc/*.ps doc/*.0 doc/*.html doc/article.txt
 
 %changelog
+* Wed Feb 16 2011 Roman Rakus <rrakus@redhat.com> - 4.2.0-1
+- Release bash-4.2
+
 * Mon Feb 14 2011 Roman Rakus <rrakus@redhat.com> - 4.2.0-0.2.rc2
 - Enable system-wide .bash_logout for login shells
 
