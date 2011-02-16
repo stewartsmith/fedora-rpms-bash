@@ -6,7 +6,7 @@
 Version: %{baseversion}%{patchleveltag}
 Name: bash
 Summary: The GNU Bourne Again shell
-Release: 1%{?dist}
+Release: 2%{?dist}
 Group: System Environment/Shells
 License: GPLv3+
 Url: http://www.gnu.org/software/bash
@@ -53,6 +53,10 @@ Patch126: bash-4.1-broken_pipe.patch
 
 # Enable system-wide .bash_logout for login shells
 Patch127: bash-4.2-rc2-logout.patch
+
+# Patch from upstream, some pattern matching glitch
+# See http://lists.gnu.org/archive/html/bug-bash/2011-02/msg00136.html
+Patch128: patmatch.patch
 
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
@@ -104,6 +108,7 @@ This package contains documentation files for %{name}.
 %patch124 -p1 -b .examples
 %patch126 -p1 -b .broken_pipe
 %patch127 -p1 -b .logout
+%patch128 -p0 -b .patmatch
 
 echo %{version} > _distribution
 echo %{release} > _patchlevel
@@ -282,6 +287,9 @@ fi
 #%doc doc/*.ps doc/*.0 doc/*.html doc/article.txt
 
 %changelog
+* Wed Feb 16 2011 Roman Rakus <rrakus@redhat.com> - 4.2.0-2
+- pattern matching glitch, patch from upstream
+
 * Wed Feb 16 2011 Roman Rakus <rrakus@redhat.com> - 4.2.0-1
 - Release bash-4.2
 
