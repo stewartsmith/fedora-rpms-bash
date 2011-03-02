@@ -1,5 +1,5 @@
 #% define beta_tag rc2
-%define patchleveltag .5
+%define patchleveltag .6
 %define baseversion 4.2
 %bcond_without tests
 
@@ -25,6 +25,7 @@ Patch002: ftp://ftp.gnu.org/pub/gnu/bash/bash-4.2-patches/bash42-002
 Patch003: ftp://ftp.gnu.org/pub/gnu/bash/bash-4.2-patches/bash42-003
 Patch004: ftp://ftp.gnu.org/pub/gnu/bash/bash-4.2-patches/bash42-004
 Patch005: ftp://ftp.gnu.org/pub/gnu/bash/bash-4.2-patches/bash42-005
+Patch006: ftp://ftp.gnu.org/pub/gnu/bash/bash-4.2-patches/bash42-006
 
 # Other patches
 Patch101: bash-2.02-security.patch
@@ -92,6 +93,7 @@ This package contains documentation files for %{name}.
 %patch003 -p0 -b .003
 %patch004 -p0 -b .004
 %patch005 -p0 -b .005
+%patch006 -p0 -b .006
 
 # Other patches
 %patch101 -p1 -b .security
@@ -293,6 +295,9 @@ fi
 #%doc doc/*.ps doc/*.0 doc/*.html doc/article.txt
 
 %changelog
+* Wed Mar 02 2011 Roman Rakus <rrakus@redhat.com> - 4.2.6-1
+- Patchlevel 6
+
 * Tue Mar 01 2011 Roman Rakus <rrakus@redhat.com> - 4.2.5-1
 - Patchlevel 5
 - Static analyzis show some issues in some patches
