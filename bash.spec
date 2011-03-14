@@ -6,7 +6,7 @@
 Version: %{baseversion}%{patchleveltag}
 Name: bash
 Summary: The GNU Bourne Again shell
-Release: 1%{?dist}
+Release: 2%{?dist}
 Group: System Environment/Shells
 License: GPLv3+
 Url: http://www.gnu.org/software/bash
@@ -271,12 +271,21 @@ then
 end
 f:close()
 
-%postun
-if [ "$1" = 0 ]; then
-    /bin/grep -v '^/bin/bash$' < /etc/shells | \
-      /bin/grep -v '^/bin/sh$' > /etc/shells.new
-    /bin/mv /etc/shells.new /etc/shells
-fi
+%postun -p <lua>
+t={}
+for line in io.lines("/etc/shells")
+do
+  if line ~= "/bin/bash" and line ~= "/bin/sh"
+  then
+    table.insert(t,line)
+  end
+end
+
+f = io.open("/etc/shells", "w+")
+for n,line in pairs(t)
+do
+  f:write(line.."\n")
+end
 
 %files -f %{name}.lang
 %defattr(-,root,root)
@@ -297,6 +306,9 @@ fi
 #%doc doc/*.ps doc/*.0 doc/*.html doc/article.txt
 
 %changelog
+* Mon Mar 14 2011 Roman Rakus <rrakus@redhat.com> - 4.2.7-2
+- Use lua script in postun
+
 * Mon Mar 07 2011 Roman Rakus <rrakus@redhat.com> - 4.2.7-1
 - Patchlevel 7
 
