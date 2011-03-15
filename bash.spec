@@ -1,12 +1,12 @@
 #% define beta_tag rc2
-%define patchleveltag .7
+%define patchleveltag .8
 %define baseversion 4.2
 %bcond_without tests
 
 Version: %{baseversion}%{patchleveltag}
 Name: bash
 Summary: The GNU Bourne Again shell
-Release: 3%{?dist}
+Release: 1%{?dist}
 Group: System Environment/Shells
 License: GPLv3+
 Url: http://www.gnu.org/software/bash
@@ -27,6 +27,7 @@ Patch004: ftp://ftp.gnu.org/pub/gnu/bash/bash-4.2-patches/bash42-004
 Patch005: ftp://ftp.gnu.org/pub/gnu/bash/bash-4.2-patches/bash42-005
 Patch006: ftp://ftp.gnu.org/pub/gnu/bash/bash-4.2-patches/bash42-006
 Patch007: ftp://ftp.gnu.org/pub/gnu/bash/bash-4.2-patches/bash42-007
+Patch008: ftp://ftp.gnu.org/pub/gnu/bash/bash-4.2-patches/bash42-008
 
 # Other patches
 Patch101: bash-2.02-security.patch
@@ -99,6 +100,7 @@ This package contains documentation files for %{name}.
 %patch005 -p0 -b .005
 %patch006 -p0 -b .006
 %patch007 -p0 -b .007
+%patch008 -p0 -b .008
 
 # Other patches
 %patch101 -p1 -b .security
@@ -310,6 +312,9 @@ end
 #%doc doc/*.ps doc/*.0 doc/*.html doc/article.txt
 
 %changelog
+* Tue Mar 15 2011 Roman Rakus <rrakus@redhat.com> - 4.2.8-1
+- Patchlevel 8
+
 * Tue Mar 15 2011 Roman Rakus <rrakus@redhat.com> - 4.2.7-3
 - #684293, fix the infinite loop with invalid wide char
 
