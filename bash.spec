@@ -6,7 +6,7 @@
 Version: %{baseversion}%{patchleveltag}
 Name: bash
 Summary: The GNU Bourne Again shell
-Release: 2%{?dist}
+Release: 3%{?dist}
 Group: System Environment/Shells
 License: GPLv3+
 Url: http://www.gnu.org/software/bash
@@ -61,6 +61,9 @@ Patch120: bash-4.2-rc2-logout.patch
 
 # Static analyzis shows some issues in bash-2.05a-interpreter.patch
 Patch121: bash-4.2-coverity.patch
+
+# 684293, Fix the infinite loop with invalid wide char
+Patch122: bash-4.2-xdupmbstowcs2-patch
 
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
@@ -119,6 +122,7 @@ This package contains documentation files for %{name}.
 %patch119 -p1 -b .broken_pipe
 %patch120 -p1 -b .logout
 %patch121 -p1 -b .coverity
+%patch122 -p0 -b .xdupmbstowcs2
 
 echo %{version} > _distribution
 echo %{release} > _patchlevel
@@ -306,6 +310,9 @@ end
 #%doc doc/*.ps doc/*.0 doc/*.html doc/article.txt
 
 %changelog
+* Tue Mar 15 2011 Roman Rakus <rrakus@redhat.com> - 4.2.7-3
+- #684293, fix the infinite loop with invalid wide char
+
 * Mon Mar 14 2011 Roman Rakus <rrakus@redhat.com> - 4.2.7-2
 - Use lua script in postun
 
