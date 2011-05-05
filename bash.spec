@@ -6,7 +6,7 @@
 Version: %{baseversion}%{patchleveltag}
 Name: bash
 Summary: The GNU Bourne Again shell
-Release: 1%{?dist}
+Release: 2%{?dist}
 Group: System Environment/Shells
 License: GPLv3+
 Url: http://www.gnu.org/software/bash
@@ -312,6 +312,9 @@ end
 #%doc doc/*.ps doc/*.0 doc/*.html doc/article.txt
 
 %changelog
+* Thu May 05 2011 Roman Rakus <rrakus@redhat.com> - 4.2.10-2
+- Inc. a release no.
+
 * Thu May 05 2011 Roman Rakus <rrakus@redhat.com> - 4.2.10-1
 - Patchlevel 10
 
