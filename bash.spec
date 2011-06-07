@@ -6,7 +6,7 @@
 Version: %{baseversion}%{patchleveltag}
 Name: bash
 Summary: The GNU Bourne Again shell
-Release: 2%{?dist}
+Release: 3%{?dist}
 Group: System Environment/Shells
 License: GPLv3+
 Url: http://www.gnu.org/software/bash
@@ -312,6 +312,9 @@ end
 #%doc doc/*.ps doc/*.0 doc/*.html doc/article.txt
 
 %changelog
+* Tue Jun 07 2011 Roman Rakus <rrakus@redhat.com> - 4.2.10-3
+- Added $HOME/.local/bin to PATH in .bash_profile (#699812)
+
 * Thu May 05 2011 Roman Rakus <rrakus@redhat.com> - 4.2.10-2
 - Inc. a release no.
 
