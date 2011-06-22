@@ -6,7 +6,7 @@
 Version: %{baseversion}%{patchleveltag}
 Name: bash
 Summary: The GNU Bourne Again shell
-Release: 3%{?dist}
+Release: 4%{?dist}
 Group: System Environment/Shells
 License: GPLv3+
 Url: http://www.gnu.org/software/bash
@@ -65,7 +65,9 @@ Patch120: bash-4.2-rc2-logout.patch
 # Static analyzis shows some issues in bash-2.05a-interpreter.patch
 Patch121: bash-4.2-coverity.patch
 
-BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
+# 715050, Don't crash when use `read' with associative array
+# Patch from upstream
+Patch122: bash-4.1-read-assoc-array.patch
 
 BuildRequires: texinfo bison
 BuildRequires: ncurses-devel
@@ -125,6 +127,8 @@ This package contains documentation files for %{name}.
 %patch119 -p1 -b .broken_pipe
 %patch120 -p1 -b .logout
 %patch121 -p1 -b .coverity
+# upstream patch
+%patch122 -p0 -b .read-assoc-array
 
 echo %{version} > _distribution
 echo %{release} > _patchlevel
@@ -312,6 +316,9 @@ end
 #%doc doc/*.ps doc/*.0 doc/*.html doc/article.txt
 
 %changelog
+* Wed Jun 22 2011 Roman Rakus <rrakus@redhat.com> - 4.2.10-4
+- Don't crash when use `read' with associative array (#715050)
+
 * Tue Jun 07 2011 Roman Rakus <rrakus@redhat.com> - 4.2.10-3
 - Added $HOME/.local/bin to PATH in .bash_profile (#699812)
 
