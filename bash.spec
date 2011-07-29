@@ -6,7 +6,7 @@
 Version: %{baseversion}%{patchleveltag}
 Name: bash
 Summary: The GNU Bourne Again shell
-Release: 4%{?dist}
+Release: 5%{?dist}
 Group: System Environment/Shells
 License: GPLv3+
 Url: http://www.gnu.org/software/bash
@@ -222,13 +222,14 @@ done
 
 # copy doc to /usr/share/doc
 cat /dev/null > %{name}-doc.files
-mkdir -p $RPM_BUILD_ROOT/%{pkgdocdir}
+mkdir -p $RPM_BUILD_ROOT/%{pkgdocdir}/doc
 cp -p COPYING $RPM_BUILD_ROOT/%{pkgdocdir}
 # loadables aren't buildable
 rm -rf examples/loadables
-for file in CHANGES COMPAT NEWS NOTES POSIX doc examples
+for file in CHANGES COMPAT NEWS NOTES POSIX examples\
+    doc/{FAQ,INTRO,rose94.pdf,article.{pdf,txt},bashref.{html,pdf}}
 do
-  cp -rp "$file" $RPM_BUILD_ROOT/%{pkgdocdir}
+  cp -rp "$file" $RPM_BUILD_ROOT/%{pkgdocdir}/"$file"
   echo "%%doc %{pkgdocdir}/$file" >> %{name}-doc.files
 done
 
@@ -316,6 +317,9 @@ end
 #%doc doc/*.ps doc/*.0 doc/*.html doc/article.txt
 
 %changelog
+* Fri Jul 29 2011 Roman Rakus <rrakus@redhat.com> - 4.2.10-5
+- Clean up unneeded bash-doc files (Ville Skyttä) (#721116)
+
 * Wed Jun 22 2011 Roman Rakus <rrakus@redhat.com> - 4.2.10-4
 - Don't crash when use `read' with associative array (#715050)
 
