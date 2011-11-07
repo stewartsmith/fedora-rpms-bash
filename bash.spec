@@ -6,7 +6,7 @@
 Version: %{baseversion}%{patchleveltag}
 Name: bash
 Summary: The GNU Bourne Again shell
-Release: 5%{?dist}
+Release: 6%{?dist}
 Group: System Environment/Shells
 License: GPLv3+
 Url: http://www.gnu.org/software/bash
@@ -248,39 +248,18 @@ rm -rf $RPM_BUILD_ROOT
 # post is in lua so that we can run it without any external deps.  Helps
 # for bootstrapping a new install.
 # Jesse Keating 2009-01-29 (code from Ignacio Vazquez-Abrams)
+# Roman Rakus 2011-11-07 (code from Sergey Romanov) #740611
 %post -p <lua>
-bashfound = false;
-shfound = false;
- 
-f = io.open("/etc/shells", "r");
-if f == nil
-then
-  f = io.open("/etc/shells", "w");
-else
-  repeat
-    t = f:read();
-    if t == "/bin/bash"
-    then
-      bashfound = true;
-    end
-    if t == "/bin/sh"
-    then
-      shfound = true;
-    end
-  until t == nil;
+nl        = '\n'
+sh        = '/bin/sh'..nl
+bash      = '/bin/bash'..nl
+f = io.open('/etc/shells', 'a+')
+if f then
+  local shells = nl..f:read('*all')..nl
+  if not shells:find(nl..sh) then f:write(sh) end
+  if not shells:find(nl..bash) then f:write(bash) end
+  f:close()
 end
-f:close()
- 
-f = io.open("/etc/shells", "a");
-if not bashfound
-then
-  f:write("/bin/bash\n")
-end
-if not shfound
-then
-  f:write("/bin/sh\n")
-end
-f:close()
 
 %postun -p <lua>
 t={}
@@ -317,6 +296,9 @@ end
 #%doc doc/*.ps doc/*.0 doc/*.html doc/article.txt
 
 %changelog
+* Mon Nov 07 2011 Roman Rakus <rrakus@redhat.com> - 4.2.10-6
+- Simplified lua post script (#740611)
+
 * Fri Jul 29 2011 Roman Rakus <rrakus@redhat.com> - 4.2.10-5
 - Clean up unneeded bash-doc files (Ville Skyttä) (#721116)
 
