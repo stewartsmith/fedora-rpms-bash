@@ -6,7 +6,7 @@
 Version: %{baseversion}%{patchleveltag}
 Name: bash
 Summary: The GNU Bourne Again shell
-Release: 6%{?dist}
+Release: 7%{?dist}
 Group: System Environment/Shells
 License: GPLv3+
 Url: http://www.gnu.org/software/bash
@@ -262,19 +262,23 @@ if f then
 end
 
 %postun -p <lua>
-t={}
-for line in io.lines("/etc/shells")
-do
-  if line ~= "/bin/bash" and line ~= "/bin/sh"
-  then
-    table.insert(t,line)
+-- Run it only if we are uninstalling
+if arg[2] == "0"
+then
+  t={}
+  for line in io.lines("/etc/shells")
+  do
+    if line ~= "/bin/bash" and line ~= "/bin/sh"
+    then
+      table.insert(t,line)
+    end
   end
-end
 
-f = io.open("/etc/shells", "w+")
-for n,line in pairs(t)
-do
-  f:write(line.."\n")
+  f = io.open("/etc/shells", "w+")
+  for n,line in pairs(t)
+  do
+    f:write(line.."\n")
+  end
 end
 
 %files -f %{name}.lang
@@ -296,6 +300,9 @@ end
 #%doc doc/*.ps doc/*.0 doc/*.html doc/article.txt
 
 %changelog
+* Thu Nov 10 2011 Roman Rakus <rrakus@redhat.com> - 4.2.10-7
+- erase /bin/bash and /bin/sh in postun only if we are uninstalling (#752827)
+
 * Mon Nov 07 2011 Roman Rakus <rrakus@redhat.com> - 4.2.10-6
 - Simplified lua post script (#740611)
 
