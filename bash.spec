@@ -1,12 +1,12 @@
 #% define beta_tag rc2
-%define patchleveltag .10
+%define patchleveltag .20
 %define baseversion 4.2
 %bcond_without tests
 
 Version: %{baseversion}%{patchleveltag}
 Name: bash
 Summary: The GNU Bourne Again shell
-Release: 7%{?dist}
+Release: 2%{?dist}
 Group: System Environment/Shells
 License: GPLv3+
 Url: http://www.gnu.org/software/bash
@@ -30,6 +30,16 @@ Patch007: ftp://ftp.gnu.org/pub/gnu/bash/bash-4.2-patches/bash42-007
 Patch008: ftp://ftp.gnu.org/pub/gnu/bash/bash-4.2-patches/bash42-008
 Patch009: ftp://ftp.gnu.org/pub/gnu/bash/bash-4.2-patches/bash42-009
 Patch010: ftp://ftp.gnu.org/pub/gnu/bash/bash-4.2-patches/bash42-010
+Patch011: ftp://ftp.gnu.org/pub/gnu/bash/bash-4.2-patches/bash42-011
+Patch012: ftp://ftp.gnu.org/pub/gnu/bash/bash-4.2-patches/bash42-012
+Patch013: ftp://ftp.gnu.org/pub/gnu/bash/bash-4.2-patches/bash42-013
+Patch014: ftp://ftp.gnu.org/pub/gnu/bash/bash-4.2-patches/bash42-014
+Patch015: ftp://ftp.gnu.org/pub/gnu/bash/bash-4.2-patches/bash42-015
+Patch016: ftp://ftp.gnu.org/pub/gnu/bash/bash-4.2-patches/bash42-016
+Patch017: ftp://ftp.gnu.org/pub/gnu/bash/bash-4.2-patches/bash42-017
+Patch018: ftp://ftp.gnu.org/pub/gnu/bash/bash-4.2-patches/bash42-018
+Patch019: ftp://ftp.gnu.org/pub/gnu/bash/bash-4.2-patches/bash42-019
+Patch020: ftp://ftp.gnu.org/pub/gnu/bash/bash-4.2-patches/bash42-020
 
 # Other patches
 Patch101: bash-2.02-security.patch
@@ -64,10 +74,6 @@ Patch120: bash-4.2-rc2-logout.patch
 
 # Static analyzis shows some issues in bash-2.05a-interpreter.patch
 Patch121: bash-4.2-coverity.patch
-
-# 715050, Don't crash when use `read' with associative array
-# Patch from upstream
-Patch122: bash-4.1-read-assoc-array.patch
 
 BuildRequires: texinfo bison
 BuildRequires: ncurses-devel
@@ -104,6 +110,16 @@ This package contains documentation files for %{name}.
 %patch008 -p0 -b .008
 %patch009 -p0 -b .009
 %patch010 -p0 -b .010
+%patch011 -p0 -b .011
+%patch012 -p0 -b .012
+%patch013 -p0 -b .013
+%patch014 -p0 -b .014
+%patch015 -p0 -b .015
+%patch016 -p0 -b .016
+%patch017 -p0 -b .017
+%patch018 -p0 -b .018
+%patch019 -p0 -b .019
+%patch020 -p0 -b .020
 
 # Other patches
 %patch101 -p1 -b .security
@@ -127,9 +143,6 @@ This package contains documentation files for %{name}.
 %patch119 -p1 -b .broken_pipe
 %patch120 -p1 -b .logout
 %patch121 -p1 -b .coverity
-# upstream patch
-%patch122 -p0 -b .read-assoc-array
-
 echo %{version} > _distribution
 echo %{release} > _patchlevel
 
@@ -279,6 +292,7 @@ then
   do
     f:write(line.."\n")
   end
+  f:close()
 end
 
 %files -f %{name}.lang
@@ -300,6 +314,10 @@ end
 #%doc doc/*.ps doc/*.0 doc/*.html doc/article.txt
 
 %changelog
+* Thu Nov 24 2011 Roman Rakus <rrakus@redhat.com> - 4.2.20-2
+- Add missing f:close() in postun
+- Patchlevel 20
+
 * Thu Nov 10 2011 Roman Rakus <rrakus@redhat.com> - 4.2.10-7
 - erase /bin/bash and /bin/sh in postun only if we are uninstalling (#752827)
 
