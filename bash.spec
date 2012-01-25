@@ -6,7 +6,7 @@
 Version: %{baseversion}%{patchleveltag}
 Name: bash
 Summary: The GNU Bourne Again shell
-Release: 3%{?dist}
+Release: 4%{?dist}
 Group: System Environment/Shells
 License: GPLv3+
 Url: http://www.gnu.org/software/bash
@@ -78,6 +78,9 @@ Patch121: bash-4.2-coverity.patch
 BuildRequires: texinfo bison
 BuildRequires: ncurses-devel
 BuildRequires: autoconf, gettext
+Conflicts: filesystem < 3
+Provides: /bin/sh
+Provides: /bin/bash
 
 %description
 The GNU Bourne Again shell (Bash) is a shell or command language
@@ -203,12 +206,8 @@ rm -f $RPM_BUILD_ROOT/%{_mandir}/man1/printf.1
 rm -f $RPM_BUILD_ROOT/%{_mandir}/man1/true.1
 rm -f $RPM_BUILD_ROOT/%{_mandir}/man1/false.1
 
-pushd $RPM_BUILD_ROOT
-mkdir ./bin
-mv ./usr/bin/bash ./bin
-ln -sf bash ./bin/sh
-rm -f .%{_infodir}/dir
-popd
+ln -sf bash $RPM_BUILD_ROOT%{_bindir}/sh
+rm -f $RPM_BUILD_ROOT%{_infodir}/dir
 mkdir -p $RPM_BUILD_ROOT/etc/skel
 install -c -m644 %SOURCE1 $RPM_BUILD_ROOT/etc/skel/.bashrc
 install -c -m644 %SOURCE2 $RPM_BUILD_ROOT/etc/skel/.bash_profile
@@ -298,8 +297,8 @@ end
 %files -f %{name}.lang
 %defattr(-,root,root)
 %config(noreplace) /etc/skel/.b*
-/bin/sh
-/bin/bash
+%{_bindir}/sh
+%{_bindir}/bash
 %dir %{pkgdocdir}/
 %doc %{pkgdocdir}/COPYING
 %attr(0755,root,root) %{_bindir}/bashbug-*
@@ -314,6 +313,10 @@ end
 #%doc doc/*.ps doc/*.0 doc/*.html doc/article.txt
 
 %changelog
+* Wed Jan 25 2012 Harald Hoyer <harald@redhat.com> 4.2.20-4
+- install everything in /usr
+  https://fedoraproject.org/wiki/Features/UsrMove
+
 * Thu Jan 12 2012 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 4.2.20-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_17_Mass_Rebuild
 
