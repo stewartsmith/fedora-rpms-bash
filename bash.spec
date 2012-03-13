@@ -1,12 +1,12 @@
 #% define beta_tag rc2
-%define patchleveltag .20
+%define patchleveltag .24
 %define baseversion 4.2
 %bcond_without tests
 
 Version: %{baseversion}%{patchleveltag}
 Name: bash
 Summary: The GNU Bourne Again shell
-Release: 4%{?dist}
+Release: 1%{?dist}
 Group: System Environment/Shells
 License: GPLv3+
 Url: http://www.gnu.org/software/bash
@@ -40,6 +40,10 @@ Patch017: ftp://ftp.gnu.org/pub/gnu/bash/bash-4.2-patches/bash42-017
 Patch018: ftp://ftp.gnu.org/pub/gnu/bash/bash-4.2-patches/bash42-018
 Patch019: ftp://ftp.gnu.org/pub/gnu/bash/bash-4.2-patches/bash42-019
 Patch020: ftp://ftp.gnu.org/pub/gnu/bash/bash-4.2-patches/bash42-020
+Patch021: ftp://ftp.gnu.org/pub/gnu/bash/bash-4.2-patches/bash42-021
+Patch022: ftp://ftp.gnu.org/pub/gnu/bash/bash-4.2-patches/bash42-022
+Patch023: ftp://ftp.gnu.org/pub/gnu/bash/bash-4.2-patches/bash42-023
+Patch024: ftp://ftp.gnu.org/pub/gnu/bash/bash-4.2-patches/bash42-024
 
 # Other patches
 Patch101: bash-2.02-security.patch
@@ -123,6 +127,10 @@ This package contains documentation files for %{name}.
 %patch018 -p0 -b .018
 %patch019 -p0 -b .019
 %patch020 -p0 -b .020
+%patch021 -p0 -b .021
+%patch022 -p0 -b .022
+%patch023 -p0 -b .023
+%patch024 -p0 -b .024
 
 # Other patches
 %patch101 -p1 -b .security
@@ -313,6 +321,9 @@ end
 #%doc doc/*.ps doc/*.0 doc/*.html doc/article.txt
 
 %changelog
+* Tue Mar 13 2012 Roman Rakus <rrakus@redhat.com> - 4.2.24-1
+- Patchlevel 24
+
 * Wed Jan 25 2012 Harald Hoyer <harald@redhat.com> 4.2.20-4
 - install everything in /usr
   https://fedoraproject.org/wiki/Features/UsrMove
