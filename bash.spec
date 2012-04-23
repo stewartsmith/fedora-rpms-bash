@@ -6,7 +6,7 @@
 Version: %{baseversion}%{patchleveltag}
 Name: bash
 Summary: The GNU Bourne Again shell
-Release: 1%{?dist}
+Release: 2%{?dist}
 Group: System Environment/Shells
 License: GPLv3+
 Url: http://www.gnu.org/software/bash
@@ -78,6 +78,9 @@ Patch120: bash-4.2-rc2-logout.patch
 
 # Static analyzis shows some issues in bash-2.05a-interpreter.patch
 Patch121: bash-4.2-coverity.patch
+
+# Don't call malloc in signal handler
+Patch122: bash-4.1-defer-sigchld-trap.patch
 
 BuildRequires: texinfo bison
 BuildRequires: ncurses-devel
@@ -154,6 +157,8 @@ This package contains documentation files for %{name}.
 %patch119 -p1 -b .broken_pipe
 %patch120 -p1 -b .logout
 %patch121 -p1 -b .coverity
+%patch122 -p1 -b .defer_sigchld_trap
+
 echo %{version} > _distribution
 echo %{release} > _patchlevel
 
@@ -321,6 +326,9 @@ end
 #%doc doc/*.ps doc/*.0 doc/*.html doc/article.txt
 
 %changelog
+* Mon Apr 23 2012 Roman Rakus <rrakus@redhat.com> - 4.2.24-2
+- Don't call malloc in signal handler
+
 * Tue Mar 13 2012 Roman Rakus <rrakus@redhat.com> - 4.2.24-1
 - Patchlevel 24
 
