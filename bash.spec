@@ -1,12 +1,12 @@
 #% define beta_tag rc2
-%define patchleveltag .24
+%define patchleveltag .28
 %define baseversion 4.2
 %bcond_without tests
 
 Version: %{baseversion}%{patchleveltag}
 Name: bash
 Summary: The GNU Bourne Again shell
-Release: 2%{?dist}
+Release: 1%{?dist}
 Group: System Environment/Shells
 License: GPLv3+
 Url: http://www.gnu.org/software/bash
@@ -44,6 +44,10 @@ Patch021: ftp://ftp.gnu.org/pub/gnu/bash/bash-4.2-patches/bash42-021
 Patch022: ftp://ftp.gnu.org/pub/gnu/bash/bash-4.2-patches/bash42-022
 Patch023: ftp://ftp.gnu.org/pub/gnu/bash/bash-4.2-patches/bash42-023
 Patch024: ftp://ftp.gnu.org/pub/gnu/bash/bash-4.2-patches/bash42-024
+Patch025: ftp://ftp.gnu.org/pub/gnu/bash/bash-4.2-patches/bash42-025
+Patch026: ftp://ftp.gnu.org/pub/gnu/bash/bash-4.2-patches/bash42-026
+Patch027: ftp://ftp.gnu.org/pub/gnu/bash/bash-4.2-patches/bash42-027
+Patch028: ftp://ftp.gnu.org/pub/gnu/bash/bash-4.2-patches/bash42-028
 
 # Other patches
 Patch101: bash-2.02-security.patch
@@ -134,6 +138,10 @@ This package contains documentation files for %{name}.
 %patch022 -p0 -b .022
 %patch023 -p0 -b .023
 %patch024 -p0 -b .024
+%patch025 -p0 -b .025
+%patch026 -p0 -b .026
+%patch027 -p0 -b .027
+%patch028 -p0 -b .028
 
 # Other patches
 %patch101 -p1 -b .security
@@ -326,6 +334,9 @@ end
 #%doc doc/*.ps doc/*.0 doc/*.html doc/article.txt
 
 %changelog
+* Wed May 09 2012 Roman Rakus <rrakus@redhat.com> - 4.2.28-1
+- Patchlevel 28
+
 * Mon Apr 23 2012 Roman Rakus <rrakus@redhat.com> - 4.2.24-2
 - Don't call malloc in signal handler
 
