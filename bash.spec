@@ -6,7 +6,7 @@
 Version: %{baseversion}%{patchleveltag}
 Name: bash
 Summary: The GNU Bourne Again shell
-Release: 1%{?dist}
+Release: 2%{?dist}
 Group: System Environment/Shells
 License: GPLv3+
 Url: http://www.gnu.org/software/bash
@@ -251,6 +251,16 @@ do
   rm -f "$script"-orig
 done
 
+# bug #820192, need to add execable alternatives for regular built-ins
+for ea in alias bg cd command fc fg getopts jobs read umask unalias wait
+do
+  cat <<EOF > "$RPM_BUILD_ROOT"/%{_bindir}/"$ea"
+#!/bin/sh
+builtin $ea "\$@"
+EOF
+chmod +x "$RPM_BUILD_ROOT"/%{_bindir}/"$ea"
+done
+
 %find_lang %{name}
 
 # copy doc to /usr/share/doc
@@ -320,6 +330,18 @@ end
 %config(noreplace) /etc/skel/.b*
 %{_bindir}/sh
 %{_bindir}/bash
+%{_bindir}/alias
+%{_bindir}/bg
+%{_bindir}/cd
+%{_bindir}/command
+%{_bindir}/fc
+%{_bindir}/fg
+%{_bindir}/getopts
+%{_bindir}/jobs
+%{_bindir}/read
+%{_bindir}/umask
+%{_bindir}/unalias
+%{_bindir}/wait
 %dir %{pkgdocdir}/
 %doc %{pkgdocdir}/COPYING
 %attr(0755,root,root) %{_bindir}/bashbug-*
@@ -334,6 +356,10 @@ end
 #%doc doc/*.ps doc/*.0 doc/*.html doc/article.txt
 
 %changelog
+* Tue May 29 2012 Roman Rakus <rrakus@redhat.com> - 4.2.28-2
+- Provide exec-able alternatives to some builtins
+  Resolves #820192
+
 * Wed May 09 2012 Roman Rakus <rrakus@redhat.com> - 4.2.28-1
 - Patchlevel 28
 
