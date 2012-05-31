@@ -1,5 +1,5 @@
 #% define beta_tag rc2
-%define patchleveltag .28
+%define patchleveltag .29
 %define baseversion 4.2
 %bcond_without tests
 
@@ -48,6 +48,7 @@ Patch025: ftp://ftp.gnu.org/pub/gnu/bash/bash-4.2-patches/bash42-025
 Patch026: ftp://ftp.gnu.org/pub/gnu/bash/bash-4.2-patches/bash42-026
 Patch027: ftp://ftp.gnu.org/pub/gnu/bash/bash-4.2-patches/bash42-027
 Patch028: ftp://ftp.gnu.org/pub/gnu/bash/bash-4.2-patches/bash42-028
+Patch029: ftp://ftp.gnu.org/pub/gnu/bash/bash-4.2-patches/bash42-029
 
 # Other patches
 Patch101: bash-2.02-security.patch
@@ -142,6 +143,7 @@ This package contains documentation files for %{name}.
 %patch026 -p0 -b .026
 %patch027 -p0 -b .027
 %patch028 -p0 -b .028
+%patch029 -p0 -b .029
 
 # Other patches
 %patch101 -p1 -b .security
@@ -356,6 +358,10 @@ end
 #%doc doc/*.ps doc/*.0 doc/*.html doc/article.txt
 
 %changelog
+* Thu May 31 2012 Roman Rakus <rrakus@redhat.com> - 4.2.29-2
+- Patchlevel 29
+- Also keep release at -2, so we are newer then f16 and f17
+
 * Tue May 29 2012 Roman Rakus <rrakus@redhat.com> - 4.2.28-2
 - Provide exec-able alternatives to some builtins
   Resolves #820192
