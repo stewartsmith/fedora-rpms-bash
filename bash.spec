@@ -6,7 +6,7 @@
 Version: %{baseversion}%{patchleveltag}
 Name: bash
 Summary: The GNU Bourne Again shell
-Release: 2%{?dist}
+Release: 3%{?dist}
 Group: System Environment/Shells
 License: GPLv3+
 Url: http://www.gnu.org/software/bash
@@ -179,7 +179,7 @@ autoconf
 # Recycles pids is neccessary. When bash's last fork's pid was X
 # and new fork's pid is also X, bash has to wait for this same pid.
 # Without Recycles pids bash will not wait.
-make "CPPFLAGS=-D_GNU_SOURCE -DRECYCLES_PIDS `getconf LFS_CFLAGS`"
+make "CPPFLAGS=-D_GNU_SOURCE -DRECYCLES_PIDS -DDEFAULT_PATH_VALUE='\"/usr/local/bin:/usr/bin\"' `getconf LFS_CFLAGS`"
 
 %install
 rm -rf $RPM_BUILD_ROOT
@@ -358,6 +358,10 @@ end
 #%doc doc/*.ps doc/*.0 doc/*.html doc/article.txt
 
 %changelog
+* Sat Jun 23 2012 Roman Rakus <rrakus@redhat.com> - 4.2.29-3
+- Remove /bin from DEFAULT_PATH_VALUE
+  Resolves: #834571
+
 * Thu May 31 2012 Roman Rakus <rrakus@redhat.com> - 4.2.29-2
 - Patchlevel 29
 - Also keep release at -2, so we are newer then f16 and f17
