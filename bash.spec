@@ -1,12 +1,12 @@
 #% define beta_tag rc2
-%define patchleveltag .29
+%define patchleveltag .36
 %define baseversion 4.2
 %bcond_without tests
 
 Version: %{baseversion}%{patchleveltag}
 Name: bash
 Summary: The GNU Bourne Again shell
-Release: 3%{?dist}
+Release: 1%{?dist}
 Group: System Environment/Shells
 License: GPLv3+
 Url: http://www.gnu.org/software/bash
@@ -49,6 +49,13 @@ Patch026: ftp://ftp.gnu.org/pub/gnu/bash/bash-4.2-patches/bash42-026
 Patch027: ftp://ftp.gnu.org/pub/gnu/bash/bash-4.2-patches/bash42-027
 Patch028: ftp://ftp.gnu.org/pub/gnu/bash/bash-4.2-patches/bash42-028
 Patch029: ftp://ftp.gnu.org/pub/gnu/bash/bash-4.2-patches/bash42-029
+Patch030: ftp://ftp.gnu.org/pub/gnu/bash/bash-4.2-patches/bash42-030
+Patch031: ftp://ftp.gnu.org/pub/gnu/bash/bash-4.2-patches/bash42-031
+Patch032: ftp://ftp.gnu.org/pub/gnu/bash/bash-4.2-patches/bash42-032
+Patch033: ftp://ftp.gnu.org/pub/gnu/bash/bash-4.2-patches/bash42-033
+Patch034: ftp://ftp.gnu.org/pub/gnu/bash/bash-4.2-patches/bash42-034
+Patch035: ftp://ftp.gnu.org/pub/gnu/bash/bash-4.2-patches/bash42-035
+Patch036: ftp://ftp.gnu.org/pub/gnu/bash/bash-4.2-patches/bash42-036
 
 # Other patches
 Patch101: bash-2.02-security.patch
@@ -144,6 +151,13 @@ This package contains documentation files for %{name}.
 %patch027 -p0 -b .027
 %patch028 -p0 -b .028
 %patch029 -p0 -b .029
+%patch030 -p0 -b .030
+%patch031 -p0 -b .031
+%patch032 -p0 -b .032
+%patch033 -p0 -b .033
+%patch034 -p0 -b .034
+%patch035 -p0 -b .035
+%patch036 -p0 -b .036
 
 # Other patches
 %patch101 -p1 -b .security
@@ -358,6 +372,9 @@ end
 #%doc doc/*.ps doc/*.0 doc/*.html doc/article.txt
 
 %changelog
+* Tue Jul 10 2012 Roman Rakus <rrakus@redhat.com> - 4.2.36-1
+- Patchlevel 36
+
 * Sat Jun 23 2012 Roman Rakus <rrakus@redhat.com> - 4.2.29-3
 - Remove /bin from DEFAULT_PATH_VALUE
   Resolves: #834571
