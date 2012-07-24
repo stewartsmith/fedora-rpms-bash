@@ -6,7 +6,7 @@
 Version: %{baseversion}%{patchleveltag}
 Name: bash
 Summary: The GNU Bourne Again shell
-Release: 2%{?dist}
+Release: 3%{?dist}
 Group: System Environment/Shells
 License: GPLv3+
 Url: http://www.gnu.org/software/bash
@@ -56,6 +56,7 @@ Patch033: ftp://ftp.gnu.org/pub/gnu/bash/bash-4.2-patches/bash42-033
 Patch034: ftp://ftp.gnu.org/pub/gnu/bash/bash-4.2-patches/bash42-034
 Patch035: ftp://ftp.gnu.org/pub/gnu/bash/bash-4.2-patches/bash42-035
 Patch036: ftp://ftp.gnu.org/pub/gnu/bash/bash-4.2-patches/bash42-036
+Patch037: ftp://ftp.gnu.org/pub/gnu/bash/bash-4.2-patches/bash42-037
 
 # Other patches
 Patch101: bash-2.02-security.patch
@@ -158,6 +159,7 @@ This package contains documentation files for %{name}.
 %patch034 -p0 -b .034
 %patch035 -p0 -b .035
 %patch036 -p0 -b .036
+%patch037 -p0 -b .037
 
 # Other patches
 %patch101 -p1 -b .security
@@ -372,6 +374,9 @@ end
 #%doc doc/*.ps doc/*.0 doc/*.html doc/article.txt
 
 %changelog
+* Tue Jul 24 2012 Roman Rakus <rrakus@redhat.com> - 4.2.36-3
+- Patchlevel 37
+
 * Wed Jul 18 2012 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 4.2.36-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_18_Mass_Rebuild
 
