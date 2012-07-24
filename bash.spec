@@ -1,5 +1,5 @@
 #% define beta_tag rc2
-%define patchleveltag .36
+%define patchleveltag .37
 %define baseversion 4.2
 %bcond_without tests
 
@@ -374,6 +374,9 @@ end
 #%doc doc/*.ps doc/*.0 doc/*.html doc/article.txt
 
 %changelog
+* Tue Jul 24 2012 Roman Rakus <rrakus@redhat.com> - 4.2.37-3
+- Increment patchlevel tag
+
 * Tue Jul 24 2012 Roman Rakus <rrakus@redhat.com> - 4.2.36-3
 - Patchlevel 37
 
