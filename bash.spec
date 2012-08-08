@@ -6,7 +6,7 @@
 Version: %{baseversion}%{patchleveltag}
 Name: bash
 Summary: The GNU Bourne Again shell
-Release: 3%{?dist}
+Release: 4%{?dist}
 Group: System Environment/Shells
 License: GPLv3+
 Url: http://www.gnu.org/software/bash
@@ -293,6 +293,7 @@ do
   cp -rp "$file" $RPM_BUILD_ROOT/%{pkgdocdir}/"$file"
   echo "%%doc %{pkgdocdir}/$file" >> %{name}-doc.files
 done
+echo "%%doc %{pkgdocdir}/doc" >> %{name}-doc.files
 
 
 %if %{with tests}
@@ -374,6 +375,10 @@ end
 #%doc doc/*.ps doc/*.0 doc/*.html doc/article.txt
 
 %changelog
+* Wed Aug 08 2012 Roman Rakus <rrakus@redhat.com> - 4.2.37-4
+- Added doc subdir to bash-doc ownership list
+  Resolves: #846734
+
 * Tue Jul 24 2012 Roman Rakus <rrakus@redhat.com> - 4.2.37-3
 - Increment patchlevel tag
 
