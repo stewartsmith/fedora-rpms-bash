@@ -6,7 +6,7 @@
 Version: %{baseversion}%{patchleveltag}
 Name: bash
 Summary: The GNU Bourne Again shell
-Release: 5%{?dist}
+Release: 6%{?dist}
 Group: System Environment/Shells
 License: GPLv3+
 Url: http://www.gnu.org/software/bash
@@ -94,10 +94,6 @@ Patch121: bash-4.2-coverity.patch
 
 # Don't call malloc in signal handler
 Patch122: bash-4.1-defer-sigchld-trap.patch
-
-# Bash filters out environmental variables containing a dot
-# in the name
-Patch123: bash-4.2-dotted_variables.patch
 
 BuildRequires: texinfo bison
 BuildRequires: ncurses-devel
@@ -188,7 +184,6 @@ This package contains documentation files for %{name}.
 %patch120 -p1 -b .logout
 %patch121 -p1 -b .coverity
 %patch122 -p1 -b .defer_sigchld_trap
-%patch123 -p1 -b .dotted_variables
 
 echo %{version} > _distribution
 echo %{release} > _patchlevel
@@ -380,6 +375,9 @@ end
 #%doc doc/*.ps doc/*.0 doc/*.html doc/article.txt
 
 %changelog
+* Wed Aug 22 2012 Ondrej Oprala <ooprala@redhat.com> - 4.2.37-6
+- Revert revision 4.2.37-5 - already fixed upstream
+
 * Tue Aug 21 2012 Ondrej Oprala <ooprala@redhat.com> - 4.2.37-5
 - Don't filter out environmental variables with
   a dot in the name
