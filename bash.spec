@@ -6,7 +6,7 @@
 Version: %{baseversion}%{patchleveltag}
 Name: bash
 Summary: The GNU Bourne Again shell
-Release: 7%{?dist}
+Release: 8%{?dist}
 Group: System Environment/Shells
 License: GPLv3+
 Url: http://www.gnu.org/software/bash
@@ -383,9 +383,16 @@ end
 #%doc doc/*.ps doc/*.0 doc/*.html doc/article.txt
 
 %changelog
+* Tue Aug 28 2012 Roman Rakus <rrakus@redhat.com> - 4.2.37-8
+- Fix a comments in rpm changelog
+
 * Tue Aug 28 2012 Roman Rakus <rrakus@redhat.com> - 4.2.37-7
 - Update info about trap in man page
   Resolves: #799958
+- instead of setting the signal handler to SIG_IGN while installing
+  the new trap handler, block the signal and unblock it after the new handler
+  is installed
+  Resolves: #695656
 
 * Wed Aug 22 2012 Ondrej Oprala <ooprala@redhat.com> - 4.2.37-6
 - Revert revision 4.2.37-5 - already fixed upstream
@@ -398,10 +405,6 @@ end
 * Wed Aug 08 2012 Roman Rakus <rrakus@redhat.com> - 4.2.37-4
 - Added doc subdir to bash-doc ownership list
   Resolves: #846734
-- instead of setting the signal handler to SIG_IGN while installing
-  the new trap handler, block the signal and unblock it after the new handler
-  is installed
-  Resolves: #695656
 
 * Tue Jul 24 2012 Roman Rakus <rrakus@redhat.com> - 4.2.37-3
 - Increment patchlevel tag
