@@ -6,7 +6,7 @@
 Version: %{baseversion}%{patchleveltag}
 Name: bash
 Summary: The GNU Bourne Again shell
-Release: 6%{?dist}
+Release: 7%{?dist}
 Group: System Environment/Shells
 License: GPLv3+
 Url: http://www.gnu.org/software/bash
@@ -94,6 +94,12 @@ Patch121: bash-4.2-coverity.patch
 
 # Don't call malloc in signal handler
 Patch122: bash-4.1-defer-sigchld-trap.patch
+
+# 799958, updated info about trap
+Patch123: bash-4.2-manpage_trap.patch
+
+# 695656, block the signal and unblock it after the new handler is installed
+Patch124: bash-4.2-signal.patch
 
 BuildRequires: texinfo bison
 BuildRequires: ncurses-devel
@@ -184,6 +190,8 @@ This package contains documentation files for %{name}.
 %patch120 -p1 -b .logout
 %patch121 -p1 -b .coverity
 %patch122 -p1 -b .defer_sigchld_trap
+%patch123 -p1
+%patch124 -p1 -b .signal
 
 echo %{version} > _distribution
 echo %{release} > _patchlevel
@@ -375,6 +383,10 @@ end
 #%doc doc/*.ps doc/*.0 doc/*.html doc/article.txt
 
 %changelog
+* Tue Aug 28 2012 Roman Rakus <rrakus@redhat.com> - 4.2.37-7
+- Update info about trap in man page
+  Resolves: #799958
+
 * Wed Aug 22 2012 Ondrej Oprala <ooprala@redhat.com> - 4.2.37-6
 - Revert revision 4.2.37-5 - already fixed upstream
 
@@ -386,6 +398,10 @@ end
 * Wed Aug 08 2012 Roman Rakus <rrakus@redhat.com> - 4.2.37-4
 - Added doc subdir to bash-doc ownership list
   Resolves: #846734
+- instead of setting the signal handler to SIG_IGN while installing
+  the new trap handler, block the signal and unblock it after the new handler
+  is installed
+  Resolves: #695656
 
 * Tue Jul 24 2012 Roman Rakus <rrakus@redhat.com> - 4.2.37-3
 - Increment patchlevel tag
