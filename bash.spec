@@ -6,7 +6,7 @@
 Version: %{baseversion}%{patchleveltag}
 Name: bash
 Summary: The GNU Bourne Again shell
-Release: 2%{?dist}
+Release: 3%{?dist}
 Group: System Environment/Shells
 License: GPLv3+
 Url: http://www.gnu.org/software/bash
@@ -103,6 +103,9 @@ Patch123: bash-4.2-manpage_trap.patch
 # 695656, block the signal and unblock it after the new handler is installed
 Patch124: bash-4.2-signal.patch
 
+# https://www.securecoding.cert.org/confluence/display/seccode/INT32-C.+Ensure+that+operations+on+signed+integers+do+not+result+in+overflow
+Patch125: bash-4.2-size_type.patch
+
 BuildRequires: texinfo bison
 BuildRequires: ncurses-devel
 BuildRequires: autoconf, gettext
@@ -196,6 +199,7 @@ This package contains documentation files for %{name}.
 %patch122 -p1 -b .defer_sigchld_trap
 %patch123 -p1
 %patch124 -p1 -b .signal
+%patch125 -p1 -b .size_type
 
 echo %{version} > _distribution
 echo %{release} > _patchlevel
@@ -388,6 +392,9 @@ end
 #%doc doc/*.ps doc/*.0 doc/*.html doc/article.txt
 
 %changelog
+* Thu Nov 29 2012 Roman Rakus <rrakus@redhat.com> - 4.2.39-3
+- Use unsigned type for size
+
 * Tue Nov 27 2012 Roman Rakus <rrakus@redhat.com> - 4.2.39-2
 - Create bashbug symlink
 
