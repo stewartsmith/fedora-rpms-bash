@@ -1,12 +1,12 @@
 #% define beta_tag rc2
-%define patchleveltag .39
+%define patchleveltag .42
 %define baseversion 4.2
 %bcond_without tests
 
 Version: %{baseversion}%{patchleveltag}
 Name: bash
 Summary: The GNU Bourne Again shell
-Release: 3%{?dist}
+Release: 1%{?dist}
 Group: System Environment/Shells
 License: GPLv3+
 Url: http://www.gnu.org/software/bash
@@ -59,6 +59,9 @@ Patch036: ftp://ftp.gnu.org/pub/gnu/bash/bash-4.2-patches/bash42-036
 Patch037: ftp://ftp.gnu.org/pub/gnu/bash/bash-4.2-patches/bash42-037
 Patch038: ftp://ftp.gnu.org/pub/gnu/bash/bash-4.2-patches/bash42-038
 Patch039: ftp://ftp.gnu.org/pub/gnu/bash/bash-4.2-patches/bash42-039
+Patch040: ftp://ftp.gnu.org/pub/gnu/bash/bash-4.2-patches/bash42-040
+Patch041: ftp://ftp.gnu.org/pub/gnu/bash/bash-4.2-patches/bash42-041
+Patch042: ftp://ftp.gnu.org/pub/gnu/bash/bash-4.2-patches/bash42-042
 
 # Other patches
 Patch101: bash-2.02-security.patch
@@ -173,6 +176,9 @@ This package contains documentation files for %{name}.
 %patch037 -p0 -b .037
 %patch038 -p0 -b .038
 %patch039 -p0 -b .039
+%patch040 -p0 -b .040
+%patch041 -p0 -b .041
+%patch042 -p0 -b .042
 
 # Other patches
 %patch101 -p1 -b .security
@@ -392,6 +398,9 @@ end
 #%doc doc/*.ps doc/*.0 doc/*.html doc/article.txt
 
 %changelog
+* Thu Jan 03 2013 Roman Rakus <rrakus@redhat.com> - 4.2.42-1
+- Patchlevel 42
+
 * Thu Nov 29 2012 Roman Rakus <rrakus@redhat.com> - 4.2.39-3
 - Use unsigned type for size
 
