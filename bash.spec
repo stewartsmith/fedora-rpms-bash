@@ -6,7 +6,7 @@
 Version: %{baseversion}%{patchleveltag}
 Name: bash
 Summary: The GNU Bourne Again shell
-Release: 2%{?dist}
+Release: 3%{?dist}
 Group: System Environment/Shells
 License: GPLv3+
 Url: http://www.gnu.org/software/bash
@@ -402,6 +402,10 @@ end
 #%doc doc/*.ps doc/*.0 doc/*.html doc/article.txt
 
 %changelog
+* Thu Jan 31 2013 Roman Rakus <rrakus@redhat.com> - 4.2.42-3
+- Fix usage of partial unitialized structure
+  Resolves: #857948
+
 * Thu Jan 31 2013 Roman Rakus <rrakus@redhat.com> - 4.2.42-2
 - Fix fd leaks
   Resolves: #903833
