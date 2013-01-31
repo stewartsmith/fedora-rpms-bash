@@ -6,7 +6,7 @@
 Version: %{baseversion}%{patchleveltag}
 Name: bash
 Summary: The GNU Bourne Again shell
-Release: 1%{?dist}
+Release: 2%{?dist}
 Group: System Environment/Shells
 License: GPLv3+
 Url: http://www.gnu.org/software/bash
@@ -109,6 +109,9 @@ Patch124: bash-4.2-signal.patch
 # https://www.securecoding.cert.org/confluence/display/seccode/INT32-C.+Ensure+that+operations+on+signed+integers+do+not+result+in+overflow
 Patch125: bash-4.2-size_type.patch
 
+# 903833, Fix missing close(), fixes fd leaks
+Patch126: bash-4.2-missing_closes.patch
+
 BuildRequires: texinfo bison
 BuildRequires: ncurses-devel
 BuildRequires: autoconf, gettext
@@ -206,6 +209,7 @@ This package contains documentation files for %{name}.
 %patch123 -p1
 %patch124 -p1 -b .signal
 %patch125 -p1 -b .size_type
+%patch126 -p1 -b .missing_closes
 
 echo %{version} > _distribution
 echo %{release} > _patchlevel
@@ -398,6 +402,10 @@ end
 #%doc doc/*.ps doc/*.0 doc/*.html doc/article.txt
 
 %changelog
+* Thu Jan 31 2013 Roman Rakus <rrakus@redhat.com> - 4.2.42-2
+- Fix fd leaks
+  Resolves: #903833
+
 * Thu Jan 03 2013 Roman Rakus <rrakus@redhat.com> - 4.2.42-1
 - Patchlevel 42
 
