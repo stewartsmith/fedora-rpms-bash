@@ -1,12 +1,12 @@
 #% define beta_tag rc2
-%define patchleveltag .42
+%define patchleveltag .45
 %define baseversion 4.2
 %bcond_without tests
 
 Version: %{baseversion}%{patchleveltag}
 Name: bash
 Summary: The GNU Bourne Again shell
-Release: 3%{?dist}
+Release: 1%{?dist}
 Group: System Environment/Shells
 License: GPLv3+
 Url: http://www.gnu.org/software/bash
@@ -62,6 +62,9 @@ Patch039: ftp://ftp.gnu.org/pub/gnu/bash/bash-4.2-patches/bash42-039
 Patch040: ftp://ftp.gnu.org/pub/gnu/bash/bash-4.2-patches/bash42-040
 Patch041: ftp://ftp.gnu.org/pub/gnu/bash/bash-4.2-patches/bash42-041
 Patch042: ftp://ftp.gnu.org/pub/gnu/bash/bash-4.2-patches/bash42-042
+Patch043: ftp://ftp.gnu.org/pub/gnu/bash/bash-4.2-patches/bash42-043
+Patch044: ftp://ftp.gnu.org/pub/gnu/bash/bash-4.2-patches/bash42-044
+Patch045: ftp://ftp.gnu.org/pub/gnu/bash/bash-4.2-patches/bash42-045
 
 # Other patches
 Patch101: bash-2.02-security.patch
@@ -182,6 +185,9 @@ This package contains documentation files for %{name}.
 %patch040 -p0 -b .040
 %patch041 -p0 -b .041
 %patch042 -p0 -b .042
+%patch043 -p0 -b .043
+%patch044 -p0 -b .044
+%patch045 -p0 -b .045
 
 # Other patches
 %patch101 -p1 -b .security
@@ -402,6 +408,9 @@ end
 #%doc doc/*.ps doc/*.0 doc/*.html doc/article.txt
 
 %changelog
+* Mon Mar 11 2013 Roman Rakus <rrakus@redhat.com> - 4.2.45-1
+- Patchlevel 45
+
 * Thu Jan 31 2013 Roman Rakus <rrakus@redhat.com> - 4.2.42-3
 - Fix usage of partial unitialized structure
   Resolves: #857948
