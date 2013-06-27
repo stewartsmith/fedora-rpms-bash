@@ -6,7 +6,7 @@
 Version: %{baseversion}%{patchleveltag}
 Name: bash
 Summary: The GNU Bourne Again shell
-Release: 1%{?dist}
+Release: 2%{?dist}
 Group: System Environment/Shells
 License: GPLv3+
 Url: http://www.gnu.org/software/bash
@@ -114,6 +114,9 @@ Patch125: bash-4.2-size_type.patch
 
 # 903833, Fix missing close(), fixes fd leaks
 Patch126: bash-4.2-missing_closes.patch
+
+# fix deadlock in trap, backported from devel branch
+Patch127: bash-4.2-trap.patch
 
 BuildRequires: texinfo bison
 BuildRequires: ncurses-devel
@@ -408,6 +411,10 @@ end
 #%doc doc/*.ps doc/*.0 doc/*.html doc/article.txt
 
 %changelog
+* Thu Jun 27 2013 Roman Rakus <rrakus@redhat.com> - 4.2.45-2
+- Fixed a bug that caused trap handlers to be executed recursively,
+  corrupting internal data structures.
+
 * Mon Mar 11 2013 Roman Rakus <rrakus@redhat.com> - 4.2.45-1
 - Patchlevel 45
 
