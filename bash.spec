@@ -2,11 +2,12 @@
 %define patchleveltag .45
 %define baseversion 4.2
 %bcond_without tests
+%{!?_pkgdocdir: %global _pkgdocdir %{_docdir}/%{name}-%{version}}
 
 Version: %{baseversion}%{patchleveltag}
 Name: bash
 Summary: The GNU Bourne Again shell
-Release: 2%{?dist}
+Release: 3%{?dist}
 Group: System Environment/Shells
 License: GPLv3+
 Url: http://www.gnu.org/software/bash
@@ -138,8 +139,6 @@ Requires: %{name} = %{version}-%{release}
 
 %description doc
 This package contains documentation files for %{name}.
-
-%define pkgdocdir %{_datadir}/doc/%{name}-%{version}
 
 %prep
 #%setup -q -a 2
@@ -319,17 +318,17 @@ done
 
 # copy doc to /usr/share/doc
 cat /dev/null > %{name}-doc.files
-mkdir -p $RPM_BUILD_ROOT/%{pkgdocdir}/doc
-cp -p COPYING $RPM_BUILD_ROOT/%{pkgdocdir}
+mkdir -p $RPM_BUILD_ROOT/%{_pkgdocdir}/doc
+cp -p COPYING $RPM_BUILD_ROOT/%{_pkgdocdir}
 # loadables aren't buildable
 rm -rf examples/loadables
 for file in CHANGES COMPAT NEWS NOTES POSIX examples\
     doc/{FAQ,INTRO,rose94.pdf,article.{pdf,txt},bashref.{html,pdf}}
 do
-  cp -rp "$file" $RPM_BUILD_ROOT/%{pkgdocdir}/"$file"
-  echo "%%doc %{pkgdocdir}/$file" >> %{name}-doc.files
+  cp -rp "$file" $RPM_BUILD_ROOT/%{_pkgdocdir}/"$file"
+  echo "%%doc %{_pkgdocdir}/$file" >> %{name}-doc.files
 done
-echo "%%doc %{pkgdocdir}/doc" >> %{name}-doc.files
+echo "%%doc %{_pkgdocdir}/doc" >> %{name}-doc.files
 
 
 %if %{with tests}
@@ -397,8 +396,8 @@ end
 %{_bindir}/umask
 %{_bindir}/unalias
 %{_bindir}/wait
-%dir %{pkgdocdir}/
-%doc %{pkgdocdir}/COPYING
+%dir %{_pkgdocdir}/
+%doc %{_pkgdocdir}/COPYING
 %attr(0755,root,root) %{_bindir}/bashbug*
 %{_infodir}/bash.info*
 %{_mandir}/*/*
@@ -411,6 +410,10 @@ end
 #%doc doc/*.ps doc/*.0 doc/*.html doc/article.txt
 
 %changelog
+* Fri Jul 26 2013 Ville Skyttä <ville.skytta@iki.fi> - 4.2.45-3
+- Install docs to %%{_pkgdocdir} where available.
+- Fix bogus dates in %%changelog.
+
 * Thu Jun 27 2013 Roman Rakus <rrakus@redhat.com> - 4.2.45-2
 - Fixed a bug that caused trap handlers to be executed recursively,
   corrupting internal data structures.
@@ -869,7 +872,7 @@ end
 * Wed May 31 2006 Tim Waugh <twaugh@redhat.com> 3.1-14
 - More sighandler fixes, this time hypothetical.
 
-* Thu May 26 2006 Tim Waugh <twaugh@redhat.com> 3.1-13
+* Thu May 25 2006 Tim Waugh <twaugh@redhat.com> 3.1-13
 - Another fix for the sighandler patch (bug #192297).
 
 * Thu Apr 13 2006 Tim Waugh <twaugh@redhat.com> 3.1-12
@@ -1188,7 +1191,7 @@ end
 - Fix completion display when multibyte or control characters are to be
   shown (bug #90201).
 
-* Tue Mar 26 2003 Tim Waugh <twaugh@redhat.com> 2.05b-23
+* Wed Mar 26 2003 Tim Waugh <twaugh@redhat.com> 2.05b-23
 - Fix a warning message (bug #79629).
 - Don't remove generated source during build, for debuginfo package.
 - Don't build with AFS support (bug #86514).
@@ -1349,7 +1352,7 @@ end
   twice in interactive non-login shells.
 - s/Copyright/License/
 
-* Fri May  5 2001 Bernhard Rosenkraenzer <bero@redhat.com> 2.05-4
+* Sat May  5 2001 Bernhard Rosenkraenzer <bero@redhat.com> 2.05-4
 - Fix tempfile creation in bashbug
 
 * Wed May  2 2001 Preston Brown <pbrown@redhat.com> 2.05-3
@@ -1376,7 +1379,7 @@ end
 - noreplace config files
 - don't own /etc/skel directory
 
-* Wed Feb 22 2001 Harald Hoyer <harald@redhat.de>
+* Thu Feb 22 2001 Harald Hoyer <harald@redhat.de>
 - changed /etc/bashrc to work with backspace = 0177 (rxvt)
 
 * Wed Feb 07 2001 Florian La Roche <Florian.LaRoche@redhat.de>
@@ -1457,7 +1460,7 @@ end
 * Thu Dec  2 1999 Ken Estes <kestes@staff.mail.com>
 - updated patch to detect what executables are required by a script.
 
-* Fri Sep 14 1999 Dale Lovelace <dale@redhat.com>
+* Tue Sep 14 1999 Dale Lovelace <dale@redhat.com>
 - Remove annoying ^H's from documentation
 
 * Fri Jul 16 1999 Ken Estes <kestes@staff.mail.com>
