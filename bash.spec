@@ -7,7 +7,7 @@
 Version: %{baseversion}%{patchleveltag}
 Name: bash
 Summary: The GNU Bourne Again shell
-Release: 3%{?dist}
+Release: 4%{?dist}
 Group: System Environment/Shells
 License: GPLv3+
 Url: http://www.gnu.org/software/bash
@@ -410,6 +410,9 @@ end
 #%doc doc/*.ps doc/*.0 doc/*.html doc/article.txt
 
 %changelog
+* Fri Aug 09 2013 Roman Rakus <rrakus@redhat.com> - 4.2.45-4
+- Added suggestion to .bashrc how to disable autopaging in systemctl
+
 * Fri Jul 26 2013 Ville Skyttä <ville.skytta@iki.fi> - 4.2.45-3
 - Install docs to %%{_pkgdocdir} where available.
 - Fix bogus dates in %%changelog.
