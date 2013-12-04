@@ -7,7 +7,7 @@
 Version: %{baseversion}%{patchleveltag}
 Name: bash
 Summary: The GNU Bourne Again shell
-Release: 4%{?dist}
+Release: 5%{?dist}
 Group: System Environment/Shells
 License: GPLv3+
 Url: http://www.gnu.org/software/bash
@@ -119,6 +119,9 @@ Patch126: bash-4.2-missing_closes.patch
 # fix deadlock in trap, backported from devel branch
 Patch127: bash-4.2-trap.patch
 
+# 1036998, bash FTBFS if -Werror=format-string is used
+Patch128: bash-4.2-format-security.patch
+
 BuildRequires: texinfo bison
 BuildRequires: ncurses-devel
 BuildRequires: autoconf, gettext
@@ -218,6 +221,7 @@ This package contains documentation files for %{name}.
 %patch124 -p1 -b .signal
 %patch125 -p1 -b .size_type
 %patch126 -p1 -b .missing_closes
+%patch128 -p1 -b .format-security
 
 echo %{version} > _distribution
 echo %{release} > _patchlevel
@@ -410,6 +414,9 @@ end
 #%doc doc/*.ps doc/*.0 doc/*.html doc/article.txt
 
 %changelog
+* Wed Dec 04 2013 Ondrej Oprala <ooprala@redhat.com> 4.2.45-5
+- bash FTBFS if -Werror=format-string is used (#1036998)
+
 * Fri Aug 09 2013 Roman Rakus <rrakus@redhat.com> - 4.2.45-4
 - Added suggestion to .bashrc how to disable autopaging in systemctl
 
