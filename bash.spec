@@ -7,7 +7,7 @@
 Version: %{baseversion}%{patchleveltag}
 Name: bash
 Summary: The GNU Bourne Again shell
-Release: 5%{?dist}
+Release: 6%{?dist}
 Group: System Environment/Shells
 License: GPLv3+
 Url: http://www.gnu.org/software/bash
@@ -414,6 +414,9 @@ end
 #%doc doc/*.ps doc/*.0 doc/*.html doc/article.txt
 
 %changelog
+* Wed Dec 04 2013 Ondrej Oprala <ooprala@redhat.com> 4.2.45-6
+- Change the paths for format-security patch
+
 * Wed Dec 04 2013 Ondrej Oprala <ooprala@redhat.com> 4.2.45-5
 - bash FTBFS if -Werror=format-string is used (#1036998)
 
