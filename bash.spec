@@ -1,13 +1,13 @@
 #% define beta_tag rc2
-%define patchleveltag .45
-%define baseversion 4.2
+%define patchleveltag .0
+%define baseversion 4.3
 %bcond_without tests
 %{!?_pkgdocdir: %global _pkgdocdir %{_docdir}/%{name}-%{version}}
 
 Version: %{baseversion}%{patchleveltag}
 Name: bash
 Summary: The GNU Bourne Again shell
-Release: 6%{?dist}
+Release: 1%{?dist}
 Group: System Environment/Shells
 License: GPLv3+
 Url: http://www.gnu.org/software/bash
@@ -19,53 +19,6 @@ Source0: ftp://ftp.gnu.org/gnu/bash/bash-%{baseversion}.tar.gz
 Source1: dot-bashrc
 Source2: dot-bash_profile
 Source3: dot-bash_logout
-
-# Official upstream patches
-Patch001: ftp://ftp.gnu.org/pub/gnu/bash/bash-4.2-patches/bash42-001
-Patch002: ftp://ftp.gnu.org/pub/gnu/bash/bash-4.2-patches/bash42-002
-Patch003: ftp://ftp.gnu.org/pub/gnu/bash/bash-4.2-patches/bash42-003
-Patch004: ftp://ftp.gnu.org/pub/gnu/bash/bash-4.2-patches/bash42-004
-Patch005: ftp://ftp.gnu.org/pub/gnu/bash/bash-4.2-patches/bash42-005
-Patch006: ftp://ftp.gnu.org/pub/gnu/bash/bash-4.2-patches/bash42-006
-Patch007: ftp://ftp.gnu.org/pub/gnu/bash/bash-4.2-patches/bash42-007
-Patch008: ftp://ftp.gnu.org/pub/gnu/bash/bash-4.2-patches/bash42-008
-Patch009: ftp://ftp.gnu.org/pub/gnu/bash/bash-4.2-patches/bash42-009
-Patch010: ftp://ftp.gnu.org/pub/gnu/bash/bash-4.2-patches/bash42-010
-Patch011: ftp://ftp.gnu.org/pub/gnu/bash/bash-4.2-patches/bash42-011
-Patch012: ftp://ftp.gnu.org/pub/gnu/bash/bash-4.2-patches/bash42-012
-Patch013: ftp://ftp.gnu.org/pub/gnu/bash/bash-4.2-patches/bash42-013
-Patch014: ftp://ftp.gnu.org/pub/gnu/bash/bash-4.2-patches/bash42-014
-Patch015: ftp://ftp.gnu.org/pub/gnu/bash/bash-4.2-patches/bash42-015
-Patch016: ftp://ftp.gnu.org/pub/gnu/bash/bash-4.2-patches/bash42-016
-Patch017: ftp://ftp.gnu.org/pub/gnu/bash/bash-4.2-patches/bash42-017
-Patch018: ftp://ftp.gnu.org/pub/gnu/bash/bash-4.2-patches/bash42-018
-Patch019: ftp://ftp.gnu.org/pub/gnu/bash/bash-4.2-patches/bash42-019
-Patch020: ftp://ftp.gnu.org/pub/gnu/bash/bash-4.2-patches/bash42-020
-Patch021: ftp://ftp.gnu.org/pub/gnu/bash/bash-4.2-patches/bash42-021
-Patch022: ftp://ftp.gnu.org/pub/gnu/bash/bash-4.2-patches/bash42-022
-Patch023: ftp://ftp.gnu.org/pub/gnu/bash/bash-4.2-patches/bash42-023
-Patch024: ftp://ftp.gnu.org/pub/gnu/bash/bash-4.2-patches/bash42-024
-Patch025: ftp://ftp.gnu.org/pub/gnu/bash/bash-4.2-patches/bash42-025
-Patch026: ftp://ftp.gnu.org/pub/gnu/bash/bash-4.2-patches/bash42-026
-Patch027: ftp://ftp.gnu.org/pub/gnu/bash/bash-4.2-patches/bash42-027
-Patch028: ftp://ftp.gnu.org/pub/gnu/bash/bash-4.2-patches/bash42-028
-Patch029: ftp://ftp.gnu.org/pub/gnu/bash/bash-4.2-patches/bash42-029
-Patch030: ftp://ftp.gnu.org/pub/gnu/bash/bash-4.2-patches/bash42-030
-Patch031: ftp://ftp.gnu.org/pub/gnu/bash/bash-4.2-patches/bash42-031
-Patch032: ftp://ftp.gnu.org/pub/gnu/bash/bash-4.2-patches/bash42-032
-Patch033: ftp://ftp.gnu.org/pub/gnu/bash/bash-4.2-patches/bash42-033
-Patch034: ftp://ftp.gnu.org/pub/gnu/bash/bash-4.2-patches/bash42-034
-Patch035: ftp://ftp.gnu.org/pub/gnu/bash/bash-4.2-patches/bash42-035
-Patch036: ftp://ftp.gnu.org/pub/gnu/bash/bash-4.2-patches/bash42-036
-Patch037: ftp://ftp.gnu.org/pub/gnu/bash/bash-4.2-patches/bash42-037
-Patch038: ftp://ftp.gnu.org/pub/gnu/bash/bash-4.2-patches/bash42-038
-Patch039: ftp://ftp.gnu.org/pub/gnu/bash/bash-4.2-patches/bash42-039
-Patch040: ftp://ftp.gnu.org/pub/gnu/bash/bash-4.2-patches/bash42-040
-Patch041: ftp://ftp.gnu.org/pub/gnu/bash/bash-4.2-patches/bash42-041
-Patch042: ftp://ftp.gnu.org/pub/gnu/bash/bash-4.2-patches/bash42-042
-Patch043: ftp://ftp.gnu.org/pub/gnu/bash/bash-4.2-patches/bash42-043
-Patch044: ftp://ftp.gnu.org/pub/gnu/bash/bash-4.2-patches/bash42-044
-Patch045: ftp://ftp.gnu.org/pub/gnu/bash/bash-4.2-patches/bash42-045
 
 # Other patches
 Patch101: bash-2.02-security.patch
@@ -107,20 +60,11 @@ Patch122: bash-4.1-defer-sigchld-trap.patch
 # 799958, updated info about trap
 Patch123: bash-4.2-manpage_trap.patch
 
-# 695656, block the signal and unblock it after the new handler is installed
-Patch124: bash-4.2-signal.patch
-
 # https://www.securecoding.cert.org/confluence/display/seccode/INT32-C.+Ensure+that+operations+on+signed+integers+do+not+result+in+overflow
 Patch125: bash-4.2-size_type.patch
 
-# 903833, Fix missing close(), fixes fd leaks
-Patch126: bash-4.2-missing_closes.patch
-
 # fix deadlock in trap, backported from devel branch
 Patch127: bash-4.2-trap.patch
-
-# 1036998, bash FTBFS if -Werror=format-string is used
-Patch128: bash-4.2-format-security.patch
 
 BuildRequires: texinfo bison
 BuildRequires: ncurses-devel
@@ -147,53 +91,6 @@ This package contains documentation files for %{name}.
 #%setup -q -a 2
 %setup -q -n %{name}-%{baseversion}
 
-# Official upstream patches
-%patch001 -p0 -b .001
-%patch002 -p0 -b .002
-%patch003 -p0 -b .003
-%patch004 -p0 -b .004
-%patch005 -p0 -b .005
-%patch006 -p0 -b .006
-%patch007 -p0 -b .007
-%patch008 -p0 -b .008
-%patch009 -p0 -b .009
-%patch010 -p0 -b .010
-%patch011 -p0 -b .011
-%patch012 -p0 -b .012
-%patch013 -p0 -b .013
-%patch014 -p0 -b .014
-%patch015 -p0 -b .015
-%patch016 -p0 -b .016
-%patch017 -p0 -b .017
-%patch018 -p0 -b .018
-%patch019 -p0 -b .019
-%patch020 -p0 -b .020
-%patch021 -p0 -b .021
-%patch022 -p0 -b .022
-%patch023 -p0 -b .023
-%patch024 -p0 -b .024
-%patch025 -p0 -b .025
-%patch026 -p0 -b .026
-%patch027 -p0 -b .027
-%patch028 -p0 -b .028
-%patch029 -p0 -b .029
-%patch030 -p0 -b .030
-%patch031 -p0 -b .031
-%patch032 -p0 -b .032
-%patch033 -p0 -b .033
-%patch034 -p0 -b .034
-%patch035 -p0 -b .035
-%patch036 -p0 -b .036
-%patch037 -p0 -b .037
-%patch038 -p0 -b .038
-%patch039 -p0 -b .039
-%patch040 -p0 -b .040
-%patch041 -p0 -b .041
-%patch042 -p0 -b .042
-%patch043 -p0 -b .043
-%patch044 -p0 -b .044
-%patch045 -p0 -b .045
-
 # Other patches
 %patch101 -p1 -b .security
 %patch102 -p1 -b .paths
@@ -218,10 +115,7 @@ This package contains documentation files for %{name}.
 %patch121 -p1 -b .coverity
 %patch122 -p1 -b .defer_sigchld_trap
 %patch123 -p1
-%patch124 -p1 -b .signal
 %patch125 -p1 -b .size_type
-%patch126 -p1 -b .missing_closes
-%patch128 -p1 -b .format-security
 
 echo %{version} > _distribution
 echo %{release} > _patchlevel
@@ -297,10 +191,11 @@ ln -s bashbug.1 $RPM_BUILD_ROOT/%{_mandir}/man1/bashbug-"$LONG_BIT".1
 
 # Fix missing sh-bangs in example scripts (bug #225609).
 for script in \
-  examples/scripts/krand.bash \
-  examples/scripts/bcsh.sh \
-  examples/scripts/precedence \
   examples/scripts/shprompt
+# I don't know why these are gone in 4.3
+  #examples/scripts/krand.bash \
+  #examples/scripts/bcsh.sh \
+  #examples/scripts/precedence \
 do
   cp "$script" "$script"-orig
   echo '#!/bin/bash' > "$script"
@@ -326,13 +221,13 @@ mkdir -p $RPM_BUILD_ROOT/%{_pkgdocdir}/doc
 cp -p COPYING $RPM_BUILD_ROOT/%{_pkgdocdir}
 # loadables aren't buildable
 rm -rf examples/loadables
-for file in CHANGES COMPAT NEWS NOTES POSIX examples\
-    doc/{FAQ,INTRO,rose94.pdf,article.{pdf,txt},bashref.{html,pdf}}
+for file in CHANGES COMPAT NEWS NOTES POSIX RBASH README examples
 do
   cp -rp "$file" $RPM_BUILD_ROOT/%{_pkgdocdir}/"$file"
   echo "%%doc %{_pkgdocdir}/$file" >> %{name}-doc.files
 done
 echo "%%doc %{_pkgdocdir}/doc" >> %{name}-doc.files
+
 
 
 %if %{with tests}
@@ -402,18 +297,22 @@ end
 %{_bindir}/wait
 %dir %{_pkgdocdir}/
 %doc %{_pkgdocdir}/COPYING
-%attr(0755,root,root) %{_bindir}/bashbug*
+%attr(0755,root,root) %{_bindir}/bashbug[-.]*
+%{_bindir}/bashbug
 %{_infodir}/bash.info*
 %{_mandir}/*/*
 %{_mandir}/*/..1*
+%doc RBASH README
+%doc doc/{FAQ,INTRO,README,bash{,ref}.html}
 
 %files doc -f %{name}-doc.files
 %defattr(-, root, root)
-
-# For now there isn't any doc
-#%doc doc/*.ps doc/*.0 doc/*.html doc/article.txt
+%doc doc/*.ps doc/*.0 doc/*.html doc/article.txt
 
 %changelog
+* Thu Feb 27 2014 Ondrej Oprala <ooprala@redhat.com> 4.3.0-1
+- Update to bash-4.3
+
 * Wed Dec 04 2013 Ondrej Oprala <ooprala@redhat.com> 4.2.45-6
 - Change the paths for format-security patch
 

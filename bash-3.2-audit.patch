@@ -18,7 +18,7 @@ diff -up bash-4.2/config.h.in.audit bash-4.2/config.h.in
  #endif /* _CONFIG_H_ */
 diff -up bash-4.2/configure.in.audit bash-4.2/configure.in
 --- bash-4.2/configure.in.audit	2013-01-31 16:26:16.858699005 +0100
-+++ bash-4.2/configure.in	2013-01-31 16:26:16.877699269 +0100
++++ bash-4.2/configure.ac	2013-01-31 16:26:16.877699269 +0100
 @@ -888,6 +888,8 @@ BASH_FUNC_DUP2_CLOEXEC_CHECK
  BASH_SYS_PGRP_SYNC
  BASH_SYS_SIGNAL_VINTAGE
@@ -94,15 +94,3 @@ diff -up bash-4.2/lib/readline/readline.c.audit bash-4.2/lib/readline/readline.c
  /* Read a line of input.  Prompt with PROMPT.  An empty PROMPT means
     none.  A return value of NULL means that EOF was encountered. */
  char *
-@@ -352,6 +399,11 @@ readline (prompt)
-     RL_SETSTATE (RL_STATE_CALLBACK);
- #endif
- 
-+#if defined (HAVE_DECL_AUDIT_USER_TTY)
-+  if (value != NULL)
-+    audit_tty (value);
-+#endif
-+
-   return (value);
- }
- 
