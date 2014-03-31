@@ -1,5 +1,5 @@
 #% define beta_tag rc2
-%define patchleveltag .0
+%define patchleveltag .8
 %define baseversion 4.3
 %bcond_without tests
 %{!?_pkgdocdir: %global _pkgdocdir %{_docdir}/%{name}-%{version}}
@@ -19,6 +19,16 @@ Source0: ftp://ftp.gnu.org/gnu/bash/bash-%{baseversion}.tar.gz
 Source1: dot-bashrc
 Source2: dot-bash_profile
 Source3: dot-bash_logout
+
+# Official upstream patches
+Patch001: ftp://ftp.gnu.org/gnu/bash/bash-4.3-patches/bash43-001
+Patch002: ftp://ftp.gnu.org/gnu/bash/bash-4.3-patches/bash43-002
+Patch003: ftp://ftp.gnu.org/gnu/bash/bash-4.3-patches/bash43-003
+Patch004: ftp://ftp.gnu.org/gnu/bash/bash-4.3-patches/bash43-004
+Patch005: ftp://ftp.gnu.org/gnu/bash/bash-4.3-patches/bash43-005
+Patch006: ftp://ftp.gnu.org/gnu/bash/bash-4.3-patches/bash43-006
+Patch007: ftp://ftp.gnu.org/gnu/bash/bash-4.3-patches/bash43-007
+Patch008: ftp://ftp.gnu.org/gnu/bash/bash-4.3-patches/bash43-008
 
 # Other patches
 Patch101: bash-2.02-security.patch
@@ -90,6 +100,16 @@ This package contains documentation files for %{name}.
 %prep
 #%setup -q -a 2
 %setup -q -n %{name}-%{baseversion}
+
+# Official upstream patches
+%patch001 -p0 -b .001
+%patch002 -p0 -b .002
+%patch003 -p0 -b .003
+%patch004 -p0 -b .004
+%patch005 -p0 -b .005
+%patch006 -p0 -b .006
+%patch007 -p0 -b .007
+%patch008 -p0 -b .008
 
 # Other patches
 %patch101 -p1 -b .security
@@ -310,13 +330,16 @@ end
 %doc doc/*.ps doc/*.0 doc/*.html doc/article.txt
 
 %changelog
-* Thu Feb 27 2014 Ondrej Oprala <ooprala@redhat.com> 4.3.0-1
+* Tue Apr 01 2014 Ondrej Oprala <ooprala@redhat.com> - 4.3.8-1
+- Patchlevel 8
+
+* Thu Feb 27 2014 Ondrej Oprala <ooprala@redhat.com> - 4.3.0-1
 - Update to bash-4.3
 
-* Wed Dec 04 2013 Ondrej Oprala <ooprala@redhat.com> 4.2.45-6
+* Wed Dec 04 2013 Ondrej Oprala <ooprala@redhat.com> - 4.2.45-6
 - Change the paths for format-security patch
 
-* Wed Dec 04 2013 Ondrej Oprala <ooprala@redhat.com> 4.2.45-5
+* Wed Dec 04 2013 Ondrej Oprala <ooprala@redhat.com> - 4.2.45-5
 - bash FTBFS if -Werror=format-string is used (#1036998)
 
 * Fri Aug 09 2013 Roman Rakus <rrakus@redhat.com> - 4.2.45-4
