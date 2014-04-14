@@ -29,6 +29,9 @@ Patch005: ftp://ftp.gnu.org/gnu/bash/bash-4.3-patches/bash43-005
 Patch006: ftp://ftp.gnu.org/gnu/bash/bash-4.3-patches/bash43-006
 Patch007: ftp://ftp.gnu.org/gnu/bash/bash-4.3-patches/bash43-007
 Patch008: ftp://ftp.gnu.org/gnu/bash/bash-4.3-patches/bash43-008
+Patch009: ftp://ftp.gnu.org/gnu/bash/bash-4.3-patches/bash43-009
+Patch010: ftp://ftp.gnu.org/gnu/bash/bash-4.3-patches/bash43-010
+Patch011: ftp://ftp.gnu.org/gnu/bash/bash-4.3-patches/bash43-011
 
 # Other patches
 Patch101: bash-2.02-security.patch
@@ -110,6 +113,9 @@ This package contains documentation files for %{name}.
 %patch006 -p0 -b .006
 %patch007 -p0 -b .007
 %patch008 -p0 -b .008
+%patch009 -p0 -b .009
+%patch010 -p0 -b .010
+%patch011 -p0 -b .011
 
 # Other patches
 %patch101 -p1 -b .security
@@ -330,6 +336,9 @@ end
 %doc doc/*.ps doc/*.0 doc/*.html doc/article.txt
 
 %changelog
+* Mon Apr 14 2014 Ondrej Oprala <ooprala@redhat.com> - 4.3.11-1
+- Patchlevel 11
+
 * Tue Apr 01 2014 Ondrej Oprala <ooprala@redhat.com> - 4.3.8-1
 - Patchlevel 8
 
