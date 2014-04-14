@@ -1,5 +1,5 @@
 #% define beta_tag rc2
-%define patchleveltag .8
+%define patchleveltag .11
 %define baseversion 4.3
 %bcond_without tests
 %{!?_pkgdocdir: %global _pkgdocdir %{_docdir}/%{name}-%{version}}
@@ -336,6 +336,9 @@ end
 %doc doc/*.ps doc/*.0 doc/*.html doc/article.txt
 
 %changelog
+* Mon Apr 14 2014 Ondrej Oprala <ooprala@redhat.com> - 4.3.11-2
+- And let the build system know...
+
 * Mon Apr 14 2014 Ondrej Oprala <ooprala@redhat.com> - 4.3.11-1
 - Patchlevel 11
 
