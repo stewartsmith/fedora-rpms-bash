@@ -1,5 +1,5 @@
 #% define beta_tag rc2
-%define patchleveltag .11
+%define patchleveltag .18
 %define baseversion 4.3
 %bcond_without tests
 %{!?_pkgdocdir: %global _pkgdocdir %{_docdir}/%{name}-%{version}}
@@ -32,6 +32,13 @@ Patch008: ftp://ftp.gnu.org/gnu/bash/bash-4.3-patches/bash43-008
 Patch009: ftp://ftp.gnu.org/gnu/bash/bash-4.3-patches/bash43-009
 Patch010: ftp://ftp.gnu.org/gnu/bash/bash-4.3-patches/bash43-010
 Patch011: ftp://ftp.gnu.org/gnu/bash/bash-4.3-patches/bash43-011
+Patch012: ftp://ftp.gnu.org/gnu/bash/bash-4.3-patches/bash43-012
+Patch013: ftp://ftp.gnu.org/gnu/bash/bash-4.3-patches/bash43-013
+Patch014: ftp://ftp.gnu.org/gnu/bash/bash-4.3-patches/bash43-014
+Patch015: ftp://ftp.gnu.org/gnu/bash/bash-4.3-patches/bash43-015
+Patch016: ftp://ftp.gnu.org/gnu/bash/bash-4.3-patches/bash43-016
+Patch017: ftp://ftp.gnu.org/gnu/bash/bash-4.3-patches/bash43-017
+Patch018: ftp://ftp.gnu.org/gnu/bash/bash-4.3-patches/bash43-018
 
 # Other patches
 Patch101: bash-2.02-security.patch
@@ -116,6 +123,13 @@ This package contains documentation files for %{name}.
 %patch009 -p0 -b .009
 %patch010 -p0 -b .010
 %patch011 -p0 -b .011
+%patch012 -p0 -b .012
+%patch013 -p0 -b .013
+%patch014 -p0 -b .014
+%patch015 -p0 -b .015
+%patch016 -p0 -b .016
+%patch017 -p0 -b .017
+%patch018 -p0 -b .018
 
 # Other patches
 %patch101 -p1 -b .security
@@ -336,6 +350,9 @@ end
 %doc doc/*.ps doc/*.0 doc/*.html doc/article.txt
 
 %changelog
+* Mon Apr 14 2014 Ondrej Oprala <ooprala@redhat.com> - 4.3.18-1
+- Patchlevel 18
+
 * Mon Apr 14 2014 Ondrej Oprala <ooprala@redhat.com> - 4.3.11-2
 - And let the build system know...
 
