@@ -7,7 +7,7 @@
 Version: %{baseversion}%{patchleveltag}
 Name: bash
 Summary: The GNU Bourne Again shell
-Release: 2%{?dist}
+Release: 3%{?dist}
 Group: System Environment/Shells
 License: GPLv3+
 Url: http://www.gnu.org/software/bash
@@ -258,7 +258,7 @@ done
 # copy doc to /usr/share/doc
 cat /dev/null > %{name}-doc.files
 mkdir -p $RPM_BUILD_ROOT/%{_pkgdocdir}/doc
-cp -p COPYING $RPM_BUILD_ROOT/%{_pkgdocdir}
+# cp -p COPYING $RPM_BUILD_ROOT/%{_pkgdocdir}
 # loadables aren't buildable
 rm -rf examples/loadables
 for file in CHANGES COMPAT NEWS NOTES POSIX RBASH README examples
@@ -336,7 +336,8 @@ end
 %{_bindir}/unalias
 %{_bindir}/wait
 %dir %{_pkgdocdir}/
-%doc %{_pkgdocdir}/COPYING
+%{!?_licensedir:%global license %%doc}
+%license COPYING
 %attr(0755,root,root) %{_bindir}/bashbug[-.]*
 %{_bindir}/bashbug
 %{_infodir}/bash.info*
@@ -350,6 +351,9 @@ end
 %doc doc/*.ps doc/*.0 doc/*.html doc/article.txt
 
 %changelog
+* Fri Jul 11 2014 Tom Callaway <spot@fedoraproject.org> - 4.3.18-3
+- fix license handling
+
 * Sat Jun 07 2014 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 4.3.18-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_21_Mass_Rebuild
 
