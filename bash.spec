@@ -7,7 +7,7 @@
 Version: %{baseversion}%{patchleveltag}
 Name: bash
 Summary: The GNU Bourne Again shell
-Release: 3%{?dist}
+Release: 4%{?dist}
 Group: System Environment/Shells
 License: GPLv3+
 Url: http://www.gnu.org/software/bash
@@ -86,6 +86,9 @@ Patch125: bash-4.2-size_type.patch
 # fix deadlock in trap, backported from devel branch
 Patch127: bash-4.2-trap.patch
 
+# 1112710 - mention ulimit -c and -f POSIX block size
+Patch128: bash-4.3-man-ulimit.patch
+
 BuildRequires: texinfo bison
 BuildRequires: ncurses-devel
 BuildRequires: autoconf, gettext
@@ -156,6 +159,7 @@ This package contains documentation files for %{name}.
 %patch122 -p1 -b .defer_sigchld_trap
 %patch123 -p1
 %patch125 -p1 -b .size_type
+%patch128 -p1 -b .ulimit
 
 echo %{version} > _distribution
 echo %{release} > _patchlevel
@@ -351,6 +355,9 @@ end
 %doc doc/*.ps doc/*.0 doc/*.html doc/article.txt
 
 %changelog
+* Mon Jul 21 2014 Ondrej Oprala <ooprala@redhat.com> - 4.3.18-4
+- Mention ulimit -c and -f block size in POSIX mode
+
 * Fri Jul 11 2014 Tom Callaway <spot@fedoraproject.org> - 4.3.18-3
 - fix license handling
 
