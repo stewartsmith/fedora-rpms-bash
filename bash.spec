@@ -7,7 +7,7 @@
 Version: %{baseversion}%{patchleveltag}
 Name: bash
 Summary: The GNU Bourne Again shell
-Release: 5%{?dist}
+Release: 6%{?dist}
 Group: System Environment/Shells
 License: GPLv3+
 Url: http://www.gnu.org/software/bash
@@ -89,7 +89,13 @@ Patch127: bash-4.2-trap.patch
 # 1112710 - mention ulimit -c and -f POSIX block size
 Patch128: bash-4.3-man-ulimit.patch
 
+# A series of patches emitted by upstream since 4.3-18
 Patch129: bash-4.3-array-element.patch
+Patch130: bash-4.3-here-doc-ps2-comsub.patch
+Patch131: bash-4.3-parse-time-keyword.patch
+Patch132: bash-4.3-lastpipe-nested-pipe-segfault.patch
+Patch133: bash-4.3-readline-revert-lines.patch
+Patch134: bash-4.3-pathexp-globignore-delim.patch
 
 BuildRequires: texinfo bison
 BuildRequires: ncurses-devel
@@ -163,6 +169,11 @@ This package contains documentation files for %{name}.
 %patch125 -p1 -b .size_type
 %patch128 -p1 -b .ulimit
 %patch129 -p1 -b .element
+%patch130 -p0 -b .comsub
+%patch131 -p0 -b .keyword
+%patch132 -p0 -b .segfault
+%patch133 -p0 -b .lines
+%patch134 -p0 -b .delim
 
 echo %{version} > _distribution
 echo %{release} > _patchlevel
@@ -358,6 +369,9 @@ end
 %doc doc/*.ps doc/*.0 doc/*.html doc/article.txt
 
 %changelog
+* Thu Jul 24 2014 Ondrej Oprala <ooprala@redhat.com> - 4.3.18-6
+- Apply all upstream patches since 4.3-18-1 up to this date
+
 * Thu Jul 24 2014 Ondrej Oprala <ooprala@redhat.com> - 4.3.18-5
 - Array name expansion - apply upstream quickfix
 
