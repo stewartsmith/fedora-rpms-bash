@@ -7,7 +7,7 @@
 Version: %{baseversion}%{patchleveltag}
 Name: bash
 Summary: The GNU Bourne Again shell
-Release: 4%{?dist}
+Release: 5%{?dist}
 Group: System Environment/Shells
 License: GPLv3+
 Url: http://www.gnu.org/software/bash
@@ -89,6 +89,8 @@ Patch127: bash-4.2-trap.patch
 # 1112710 - mention ulimit -c and -f POSIX block size
 Patch128: bash-4.3-man-ulimit.patch
 
+Patch129: bash-4.3-array-element.patch
+
 BuildRequires: texinfo bison
 BuildRequires: ncurses-devel
 BuildRequires: autoconf, gettext
@@ -160,6 +162,7 @@ This package contains documentation files for %{name}.
 %patch123 -p1
 %patch125 -p1 -b .size_type
 %patch128 -p1 -b .ulimit
+%patch129 -p1 -b .element
 
 echo %{version} > _distribution
 echo %{release} > _patchlevel
@@ -355,6 +358,9 @@ end
 %doc doc/*.ps doc/*.0 doc/*.html doc/article.txt
 
 %changelog
+* Thu Jul 24 2014 Ondrej Oprala <ooprala@redhat.com> - 4.3.18-5
+- Array name expansion - apply upstream quickfix
+
 * Mon Jul 21 2014 Ondrej Oprala <ooprala@redhat.com> - 4.3.18-4
 - Mention ulimit -c and -f block size in POSIX mode
 
