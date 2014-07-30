@@ -7,7 +7,7 @@
 Version: %{baseversion}%{patchleveltag}
 Name: bash
 Summary: The GNU Bourne Again shell
-Release: 6%{?dist}
+Release: 7%{?dist}
 Group: System Environment/Shells
 License: GPLv3+
 Url: http://www.gnu.org/software/bash
@@ -97,6 +97,9 @@ Patch132: bash-4.3-lastpipe-nested-pipe-segfault.patch
 Patch133: bash-4.3-readline-revert-lines.patch
 Patch134: bash-4.3-pathexp-globignore-delim.patch
 
+# 1102815 - fix double echoes in vi visual mode
+Patch135: bash-4.3-noecho.patch
+
 BuildRequires: texinfo bison
 BuildRequires: ncurses-devel
 BuildRequires: autoconf, gettext
@@ -174,6 +177,7 @@ This package contains documentation files for %{name}.
 %patch132 -p0 -b .segfault
 %patch133 -p0 -b .lines
 %patch134 -p0 -b .delim
+%patch135 -p1 -b .noecho
 
 echo %{version} > _distribution
 echo %{release} > _patchlevel
@@ -369,6 +373,9 @@ end
 %doc doc/*.ps doc/*.0 doc/*.html doc/article.txt
 
 %changelog
+* Wed Jul 30 2014 Ondrej Oprala <ooprala@redhat.com> -4.3.18-7
+- #1102815 - fix double echo in vi visual mode
+
 * Thu Jul 24 2014 Ondrej Oprala <ooprala@redhat.com> - 4.3.18-6
 - Apply all upstream patches since 4.3-18-1 up to this date
 
