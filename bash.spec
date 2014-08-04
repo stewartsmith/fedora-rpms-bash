@@ -1,5 +1,5 @@
 #% define beta_tag rc2
-%define patchleveltag .18
+%define patchleveltag .22
 %define baseversion 4.3
 %bcond_without tests
 %{!?_pkgdocdir: %global _pkgdocdir %{_docdir}/%{name}-%{version}}
@@ -7,7 +7,7 @@
 Version: %{baseversion}%{patchleveltag}
 Name: bash
 Summary: The GNU Bourne Again shell
-Release: 7%{?dist}
+Release: 1%{?dist}
 Group: System Environment/Shells
 License: GPLv3+
 Url: http://www.gnu.org/software/bash
@@ -39,6 +39,10 @@ Patch015: ftp://ftp.gnu.org/gnu/bash/bash-4.3-patches/bash43-015
 Patch016: ftp://ftp.gnu.org/gnu/bash/bash-4.3-patches/bash43-016
 Patch017: ftp://ftp.gnu.org/gnu/bash/bash-4.3-patches/bash43-017
 Patch018: ftp://ftp.gnu.org/gnu/bash/bash-4.3-patches/bash43-018
+Patch019: ftp://ftp.gnu.org/gnu/bash/bash-4.3-patches/bash43-019
+Patch020: ftp://ftp.gnu.org/gnu/bash/bash-4.3-patches/bash43-020
+Patch021: ftp://ftp.gnu.org/gnu/bash/bash-4.3-patches/bash43-021
+Patch022: ftp://ftp.gnu.org/gnu/bash/bash-4.3-patches/bash43-022
 
 # Other patches
 Patch101: bash-2.02-security.patch
@@ -91,10 +95,7 @@ Patch128: bash-4.3-man-ulimit.patch
 
 # A series of patches emitted by upstream since 4.3-18
 Patch129: bash-4.3-array-element.patch
-Patch130: bash-4.3-here-doc-ps2-comsub.patch
 Patch131: bash-4.3-parse-time-keyword.patch
-Patch132: bash-4.3-lastpipe-nested-pipe-segfault.patch
-Patch133: bash-4.3-readline-revert-lines.patch
 Patch134: bash-4.3-pathexp-globignore-delim.patch
 
 # 1102815 - fix double echoes in vi visual mode
@@ -144,6 +145,10 @@ This package contains documentation files for %{name}.
 %patch016 -p0 -b .016
 %patch017 -p0 -b .017
 %patch018 -p0 -b .018
+%patch019 -p0 -b .019
+%patch020 -p0 -b .020
+%patch021 -p0 -b .021
+%patch022 -p0 -b .022
 
 # Other patches
 %patch101 -p1 -b .security
@@ -172,10 +177,7 @@ This package contains documentation files for %{name}.
 %patch125 -p1 -b .size_type
 %patch128 -p1 -b .ulimit
 %patch129 -p1 -b .element
-%patch130 -p0 -b .comsub
 %patch131 -p0 -b .keyword
-%patch132 -p0 -b .segfault
-%patch133 -p0 -b .lines
 %patch134 -p0 -b .delim
 %patch135 -p1 -b .noecho
 
@@ -373,7 +375,10 @@ end
 %doc doc/*.ps doc/*.0 doc/*.html doc/article.txt
 
 %changelog
-* Wed Jul 30 2014 Ondrej Oprala <ooprala@redhat.com> -4.3.18-7
+* Mon Aug 04 2014 Ondrej Oprala <ooprala@redhat.com> - 4.3.22-1
+- Patchlevel 22
+
+* Wed Jul 30 2014 Ondrej Oprala <ooprala@redhat.com> - 4.3.18-7
 - #1102815 - fix double echo in vi visual mode
 
 * Thu Jul 24 2014 Ondrej Oprala <ooprala@redhat.com> - 4.3.18-6
