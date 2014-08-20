@@ -1,5 +1,5 @@
 #% define beta_tag rc2
-%define patchleveltag .22
+%define patchleveltag .24
 %define baseversion 4.3
 %bcond_without tests
 %{!?_pkgdocdir: %global _pkgdocdir %{_docdir}/%{name}-%{version}}
@@ -7,7 +7,7 @@
 Version: %{baseversion}%{patchleveltag}
 Name: bash
 Summary: The GNU Bourne Again shell
-Release: 2%{?dist}
+Release: 1%{?dist}
 Group: System Environment/Shells
 License: GPLv3+
 Url: http://www.gnu.org/software/bash
@@ -43,6 +43,8 @@ Patch019: ftp://ftp.gnu.org/gnu/bash/bash-4.3-patches/bash43-019
 Patch020: ftp://ftp.gnu.org/gnu/bash/bash-4.3-patches/bash43-020
 Patch021: ftp://ftp.gnu.org/gnu/bash/bash-4.3-patches/bash43-021
 Patch022: ftp://ftp.gnu.org/gnu/bash/bash-4.3-patches/bash43-022
+Patch023: ftp://ftp.gnu.org/gnu/bash/bash-4.3-patches/bash43-023
+Patch024: ftp://ftp.gnu.org/gnu/bash/bash-4.3-patches/bash43-024
 
 # Other patches
 Patch101: bash-2.02-security.patch
@@ -94,7 +96,6 @@ Patch127: bash-4.2-trap.patch
 Patch128: bash-4.3-man-ulimit.patch
 
 # A series of patches emitted by upstream since 4.3-18
-Patch129: bash-4.3-array-element.patch
 Patch131: bash-4.3-parse-time-keyword.patch
 Patch134: bash-4.3-pathexp-globignore-delim.patch
 
@@ -149,6 +150,8 @@ This package contains documentation files for %{name}.
 %patch020 -p0 -b .020
 %patch021 -p0 -b .021
 %patch022 -p0 -b .022
+%patch023 -p0 -b .023
+%patch024 -p0 -b .024
 
 # Other patches
 %patch101 -p1 -b .security
@@ -176,7 +179,6 @@ This package contains documentation files for %{name}.
 %patch123 -p1
 %patch125 -p1 -b .size_type
 %patch128 -p1 -b .ulimit
-%patch129 -p1 -b .element
 %patch131 -p0 -b .keyword
 %patch134 -p0 -b .delim
 %patch135 -p1 -b .noecho
@@ -375,6 +377,9 @@ end
 %doc doc/*.ps doc/*.0 doc/*.html doc/article.txt
 
 %changelog
+* Wed Aug 20 2014 Ondrej Oprala <ooprala@redhat.com> - 4.3.24-1
+- Patchlevel 24
+
 * Fri Aug 15 2014 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 4.3.22-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_21_22_Mass_Rebuild
 
