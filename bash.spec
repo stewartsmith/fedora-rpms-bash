@@ -7,7 +7,7 @@
 Version: %{baseversion}%{patchleveltag}
 Name: bash
 Summary: The GNU Bourne Again shell
-Release: 2%{?dist}
+Release: 3%{?dist}
 Group: System Environment/Shells
 License: GPLv3+
 Url: http://www.gnu.org/software/bash
@@ -101,6 +101,8 @@ Patch134: bash-4.3-pathexp-globignore-delim.patch
 # 1102815 - fix double echoes in vi visual mode
 Patch135: bash-4.3-noecho.patch
 
+Patch136: bash-4.3-cve-2014-6271.patch
+
 BuildRequires: texinfo bison
 BuildRequires: ncurses-devel
 BuildRequires: autoconf, gettext
@@ -180,6 +182,7 @@ This package contains documentation files for %{name}.
 %patch131 -p0 -b .keyword
 %patch134 -p0 -b .delim
 %patch135 -p1 -b .noecho
+%patch136 -p0 -b .6271
 
 echo %{version} > _distribution
 echo %{release} > _patchlevel
@@ -375,6 +378,9 @@ end
 %doc doc/*.ps doc/*.0 doc/*.html doc/article.txt
 
 %changelog
+* Wed Sep 24 2014 Ondrej Oprala <ooprala@redhat.com> - 4.3.22-3
+- Inhibit code injection - patch by Stephane Chazelas
+
 * Fri Aug 15 2014 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 4.3.22-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_21_22_Mass_Rebuild
 
