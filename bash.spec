@@ -1,5 +1,5 @@
 #% define beta_tag rc2
-%define patchleveltag .24
+%define patchleveltag .25
 %define baseversion 4.3
 %bcond_without tests
 %{!?_pkgdocdir: %global _pkgdocdir %{_docdir}/%{name}-%{version}}
@@ -7,7 +7,7 @@
 Version: %{baseversion}%{patchleveltag}
 Name: bash
 Summary: The GNU Bourne Again shell
-Release: 2%{?dist}
+Release: 1%{?dist}
 Group: System Environment/Shells
 License: GPLv3+
 Url: http://www.gnu.org/software/bash
@@ -45,6 +45,7 @@ Patch021: ftp://ftp.gnu.org/gnu/bash/bash-4.3-patches/bash43-021
 Patch022: ftp://ftp.gnu.org/gnu/bash/bash-4.3-patches/bash43-022
 Patch023: ftp://ftp.gnu.org/gnu/bash/bash-4.3-patches/bash43-023
 Patch024: ftp://ftp.gnu.org/gnu/bash/bash-4.3-patches/bash43-024
+Patch025: ftp://ftp.gnu.org/gnu/bash/bash-4.3-patches/bash43-025
 
 # Other patches
 Patch101: bash-2.02-security.patch
@@ -102,8 +103,6 @@ Patch134: bash-4.3-pathexp-globignore-delim.patch
 # 1102815 - fix double echoes in vi visual mode
 Patch135: bash-4.3-noecho.patch
 
-Patch136: bash-4.3-cve-2014-6271.patch
-
 BuildRequires: texinfo bison
 BuildRequires: ncurses-devel
 BuildRequires: autoconf, gettext
@@ -154,6 +153,7 @@ This package contains documentation files for %{name}.
 %patch022 -p0 -b .022
 %patch023 -p0 -b .023
 %patch024 -p0 -b .024
+%patch025 -p0 -b .025
 
 # Other patches
 %patch101 -p1 -b .security
@@ -184,7 +184,6 @@ This package contains documentation files for %{name}.
 %patch131 -p0 -b .keyword
 %patch134 -p0 -b .delim
 %patch135 -p1 -b .noecho
-%patch136 -p0 -b .6271
 
 echo %{version} > _distribution
 echo %{release} > _patchlevel
@@ -380,6 +379,9 @@ end
 %doc doc/*.ps doc/*.0 doc/*.html doc/article.txt
 
 %changelog
+* Wed Sep 25 2014 Ondrej Oprala <ooprala@redhat.com> - 4.3.25-1
+- Patchlevel 25
+
 * Wed Sep 24 2014 Ondrej Oprala <ooprala@redhat.com> - 4.3.24-2
 - Inhibit code injection - patch by Stephane Chazelas
 
