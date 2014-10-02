@@ -1,5 +1,5 @@
 #% define beta_tag rc2
-%define patchleveltag .25
+%define patchleveltag .28
 %define baseversion 4.3
 %bcond_without tests
 %{!?_pkgdocdir: %global _pkgdocdir %{_docdir}/%{name}-%{version}}
@@ -7,7 +7,7 @@
 Version: %{baseversion}%{patchleveltag}
 Name: bash
 Summary: The GNU Bourne Again shell
-Release: 2%{?dist}
+Release: 1%{?dist}
 Group: System Environment/Shells
 License: GPLv3+
 Url: http://www.gnu.org/software/bash
@@ -46,6 +46,9 @@ Patch022: ftp://ftp.gnu.org/gnu/bash/bash-4.3-patches/bash43-022
 Patch023: ftp://ftp.gnu.org/gnu/bash/bash-4.3-patches/bash43-023
 Patch024: ftp://ftp.gnu.org/gnu/bash/bash-4.3-patches/bash43-024
 Patch025: ftp://ftp.gnu.org/gnu/bash/bash-4.3-patches/bash43-025
+Patch026: ftp://ftp.gnu.org/gnu/bash/bash-4.3-patches/bash43-026
+Patch027: ftp://ftp.gnu.org/gnu/bash/bash-4.3-patches/bash43-027
+Patch028: ftp://ftp.gnu.org/gnu/bash/bash-4.3-patches/bash43-028
 
 # Other patches
 Patch101: bash-2.02-security.patch
@@ -103,12 +106,6 @@ Patch134: bash-4.3-pathexp-globignore-delim.patch
 # 1102815 - fix double echoes in vi visual mode
 Patch135: bash-4.3-noecho.patch
 
-# 1146319 - cve-2014-7169
-
-Patch136: bash-4.2-cve-2014-7169-0.patch
-Patch137: bash-4.2-cve-2014-7169-1.patch
-Patch138: bash-4.2-cve-2014-7169-2.patch
-
 BuildRequires: texinfo bison
 BuildRequires: ncurses-devel
 BuildRequires: autoconf, gettext
@@ -160,6 +157,9 @@ This package contains documentation files for %{name}.
 %patch023 -p0 -b .023
 %patch024 -p0 -b .024
 %patch025 -p0 -b .025
+%patch026 -p0 -b .026
+%patch027 -p0 -b .027
+%patch028 -p0 -b .028
 
 # Other patches
 %patch101 -p1 -b .security
@@ -190,9 +190,6 @@ This package contains documentation files for %{name}.
 %patch131 -p0 -b .keyword
 %patch134 -p0 -b .delim
 %patch135 -p1 -b .noecho
-%patch136 -p0 -b .7169-0
-%patch137 -p0 -b .7169-1
-%patch138 -p0 -b .7169-2
 
 echo %{version} > _distribution
 echo %{release} > _patchlevel
@@ -388,6 +385,9 @@ end
 %doc doc/*.ps doc/*.0 doc/*.html doc/article.txt
 
 %changelog
+* Thu Oct 02 2014 Ondrej Oprala <ooprala@redhat.com> - 4.3.28-1
+- Patchlevel 28
+
 * Thu Sep 25 2014 Ondrej Oprala <ooprala@redhat.com> - 4.3.25-2
 - CVE-2014-7169
   Resolves: #1146319
