@@ -1,5 +1,5 @@
 #% define beta_tag rc2
-%define patchleveltag .28
+%define patchleveltag .30
 %define baseversion 4.3
 %bcond_without tests
 %{!?_pkgdocdir: %global _pkgdocdir %{_docdir}/%{name}-%{version}}
@@ -57,6 +57,9 @@ Patch026: ftp://ftp.gnu.org/gnu/bash/bash-4.3-patches/bash43-026
 Patch027: bash-4.2-cve-2014-7169-1.patch
 #patchlevel 28
 Patch028: bash-4.2-cve-2014-7169-2.patch
+
+Patch029: ftp://ftp.gnu.org/gnu/bash/bash-4.3-patches/bash43-029
+Patch030: ftp://ftp.gnu.org/gnu/bash/bash-4.3-patches/bash43-030
 
 
 # Other patches
@@ -169,6 +172,8 @@ This package contains documentation files for %{name}.
 %patch026 -p0 -b .026
 %patch027 -p0 -b .7169-1
 %patch028 -p0 -b .7169-2
+%patch029 -p0 -b .029
+%patch030 -p0 -b .030
 
 # Other patches
 %patch101 -p1 -b .security
@@ -394,6 +399,9 @@ end
 %doc doc/*.ps doc/*.0 doc/*.html doc/article.txt
 
 %changelog
+* Thu Oct 06 2014 Ondrej Oprala <ooprala@redhat.com> - 4.3.30-1
+- Patchlevel 30
+
 * Mon Oct 06 2014  Ondrej Oprala <ooprala@redhat.com> - 4.3.28-1
 - RedHat's patchlevel 28
 
