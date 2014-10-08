@@ -7,7 +7,7 @@
 Version: %{baseversion}%{patchleveltag}
 Name: bash
 Summary: The GNU Bourne Again shell
-Release: 1%{?dist}
+Release: 2%{?dist}
 Group: System Environment/Shells
 License: GPLv3+
 Url: http://www.gnu.org/software/bash
@@ -208,6 +208,9 @@ This package contains documentation files for %{name}.
 echo %{version} > _distribution
 echo %{release} > _patchlevel
 
+# force refreshing the generated files
+rm y.tab.*
+
 %build
 autoconf
 %configure --with-bash-malloc=no --with-afs
@@ -399,7 +402,10 @@ end
 %doc doc/*.ps doc/*.0 doc/*.html doc/article.txt
 
 %changelog
-* Thu Oct 06 2014 Ondrej Oprala <ooprala@redhat.com> - 4.3.30-1
+* Wed Oct 08 2014 Dan Horák <dan[at]danny.cz> - 4.3.30-2
+- force refreshing generated files, fixes build on s390
+
+* Mon Oct 06 2014 Ondrej Oprala <ooprala@redhat.com> - 4.3.30-1
 - Patchlevel 30
 
 * Mon Oct 06 2014  Ondrej Oprala <ooprala@redhat.com> - 4.3.28-1
