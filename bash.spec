@@ -1,5 +1,5 @@
 #% define beta_tag rc2
-%define patchleveltag .30
+%define patchleveltag .33
 %define baseversion 4.3
 %bcond_without tests
 %{!?_pkgdocdir: %global _pkgdocdir %{_docdir}/%{name}-%{version}}
@@ -7,7 +7,7 @@
 Version: %{baseversion}%{patchleveltag}
 Name: bash
 Summary: The GNU Bourne Again shell
-Release: 2%{?dist}
+Release: 1%{?dist}
 Group: System Environment/Shells
 License: GPLv3+
 Url: http://www.gnu.org/software/bash
@@ -60,6 +60,9 @@ Patch028: bash-4.2-cve-2014-7169-2.patch
 
 Patch029: ftp://ftp.gnu.org/gnu/bash/bash-4.3-patches/bash43-029
 Patch030: ftp://ftp.gnu.org/gnu/bash/bash-4.3-patches/bash43-030
+Patch031: ftp://ftp.gnu.org/gnu/bash/bash-4.3-patches/bash43-031
+Patch032: ftp://ftp.gnu.org/gnu/bash/bash-4.3-patches/bash43-032
+Patch033: ftp://ftp.gnu.org/gnu/bash/bash-4.3-patches/bash43-033
 
 
 # Other patches
@@ -174,6 +177,9 @@ This package contains documentation files for %{name}.
 %patch028 -p0 -b .7169-2
 %patch029 -p0 -b .029
 %patch030 -p0 -b .030
+%patch031 -p0 -b .031
+%patch032 -p0 -b .032
+%patch033 -p0 -b .033
 
 # Other patches
 %patch101 -p1 -b .security
@@ -402,6 +408,9 @@ end
 %doc doc/*.ps doc/*.0 doc/*.html doc/article.txt
 
 %changelog
+* Tue Dec 30 2014 Ondrej Oprala <ooprala@redhat.com> - 4.3.33-1
+- Patchlevel 33
+
 * Wed Oct 08 2014 Dan Horák <dan[at]danny.cz> - 4.3.30-2
 - force refreshing generated files, fixes build on s390
 
