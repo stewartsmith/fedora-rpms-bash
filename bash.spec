@@ -1,4 +1,5 @@
 #% define beta_tag rc2
+%global _hardened_build 1
 %define patchleveltag .33
 %define baseversion 4.3
 %bcond_without tests
@@ -7,7 +8,7 @@
 Version: %{baseversion}%{patchleveltag}
 Name: bash
 Summary: The GNU Bourne Again shell
-Release: 1%{?dist}
+Release: 2%{?dist}
 Group: System Environment/Shells
 License: GPLv3+
 Url: http://www.gnu.org/software/bash
@@ -408,6 +409,9 @@ end
 %doc doc/*.ps doc/*.0 doc/*.html doc/article.txt
 
 %changelog
+* Fri Jan 23 2015 Elad Alfassa <elad@fedoraproject.org> - 4.3.25-3
+- Enable PIE (hardened build)
+
 * Tue Dec 30 2014 Ondrej Oprala <ooprala@redhat.com> - 4.3.33-1
 - Patchlevel 33
 
