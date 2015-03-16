@@ -8,7 +8,7 @@
 Version: %{baseversion}%{patchleveltag}
 Name: bash
 Summary: The GNU Bourne Again shell
-Release: 2%{?dist}
+Release: 3%{?dist}
 Group: System Environment/Shells
 License: GPLv3+
 Url: http://www.gnu.org/software/bash
@@ -409,6 +409,9 @@ end
 %doc doc/*.ps doc/*.0 doc/*.html doc/article.txt
 
 %changelog
+* Mon Mar 16 2015 Than Ngo <than@redhat.com> 4.3.33-3
+- rebuild against new gcc
+
 * Fri Jan 23 2015 Elad Alfassa <elad@fedoraproject.org> - 4.3.25-3
 - Enable PIE (hardened build)
 
