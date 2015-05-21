@@ -1,6 +1,6 @@
 #% define beta_tag rc2
 %global _hardened_build 1
-%define patchleveltag .33
+%define patchleveltag .39
 %define baseversion 4.3
 %bcond_without tests
 %{!?_pkgdocdir: %global _pkgdocdir %{_docdir}/%{name}-%{version}}
@@ -8,7 +8,7 @@
 Version: %{baseversion}%{patchleveltag}
 Name: bash
 Summary: The GNU Bourne Again shell
-Release: 3%{?dist}
+Release: 1%{?dist}
 Group: System Environment/Shells
 License: GPLv3+
 Url: http://www.gnu.org/software/bash
@@ -64,6 +64,12 @@ Patch030: ftp://ftp.gnu.org/gnu/bash/bash-4.3-patches/bash43-030
 Patch031: ftp://ftp.gnu.org/gnu/bash/bash-4.3-patches/bash43-031
 Patch032: ftp://ftp.gnu.org/gnu/bash/bash-4.3-patches/bash43-032
 Patch033: ftp://ftp.gnu.org/gnu/bash/bash-4.3-patches/bash43-033
+Patch034: ftp://ftp.gnu.org/gnu/bash/bash-4.3-patches/bash43-034
+Patch035: ftp://ftp.gnu.org/gnu/bash/bash-4.3-patches/bash43-035
+Patch036: ftp://ftp.gnu.org/gnu/bash/bash-4.3-patches/bash43-036
+Patch037: ftp://ftp.gnu.org/gnu/bash/bash-4.3-patches/bash43-037
+Patch038: ftp://ftp.gnu.org/gnu/bash/bash-4.3-patches/bash43-038
+Patch039: ftp://ftp.gnu.org/gnu/bash/bash-4.3-patches/bash43-039
 
 
 # Other patches
@@ -116,7 +122,7 @@ Patch127: bash-4.2-trap.patch
 Patch128: bash-4.3-man-ulimit.patch
 
 # A series of patches emitted by upstream since 4.3-18
-Patch131: bash-4.3-parse-time-keyword.patch
+#Patch131: bash-4.3-parse-time-keyword.patch
 Patch134: bash-4.3-pathexp-globignore-delim.patch
 
 # 1102815 - fix double echoes in vi visual mode
@@ -181,6 +187,12 @@ This package contains documentation files for %{name}.
 %patch031 -p0 -b .031
 %patch032 -p0 -b .032
 %patch033 -p0 -b .033
+%patch034 -p0 -b .034
+%patch035 -p0 -b .035
+%patch036 -p0 -b .036
+%patch037 -p0 -b .037
+%patch038 -p0 -b .038
+%patch039 -p0 -b .039
 
 # Other patches
 %patch101 -p1 -b .security
@@ -208,7 +220,7 @@ This package contains documentation files for %{name}.
 %patch123 -p1
 %patch125 -p1 -b .size_type
 %patch128 -p1 -b .ulimit
-%patch131 -p0 -b .keyword
+#%patch131 -p0 -b .keyword
 %patch134 -p0 -b .delim
 %patch135 -p1 -b .noecho
 
@@ -409,6 +421,9 @@ end
 %doc doc/*.ps doc/*.0 doc/*.html doc/article.txt
 
 %changelog
+* Thu May 21 2015 Ondrej Oprala <ooprala@redhat.com> - 4.3.39-1
+- Patchlevel 39
+
 * Mon Mar 16 2015 Than Ngo <than@redhat.com> 4.3.33-3
 - rebuild against new gcc
 
