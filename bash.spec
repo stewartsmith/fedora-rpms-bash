@@ -8,7 +8,7 @@
 Version: %{baseversion}%{patchleveltag}
 Name: bash
 Summary: The GNU Bourne Again shell
-Release: 3%{?dist}
+Release: 4%{?dist}
 Group: System Environment/Shells
 License: GPLv3+
 Url: http://www.gnu.org/software/bash
@@ -128,6 +128,9 @@ Patch134: bash-4.3-pathexp-globignore-delim.patch
 # 1102815 - fix double echoes in vi visual mode
 Patch135: bash-4.3-noecho.patch
 
+# 1224855 - memleak in 4.3.39
+Patch136: bash-4.3-memleak.patch
+
 BuildRequires: texinfo bison
 BuildRequires: ncurses-devel
 BuildRequires: autoconf, gettext
@@ -223,6 +226,7 @@ This package contains documentation files for %{name}.
 #%patch131 -p0 -b .keyword
 %patch134 -p0 -b .delim
 %patch135 -p1 -b .noecho
+%patch136 -p0 -b .memleak
 
 echo %{version} > _distribution
 echo %{release} > _patchlevel
@@ -421,6 +425,9 @@ end
 %doc doc/*.ps doc/*.0 doc/*.html doc/article.txt
 
 %changelog
+* Tue Jun 30 2015 Ondrej Oprala - 4.3.39-4
+- Fix a leak introduced by plevel39
+
 * Tue Jun 30 2015 Ondrej Oprala - 4.3.39-3
 - Fix --rpm-requires
 
