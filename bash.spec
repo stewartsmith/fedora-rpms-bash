@@ -8,7 +8,7 @@
 Version: %{baseversion}%{patchleveltag}
 Name: bash
 Summary: The GNU Bourne Again shell
-Release: 5%{?dist}
+Release: 6%{?dist}
 Group: System Environment/Shells
 License: GPLv3+
 Url: http://www.gnu.org/software/bash
@@ -137,6 +137,9 @@ Patch137: bash-4.3-select-readonly.patch
 #1241533,1224855 - bash leaks memory when LC_ALL set
 Patch138: bash-4.3-memleak-lc_all.patch
 
+#1245233 - old memleak reappeared, taken from upstream
+Patch139: bash-4.3-old-memleak.patch
+
 BuildRequires: texinfo bison
 BuildRequires: ncurses-devel
 BuildRequires: autoconf, gettext
@@ -235,6 +238,7 @@ This package contains documentation files for %{name}.
 %patch136 -p0 -b .memleak
 %patch137 -p1 -b .readonly
 %patch138 -p1 -b .lc_all
+%patch139 -p1 -b .oldleak
 
 echo %{version} > _distribution
 echo %{release} > _patchlevel
@@ -433,6 +437,9 @@ end
 %doc doc/*.ps doc/*.0 doc/*.html doc/article.txt
 
 %changelog
+* Mon Aug 03 2015 Ondrej Oprala - 4.3.39-6
+- #1245233 - fixed memleak
+
 * Wed Jul 15 2015 Ondrej Oprala - 4.3.39-5
 - #1182278 - bash crashes on `select' if REPLY is readonly
 - #1241533,1224855 - bash memleak when LC_ALL set
