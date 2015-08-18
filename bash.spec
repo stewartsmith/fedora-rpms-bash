@@ -1,6 +1,6 @@
 #% define beta_tag rc2
 %global _hardened_build 1
-%define patchleveltag .39
+%define patchleveltag .42
 %define baseversion 4.3
 %bcond_without tests
 %{!?_pkgdocdir: %global _pkgdocdir %{_docdir}/%{name}-%{version}}
@@ -8,7 +8,7 @@
 Version: %{baseversion}%{patchleveltag}
 Name: bash
 Summary: The GNU Bourne Again shell
-Release: 6%{?dist}
+Release: 1%{?dist}
 Group: System Environment/Shells
 License: GPLv3+
 Url: http://www.gnu.org/software/bash
@@ -70,6 +70,9 @@ Patch036: ftp://ftp.gnu.org/gnu/bash/bash-4.3-patches/bash43-036
 Patch037: ftp://ftp.gnu.org/gnu/bash/bash-4.3-patches/bash43-037
 Patch038: ftp://ftp.gnu.org/gnu/bash/bash-4.3-patches/bash43-038
 Patch039: ftp://ftp.gnu.org/gnu/bash/bash-4.3-patches/bash43-039
+Patch040: ftp://ftp.gnu.org/gnu/bash/bash-4.3-patches/bash43-040
+Patch041: ftp://ftp.gnu.org/gnu/bash/bash-4.3-patches/bash43-041
+Patch042: ftp://ftp.gnu.org/gnu/bash/bash-4.3-patches/bash43-042
 
 
 # Other patches
@@ -127,9 +130,6 @@ Patch134: bash-4.3-pathexp-globignore-delim.patch
 
 # 1102815 - fix double echoes in vi visual mode
 Patch135: bash-4.3-noecho.patch
-
-# 1224855 - memleak in 4.3.39
-Patch136: bash-4.3-memleak.patch
 
 # 1182278 - bash crashes on `select' if REPLY is readonly
 Patch137: bash-4.3-select-readonly.patch
@@ -205,6 +205,9 @@ This package contains documentation files for %{name}.
 %patch037 -p0 -b .037
 %patch038 -p0 -b .038
 %patch039 -p0 -b .039
+%patch040 -p0 -b .040
+%patch041 -p0 -b .041
+%patch042 -p0 -b .042
 
 # Other patches
 %patch101 -p1 -b .security
@@ -235,7 +238,6 @@ This package contains documentation files for %{name}.
 #%patch131 -p0 -b .keyword
 %patch134 -p0 -b .delim
 %patch135 -p1 -b .noecho
-%patch136 -p0 -b .memleak
 %patch137 -p1 -b .readonly
 %patch138 -p1 -b .lc_all
 %patch139 -p1 -b .oldleak
@@ -437,6 +439,9 @@ end
 %doc doc/*.ps doc/*.0 doc/*.html doc/article.txt
 
 %changelog
+* Tue Aug 18 2015 Ondrej Oprala - 4.3.42-1
+- Patchlevel 42
+
 * Mon Aug 03 2015 Ondrej Oprala - 4.3.39-6
 - #1245233 - fixed memleak
 
