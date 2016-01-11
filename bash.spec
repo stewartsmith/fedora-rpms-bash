@@ -8,7 +8,7 @@
 Version: %{baseversion}%{patchleveltag}
 Name: bash
 Summary: The GNU Bourne Again shell
-Release: 2%{?dist}
+Release: 3%{?dist}
 Group: System Environment/Shells
 License: GPLv3+
 Url: http://www.gnu.org/software/bash
@@ -417,9 +417,12 @@ end
 %{_bindir}/command
 %{_bindir}/fc
 %{_bindir}/fg
+%{_bindir}/hash
 %{_bindir}/getopts
 %{_bindir}/jobs
 %{_bindir}/read
+%{_bindir}/type
+%{_bindir}/ulimit
 %{_bindir}/umask
 %{_bindir}/unalias
 %{_bindir}/wait
@@ -439,6 +442,10 @@ end
 %doc doc/*.ps doc/*.0 doc/*.html doc/article.txt
 
 %changelog
+* Mon Jan 11 2016 Ondrej Oprala <ooprala@redhat.com> - 4.3.42-3
+- Actually do it properly this time
+  Related: #1297166
+
 * Mon Jan 11 2016 Ondrej Oprala <ooprala@redhat.com> - 4.3.42-2
 - Provide exec-able alternatives to hash, type and ulimit
   Resolves: #1297166
