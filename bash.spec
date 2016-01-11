@@ -8,7 +8,7 @@
 Version: %{baseversion}%{patchleveltag}
 Name: bash
 Summary: The GNU Bourne Again shell
-Release: 1%{?dist}
+Release: 2%{?dist}
 Group: System Environment/Shells
 License: GPLv3+
 Url: http://www.gnu.org/software/bash
@@ -332,7 +332,7 @@ do
 done
 
 # bug #820192, need to add execable alternatives for regular built-ins
-for ea in alias bg cd command fc fg getopts jobs read umask unalias wait
+for ea in alias bg cd command fc fg getopts hash jobs read type ulimit umask unalias wait
 do
   cat <<EOF > "$RPM_BUILD_ROOT"/%{_bindir}/"$ea"
 #!/bin/sh
@@ -439,6 +439,10 @@ end
 %doc doc/*.ps doc/*.0 doc/*.html doc/article.txt
 
 %changelog
+* Mon Jan 11 2016 Ondrej Oprala <ooprala@redhat.com> - 4.3.42-2
+- Provide exec-able alternatives to hash, type and ulimit
+  Resolves: #1297166
+
 * Tue Aug 18 2015 Ondrej Oprala - 4.3.42-1
 - Patchlevel 42
 
