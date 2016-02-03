@@ -8,7 +8,7 @@
 Version: %{baseversion}%{patchleveltag}
 Name: bash
 Summary: The GNU Bourne Again shell
-Release: 3%{?dist}
+Release: 4%{?dist}
 Group: System Environment/Shells
 License: GPLv3+
 Url: http://www.gnu.org/software/bash
@@ -442,6 +442,9 @@ end
 %doc doc/*.ps doc/*.0 doc/*.html doc/article.txt
 
 %changelog
+* Wed Feb 03 2016 Fedora Release Engineering <releng@fedoraproject.org> - 4.3.42-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_24_Mass_Rebuild
+
 * Mon Jan 11 2016 Ondrej Oprala <ooprala@redhat.com> - 4.3.42-3
 - Actually do it properly this time
   Related: #1297166
