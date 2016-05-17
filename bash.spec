@@ -8,7 +8,7 @@
 Version: %{baseversion}%{patchleveltag}
 Name: bash
 Summary: The GNU Bourne Again shell
-Release: 4%{?dist}
+Release: 5%{?dist}
 Group: System Environment/Shells
 License: GPLv3+
 Url: http://www.gnu.org/software/bash
@@ -140,6 +140,9 @@ Patch138: bash-4.3-memleak-lc_all.patch
 #1245233 - old memleak reappeared, taken from upstream
 Patch139: bash-4.3-old-memleak.patch
 
+#1336800 - Fixes a race condition while expanding tilda
+Patch140: bash-tilda-race-condition.patch
+
 BuildRequires: texinfo bison
 BuildRequires: ncurses-devel
 BuildRequires: autoconf, gettext
@@ -241,6 +244,7 @@ This package contains documentation files for %{name}.
 %patch137 -p1 -b .readonly
 %patch138 -p1 -b .lc_all
 %patch139 -p1 -b .oldleak
+%patch140 -p1 -b .tilda_expansion
 
 echo %{version} > _distribution
 echo %{release} > _patchlevel
@@ -442,6 +446,10 @@ end
 %doc doc/*.ps doc/*.0 doc/*.html doc/article.txt
 
 %changelog
+* Tue May 17 2016 Siteshwar Vashisht <svashisht@redhat.com> - 4.3.42-5
+- Do not set terminate_immediately and interrupt_immediately while expanding tilda
+  Resolves: #1336800
+
 * Wed Feb 03 2016 Fedora Release Engineering <releng@fedoraproject.org> - 4.3.42-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_24_Mass_Rebuild
 
