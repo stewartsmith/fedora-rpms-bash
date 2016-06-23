@@ -1,6 +1,6 @@
 #% define beta_tag rc2
 %global _hardened_build 1
-%define patchleveltag .42
+%define patchleveltag .43
 %define baseversion 4.3
 %bcond_without tests
 %{!?_pkgdocdir: %global _pkgdocdir %{_docdir}/%{name}-%{version}}
@@ -8,7 +8,7 @@
 Version: %{baseversion}%{patchleveltag}
 Name: bash
 Summary: The GNU Bourne Again shell
-Release: 5%{?dist}
+Release: 1%{?dist}
 Group: System Environment/Shells
 License: GPLv3+
 Url: http://www.gnu.org/software/bash
@@ -73,7 +73,7 @@ Patch039: ftp://ftp.gnu.org/gnu/bash/bash-4.3-patches/bash43-039
 Patch040: ftp://ftp.gnu.org/gnu/bash/bash-4.3-patches/bash43-040
 Patch041: ftp://ftp.gnu.org/gnu/bash/bash-4.3-patches/bash43-041
 Patch042: ftp://ftp.gnu.org/gnu/bash/bash-4.3-patches/bash43-042
-
+Patch043: ftp://ftp.gnu.org/gnu/bash/bash-4.3-patches/bash43-043
 
 # Other patches
 Patch101: bash-2.02-security.patch
@@ -211,6 +211,7 @@ This package contains documentation files for %{name}.
 %patch040 -p0 -b .040
 %patch041 -p0 -b .041
 %patch042 -p0 -b .042
+%patch043 -p0 -b .043
 
 # Other patches
 %patch101 -p1 -b .security
@@ -446,6 +447,10 @@ end
 %doc doc/*.ps doc/*.0 doc/*.html doc/article.txt
 
 %changelog
+* Thu Jun 23 2016 Siteshwar Vashisht <svashisht@redhat.com> - 4.3.43-1
+- Fix a crash in nested pipeline in lastpipe mode
+  Resolves: #1349430
+
 * Tue May 17 2016 Siteshwar Vashisht <svashisht@redhat.com> - 4.3.42-5
 - Do not set terminate_immediately and interrupt_immediately while expanding tilda
   Resolves: #1336800
