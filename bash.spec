@@ -8,7 +8,7 @@
 Version: %{baseversion}%{patchleveltag}
 Name: bash
 Summary: The GNU Bourne Again shell
-Release: 1%{?dist}
+Release: 2%{?dist}
 Group: System Environment/Shells
 License: GPLv3+
 Url: http://www.gnu.org/software/bash
@@ -146,7 +146,7 @@ Patch140: bash-tilda-race-condition.patch
 BuildRequires: texinfo bison
 BuildRequires: ncurses-devel
 BuildRequires: autoconf, gettext
-Conflicts: filesystem < 3
+Requires: filesystem >= 3
 Provides: /bin/sh
 Provides: /bin/bash
 
@@ -447,6 +447,10 @@ end
 %doc doc/*.ps doc/*.0 doc/*.html doc/article.txt
 
 %changelog
+* Tue Sep  6 2016 David Kaspar [Dee'Kej] <dkaspar@redhat.com> - 4.3.43-2
+- Inverted the condition for UsrMove safeguard check, so we comply with:
+  https://fedoraproject.org/wiki/Packaging:Conflicts
+
 * Thu Jun 23 2016 Siteshwar Vashisht <svashisht@redhat.com> - 4.3.43-1
 - Fix a crash in nested pipeline in lastpipe mode
   Resolves: #1349430
