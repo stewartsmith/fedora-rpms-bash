@@ -8,7 +8,7 @@
 Version: %{baseversion}%{patchleveltag}
 Name: bash
 Summary: The GNU Bourne Again shell
-Release: 2%{?dist}
+Release: 3%{?dist}
 Group: System Environment/Shells
 License: GPLv3+
 Url: http://www.gnu.org/software/bash
@@ -143,6 +143,10 @@ Patch139: bash-4.3-old-memleak.patch
 #1336800 - Fixes a race condition while expanding tilda
 Patch140: bash-tilda-race-condition.patch
 
+#1377614 - security fix for CVE-2016-0634 (arbitrary code execution via malicious hostname)
+# NOTE: This fix is already included in bash-4.4.
+Patch141: bash-4.3-cve-2016-0634.patch
+
 BuildRequires: texinfo bison
 BuildRequires: ncurses-devel
 BuildRequires: autoconf, gettext
@@ -246,6 +250,7 @@ This package contains documentation files for %{name}.
 %patch138 -p1 -b .lc_all
 %patch139 -p1 -b .oldleak
 %patch140 -p1 -b .tilda_expansion
+%patch141 -p1 -b .cve-2016-0634
 
 echo %{version} > _distribution
 echo %{release} > _patchlevel
@@ -447,6 +452,10 @@ end
 %doc doc/*.ps doc/*.0 doc/*.html doc/article.txt
 
 %changelog
+* Wed Sep 21 2016 David Kaspar [Dee'Kej] <dkaspar@redhat.com> - 4.3.43-3
+- CVE-2016-0634 - Fix for arbitrary code execution via malicious hostname
+  Resolves: #1377614
+
 * Tue Sep  6 2016 David Kaspar [Dee'Kej] <dkaspar@redhat.com> - 4.3.43-2
 - Inverted the condition for UsrMove safeguard check, so we comply with:
   https://fedoraproject.org/wiki/Packaging:Conflicts
