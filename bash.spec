@@ -8,7 +8,7 @@
 Version: %{baseversion}%{patchleveltag}
 Name: bash
 Summary: The GNU Bourne Again shell
-Release: 3%{?dist}
+Release: 4%{?dist}
 Group: System Environment/Shells
 License: GPLv3+
 Url: http://www.gnu.org/software/bash
@@ -147,6 +147,10 @@ Patch140: bash-tilda-race-condition.patch
 # NOTE: This fix is already included in bash-4.4.
 Patch141: bash-4.3-cve-2016-0634.patch
 
+#1379634- security fix CVE-2016-7543 (Specially crafted SHELLOPTS+PS4 variables allows command substitution)
+# NOTE: This fix is already included in bash-4.4.
+Patch142: bash-4.4-cve-2016-7543.patch
+
 BuildRequires: texinfo bison
 BuildRequires: ncurses-devel
 BuildRequires: autoconf, gettext
@@ -251,6 +255,7 @@ This package contains documentation files for %{name}.
 %patch139 -p1 -b .oldleak
 %patch140 -p1 -b .tilda_expansion
 %patch141 -p1 -b .cve-2016-0634
+%patch142 -p1 -b .cve-2016-7543
 
 echo %{version} > _distribution
 echo %{release} > _patchlevel
@@ -452,6 +457,10 @@ end
 %doc doc/*.ps doc/*.0 doc/*.html doc/article.txt
 
 %changelog
+* Fri Sep 30 2016 Siteshwar Vashisht <svashisht@redhat.com> - 4.3.43-4
+- CVE-2016-7543: Fix for arbitrary code execution via SHELLOPTS+PS4 variables
+  Resolves: #1379634
+
 * Wed Sep 21 2016 David Kaspar [Dee'Kej] <dkaspar@redhat.com> - 4.3.43-3
 - CVE-2016-0634 - Fix for arbitrary code execution via malicious hostname
   Resolves: #1377614
