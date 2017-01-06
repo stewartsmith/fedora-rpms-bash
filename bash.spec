@@ -1,14 +1,14 @@
 #% define beta_tag rc2
 %global _hardened_build 1
-%define patchleveltag .43
-%define baseversion 4.3
+%define patchleveltag .0
+%define baseversion 4.4
 %bcond_without tests
 %{!?_pkgdocdir: %global _pkgdocdir %{_docdir}/%{name}-%{version}}
 
 Version: %{baseversion}%{patchleveltag}
 Name: bash
 Summary: The GNU Bourne Again shell
-Release: 4%{?dist}
+Release: 1%{?dist}
 Group: System Environment/Shells
 License: GPLv3+
 Url: http://www.gnu.org/software/bash
@@ -22,58 +22,7 @@ Source2: dot-bash_profile
 Source3: dot-bash_logout
 
 # Official upstream patches
-Patch001: ftp://ftp.gnu.org/gnu/bash/bash-4.3-patches/bash43-001
-Patch002: ftp://ftp.gnu.org/gnu/bash/bash-4.3-patches/bash43-002
-Patch003: ftp://ftp.gnu.org/gnu/bash/bash-4.3-patches/bash43-003
-Patch004: ftp://ftp.gnu.org/gnu/bash/bash-4.3-patches/bash43-004
-Patch005: ftp://ftp.gnu.org/gnu/bash/bash-4.3-patches/bash43-005
-Patch006: ftp://ftp.gnu.org/gnu/bash/bash-4.3-patches/bash43-006
-Patch007: ftp://ftp.gnu.org/gnu/bash/bash-4.3-patches/bash43-007
-Patch008: ftp://ftp.gnu.org/gnu/bash/bash-4.3-patches/bash43-008
-Patch009: ftp://ftp.gnu.org/gnu/bash/bash-4.3-patches/bash43-009
-Patch010: ftp://ftp.gnu.org/gnu/bash/bash-4.3-patches/bash43-010
-Patch011: ftp://ftp.gnu.org/gnu/bash/bash-4.3-patches/bash43-011
-Patch012: ftp://ftp.gnu.org/gnu/bash/bash-4.3-patches/bash43-012
-Patch013: ftp://ftp.gnu.org/gnu/bash/bash-4.3-patches/bash43-013
-Patch014: ftp://ftp.gnu.org/gnu/bash/bash-4.3-patches/bash43-014
-Patch015: ftp://ftp.gnu.org/gnu/bash/bash-4.3-patches/bash43-015
-Patch016: ftp://ftp.gnu.org/gnu/bash/bash-4.3-patches/bash43-016
-Patch017: ftp://ftp.gnu.org/gnu/bash/bash-4.3-patches/bash43-017
-Patch018: ftp://ftp.gnu.org/gnu/bash/bash-4.3-patches/bash43-018
-Patch019: ftp://ftp.gnu.org/gnu/bash/bash-4.3-patches/bash43-019
-Patch020: ftp://ftp.gnu.org/gnu/bash/bash-4.3-patches/bash43-020
-Patch021: ftp://ftp.gnu.org/gnu/bash/bash-4.3-patches/bash43-021
-Patch022: ftp://ftp.gnu.org/gnu/bash/bash-4.3-patches/bash43-022
-Patch023: ftp://ftp.gnu.org/gnu/bash/bash-4.3-patches/bash43-023
-Patch024: ftp://ftp.gnu.org/gnu/bash/bash-4.3-patches/bash43-024
-Patch025: ftp://ftp.gnu.org/gnu/bash/bash-4.3-patches/bash43-025
-Patch026: ftp://ftp.gnu.org/gnu/bash/bash-4.3-patches/bash43-026
 
-# 1146326 - cve-2014-7169
-# we want to keep these patches from Florian Weimer
-# instead of the official ones, to match the ()/%%
-# detail we already have applied across RHELs and not to
-# create incompatibilities in the future
-#patchlevel 27
-Patch027: bash-4.2-cve-2014-7169-1.patch
-#patchlevel 28
-Patch028: bash-4.2-cve-2014-7169-2.patch
-
-Patch029: ftp://ftp.gnu.org/gnu/bash/bash-4.3-patches/bash43-029
-Patch030: ftp://ftp.gnu.org/gnu/bash/bash-4.3-patches/bash43-030
-Patch031: ftp://ftp.gnu.org/gnu/bash/bash-4.3-patches/bash43-031
-Patch032: ftp://ftp.gnu.org/gnu/bash/bash-4.3-patches/bash43-032
-Patch033: ftp://ftp.gnu.org/gnu/bash/bash-4.3-patches/bash43-033
-Patch034: ftp://ftp.gnu.org/gnu/bash/bash-4.3-patches/bash43-034
-Patch035: ftp://ftp.gnu.org/gnu/bash/bash-4.3-patches/bash43-035
-Patch036: ftp://ftp.gnu.org/gnu/bash/bash-4.3-patches/bash43-036
-Patch037: ftp://ftp.gnu.org/gnu/bash/bash-4.3-patches/bash43-037
-Patch038: ftp://ftp.gnu.org/gnu/bash/bash-4.3-patches/bash43-038
-Patch039: ftp://ftp.gnu.org/gnu/bash/bash-4.3-patches/bash43-039
-Patch040: ftp://ftp.gnu.org/gnu/bash/bash-4.3-patches/bash43-040
-Patch041: ftp://ftp.gnu.org/gnu/bash/bash-4.3-patches/bash43-041
-Patch042: ftp://ftp.gnu.org/gnu/bash/bash-4.3-patches/bash43-042
-Patch043: ftp://ftp.gnu.org/gnu/bash/bash-4.3-patches/bash43-043
 
 # Other patches
 Patch101: bash-2.02-security.patch
@@ -83,73 +32,52 @@ Patch104: bash-2.05a-interpreter.patch
 Patch105: bash-2.05b-debuginfo.patch
 Patch106: bash-2.05b-manso.patch
 Patch107: bash-2.05b-pgrp_sync.patch
-Patch108: bash-2.05b-readline-oom.patch
-Patch109: bash-2.05b-xcc.patch
-Patch110: bash-3.2-audit.patch
-Patch111: bash-3.2-ssh_source_bash.patch
-Patch112: bash-bashbug.patch
-Patch113: bash-infotags.patch
-Patch114: bash-requires.patch
-Patch115: bash-setlocale.patch
-Patch116: bash-tty-tests.patch
+Patch108: bash-2.05b-xcc.patch
+Patch109: bash-3.2-audit.patch
+Patch110: bash-3.2-ssh_source_bash.patch
+Patch111: bash-bashbug.patch
+Patch112: bash-infotags.patch
+Patch113: bash-requires.patch
+Patch114: bash-setlocale.patch
+Patch115: bash-tty-tests.patch
 
 # 484809, check if interp section is NOBITS
-Patch117: bash-4.0-nobits.patch
+Patch116: bash-4.0-nobits.patch
 
 # Do the same CFLAGS in generated Makefile in examples
-Patch118: bash-4.1-examples.patch
+Patch117: bash-4.1-examples.patch
 
 # Builtins like echo and printf won't report errors
 # when output does not succeed due to EPIPE
-Patch119: bash-4.1-broken_pipe.patch
+Patch118: bash-4.1-broken_pipe.patch
 
 # Enable system-wide .bash_logout for login shells
-Patch120: bash-4.2-rc2-logout.patch
+Patch119: bash-4.2-rc2-logout.patch
 
 # Static analyzis shows some issues in bash-2.05a-interpreter.patch
-Patch121: bash-4.2-coverity.patch
+Patch120: bash-4.2-coverity.patch
 
 # Don't call malloc in signal handler
-Patch122: bash-4.1-defer-sigchld-trap.patch
+Patch121: bash-4.1-defer-sigchld-trap.patch
 
 # 799958, updated info about trap
-Patch123: bash-4.2-manpage_trap.patch
+Patch122: bash-4.2-manpage_trap.patch
 
 # https://www.securecoding.cert.org/confluence/display/seccode/INT32-C.+Ensure+that+operations+on+signed+integers+do+not+result+in+overflow
-Patch125: bash-4.2-size_type.patch
-
-# fix deadlock in trap, backported from devel branch
-Patch127: bash-4.2-trap.patch
+Patch123: bash-4.2-size_type.patch
 
 # 1112710 - mention ulimit -c and -f POSIX block size
-Patch128: bash-4.3-man-ulimit.patch
-
-# A series of patches emitted by upstream since 4.3-18
-#Patch131: bash-4.3-parse-time-keyword.patch
-Patch134: bash-4.3-pathexp-globignore-delim.patch
+Patch124: bash-4.3-man-ulimit.patch
 
 # 1102815 - fix double echoes in vi visual mode
-Patch135: bash-4.3-noecho.patch
-
-# 1182278 - bash crashes on `select' if REPLY is readonly
-Patch137: bash-4.3-select-readonly.patch
+Patch125: bash-4.3-noecho.patch
 
 #1241533,1224855 - bash leaks memory when LC_ALL set
-Patch138: bash-4.3-memleak-lc_all.patch
+Patch126: bash-4.3-memleak-lc_all.patch
 
-#1245233 - old memleak reappeared, taken from upstream
-Patch139: bash-4.3-old-memleak.patch
-
-#1336800 - Fixes a race condition while expanding tilda
-Patch140: bash-tilda-race-condition.patch
-
-#1377614 - security fix for CVE-2016-0634 (arbitrary code execution via malicious hostname)
-# NOTE: This fix is already included in bash-4.4.
-Patch141: bash-4.3-cve-2016-0634.patch
-
-#1379634- security fix CVE-2016-7543 (Specially crafted SHELLOPTS+PS4 variables allows command substitution)
-# NOTE: This fix is already included in bash-4.4.
-Patch142: bash-4.4-cve-2016-7543.patch
+# bash-4.4 builds loadable builtin examples by default
+# this patch disables it
+Patch127: bash-4.4-no-loadable-builtins.patch
 
 BuildRequires: texinfo bison
 BuildRequires: ncurses-devel
@@ -177,49 +105,7 @@ This package contains documentation files for %{name}.
 %setup -q -n %{name}-%{baseversion}
 
 # Official upstream patches
-%patch001 -p0 -b .001
-%patch002 -p0 -b .002
-%patch003 -p0 -b .003
-%patch004 -p0 -b .004
-%patch005 -p0 -b .005
-%patch006 -p0 -b .006
-%patch007 -p0 -b .007
-%patch008 -p0 -b .008
-%patch009 -p0 -b .009
-%patch010 -p0 -b .010
-%patch011 -p0 -b .011
-%patch012 -p0 -b .012
-%patch013 -p0 -b .013
-%patch014 -p0 -b .014
-%patch015 -p0 -b .015
-%patch016 -p0 -b .016
-%patch017 -p0 -b .017
-%patch018 -p0 -b .018
-%patch019 -p0 -b .019
-%patch020 -p0 -b .020
-%patch021 -p0 -b .021
-%patch022 -p0 -b .022
-%patch023 -p0 -b .023
-%patch024 -p0 -b .024
-%patch025 -p0 -b .025
-%patch026 -p0 -b .026
-%patch027 -p0 -b .7169-1
-%patch028 -p0 -b .7169-2
-%patch029 -p0 -b .029
-%patch030 -p0 -b .030
-%patch031 -p0 -b .031
-%patch032 -p0 -b .032
-%patch033 -p0 -b .033
-%patch034 -p0 -b .034
-%patch035 -p0 -b .035
-%patch036 -p0 -b .036
-%patch037 -p0 -b .037
-%patch038 -p0 -b .038
-%patch039 -p0 -b .039
-%patch040 -p0 -b .040
-%patch041 -p0 -b .041
-%patch042 -p0 -b .042
-%patch043 -p0 -b .043
+
 
 # Other patches
 %patch101 -p1 -b .security
@@ -229,33 +115,26 @@ This package contains documentation files for %{name}.
 %patch105 -p1 -b .debuginfo
 %patch106 -p1 -b .manso
 %patch107 -p1 -b .pgrp_sync
-%patch108 -p1 -b .readline_oom
-%patch109 -p1 -b .xcc
-%patch110 -p1 -b .audit
-%patch111 -p1 -b .ssh_source_bash
-%patch112 -p1 -b .bashbug
-%patch113 -p1 -b .infotags
-%patch114 -p1 -b .requires
-%patch115 -p1 -b .setlocale
-%patch116 -p1 -b .tty_tests
-%patch117 -p1 -b .nobits
-%patch118 -p1 -b .examples
-%patch119 -p1 -b .broken_pipe
-%patch120 -p1 -b .logout
-%patch121 -p1 -b .coverity
-%patch122 -p1 -b .defer_sigchld_trap
-%patch123 -p1
-%patch125 -p1 -b .size_type
-%patch128 -p1 -b .ulimit
-#%patch131 -p0 -b .keyword
-%patch134 -p0 -b .delim
-%patch135 -p1 -b .noecho
-%patch137 -p1 -b .readonly
-%patch138 -p1 -b .lc_all
-%patch139 -p1 -b .oldleak
-%patch140 -p1 -b .tilda_expansion
-%patch141 -p1 -b .cve-2016-0634
-%patch142 -p1 -b .cve-2016-7543
+%patch108 -p1 -b .xcc
+%patch109 -p1 -b .audit
+%patch110 -p1 -b .ssh_source_bash
+%patch111 -p1 -b .bashbug
+%patch112 -p1 -b .infotags
+%patch113 -p1 -b .requires
+%patch114 -p1 -b .setlocale
+%patch115 -p1 -b .tty_tests
+%patch116 -p1 -b .nobits
+%patch117 -p1 -b .examples
+%patch118 -p1 -b .broken_pipe
+%patch119 -p1 -b .logout
+%patch120 -p1 -b .coverity
+%patch121 -p1 -b .defer_sigchld_trap
+%patch122 -p1
+%patch123 -p1 -b .size_type
+%patch124 -p1 -b .ulimit
+%patch125 -p1 -b .noecho
+%patch126 -p1 -b .lc_all
+%patch127 -p1 -b .no-loadable-builtins
 
 echo %{version} > _distribution
 echo %{release} > _patchlevel
@@ -457,6 +336,10 @@ end
 %doc doc/*.ps doc/*.0 doc/*.html doc/article.txt
 
 %changelog
+* Fri Jan 06 2017 Siteshwar Vashisht <svashisht@redhat.com> - 4.4.0-1
+- Rebase to bash-4.4
+  Resolves: #1376609
+
 * Fri Sep 30 2016 Siteshwar Vashisht <svashisht@redhat.com> - 4.3.43-4
 - CVE-2016-7543: Fix for arbitrary code execution via SHELLOPTS+PS4 variables
   Resolves: #1379634
