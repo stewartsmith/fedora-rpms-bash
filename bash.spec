@@ -127,7 +127,7 @@ fi
 # Fix bug #83776
 perl -pi -e 's,bashref\.info,bash.info,' doc/bashref.info
 
-make DESTDIR=$RPM_BUILD_ROOT install
+%make_install
 
 mkdir -p $RPM_BUILD_ROOT/etc
 
