@@ -99,40 +99,7 @@ Requires: %{name} = %{version}-%{release}
 This package contains documentation files for %{name}.
 
 %prep
-#%setup -q -a 2
-%setup -q -n %{name}-%{baseversion}
-
-# Official upstream patches
-
-
-# Other patches
-%patch101 -p1 -b .security
-%patch102 -p1 -b .paths
-%patch103 -p1 -b .profile
-%patch104 -p1 -b .interpreter
-%patch105 -p1 -b .debuginfo
-%patch106 -p1 -b .manso
-%patch107 -p1 -b .pgrp_sync
-%patch108 -p1 -b .xcc
-%patch109 -p1 -b .audit
-%patch110 -p1 -b .ssh_source_bash
-%patch111 -p1 -b .bashbug
-%patch112 -p1 -b .infotags
-%patch113 -p1 -b .requires
-%patch114 -p1 -b .setlocale
-%patch115 -p1 -b .tty_tests
-%patch116 -p1 -b .nobits
-%patch117 -p1 -b .examples
-%patch118 -p1 -b .broken_pipe
-%patch119 -p1 -b .logout
-%patch120 -p1 -b .coverity
-%patch121 -p1 -b .defer_sigchld_trap
-%patch122 -p1
-%patch123 -p1 -b .size_type
-%patch124 -p1 -b .ulimit
-%patch125 -p1 -b .noecho
-%patch126 -p1 -b .lc_all
-%patch127 -p1 -b .no-loadable-builtins
+%autosetup -n %{name}-%{baseversion} -p1
 
 echo %{version} > _distribution
 echo %{release} > _patchlevel
