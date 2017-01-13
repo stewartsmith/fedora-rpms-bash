@@ -9,7 +9,6 @@ Version: %{baseversion}%{patchleveltag}
 Name: bash
 Summary: The GNU Bourne Again shell
 Release: 1%{?dist}
-Group: System Environment/Shells
 License: GPLv3+
 Url: http://www.gnu.org/software/bash
 Source0: ftp://ftp.gnu.org/gnu/bash/bash-%{baseversion}.tar.gz
@@ -94,7 +93,6 @@ incorporates useful features from the Korn shell (ksh) and the C shell
 
 %package doc
 Summary: Documentation files for %{name}
-Group: Development/Languages
 Requires: %{name} = %{version}-%{release}
 
 %description doc
