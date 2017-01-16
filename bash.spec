@@ -262,7 +262,6 @@ then
 end
 
 %files -f %{name}.lang
-%defattr(-,root,root)
 %config(noreplace) /etc/skel/.b*
 %{_bindir}/sh
 %{_bindir}/bash
@@ -293,7 +292,6 @@ end
 %doc doc/{FAQ,INTRO,README,bash{,ref}.html}
 
 %files doc -f %{name}-doc.files
-%defattr(-, root, root)
 %doc doc/*.ps doc/*.0 doc/*.html doc/article.txt
 
 %changelog
