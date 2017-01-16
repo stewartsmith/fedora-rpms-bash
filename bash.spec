@@ -127,7 +127,7 @@ perl -pi -e 's,bashref\.info,bash.info,' doc/bashref.info
 
 %make_install
 
-mkdir -p $RPM_BUILD_ROOT/etc
+mkdir -p %{buildroot}/etc
 
 # make manpages for bash builtins as per suggestion in DOC/README
 pushd doc
@@ -146,33 +146,33 @@ for i in echo pwd test kill; do
   perl -pi -e "s,  , ,g" man.pages
 done
 
-install -c -m 644 builtins.1 ${RPM_BUILD_ROOT}%{_mandir}/man1/builtins.1
+install -c -m 644 builtins.1 %{buildroot}%{_mandir}/man1/builtins.1
 
 for i in `cat man.pages` ; do
-  echo .so man1/builtins.1 > ${RPM_BUILD_ROOT}%{_mandir}/man1/$i.1
-  chmod 0644 ${RPM_BUILD_ROOT}%{_mandir}/man1/$i.1
+  echo .so man1/builtins.1 > %{buildroot}%{_mandir}/man1/$i.1
+  chmod 0644 %{buildroot}%{_mandir}/man1/$i.1
 done
 popd
 
 # Link bash man page to sh so that man sh works.
-ln -s bash.1 ${RPM_BUILD_ROOT}%{_mandir}/man1/sh.1
+ln -s bash.1 %{buildroot}%{_mandir}/man1/sh.1
 
 # Not for printf, true and false (conflict with coreutils)
-rm -f $RPM_BUILD_ROOT/%{_mandir}/man1/printf.1
-rm -f $RPM_BUILD_ROOT/%{_mandir}/man1/true.1
-rm -f $RPM_BUILD_ROOT/%{_mandir}/man1/false.1
+rm -f %{buildroot}/%{_mandir}/man1/printf.1
+rm -f %{buildroot}/%{_mandir}/man1/true.1
+rm -f %{buildroot}/%{_mandir}/man1/false.1
 
-ln -sf bash $RPM_BUILD_ROOT%{_bindir}/sh
-rm -f $RPM_BUILD_ROOT%{_infodir}/dir
-mkdir -p $RPM_BUILD_ROOT/etc/skel
-install -c -m644 %SOURCE1 $RPM_BUILD_ROOT/etc/skel/.bashrc
-install -c -m644 %SOURCE2 $RPM_BUILD_ROOT/etc/skel/.bash_profile
-install -c -m644 %SOURCE3 $RPM_BUILD_ROOT/etc/skel/.bash_logout
+ln -sf bash %{buildroot}%{_bindir}/sh
+rm -f %{buildroot}%{_infodir}/dir
+mkdir -p %{buildroot}/etc/skel
+install -c -m644 %SOURCE1 %{buildroot}/etc/skel/.bashrc
+install -c -m644 %SOURCE2 %{buildroot}/etc/skel/.bash_profile
+install -c -m644 %SOURCE3 %{buildroot}/etc/skel/.bash_logout
 LONG_BIT=$(getconf LONG_BIT)
-mv $RPM_BUILD_ROOT%{_bindir}/bashbug \
-   $RPM_BUILD_ROOT%{_bindir}/bashbug-"${LONG_BIT}"
-ln -s bashbug-"${LONG_BIT}" $RPM_BUILD_ROOT%{_bindir}/bashbug
-ln -s bashbug.1 $RPM_BUILD_ROOT/%{_mandir}/man1/bashbug-"$LONG_BIT".1
+mv %{buildroot}%{_bindir}/bashbug \
+   %{buildroot}%{_bindir}/bashbug-"${LONG_BIT}"
+ln -s bashbug-"${LONG_BIT}" %{buildroot}%{_bindir}/bashbug
+ln -s bashbug.1 %{buildroot}/%{_mandir}/man1/bashbug-"$LONG_BIT".1
 
 # Fix missing sh-bangs in example scripts (bug #225609).
 for script in \
@@ -191,24 +191,23 @@ done
 # bug #820192, need to add execable alternatives for regular built-ins
 for ea in alias bg cd command fc fg getopts hash jobs read type ulimit umask unalias wait
 do
-  cat <<EOF > "$RPM_BUILD_ROOT"/%{_bindir}/"$ea"
+  cat <<EOF > "%{buildroot}"/%{_bindir}/"$ea"
 #!/bin/sh
 builtin $ea "\$@"
 EOF
-chmod +x "$RPM_BUILD_ROOT"/%{_bindir}/"$ea"
+chmod +x "%{buildroot}"/%{_bindir}/"$ea"
 done
 
 %find_lang %{name}
 
 # copy doc to /usr/share/doc
 cat /dev/null > %{name}-doc.files
-mkdir -p $RPM_BUILD_ROOT/%{_pkgdocdir}/doc
-# cp -p COPYING $RPM_BUILD_ROOT/%{_pkgdocdir}
+mkdir -p %{buildroot}/%{_pkgdocdir}/doc
 # loadables aren't buildable
 rm -rf examples/loadables
 for file in CHANGES COMPAT NEWS NOTES POSIX RBASH README examples
 do
-  cp -rp "$file" $RPM_BUILD_ROOT/%{_pkgdocdir}/"$file"
+  cp -rp "$file" %{buildroot}/%{_pkgdocdir}/"$file"
   echo "%%doc %{_pkgdocdir}/$file" >> %{name}-doc.files
 done
 echo "%%doc %{_pkgdocdir}/doc" >> %{name}-doc.files
