@@ -117,8 +117,6 @@ autoconf
 make "CPPFLAGS=-D_GNU_SOURCE -DRECYCLES_PIDS -DDEFAULT_PATH_VALUE='\"/usr/local/bin:/usr/bin\"' `getconf LFS_CFLAGS`"
 
 %install
-rm -rf $RPM_BUILD_ROOT
-
 if [ -e autoconf ]; then
   # Yuck. We're using autoconf 2.1x.
   export PATH=.:$PATH
@@ -223,8 +221,6 @@ make check
 %endif
 
 %clean
-rm -rf $RPM_BUILD_ROOT
-
 # ***** bash doesn't use install-info. It's always listed in %{_infodir}/dir
 # to prevent prereq loops
 
