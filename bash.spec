@@ -1,6 +1,6 @@
 #% define beta_tag rc2
 %global _hardened_build 1
-%define patchleveltag .5
+%define patchleveltag .11
 %define baseversion 4.4
 %bcond_without tests
 %{!?_pkgdocdir: %global _pkgdocdir %{_docdir}/%{name}-%{version}}
@@ -22,7 +22,7 @@ Source3: dot-bash_logout
 
 # Official upstream patches
 # Patches are converted to apply with '-p1'
-%{lua:for i=1,5 do print(string.format("Patch%u: bash-4.4-patch-%u.patch\n", i, i)) end}
+%{lua:for i=1,11 do print(string.format("Patch%u: bash-4.4-patch-%u.patch\n", i, i)) end}
 
 # Other patches
 Patch101: bash-2.02-security.patch
@@ -295,6 +295,9 @@ end
 %doc doc/*.ps doc/*.0 doc/*.html doc/article.txt
 
 %changelog
+* Sat Jan 21 2017 Siteshwar Vashisht <svashisht@redhat.com> - 4.4.11-1
+- Update to bash-4.4 patchlevel 11
+
 * Mon Jan 16 2017 Siteshwar Vashisht <svashisht@redhat.com> - 4.4.5-1
 - Update to bash-4.4 patchlevel 5
 
