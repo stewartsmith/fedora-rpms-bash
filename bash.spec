@@ -22,7 +22,7 @@ Source3: dot-bash_logout
 
 # Official upstream patches
 # Patches are converted to apply with '-p1'
-%{lua:for i=1,5 do print(string.format("Patch%u: Bash-4.4-patch-%u.patch\n", i, i)) end}
+%{lua:for i=1,5 do print(string.format("Patch%u: bash-4.4-patch-%u.patch\n", i, i)) end}
 
 # Other patches
 Patch101: bash-2.02-security.patch
