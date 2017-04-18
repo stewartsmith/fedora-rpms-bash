@@ -8,7 +8,7 @@
 Version: %{baseversion}%{patchleveltag}
 Name: bash
 Summary: The GNU Bourne Again shell
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: GPLv3+
 Url: http://www.gnu.org/software/bash
 Source0: ftp://ftp.gnu.org/gnu/bash/bash-%{baseversion}.tar.gz
@@ -35,7 +35,6 @@ Patch107: bash-2.05b-pgrp_sync.patch
 Patch108: bash-2.05b-xcc.patch
 Patch109: bash-3.2-audit.patch
 Patch110: bash-3.2-ssh_source_bash.patch
-Patch111: bash-bashbug.patch
 Patch112: bash-infotags.patch
 Patch113: bash-requires.patch
 Patch114: bash-setlocale.patch
@@ -295,7 +294,11 @@ end
 %doc doc/*.ps doc/*.0 doc/*.html doc/article.txt
 
 %changelog
-* Mon Apr 10 2017 Siteshwar Vashisht <svashisht@redhat.com> - 4.4.11-3
+* Tue Apr 18 2017 Siteshwar Vashisht <svashisht@redhat.com> - 4.4.12-2
+- Document 'bashbug' for reporting bugs
+  Resolves: #1255886
+
+* Mon Apr 10 2017 Siteshwar Vashisht <svashisht@redhat.com> - 4.4.12-1
 - Update to bash-4.4 patchlevel 12
 
 * Fri Feb 10 2017 Fedora Release Engineering <releng@fedoraproject.org> - 4.4.11-2
