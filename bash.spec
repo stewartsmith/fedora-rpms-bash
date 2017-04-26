@@ -8,7 +8,7 @@
 Version: %{baseversion}%{patchleveltag}
 Name: bash
 Summary: The GNU Bourne Again shell
-Release: 2%{?dist}
+Release: 3%{?dist}
 License: GPLv3+
 Url: http://www.gnu.org/software/bash
 Source0: ftp://ftp.gnu.org/gnu/bash/bash-%{baseversion}.tar.gz
@@ -77,6 +77,10 @@ Patch126: bash-4.3-memleak-lc_all.patch
 # bash-4.4 builds loadable builtin examples by default
 # this patch disables it
 Patch127: bash-4.4-no-loadable-builtins.patch
+
+# 1413676 - Bash leaks heredoc fd to child processes
+# This should be dropped while rebasing to bash-4.5
+Patch128: bash-4.4-heredoc-cloexec.patch
 
 BuildRequires: texinfo bison
 BuildRequires: ncurses-devel
@@ -294,6 +298,10 @@ end
 %doc doc/*.ps doc/*.0 doc/*.html doc/article.txt
 
 %changelog
+* Wed Apr 26 2017 Siteshwar Vashisht <svashisht@redhat.com> - 4.4.12-3
+- Fix heredoc file descriptor leak
+  Resolves: #1413676
+
 * Tue Apr 18 2017 Siteshwar Vashisht <svashisht@redhat.com> - 4.4.12-2
 - Document 'bashbug' for reporting bugs
   Resolves: #1255886
