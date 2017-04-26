@@ -8,7 +8,7 @@
 Version: %{baseversion}%{patchleveltag}
 Name: bash
 Summary: The GNU Bourne Again shell
-Release: 3%{?dist}
+Release: 4%{?dist}
 License: GPLv3+
 Url: http://www.gnu.org/software/bash
 Source0: ftp://ftp.gnu.org/gnu/bash/bash-%{baseversion}.tar.gz
@@ -81,6 +81,10 @@ Patch127: bash-4.4-no-loadable-builtins.patch
 # 1413676 - Bash leaks heredoc fd to child processes
 # This should be dropped while rebasing to bash-4.5
 Patch128: bash-4.4-heredoc-cloexec.patch
+
+# 1068697 - Explicitly unset nonblocking mode while reading from stdin
+# This should be dropped while rebasing to bash-4.5
+Patch129: bash-4.4-unset-nonblock-stdin.patch
 
 BuildRequires: texinfo bison
 BuildRequires: ncurses-devel
@@ -298,6 +302,10 @@ end
 %doc doc/*.ps doc/*.0 doc/*.html doc/article.txt
 
 %changelog
+* Wed Apr 26 2017 Siteshwar Vashisht <svashisht@redhat.com> - 4.4.12-4
+- Explicitly unset nonblocking mode while reading from stdin
+  Resolves: #1068697
+
 * Wed Apr 26 2017 Siteshwar Vashisht <svashisht@redhat.com> - 4.4.12-3
 - Fix heredoc file descriptor leak
   Resolves: #1413676
