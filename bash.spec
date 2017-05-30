@@ -8,7 +8,7 @@
 Version: %{baseversion}%{patchleveltag}
 Name: bash
 Summary: The GNU Bourne Again shell
-Release: 4%{?dist}
+Release: 5%{?dist}
 License: GPLv3+
 Url: http://www.gnu.org/software/bash
 Source0: ftp://ftp.gnu.org/gnu/bash/bash-%{baseversion}.tar.gz
@@ -85,6 +85,10 @@ Patch128: bash-4.4-heredoc-cloexec.patch
 # 1068697 - Explicitly unset nonblocking mode while reading from stdin
 # This should be dropped while rebasing to bash-4.5
 Patch129: bash-4.4-unset-nonblock-stdin.patch
+
+# 1389838 - command builtin should not abort on variable assignment errors
+# This should be dropped while rebasing to bash-4.5
+Patch130: bash-4.4-assignment-error.patch
 
 BuildRequires: texinfo bison
 BuildRequires: ncurses-devel
@@ -302,6 +306,10 @@ end
 %doc doc/*.ps doc/*.0 doc/*.html doc/article.txt
 
 %changelog
+* Tue May 30 2017 Siteshwar Vashisht <svashisht@redhat.com> - 4.4.12-5
+- command builtin should not abort on variable assignment errors
+  Resolves: #1389838
+
 * Wed Apr 26 2017 Siteshwar Vashisht <svashisht@redhat.com> - 4.4.12-4
 - Explicitly unset nonblocking mode while reading from stdin
   Resolves: #1068697
