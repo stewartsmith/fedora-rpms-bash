@@ -3,7 +3,6 @@
 %define patchleveltag .12
 %define baseversion 4.4
 %bcond_without tests
-%{!?_pkgdocdir: %global _pkgdocdir %{_docdir}/%{name}-%{version}}
 
 Version: %{baseversion}%{patchleveltag}
 Name: bash
