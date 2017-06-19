@@ -134,7 +134,7 @@ if [ -e autoconf ]; then
 fi
 
 # Fix bug #83776
-perl -pi -e 's,bashref\.info,bash.info,' doc/bashref.info
+sed -i -e 's,bashref\.info,bash.info,' doc/bashref.info
 
 %make_install
 
@@ -153,11 +153,11 @@ b
 d
 ' builtins.1 > man.pages
 for i in echo pwd test kill; do
-  perl -pi -e "s,$i,,g" man.pages
-  perl -pi -e "s,  , ,g" man.pages
+  sed -i -e "s,$i,,g" man.pages
+  sed -i -e "s,  , ,g" man.pages
 done
 
-install -c -m 644 builtins.1 %{buildroot}%{_mandir}/man1/builtins.1
+install -p -m 644 builtins.1 %{buildroot}%{_mandir}/man1/builtins.1
 
 for i in `cat man.pages` ; do
   echo .so man1/builtins.1 > %{buildroot}%{_mandir}/man1/$i.1
@@ -176,9 +176,9 @@ rm -f %{buildroot}/%{_mandir}/man1/false.1
 ln -sf bash %{buildroot}%{_bindir}/sh
 rm -f %{buildroot}%{_infodir}/dir
 mkdir -p %{buildroot}/etc/skel
-install -c -m644 %SOURCE1 %{buildroot}/etc/skel/.bashrc
-install -c -m644 %SOURCE2 %{buildroot}/etc/skel/.bash_profile
-install -c -m644 %SOURCE3 %{buildroot}/etc/skel/.bash_logout
+install -p -m644 %SOURCE1 %{buildroot}/etc/skel/.bashrc
+install -p -m644 %SOURCE2 %{buildroot}/etc/skel/.bash_profile
+install -p -m644 %SOURCE3 %{buildroot}/etc/skel/.bash_logout
 LONG_BIT=$(getconf LONG_BIT)
 mv %{buildroot}%{_bindir}/bashbug \
    %{buildroot}%{_bindir}/bashbug-"${LONG_BIT}"
@@ -229,10 +229,6 @@ echo "%%doc %{_pkgdocdir}/doc" >> %{name}-doc.files
 %check
 make check
 %endif
-
-%clean
-# ***** bash doesn't use install-info. It's always listed in %{_infodir}/dir
-# to prevent prereq loops
 
 # post is in lua so that we can run it without any external deps.  Helps
 # for bootstrapping a new install.
@@ -291,7 +287,6 @@ end
 %{_bindir}/unalias
 %{_bindir}/wait
 %dir %{_pkgdocdir}/
-%{!?_licensedir:%global license %%doc}
 %license COPYING
 %attr(0755,root,root) %{_bindir}/bashbug[-.]*
 %{_bindir}/bashbug
