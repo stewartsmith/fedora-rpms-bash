@@ -7,7 +7,7 @@
 Version: %{baseversion}%{patchleveltag}
 Name: bash
 Summary: The GNU Bourne Again shell
-Release: 5%{?dist}
+Release: 6%{?dist}
 License: GPLv3+
 Url: http://www.gnu.org/software/bash
 Source0: ftp://ftp.gnu.org/gnu/bash/bash-%{baseversion}.tar.gz
@@ -88,6 +88,10 @@ Patch129: bash-4.4-unset-nonblock-stdin.patch
 # 1389838 - command builtin should not abort on variable assignment errors
 # This should be dropped while rebasing to bash-4.5
 Patch130: bash-4.4-assignment-error.patch
+
+# 1458008 - test builtin gives wrong result when file modification times differ below whole seconds
+# This should be dropped while rebasing to bash-4.5
+Patch131: bash-4.5-test-modification-time.patch
 
 BuildRequires: texinfo bison
 BuildRequires: ncurses-devel
@@ -300,6 +304,10 @@ end
 %doc doc/*.ps doc/*.0 doc/*.html doc/article.txt
 
 %changelog
+* Fri Jun 30 2017 Siteshwar Vashisht <svashisht@redhat.com> - 4.4.12-6
+- Fix test for file modification times when they differ below whole seconds
+  Resolves: #1458008
+
 * Tue May 30 2017 Siteshwar Vashisht <svashisht@redhat.com> - 4.4.12-5
 - command builtin should not abort on variable assignment errors
   Resolves: #1389838
