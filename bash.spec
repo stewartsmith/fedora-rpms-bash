@@ -7,7 +7,7 @@
 Version: %{baseversion}%{patchleveltag}
 Name: bash
 Summary: The GNU Bourne Again shell
-Release: 8%{?dist}
+Release: 9%{?dist}
 License: GPLv3+
 Url: http://www.gnu.org/software/bash
 Source0: ftp://ftp.gnu.org/gnu/bash/bash-%{baseversion}.tar.gz
@@ -304,6 +304,10 @@ end
 %doc doc/*.ps doc/*.0 doc/*.html doc/article.txt
 
 %changelog
+* Tue Aug 08 2017 Siteshwar Vashisht <svashisht@redhat.com> - 4.4.12-9
+- command should not be treated as special builtin
+  Resolves: #1479220
+
 * Wed Aug 02 2017 Fedora Release Engineering <releng@fedoraproject.org> - 4.4.12-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_27_Binutils_Mass_Rebuild
 
