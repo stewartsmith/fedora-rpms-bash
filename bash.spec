@@ -7,7 +7,7 @@
 Version: %{baseversion}%{patchleveltag}
 Name: bash
 Summary: The GNU Bourne Again shell
-Release: 9%{?dist}
+Release: 10%{?dist}
 License: GPLv3+
 Url: http://www.gnu.org/software/bash
 Source0: ftp://ftp.gnu.org/gnu/bash/bash-%{baseversion}.tar.gz
@@ -129,7 +129,7 @@ autoconf
 # Recycles pids is neccessary. When bash's last fork's pid was X
 # and new fork's pid is also X, bash has to wait for this same pid.
 # Without Recycles pids bash will not wait.
-make "CPPFLAGS=-D_GNU_SOURCE -DRECYCLES_PIDS -DDEFAULT_PATH_VALUE='\"/usr/local/bin:/usr/bin\"' `getconf LFS_CFLAGS`"
+make "CPPFLAGS=-D_GNU_SOURCE -DRECYCLES_PIDS -DDEFAULT_PATH_VALUE='\"/usr/local/bin:/usr/bin\"' `getconf LFS_CFLAGS`" %{?_smp_mflags}
 
 %install
 if [ -e autoconf ]; then
@@ -304,6 +304,9 @@ end
 %doc doc/*.ps doc/*.0 doc/*.html doc/article.txt
 
 %changelog
+* Tue Aug 22 2017 Siteshwar Vashisht <svashisht@redhat.com> - 4.4.12-10
+- Enable parallel builds
+
 * Tue Aug 08 2017 Siteshwar Vashisht <svashisht@redhat.com> - 4.4.12-9
 - command should not be treated as special builtin
   Resolves: #1479220
