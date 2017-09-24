@@ -89,7 +89,7 @@ Patch129: bash-4.4-unset-nonblock-stdin.patch
 # This should be dropped while rebasing to bash-4.5
 Patch130: bash-4.4-assignment-error.patch
 
-# 1458008 - test builtin gives wrong result when file modification times differ below whole seconds
+# 1458008 - test builtin ignores subsecond while comparing file modification times
 # This should be dropped while rebasing to bash-4.5
 Patch131: bash-4.5-test-modification-time.patch
 
@@ -322,7 +322,7 @@ end
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_27_Mass_Rebuild
 
 * Fri Jun 30 2017 Siteshwar Vashisht <svashisht@redhat.com> - 4.4.12-6
-- Fix test for file modification times when they differ below whole seconds
+- Fix test for comparing file modification times when they differ by subsecond
   Resolves: #1458008
 
 * Tue May 30 2017 Siteshwar Vashisht <svashisht@redhat.com> - 4.4.12-5
