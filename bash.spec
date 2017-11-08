@@ -7,7 +7,7 @@
 Version: %{baseversion}%{patchleveltag}
 Name: bash
 Summary: The GNU Bourne Again shell
-Release: 12%{?dist}
+Release: 13%{?dist}
 License: GPLv3+
 Url: http://www.gnu.org/software/bash
 Source0: ftp://ftp.gnu.org/gnu/bash/bash-%{baseversion}.tar.gz
@@ -106,6 +106,14 @@ interpreter that is compatible with the Bourne shell (sh). Bash
 incorporates useful features from the Korn shell (ksh) and the C shell
 (csh). Most sh scripts can be run by bash without modification.
 
+%package devel
+Summary: Development headers for %{name}
+Requires: %{name} = %{version}-%{release}
+Requires: pkgconf-pkg-config
+
+%description devel
+This package contains development headers for %{name}.
+
 %package doc
 Summary: Documentation files for %{name}
 Requires: %{name} = %{version}-%{release}
@@ -140,7 +148,7 @@ fi
 # Fix bug #83776
 sed -i -e 's,bashref\.info,bash.info,' doc/bashref.info
 
-%make_install
+%make_install install-headers
 
 mkdir -p %{buildroot}/etc
 
@@ -303,7 +311,14 @@ end
 %files doc -f %{name}-doc.files
 %doc doc/*.ps doc/*.0 doc/*.html doc/article.txt
 
+%files devel
+%{_includedir}/%{name}
+%{_libdir}/pkgconfig/%{name}.pc
+
 %changelog
+* Wed Nov 08 2017 Christoph Junghans <junghans@votca.org> - 4.4.12-13
+- Package headers in devel package, in prep for MPI-bash
+
 * Mon Oct 30 2017 Siteshwar Vashisht <svashisht@redhat.com> - 4.4.12-12
 - Revert change to always source from /etc/bashrc
 
