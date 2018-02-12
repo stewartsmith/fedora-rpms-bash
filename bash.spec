@@ -1,13 +1,13 @@
 #% define beta_tag rc2
 %global _hardened_build 1
-%define patchleveltag .12
+%define patchleveltag .19
 %define baseversion 4.4
 %bcond_without tests
 
 Version: %{baseversion}%{patchleveltag}
 Name: bash
 Summary: The GNU Bourne Again shell
-Release: 14%{?dist}
+Release: 1%{?dist}
 License: GPLv3+
 Url: http://www.gnu.org/software/bash
 Source0: ftp://ftp.gnu.org/gnu/bash/bash-%{baseversion}.tar.gz
@@ -21,7 +21,7 @@ Source3: dot-bash_logout
 
 # Official upstream patches
 # Patches are converted to apply with '-p1'
-%{lua:for i=1,12 do print(string.format("Patch%u: bash-4.4-patch-%u.patch\n", i, i)) end}
+%{lua:for i=1,19 do print(string.format("Patch%u: bash-4.4-patch-%u.patch\n", i, i)) end}
 
 # Other patches
 Patch101: bash-2.02-security.patch
@@ -77,21 +77,17 @@ Patch126: bash-4.3-memleak-lc_all.patch
 # this patch disables it
 Patch127: bash-4.4-no-loadable-builtins.patch
 
-# 1413676 - Bash leaks heredoc fd to child processes
-# This should be dropped while rebasing to bash-4.5
-Patch128: bash-4.4-heredoc-cloexec.patch
-
 # 1068697 - Explicitly unset nonblocking mode while reading from stdin
 # This should be dropped while rebasing to bash-4.5
-Patch129: bash-4.4-unset-nonblock-stdin.patch
+Patch128: bash-4.4-unset-nonblock-stdin.patch
 
 # 1389838 - command builtin should not abort on variable assignment errors
 # This should be dropped while rebasing to bash-4.5
-Patch130: bash-4.4-assignment-error.patch
+Patch129: bash-4.4-assignment-error.patch
 
 # 1458008 - test builtin ignores subsecond while comparing file modification times
 # This should be dropped while rebasing to bash-4.5
-Patch131: bash-4.5-test-modification-time.patch
+Patch130: bash-4.5-test-modification-time.patch
 
 BuildRequires: texinfo bison
 BuildRequires: ncurses-devel
@@ -316,6 +312,10 @@ end
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Mon Feb 12 2018 Siteshwar Vashisht <svashisht@redhat.com> - 4.4.19-1
+- Update to bash-4.4 patchlevel 19
+  Resolves: #1540383
+
 * Wed Feb 07 2018 Fedora Release Engineering <releng@fedoraproject.org> - 4.4.12-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_28_Mass_Rebuild
 
