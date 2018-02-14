@@ -9,8 +9,8 @@ Name: bash
 Summary: The GNU Bourne Again shell
 Release: 1%{?dist}
 License: GPLv3+
-Url: http://www.gnu.org/software/bash
-Source0: ftp://ftp.gnu.org/gnu/bash/bash-%{baseversion}.tar.gz
+Url: https://www.gnu.org/software/bash
+Source0: https://ftp.gnu.org/gnu/bash/bash-%{baseversion}.tar.gz
 
 # For now there isn't any doc
 #Source2: ftp://ftp.gnu.org/gnu/bash/bash-doc-%{version}.tar.gz
