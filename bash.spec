@@ -7,7 +7,7 @@
 Version: %{baseversion}%{patchleveltag}
 Name: bash
 Summary: The GNU Bourne Again shell
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: GPLv3+
 Url: https://www.gnu.org/software/bash
 Source0: https://ftp.gnu.org/gnu/bash/bash-%{baseversion}.tar.gz
@@ -88,6 +88,10 @@ Patch129: bash-4.4-assignment-error.patch
 # 1458008 - test builtin ignores subsecond while comparing file modification times
 # This should be dropped while rebasing to bash-4.5
 Patch130: bash-4.5-test-modification-time.patch
+
+# 1556867 - case in a for loop inside subshell causes syntax error
+# This should be dropped while rebasing to bash-4.5
+Patch131: bash-4.4-case-in-command-subst.patch
 
 BuildRequires: texinfo bison
 BuildRequires: ncurses-devel
@@ -312,6 +316,10 @@ end
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Thu Mar 15 2018 Siteshwar Vashisht <svashisht@redhat.com> - 4.4.19-2
+- Fix handling case statement in command subsitution
+  Resolves: #1556867
+
 * Mon Feb 12 2018 Siteshwar Vashisht <svashisht@redhat.com> - 4.4.19-1
 - Update to bash-4.4 patchlevel 19
   Resolves: #1540383
