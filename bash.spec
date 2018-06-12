@@ -1,13 +1,13 @@
 #% define beta_tag rc2
 %global _hardened_build 1
-%define patchleveltag .19
+%define patchleveltag .23
 %define baseversion 4.4
 %bcond_without tests
 
 Version: %{baseversion}%{patchleveltag}
 Name: bash
 Summary: The GNU Bourne Again shell
-Release: 2%{?dist}
+Release: 1%{?dist}
 License: GPLv3+
 Url: https://www.gnu.org/software/bash
 Source0: https://ftp.gnu.org/gnu/bash/bash-%{baseversion}.tar.gz
@@ -21,7 +21,7 @@ Source3: dot-bash_logout
 
 # Official upstream patches
 # Patches are converted to apply with '-p1'
-%{lua:for i=1,19 do print(string.format("Patch%u: bash-4.4-patch-%u.patch\n", i, i)) end}
+%{lua:for i=1,23 do print(string.format("Patch%u: bash-4.4-patch-%u.patch\n", i, i)) end}
 
 # Other patches
 Patch101: bash-2.02-security.patch
@@ -316,6 +316,10 @@ end
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Tue Jun 12 2018 Siteshwar Vashisht <svashisht@redhat.com> - 4.4.23-1
+- Update to bash-4.4 patchlevel 23
+  Resolves: #1585510
+
 * Thu Mar 15 2018 Siteshwar Vashisht <svashisht@redhat.com> - 4.4.19-2
 - Fix handling case statement in command subsitution
   Resolves: #1556867
