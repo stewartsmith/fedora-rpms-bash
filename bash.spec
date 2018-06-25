@@ -7,7 +7,7 @@
 Version: %{baseversion}%{patchleveltag}
 Name: bash
 Summary: The GNU Bourne Again shell
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: GPLv3+
 Url: https://www.gnu.org/software/bash
 Source0: https://ftp.gnu.org/gnu/bash/bash-%{baseversion}.tar.gz
@@ -316,6 +316,11 @@ end
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Mon Jun 25 2018 Miro Hrončok <mhroncok@redhat.com> - 4.4.23-2
+- Move user bin directories in front of the PATH
+  See: https://fedoraproject.org/wiki/Changes/UserPathPrioritization
+  Resolves: #1595098
+
 * Tue Jun 12 2018 Siteshwar Vashisht <svashisht@redhat.com> - 4.4.23-1
 - Update to bash-4.4 patchlevel 23
   Resolves: #1585510
