@@ -93,6 +93,7 @@ Patch130: bash-4.5-test-modification-time.patch
 # This should be dropped while rebasing to bash-4.5
 Patch131: bash-4.4-case-in-command-subst.patch
 
+BuildRequires:  gcc
 BuildRequires: texinfo bison
 BuildRequires: ncurses-devel
 BuildRequires: autoconf, gettext
