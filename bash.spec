@@ -7,7 +7,7 @@
 Version: %{baseversion}%{patchleveltag}
 Name: bash
 Summary: The GNU Bourne Again shell
-Release: 2%{?dist}
+Release: 3%{?dist}
 License: GPLv3+
 Url: https://www.gnu.org/software/bash
 Source0: https://ftp.gnu.org/gnu/bash/bash-%{baseversion}.tar.gz
@@ -317,6 +317,9 @@ end
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Thu Jul 12 2018 Fedora Release Engineering <releng@fedoraproject.org> - 4.4.23-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_29_Mass_Rebuild
+
 * Mon Jun 25 2018 Miro Hrončok <mhroncok@redhat.com> - 4.4.23-2
 - Move user bin directories in front of the PATH
   See: https://fedoraproject.org/wiki/Changes/UserPathPrioritization
