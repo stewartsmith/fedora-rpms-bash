@@ -7,7 +7,7 @@
 Version: %{baseversion}%{patchleveltag}
 Name: bash
 Summary: The GNU Bourne Again shell
-Release: 3%{?dist}
+Release: 4%{?dist}
 License: GPLv3+
 Url: https://www.gnu.org/software/bash
 Source0: https://ftp.gnu.org/gnu/bash/bash-%{baseversion}.tar.gz
@@ -317,6 +317,10 @@ end
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Mon Sep 10 2018 Siteshwar Vashisht <svashisht@redhat.com> - 4.4.23-4
+- Set custom PATH in non-login shells
+  Resolves: #1615131
+
 * Thu Jul 12 2018 Fedora Release Engineering <releng@fedoraproject.org> - 4.4.23-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_29_Mass_Rebuild
 
