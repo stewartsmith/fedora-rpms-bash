@@ -9,10 +9,7 @@
     repositories:
     - repo: "https://src.fedoraproject.org/tests/shell.git"
       dest: "shell"
-    tests:
-    - shell/func
-    - shell/login
-    - shell/smoke
+      fmf_filter: "tier: 1, 2 & tags: classic"
     required_packages:
     - expect            # login requires expect
     - which             # smoke requires which
@@ -27,8 +24,6 @@
     repositories:
     - repo: "https://src.fedoraproject.org/tests/shell.git"
       dest: "shell"
-    tests:
-    - shell/func
-    - shell/smoke
+      fmf_filter: "tier: 1, 2 & tags: container, atomic"
     required_packages:
     - which             # smoke requires which
