@@ -7,7 +7,7 @@
 Version: %{baseversion}%{patchleveltag}
 Name: bash
 Summary: The GNU Bourne Again shell
-Release: 4%{?dist}
+Release: 5%{?dist}
 License: GPLv3+
 Url: https://www.gnu.org/software/bash
 Source0: https://ftp.gnu.org/gnu/bash/bash-%{baseversion}.tar.gz
@@ -92,6 +92,9 @@ Patch130: bash-4.5-test-modification-time.patch
 # 1556867 - case in a for loop inside subshell causes syntax error
 # This should be dropped while rebasing to bash-4.5
 Patch131: bash-4.4-case-in-command-subst.patch
+
+# 1637018
+Patch132: bash-4.4-coverity.patch
 
 BuildRequires:  gcc
 BuildRequires: texinfo bison
@@ -317,6 +320,9 @@ end
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Mon Oct 08 2018 Siteshwar Vashisht <svashisht@redhat.com> - 4.4.23-5
+- Fix some issues identified by coverity
+
 * Mon Sep 10 2018 Siteshwar Vashisht <svashisht@redhat.com> - 4.4.23-4
 - Set custom PATH in non-login shells
   Resolves: #1615131
