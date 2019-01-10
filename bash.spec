@@ -7,7 +7,7 @@
 Version: %{baseversion}%{patchleveltag}
 Name: bash
 Summary: The GNU Bourne Again shell
-Release: 5%{?dist}
+Release: 6%{?dist}
 License: GPLv3+
 Url: https://www.gnu.org/software/bash
 Source0: https://ftp.gnu.org/gnu/bash/bash-%{baseversion}.tar.gz
@@ -320,6 +320,10 @@ end
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Thu Jan 10 2019 Siteshwar Vashisht <svashisht@redhat.com> - 4.4.23-6
+- Avoid duplicating user path entries
+  Resolves: #1652639
+
 * Mon Oct 08 2018 Siteshwar Vashisht <svashisht@redhat.com> - 4.4.23-5
 - Fix some issues identified by coverity
 
