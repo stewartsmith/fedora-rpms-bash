@@ -7,7 +7,7 @@
 Version: %{baseversion}%{patchleveltag}
 Name: bash
 Summary: The GNU Bourne Again shell
-Release: 6%{?dist}
+Release: 7%{?dist}
 License: GPLv3+
 Url: https://www.gnu.org/software/bash
 Source0: https://ftp.gnu.org/gnu/bash/bash-%{baseversion}.tar.gz
@@ -320,6 +320,9 @@ end
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Thu Jan 31 2019 Fedora Release Engineering <releng@fedoraproject.org> - 4.4.23-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_30_Mass_Rebuild
+
 * Thu Jan 10 2019 Siteshwar Vashisht <svashisht@redhat.com> - 4.4.23-6
 - Avoid duplicating user path entries
   Resolves: #1652639
