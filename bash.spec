@@ -1,13 +1,12 @@
 #% define beta_tag rc2
-%global _hardened_build 1
-%define patchleveltag .23
-%define baseversion 4.4
+%define patchleveltag .2
+%define baseversion 5.0
 %bcond_without tests
 
 Version: %{baseversion}%{patchleveltag}
 Name: bash
 Summary: The GNU Bourne Again shell
-Release: 7%{?dist}
+Release: 1%{?dist}
 License: GPLv3+
 Url: https://www.gnu.org/software/bash
 Source0: https://ftp.gnu.org/gnu/bash/bash-%{baseversion}.tar.gz
@@ -21,23 +20,30 @@ Source3: dot-bash_logout
 
 # Official upstream patches
 # Patches are converted to apply with '-p1'
-%{lua:for i=1,23 do print(string.format("Patch%u: bash-4.4-patch-%u.patch\n", i, i)) end}
+%{lua:for i=1,2 do print(string.format("Patch%u: bash-5.0-patch-%u.patch\n", i, i)) end}
 
 # Other patches
-Patch101: bash-2.02-security.patch
-Patch102: bash-2.03-paths.patch
-Patch103: bash-2.03-profile.patch
-Patch104: bash-2.05a-interpreter.patch
-Patch105: bash-2.05b-debuginfo.patch
-Patch106: bash-2.05b-manso.patch
-Patch107: bash-2.05b-pgrp_sync.patch
-Patch108: bash-2.05b-xcc.patch
-Patch109: bash-3.2-audit.patch
-Patch110: bash-3.2-ssh_source_bash.patch
-Patch112: bash-infotags.patch
-Patch113: bash-requires.patch
-Patch114: bash-setlocale.patch
-Patch115: bash-tty-tests.patch
+# We don't want to add '/etc:/usr/etc' in standard utils path.
+Patch101: bash-2.03-paths.patch
+# Non-interactive shells beginning with argv[0][0] == '-' should run the startup files when not in posix mode.
+Patch102: bash-2.03-profile.patch
+# https://bugzilla.redhat.com/show_bug.cgi?id=60870
+Patch103: bash-2.05a-interpreter.patch
+# Generate info for debuginfo files.
+Patch104: bash-2.05b-debuginfo.patch
+# Pid passed to setpgrp() can not be pid of a zombie process.
+Patch105: bash-2.05b-pgrp_sync.patch
+# Enable audit logs
+Patch106: bash-3.2-audit.patch
+# Source bashrc file when bash is run under ssh.
+Patch107: bash-3.2-ssh_source_bash.patch
+# Use makeinfo to generate .texi file
+Patch108: bash-infotags.patch
+# Try to pick up latest `--rpm-requires` patch from http://git.altlinux.org/gears/b/bash4.git
+Patch109: bash-requires.patch
+Patch110: bash-setlocale.patch
+# Disable tty tests while doing bash builds
+Patch111: bash-tty-tests.patch
 
 # 484809, check if interp section is NOBITS
 Patch116: bash-4.0-nobits.patch
@@ -49,57 +55,40 @@ Patch117: bash-4.1-examples.patch
 # when output does not succeed due to EPIPE
 Patch118: bash-4.1-broken_pipe.patch
 
-# Enable system-wide .bash_logout for login shells
+# # Enable system-wide .bash_logout for login shells
 Patch119: bash-4.2-rc2-logout.patch
-
+# 
 # Static analyzis shows some issues in bash-2.05a-interpreter.patch
 Patch120: bash-4.2-coverity.patch
 
-# Don't call malloc in signal handler
-Patch121: bash-4.1-defer-sigchld-trap.patch
-
 # 799958, updated info about trap
+# This patch should be upstreamed.
 Patch122: bash-4.2-manpage_trap.patch
 
 # https://www.securecoding.cert.org/confluence/display/seccode/INT32-C.+Ensure+that+operations+on+signed+integers+do+not+result+in+overflow
+# This patch should be upstreamed.
 Patch123: bash-4.2-size_type.patch
-
+# 
 # 1112710 - mention ulimit -c and -f POSIX block size
+# This patch should be upstreamed.
 Patch124: bash-4.3-man-ulimit.patch
-
+# 
 # 1102815 - fix double echoes in vi visual mode
 Patch125: bash-4.3-noecho.patch
-
-#1241533,1224855 - bash leaks memory when LC_ALL set
+# 
+# #1241533,1224855 - bash leaks memory when LC_ALL set
 Patch126: bash-4.3-memleak-lc_all.patch
-
+# 
 # bash-4.4 builds loadable builtin examples by default
 # this patch disables it
 Patch127: bash-4.4-no-loadable-builtins.patch
-
-# 1068697 - Explicitly unset nonblocking mode while reading from stdin
-# This should be dropped while rebasing to bash-4.5
-Patch128: bash-4.4-unset-nonblock-stdin.patch
-
-# 1389838 - command builtin should not abort on variable assignment errors
-# This should be dropped while rebasing to bash-4.5
-Patch129: bash-4.4-assignment-error.patch
-
-# 1458008 - test builtin ignores subsecond while comparing file modification times
-# This should be dropped while rebasing to bash-4.5
-Patch130: bash-4.5-test-modification-time.patch
-
-# 1556867 - case in a for loop inside subshell causes syntax error
-# This should be dropped while rebasing to bash-4.5
-Patch131: bash-4.4-case-in-command-subst.patch
-
-# 1637018
-Patch132: bash-4.4-coverity.patch
 
 BuildRequires:  gcc
 BuildRequires: texinfo bison
 BuildRequires: ncurses-devel
 BuildRequires: autoconf, gettext
+# Required for bash tests
+BuildRequires: glibc-all-langpacks
 Requires: filesystem >= 3
 Provides: /bin/sh
 Provides: /bin/bash
@@ -112,8 +101,7 @@ incorporates useful features from the Korn shell (ksh) and the C shell
 
 %package devel
 Summary: Development headers for %{name}
-Requires: %{name} = %{version}-%{release}
-Requires: pkgconf-pkg-config
+Requires: %{name}%{?_isa} = %{version}-%{release}
 
 %description devel
 This package contains development headers for %{name}.
@@ -154,7 +142,7 @@ sed -i -e 's,bashref\.info,bash.info,' doc/bashref.info
 
 %make_install install-headers
 
-mkdir -p %{buildroot}/etc
+mkdir -p %{buildroot}/%{_sysconfdir}
 
 # make manpages for bash builtins as per suggestion in DOC/README
 pushd doc
@@ -191,7 +179,7 @@ rm -f %{buildroot}/%{_mandir}/man1/false.1
 
 ln -sf bash %{buildroot}%{_bindir}/sh
 rm -f %{buildroot}%{_infodir}/dir
-mkdir -p %{buildroot}/etc/skel
+mkdir -p %{buildroot}%{_sysconfdir}/skel
 install -p -m644 %SOURCE1 %{buildroot}/etc/skel/.bashrc
 install -p -m644 %SOURCE2 %{buildroot}/etc/skel/.bash_profile
 install -p -m644 %SOURCE3 %{buildroot}/etc/skel/.bash_logout
@@ -234,7 +222,7 @@ mkdir -p %{buildroot}/%{_pkgdocdir}/doc
 rm -rf examples/loadables
 for file in CHANGES COMPAT NEWS NOTES POSIX RBASH README examples
 do
-  cp -rp "$file" %{buildroot}/%{_pkgdocdir}/"$file"
+  cp -rp "$file" %{buildroot}%{_pkgdocdir}/"$file"
   echo "%%doc %{_pkgdocdir}/$file" >> %{name}-doc.files
 done
 echo "%%doc %{_pkgdocdir}/doc" >> %{name}-doc.files
@@ -320,6 +308,10 @@ end
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Thu Feb 14 2019 Siteshwar Vashisht <svashisht@redhat.com> - 5.0.2-1
+- Rebase to bash 5.0
+  Resolves: #1675080
+
 * Thu Jan 31 2019 Fedora Release Engineering <releng@fedoraproject.org> - 4.4.23-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_30_Mass_Rebuild
 

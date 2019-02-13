@@ -1,8 +1,8 @@
 diff --git a/builtins.h b/builtins.h
-index 0cfea18..a6ef958 100644
+index dac95fd..5b7e811 100644
 --- a/builtins.h
 +++ b/builtins.h
-@@ -42,6 +42,7 @@
+@@ -45,6 +45,7 @@
  #define ASSIGNMENT_BUILTIN 0x10	/* This builtin takes assignment statements. */
  #define POSIX_BUILTIN	0x20	/* This builtins is special in the Posix command search order. */
  #define LOCALVAR_BUILTIN   0x40	/* This builtin creates local variables */
@@ -11,16 +11,16 @@ index 0cfea18..a6ef958 100644
  #define BASE_INDENT	4
  
 diff --git a/builtins/mkbuiltins.c b/builtins/mkbuiltins.c
-index 4f51201..283bfea 100644
+index 4f51201..91c25db 100644
 --- a/builtins/mkbuiltins.c
 +++ b/builtins/mkbuiltins.c
 @@ -69,10 +69,15 @@ extern char *strcpy ();
  #define whitespace(c) (((c) == ' ') || ((c) == '\t'))
  
  /* Flag values that builtins can have. */
-+/*  These flags are for the C code generator, 
++/*  These flags are for the C code generator,
 +    the C which is produced (./builtin.c)
-+    includes the flags definitions found 
++    includes the flags definitions found
 +    in ../builtins.h */
  #define BUILTIN_FLAG_SPECIAL	0x01
  #define BUILTIN_FLAG_ASSIGNMENT 0x02
@@ -30,7 +30,7 @@ index 4f51201..283bfea 100644
  
  #define BASE_INDENT	4
  
-@@ -173,11 +178,20 @@ char *posix_builtins[] =
+@@ -173,11 +178,19 @@ char *posix_builtins[] =
    (char *)NULL
  };
  
@@ -41,7 +41,6 @@ index 4f51201..283bfea 100644
 +  (char *)NULL
 +};
 +
-+
  /* Forward declarations. */
  static int is_special_builtin ();
  static int is_assignment_builtin ();
@@ -51,17 +50,16 @@ index 4f51201..283bfea 100644
  
  #if !defined (HAVE_RENAME)
  static int rename ();
-@@ -831,6 +845,9 @@ builtin_handler (self, defs, arg)
+@@ -831,6 +844,8 @@ builtin_handler (self, defs, arg)
      new->flags |= BUILTIN_FLAG_LOCALVAR;
    if (is_posix_builtin (name))
      new->flags |= BUILTIN_FLAG_POSIX_BUILTIN;
 +  if (is_requires_builtin (name))
 +    new->flags |= BUILTIN_FLAG_REQUIRES;
-+
  
    array_add ((char *)new, defs->builtins);
    building_builtin = 1;
-@@ -1250,12 +1267,13 @@ write_builtins (defs, structfile, externfile)
+@@ -1250,12 +1265,13 @@ write_builtins (defs, structfile, externfile)
  		  else
  		    fprintf (structfile, "(sh_builtin_func_t *)0x0, ");
  
@@ -76,7 +74,7 @@ index 4f51201..283bfea 100644
  		    document_name (builtin));
  
  		  /* Don't translate short document summaries that are identical
-@@ -1645,6 +1663,13 @@ is_posix_builtin (name)
+@@ -1645,6 +1661,13 @@ is_posix_builtin (name)
    return (_find_in_table (name, posix_builtins));
  }
  
@@ -91,15 +89,15 @@ index 4f51201..283bfea 100644
  static int
  rename (from, to)
 diff --git a/doc/bash.1 b/doc/bash.1
-index c21e877..04ce845 100644
+index d91f1fd..111a66d 100644
 --- a/doc/bash.1
 +++ b/doc/bash.1
-@@ -238,6 +238,14 @@ The shell becomes restricted (see
+@@ -239,6 +239,14 @@ The shell becomes restricted (see
  .B "RESTRICTED SHELL"
  below).
  .TP
 +.B \-\-rpm-requires
-+Produce the list of files that are required for the 
++Produce the list of files that are required for the
 +shell script to run.  This implies '-n' and is subject
 +to the same limitations as compile time error checking checking;
 +Command substitutions, Conditional expressions and
@@ -110,15 +108,15 @@ index c21e877..04ce845 100644
  Equivalent to \fB\-v\fP.
  .TP
 diff --git a/doc/bashref.texi b/doc/bashref.texi
-index 06957b6..e3fe925 100644
+index d33cd57..6fc4d18 100644
 --- a/doc/bashref.texi
 +++ b/doc/bashref.texi
-@@ -6243,6 +6243,13 @@ standard.  @xref{Bash POSIX Mode}, for a description of the Bash
+@@ -6453,6 +6453,13 @@ standard.  @xref{Bash POSIX Mode}, for a description of the Bash
  @item --restricted
  Make the shell a restricted shell (@pxref{The Restricted Shell}).
  
 +@item --rpm-requires
-+Produce the list of files that are required for the 
++Produce the list of files that are required for the
 +shell script to run.  This implies '-n' and is subject
 +to the same limitations as compile time error checking checking;
 +Command substitutions, Conditional expressions and @command{eval}
@@ -128,31 +126,24 @@ index 06957b6..e3fe925 100644
  Equivalent to @option{-v}.  Print shell input lines as they're read.
  
 diff --git a/eval.c b/eval.c
-index db863e7..5a5af32 100644
+index f02d6e4..76c1e8d 100644
 --- a/eval.c
 +++ b/eval.c
-@@ -56,6 +56,7 @@ extern int need_here_doc;
- extern int current_command_number, current_command_line_count, line_number;
- extern int expand_aliases;
- extern char *ps0_prompt;
-+extern int rpm_requires;
- 
- #if defined (HAVE_POSIX_SIGNALS)
- extern sigset_t top_level_mask;
-@@ -148,7 +149,7 @@ reader_loop ()
+@@ -142,7 +142,8 @@ reader_loop ()
  
        if (read_command () == 0)
  	{
 -	  if (interactive_shell == 0 && read_but_dont_execute)
++
 +	  if (interactive_shell == 0 && (read_but_dont_execute && !rpm_requires))
  	    {
  	      last_command_exit_value = EXECUTION_SUCCESS;
  	      dispose_command (global_command);
 diff --git a/execute_cmd.c b/execute_cmd.c
-index b5cd405..88c7a5c 100644
+index 8b3c83a..4eae19c 100644
 --- a/execute_cmd.c
 +++ b/execute_cmd.c
-@@ -533,6 +533,8 @@ async_redirect_stdin ()
+@@ -538,6 +538,8 @@ async_redirect_stdin ()
  
  #define DESCRIBE_PID(pid) do { if (interactive) describe_pid (pid); } while (0)
  
@@ -161,7 +152,7 @@ index b5cd405..88c7a5c 100644
  /* Execute the command passed in COMMAND, perhaps doing it asynchronously.
     COMMAND is exactly what read_command () places into GLOBAL_COMMAND.
     ASYNCHROUNOUS, if non-zero, says to do this command in the background.
-@@ -565,7 +567,13 @@ execute_command_internal (command, asynchronous, pipe_in, pipe_out,
+@@ -569,7 +571,13 @@ execute_command_internal (command, asynchronous, pipe_in, pipe_out,
  
    if (breaking || continuing)
      return (last_command_exit_value);
@@ -176,9 +167,9 @@ index b5cd405..88c7a5c 100644
      return (EXECUTION_SUCCESS);
  
    QUIT;
-@@ -5752,7 +5760,7 @@ execute_intern_function (name, funcdef)
- 
-   if (check_identifier (name, posixly_correct) == 0)
+@@ -2813,7 +2821,7 @@ execute_for_command (for_command)
+   save_line_number = line_number;
+   if (check_identifier (for_command->name, 1) == 0)
      {
 -      if (posixly_correct && interactive_shell == 0)
 +      if (posixly_correct && interactive_shell == 0 && rpm_requires == 0)
@@ -186,50 +177,24 @@ index b5cd405..88c7a5c 100644
  	  last_command_exit_value = EX_BADUSAGE;
  	  jump_to_top_level (ERREXIT);
 diff --git a/execute_cmd.h b/execute_cmd.h
-index 62bec82..d42dc85 100644
+index dc2f15e..506fff4 100644
 --- a/execute_cmd.h
 +++ b/execute_cmd.h
-@@ -22,6 +22,8 @@
+@@ -22,6 +22,9 @@
  #define _EXECUTE_CMD_H_
  
  #include "stdc.h"
 +#include "variables.h"
 +#include "command.h"
++
  
  #if defined (ARRAY_VARS)
  struct func_array_state
 diff --git a/make_cmd.c b/make_cmd.c
-index b42e9ff..a982fe0 100644
+index ecbbfd6..3d8bfa4 100644
 --- a/make_cmd.c
 +++ b/make_cmd.c
-@@ -42,11 +42,15 @@
- #include "flags.h"
- #include "make_cmd.h"
- #include "dispose_cmd.h"
-+#include "execute_cmd.h"
- #include "variables.h"
- #include "subst.h"
- #include "input.h"
- #include "ocache.h"
- #include "externs.h"
-+#include "builtins.h"
-+
-+#include "builtins/common.h"
- 
- #if defined (JOB_CONTROL)
- #include "jobs.h"
-@@ -57,6 +61,10 @@
- extern int line_number, current_command_line_count, parser_state;
- extern int last_command_exit_value;
- extern int shell_initialized;
-+extern int rpm_requires;
-+
-+static char *alphabet_set = "abcdefghijklmnopqrstuvwxyz"
-+                     "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
- 
- int here_doc_first_line = 0;
- 
-@@ -839,6 +847,27 @@ make_coproc_command (name, command)
+@@ -828,6 +828,27 @@ make_coproc_command (name, command)
    return (make_command (cm_coproc, (SIMPLE_COM *)temp));
  }
  
@@ -241,9 +206,9 @@ index b42e9ff..a982fe0 100644
 +  if (strchr(filename, '$') || (filename[0] != '/' && strchr(filename, '/')))
 +    return;
 +
-+  /* 
++  /*
 +      if the executable is called via variable substitution we can
-+      not dermine what it is at compile time.  
++      not dermine what it is at compile time.
 +
 +      if the executable consists only of characters not in the
 +      alphabet we do not consider it a dependency just an artifact
@@ -257,7 +222,7 @@ index b42e9ff..a982fe0 100644
  /* Reverse the word list and redirection list in the simple command
     has just been parsed.  It seems simpler to do this here the one
     time then by any other method that I can think of. */
-@@ -856,6 +885,27 @@ clean_simple_command (command)
+@@ -845,6 +866,28 @@ clean_simple_command (command)
  	REVERSE_LIST (command->value.Simple->redirects, REDIRECT *);
      }
  
@@ -282,14 +247,15 @@ index b42e9ff..a982fe0 100644
 +      }
 +    } /*rpm_requires*/
 +
++
    parser_state &= ~PST_REDIRLIST;
    return (command);
  }
 diff --git a/shell.c b/shell.c
-index 7f63969..a0fb7ce 100644
+index a2b2a55..c5d99b3 100644
 --- a/shell.c
 +++ b/shell.c
-@@ -201,6 +201,9 @@ int have_devfd = 0;
+@@ -193,6 +193,9 @@ int have_devfd = 0;
  /* The name of the .(shell)rc file. */
  static char *bashrc_file = DEFAULT_BASHRC;
  
@@ -299,7 +265,7 @@ index 7f63969..a0fb7ce 100644
  /* Non-zero means to act more like the Bourne shell on startup. */
  static int act_like_sh;
  
-@@ -264,6 +267,7 @@ static const struct {
+@@ -259,6 +262,7 @@ static const struct {
    { "protected", Int, &protected_mode, (char **)0x0 },
  #endif
    { "rcfile", Charp, (int *)0x0, &bashrc_file },
@@ -307,7 +273,7 @@ index 7f63969..a0fb7ce 100644
  #if defined (RESTRICTED_SHELL)
    { "restricted", Int, &restricted, (char **)0x0 },
  #endif
-@@ -500,6 +504,12 @@ main (argc, argv, env)
+@@ -496,6 +500,12 @@ main (argc, argv, env)
    if (dump_translatable_strings)
      read_but_dont_execute = 1;
  
@@ -320,6 +286,36 @@ index 7f63969..a0fb7ce 100644
    if (running_setuid && privileged_mode == 0)
      disable_priv_mode ();
  
+diff --git a/shell.h b/shell.h
+index 8072605..6c4149d 100644
+--- a/shell.h
++++ b/shell.h
+@@ -34,12 +34,15 @@
+ #include "maxpath.h"
+ #include "unwind_prot.h"
+ #include "dispose_cmd.h"
++#include "execute_cmd.h"
+ #include "make_cmd.h"
+ #include "ocache.h"
+ #include "subst.h"
+ #include "sig.h"
+ #include "pathnames.h"
+ #include "externs.h"
++#include "builtins.h"
++#include "builtins/common.h"
+ 
+ extern int EOF_Reached;
+ 
+@@ -99,6 +102,9 @@ extern int interactive, interactive_shell;
+ extern int startup_state;
+ extern int reading_shell_script;
+ extern int shell_initialized;
++extern int rpm_requires;
++static char *alphabet_set = "abcdefghijklmnopqrstuvwxyz"
++                     "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+ extern int bash_argv_initialized;
+ extern int subshell_environment;
+ extern int current_command_number;
 -- 
-2.9.3
+2.17.2
 
