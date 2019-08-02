@@ -143,7 +143,7 @@ diff --git a/execute_cmd.c b/execute_cmd.c
 index 8b3c83a..4eae19c 100644
 --- a/execute_cmd.c
 +++ b/execute_cmd.c
-@@ -538,6 +538,8 @@ async_redirect_stdin ()
+@@ -542,6 +542,8 @@ async_redirect_stdin ()
  
  #define DESCRIBE_PID(pid) do { if (interactive) describe_pid (pid); } while (0)
  
@@ -152,7 +152,7 @@ index 8b3c83a..4eae19c 100644
  /* Execute the command passed in COMMAND, perhaps doing it asynchronously.
     COMMAND is exactly what read_command () places into GLOBAL_COMMAND.
     ASYNCHROUNOUS, if non-zero, says to do this command in the background.
-@@ -569,7 +571,13 @@ execute_command_internal (command, asynchronous, pipe_in, pipe_out,
+@@ -573,7 +575,13 @@ execute_command_internal (command, asynchronous, pipe_in, pipe_out,
  
    if (breaking || continuing)
      return (last_command_exit_value);
@@ -167,7 +167,7 @@ index 8b3c83a..4eae19c 100644
      return (EXECUTION_SUCCESS);
  
    QUIT;
-@@ -2813,7 +2821,7 @@ execute_for_command (for_command)
+@@ -2819,7 +2827,7 @@ execute_for_command (for_command)
    save_line_number = line_number;
    if (check_identifier (for_command->name, 1) == 0)
      {
@@ -194,7 +194,16 @@ diff --git a/make_cmd.c b/make_cmd.c
 index ecbbfd6..3d8bfa4 100644
 --- a/make_cmd.c
 +++ b/make_cmd.c
-@@ -828,6 +828,27 @@ make_coproc_command (name, command)
+@@ -35,6 +35,8 @@
+ #include "bashintl.h"
+ 
+ #include "shell.h"
++#include "builtins.h"
++#include "builtins/common.h"
+ #include "execute_cmd.h"
+ #include "parser.h"
+ #include "flags.h"
+@@ -828,6 +830,30 @@ make_coproc_command (name, command)
    return (make_command (cm_coproc, (SIMPLE_COM *)temp));
  }
  
@@ -203,6 +212,9 @@ index ecbbfd6..3d8bfa4 100644
 +const char *deptype;
 +char *filename;
 +{
++  static char *alphabet_set = "abcdefghijklmnopqrstuvwxyz"
++                    "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
++
 +  if (strchr(filename, '$') || (filename[0] != '/' && strchr(filename, '/')))
 +    return;
 +
@@ -222,7 +234,7 @@ index ecbbfd6..3d8bfa4 100644
  /* Reverse the word list and redirection list in the simple command
     has just been parsed.  It seems simpler to do this here the one
     time then by any other method that I can think of. */
-@@ -845,6 +866,28 @@ clean_simple_command (command)
+@@ -845,6 +871,28 @@ clean_simple_command (command)
  	REVERSE_LIST (command->value.Simple->redirects, REDIRECT *);
      }
  
@@ -290,32 +302,11 @@ diff --git a/shell.h b/shell.h
 index 8072605..6c4149d 100644
 --- a/shell.h
 +++ b/shell.h
-@@ -34,12 +34,15 @@
- #include "maxpath.h"
- #include "unwind_prot.h"
- #include "dispose_cmd.h"
-+#include "execute_cmd.h"
- #include "make_cmd.h"
- #include "ocache.h"
- #include "subst.h"
- #include "sig.h"
- #include "pathnames.h"
- #include "externs.h"
-+#include "builtins.h"
-+#include "builtins/common.h"
- 
- extern int EOF_Reached;
- 
-@@ -99,6 +102,9 @@ extern int interactive, interactive_shell;
+@@ -99,6 +99,7 @@ extern int interactive, interactive_shell;
  extern int startup_state;
  extern int reading_shell_script;
  extern int shell_initialized;
 +extern int rpm_requires;
-+static char *alphabet_set = "abcdefghijklmnopqrstuvwxyz"
-+                     "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
  extern int bash_argv_initialized;
  extern int subshell_environment;
  extern int current_command_number;
--- 
-2.17.2
-

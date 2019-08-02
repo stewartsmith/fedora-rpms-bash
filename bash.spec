@@ -6,13 +6,13 @@
 Version: %{baseversion}%{patchleveltag}
 Name: bash
 Summary: The GNU Bourne Again shell
-Release: 2%{?dist}
+Release: 3%{?dist}
 License: GPLv3+
 Url: https://www.gnu.org/software/bash
 Source0: https://ftp.gnu.org/gnu/bash/bash-%{baseversion}.tar.gz
 
 # For now there isn't any doc
-#Source2: ftp://ftp.gnu.org/gnu/bash/bash-doc-%{version}.tar.gz
+#Source2: ftp://ftp.gnu.org/gnu/bash/bash-doc-%%{version}.tar.gz
 
 Source1: dot-bashrc
 Source2: dot-bash_profile
@@ -308,6 +308,10 @@ end
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Fri Aug 02 2019 Kamil Dudka <kdudka@redhat.com> - 5.0.7-3
+- Sanitize public header file <shell.h>
+  Resolves: #1736676
+
 * Wed Jul 24 2019 Fedora Release Engineering <releng@fedoraproject.org> - 5.0.7-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_31_Mass_Rebuild
 
