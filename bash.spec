@@ -1,12 +1,12 @@
 #% define beta_tag rc2
-%define patchleveltag .7
+%define patchleveltag .11
 %define baseversion 5.0
 %bcond_without tests
 
 Version: %{baseversion}%{patchleveltag}
 Name: bash
 Summary: The GNU Bourne Again shell
-Release: 3%{?dist}
+Release: 1%{?dist}
 License: GPLv3+
 Url: https://www.gnu.org/software/bash
 Source0: https://ftp.gnu.org/gnu/bash/bash-%{baseversion}.tar.gz
@@ -20,7 +20,7 @@ Source3: dot-bash_logout
 
 # Official upstream patches
 # Patches are converted to apply with '-p1'
-%{lua:for i=1,7 do print(string.format("Patch%u: bash-5.0-patch-%u.patch\n", i, i)) end}
+%{lua:for i=1,11 do print(string.format("Patch%u: bash-5.0-patch-%u.patch\n", i, i)) end}
 
 # Other patches
 # We don't want to add '/etc:/usr/etc' in standard utils path.
@@ -308,6 +308,10 @@ end
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Fri Dec 06 2019 Siteshwar Vashisht <svashisht@redhat.com> - 5.0.11-1
+- Update to bash-5.0 patchlevel 11
+  Resolves: #1745602
+
 * Fri Aug 02 2019 Kamil Dudka <kdudka@redhat.com> - 5.0.7-3
 - Sanitize public header file <shell.h>
   Resolves: #1736676
