@@ -1,12 +1,12 @@
 #% define beta_tag rc2
-%define patchleveltag .11
+%define patchleveltag .17
 %define baseversion 5.0
 %bcond_without tests
 
 Version: %{baseversion}%{patchleveltag}
 Name: bash
 Summary: The GNU Bourne Again shell
-Release: 2%{?dist}
+Release: 1%{?dist}
 License: GPLv3+
 Url: https://www.gnu.org/software/bash
 Source0: https://ftp.gnu.org/gnu/bash/bash-%{baseversion}.tar.gz
@@ -20,7 +20,7 @@ Source3: dot-bash_logout
 
 # Official upstream patches
 # Patches are converted to apply with '-p1'
-%{lua:for i=1,11 do print(string.format("Patch%u: bash-5.0-patch-%u.patch\n", i, i)) end}
+%{lua:for i=1,17 do print(string.format("Patch%u: bash-5.0-patch-%u.patch\n", i, i)) end}
 
 # Other patches
 # We don't want to add '/etc:/usr/etc' in standard utils path.
@@ -308,6 +308,9 @@ end
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Mon Jun 01 2020 situ <svashisht@redhat.com> - 5.0.17-1
+- Update to bash-5.0 patchlevel 17
+
 * Tue Jan 28 2020 Fedora Release Engineering <releng@fedoraproject.org> - 5.0.11-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_32_Mass_Rebuild
 
