@@ -308,7 +308,7 @@ end
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
-* Mon Jun 01 2020 situ <svashisht@redhat.com> - 5.0.17-1
+* Mon Jun 01 2020 Siteshwar Vashisht <svashisht@redhat.com> - 5.0.17-1
 - Update to bash-5.0 patchlevel 17
 
 * Tue Jan 28 2020 Fedora Release Engineering <releng@fedoraproject.org> - 5.0.11-2
