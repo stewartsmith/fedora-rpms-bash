@@ -252,7 +252,7 @@ end
 
 %postun -p <lua>
 -- Run it only if we are uninstalling
-if arg[2] == "0"
+if arg[2] == 0
 then
   t={}
   for line in io.lines("/etc/shells")
