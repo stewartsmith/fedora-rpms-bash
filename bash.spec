@@ -6,7 +6,7 @@
 Version: %{baseversion}%{patchleveltag}
 Name: bash
 Summary: The GNU Bourne Again shell
-Release: 2%{?dist}
+Release: 3%{?dist}
 License: GPLv3+
 Url: https://www.gnu.org/software/bash
 Source0: https://ftp.gnu.org/gnu/bash/bash-%{baseversion}.tar.gz
@@ -308,6 +308,10 @@ end
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Fri Dec  4 14:44:06 CET 2020 Siteshwar Vashisht <svashisht@redhat.com> - 5.0.17-3
+- Enable sourcing files from ~/.bashrc.d
+  Resolves: #1726397
+
 * Mon Jul 27 2020 Fedora Release Engineering <releng@fedoraproject.org> - 5.0.17-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
 
