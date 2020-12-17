@@ -89,6 +89,7 @@ BuildRequires: ncurses-devel
 BuildRequires: autoconf, gettext
 # Required for bash tests
 BuildRequires: glibc-all-langpacks
+BuildRequires: make
 Requires: filesystem >= 3
 Provides: /bin/sh
 Provides: /bin/bash
