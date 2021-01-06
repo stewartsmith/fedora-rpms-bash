@@ -11,7 +11,7 @@ index dac95fd..5b7e811 100644
  #define BASE_INDENT	4
  
 diff --git a/builtins/mkbuiltins.c b/builtins/mkbuiltins.c
-index 4f51201..91c25db 100644
+index e243021..0a7a0e5 100644
 --- a/builtins/mkbuiltins.c
 +++ b/builtins/mkbuiltins.c
 @@ -69,10 +69,15 @@ extern char *strcpy ();
@@ -89,7 +89,7 @@ index 4f51201..91c25db 100644
  static int
  rename (from, to)
 diff --git a/doc/bash.1 b/doc/bash.1
-index d91f1fd..111a66d 100644
+index 5af7d42..7539368 100644
 --- a/doc/bash.1
 +++ b/doc/bash.1
 @@ -239,6 +239,14 @@ The shell becomes restricted (see
@@ -108,10 +108,10 @@ index d91f1fd..111a66d 100644
  Equivalent to \fB\-v\fP.
  .TP
 diff --git a/doc/bashref.texi b/doc/bashref.texi
-index d33cd57..6fc4d18 100644
+index 9e23f58..d02151e 100644
 --- a/doc/bashref.texi
 +++ b/doc/bashref.texi
-@@ -6453,6 +6453,13 @@ standard.  @xref{Bash POSIX Mode}, for a description of the Bash
+@@ -6554,6 +6554,13 @@ standard.  @xref{Bash POSIX Mode}, for a description of the Bash
  @item --restricted
  Make the shell a restricted shell (@pxref{The Restricted Shell}).
  
@@ -126,10 +126,10 @@ index d33cd57..6fc4d18 100644
  Equivalent to @option{-v}.  Print shell input lines as they're read.
  
 diff --git a/eval.c b/eval.c
-index f02d6e4..76c1e8d 100644
+index 1d967da..f197033 100644
 --- a/eval.c
 +++ b/eval.c
-@@ -142,7 +142,8 @@ reader_loop ()
+@@ -137,7 +137,8 @@ reader_loop ()
  
        if (read_command () == 0)
  	{
@@ -137,13 +137,13 @@ index f02d6e4..76c1e8d 100644
 +
 +	  if (interactive_shell == 0 && (read_but_dont_execute && !rpm_requires))
  	    {
- 	      last_command_exit_value = EXECUTION_SUCCESS;
+ 	      set_exit_status (EXECUTION_SUCCESS);
  	      dispose_command (global_command);
 diff --git a/execute_cmd.c b/execute_cmd.c
-index 8b3c83a..4eae19c 100644
+index d2555ad..397e283 100644
 --- a/execute_cmd.c
 +++ b/execute_cmd.c
-@@ -542,6 +542,8 @@ async_redirect_stdin ()
+@@ -543,6 +543,8 @@ async_redirect_stdin ()
  
  #define DESCRIBE_PID(pid) do { if (interactive) describe_pid (pid); } while (0)
  
@@ -151,8 +151,8 @@ index 8b3c83a..4eae19c 100644
 +
  /* Execute the command passed in COMMAND, perhaps doing it asynchronously.
     COMMAND is exactly what read_command () places into GLOBAL_COMMAND.
-    ASYNCHROUNOUS, if non-zero, says to do this command in the background.
-@@ -573,7 +575,13 @@ execute_command_internal (command, asynchronous, pipe_in, pipe_out,
+    ASYNCHRONOUS, if non-zero, says to do this command in the background.
+@@ -574,7 +576,13 @@ execute_command_internal (command, asynchronous, pipe_in, pipe_out,
  
    if (breaking || continuing)
      return (last_command_exit_value);
@@ -167,7 +167,7 @@ index 8b3c83a..4eae19c 100644
      return (EXECUTION_SUCCESS);
  
    QUIT;
-@@ -2819,7 +2827,7 @@ execute_for_command (for_command)
+@@ -2836,7 +2844,7 @@ execute_for_command (for_command)
    save_line_number = line_number;
    if (check_identifier (for_command->name, 1) == 0)
      {
@@ -177,7 +177,7 @@ index 8b3c83a..4eae19c 100644
  	  last_command_exit_value = EX_BADUSAGE;
  	  jump_to_top_level (ERREXIT);
 diff --git a/execute_cmd.h b/execute_cmd.h
-index dc2f15e..506fff4 100644
+index 465030a..9c7fd1c 100644
 --- a/execute_cmd.h
 +++ b/execute_cmd.h
 @@ -22,6 +22,9 @@
@@ -191,7 +191,7 @@ index dc2f15e..506fff4 100644
  #if defined (ARRAY_VARS)
  struct func_array_state
 diff --git a/make_cmd.c b/make_cmd.c
-index ecbbfd6..3d8bfa4 100644
+index 2d7ac96..ac53526 100644
 --- a/make_cmd.c
 +++ b/make_cmd.c
 @@ -35,6 +35,8 @@
@@ -264,10 +264,10 @@ index ecbbfd6..3d8bfa4 100644
    return (command);
  }
 diff --git a/shell.c b/shell.c
-index a2b2a55..c5d99b3 100644
+index ce8087f..7dcd000 100644
 --- a/shell.c
 +++ b/shell.c
-@@ -193,6 +193,9 @@ int have_devfd = 0;
+@@ -194,6 +194,9 @@ int have_devfd = 0;
  /* The name of the .(shell)rc file. */
  static char *bashrc_file = DEFAULT_BASHRC;
  
@@ -277,7 +277,7 @@ index a2b2a55..c5d99b3 100644
  /* Non-zero means to act more like the Bourne shell on startup. */
  static int act_like_sh;
  
-@@ -259,6 +262,7 @@ static const struct {
+@@ -260,6 +263,7 @@ static const struct {
    { "protected", Int, &protected_mode, (char **)0x0 },
  #endif
    { "rcfile", Charp, (int *)0x0, &bashrc_file },
@@ -285,7 +285,7 @@ index a2b2a55..c5d99b3 100644
  #if defined (RESTRICTED_SHELL)
    { "restricted", Int, &restricted, (char **)0x0 },
  #endif
-@@ -496,6 +500,12 @@ main (argc, argv, env)
+@@ -502,6 +506,12 @@ main (argc, argv, env)
    if (dump_translatable_strings)
      read_but_dont_execute = 1;
  
@@ -299,7 +299,7 @@ index a2b2a55..c5d99b3 100644
      disable_priv_mode ();
  
 diff --git a/shell.h b/shell.h
-index 8072605..6c4149d 100644
+index 8b41792..29b0efb 100644
 --- a/shell.h
 +++ b/shell.h
 @@ -99,6 +99,7 @@ extern int interactive, interactive_shell;

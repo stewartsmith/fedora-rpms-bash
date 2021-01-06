@@ -1,5 +1,5 @@
 diff --git a/tests/exec.right b/tests/exec.right
-index 6075cc8..0b3f02c 100644
+index 0a249dd..fe8a127 100644
 --- a/tests/exec.right
 +++ b/tests/exec.right
 @@ -51,7 +51,6 @@ this is ohio-state
@@ -11,7 +11,7 @@ index 6075cc8..0b3f02c 100644
  1
  1
 diff --git a/tests/execscript b/tests/execscript
-index c1819de..9227a4a 100644
+index 2809676..1216828 100644
 --- a/tests/execscript
 +++ b/tests/execscript
 @@ -108,8 +108,6 @@ ${THIS_SH} ./exec6.sub
@@ -24,7 +24,7 @@ index c1819de..9227a4a 100644
  
  ${THIS_SH} ./exec10.sub
 diff --git a/tests/read.right b/tests/read.right
-index 73cb704..a92fe7f 100644
+index 1144083..09cd422 100644
 --- a/tests/read.right
 +++ b/tests/read.right
 @@ -33,14 +33,6 @@ a = abcdefg
@@ -35,18 +35,18 @@ index 73cb704..a92fe7f 100644
 -
 -timeout 2: ok
 -
--./read2.sub: line 23: read: -3: invalid timeout specification
+-./read2.sub: line 36: read: -3: invalid timeout specification
 -1
 -
 -abcde
- ./read3.sub: line 4: read: -1: invalid number
+ ./read3.sub: line 17: read: -1: invalid number
  abc
  ab
 diff --git a/tests/read.tests b/tests/read.tests
-index f67cd00..083f4a4 100644
+index 7384f05..43fcf8d 100644
 --- a/tests/read.tests
 +++ b/tests/read.tests
-@@ -82,9 +82,6 @@ echo " foo" | { IFS=$':' ; read line; recho "$line"; }
+@@ -95,9 +95,6 @@ echo " foo" | { IFS=$':' ; read line; recho "$line"; }
  # test read -d delim behavior
  ${THIS_SH} ./read1.sub
  
@@ -56,6 +56,3 @@ index f67cd00..083f4a4 100644
  # test read -n nchars behavior
  ${THIS_SH} ./read3.sub
  
--- 
-2.17.2
-

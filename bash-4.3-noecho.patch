@@ -1,8 +1,8 @@
 diff --git a/parse.y b/parse.y
-index 07e6e3e..4cd373f 100644
+index df1231d..2449fa8 100644
 --- a/parse.y
 +++ b/parse.y
-@@ -4410,6 +4410,8 @@ xparse_dolparen (base, string, indp, flags)
+@@ -4482,6 +4482,8 @@ xparse_dolparen (base, string, indp, flags)
    save_parser_state (&ps);
    save_input_line_state (&ls);
    orig_eof_token = shell_eof_token;
@@ -12,18 +12,18 @@ index 07e6e3e..4cd373f 100644
    saved_pushed_strings = pushed_string_list;	/* separate parsing context */
    pushed_string_list = (STRING_SAVER *)NULL;
 diff --git a/subst.c b/subst.c
-index 9559187..0c2caa6 100644
+index 9ccbf33..8a9ee5c 100644
 --- a/subst.c
 +++ b/subst.c
-@@ -9145,6 +9145,7 @@ param_expand (string, sindex, quoted, expanded_something,
-   WORD_LIST *list;
+@@ -9453,6 +9453,7 @@ param_expand (string, sindex, quoted, expanded_something,
+   WORD_LIST *list, *l;
    WORD_DESC *tdesc, *ret;
-   int tflag;
+   int tflag, nullarg;
 +  int old_echo_input;
  
  /*itrace("param_expand: `%s' pflags = %d", string+*sindex, pflags);*/
    zindex = *sindex;
-@@ -9514,6 +9515,9 @@ arithsub:
+@@ -9843,6 +9844,9 @@ arithsub:
  	}
  
  comsub:
@@ -33,7 +33,7 @@ index 9559187..0c2caa6 100644
        if (pflags & PF_NOCOMSUB)
  	/* we need zindex+1 because string[zindex] == RPAREN */
  	temp1 = substring (string, *sindex, zindex+1);
-@@ -9526,6 +9530,7 @@ comsub:
+@@ -9855,6 +9859,7 @@ comsub:
  	}
        FREE (temp);
        temp = temp1;
@@ -41,6 +41,3 @@ index 9559187..0c2caa6 100644
        break;
  
      /* Do POSIX.2d9-style arithmetic substitution.  This will probably go
--- 
-2.17.2
-
