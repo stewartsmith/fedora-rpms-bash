@@ -43,20 +43,20 @@ Patch109: bash-requires.patch
 Patch110: bash-setlocale.patch
 # Disable tty tests while doing bash builds
 Patch111: bash-tty-tests.patch
- 
+
 # 484809, check if interp section is NOBITS
 Patch116: bash-4.0-nobits.patch
- 
+
 # Do the same CFLAGS in generated Makefile in examples
 Patch117: bash-4.1-examples.patch
- 
+
 # Builtins like echo and printf won't report errors
 # when output does not succeed due to EPIPE
 Patch118: bash-4.1-broken_pipe.patch
 
 # # Enable system-wide .bash_logout for login shells
 Patch119: bash-4.2-rc2-logout.patch
- 
+
 # Static analyzis shows some issues in bash-2.05a-interpreter.patch
 Patch120: bash-4.2-coverity.patch
 
@@ -67,17 +67,17 @@ Patch122: bash-4.2-manpage_trap.patch
 # https://www.securecoding.cert.org/confluence/display/seccode/INT32-C.+Ensure+that+operations+on+signed+integers+do+not+result+in+overflow
 # This patch should be upstreamed.
 Patch123: bash-4.2-size_type.patch
- 
+
 # 1112710 - mention ulimit -c and -f POSIX block size
 # This patch should be upstreamed.
 Patch124: bash-4.3-man-ulimit.patch
 
 # 1102815 - fix double echoes in vi visual mode
 Patch125: bash-4.3-noecho.patch
- 
+
 #1241533,1224855 - bash leaks memory when LC_ALL set
 Patch126: bash-4.3-memleak-lc_all.patch
- 
+
 # bash-4.4 builds loadable builtin examples by default
 # this patch disables it
 Patch127: bash-4.4-no-loadable-builtins.patch
@@ -958,8 +958,8 @@ end
 - Rebuild
 
 * Mon Aug 20 2007 Pete Graner <pgraner@redhat.com> - 3.2-15
-- Update to the Improve bash $RANDOM pseudo RNG (bug #234906) 
-  now works with subshells and make $RANDOM on demand thus reducing the 
+- Update to the Improve bash $RANDOM pseudo RNG (bug #234906)
+  now works with subshells and make $RANDOM on demand thus reducing the
   amount of AVCs thrown.
 
 * Thu Aug 16 2007 Pete Graner <pgraner@redhat.com> - 3.2-15
@@ -1274,7 +1274,7 @@ end
 * Mon Jun 28 2004 Tim Waugh <twaugh@redhat.com> 2.05b-42
 - Fixed multibyte variable substitution patch (bug #126399).
 
-* Thu Jun 17 2004 Karsten Hopp <karsten@redhat.de> 2.05b-41 
+* Thu Jun 17 2004 Karsten Hopp <karsten@redhat.de> 2.05b-41
 - remove bashbug script/docs to avoid conflicting files in
   biarch installs.
 
@@ -1390,7 +1390,7 @@ end
 - Force pgrp synchronization (bug #81653).
 
 * Thu Dec 05 2002 Elliot Lee <sopwith@redhat.com> 2.05b-13
-- (patch26) Don't call 'size' in makefile. Pointless, and interferes with 
+- (patch26) Don't call 'size' in makefile. Pointless, and interferes with
   cross compiles.
 
 * Tue Dec  3 2002 Tim Waugh <twaugh@redhat.com> 2.05b-12
@@ -1563,7 +1563,7 @@ end
 
 * Thu Nov 16 2000 Bernhard Rosenkraenzer <bero@redhat.com>
 - restore the ^Hs in documentation, they're highlighting sequences
-  for less (#20654) 
+  for less (#20654)
 
 * Fri Sep 15 2000 Florian La Roche <Florian.LaRoche@redhat.de>
 - bash-2.04-export.patch is reported to fix compilation
@@ -1632,7 +1632,7 @@ end
 * Fri Jul 16 1999 Ken Estes <kestes@staff.mail.com>
 - patch to detect what executables are required by a script.
 
-* Sun Mar 21 1999 Cristian Gafton <gafton@redhat.com> 
+* Sun Mar 21 1999 Cristian Gafton <gafton@redhat.com>
 - auto rebuild in the new build environment (release 4)
 
 * Fri Mar 19 1999 Jeff Johnson <jbj@redhat.com>
@@ -1695,7 +1695,7 @@ end
 
 * Mon Oct 20 1997 Erik Troan <ewt@redhat.com>
 - added comment explaining why install-info isn't used
-- added mips patch 
+- added mips patch
 
 * Fri Oct 17 1997 Donnie Barnes <djb@redhat.com>
 - added BuildRoot
