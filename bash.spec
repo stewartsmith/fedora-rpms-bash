@@ -1,12 +1,12 @@
 #% define beta_tag rc2
-%define patchleveltag .0
+%define patchleveltag .4
 %define baseversion 5.1
 %bcond_without tests
 
 Version: %{baseversion}%{patchleveltag}
 Name: bash
 Summary: The GNU Bourne Again shell
-Release: 2%{?dist}
+Release: 1%{?dist}
 License: GPLv3+
 Url: https://www.gnu.org/software/bash
 Source0: https://ftp.gnu.org/gnu/bash/bash-%{baseversion}.tar.gz
@@ -20,6 +20,7 @@ Source3: dot-bash_logout
 
 # Official upstream patches
 # Patches are converted to apply with '-p1'
+%{lua:for i=1,4 do print(string.format("Patch%u: bash-5.1-patch-%u.patch\n", i, i)) end}
 
 # Other patches
 # We don't want to add '/etc:/usr/etc' in standard utils path.
@@ -313,6 +314,9 @@ end
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Wed Feb 17 2021 Siteshwar Vashisht <svashisht@redhat.com> - 5.1.4-1
+- Update to bash-5.1 patchlevel 4
+
 * Tue Jan 26 2021 Fedora Release Engineering <releng@fedoraproject.org> - 5.1.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
 
