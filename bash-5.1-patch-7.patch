@@ -1,0 +1,71 @@
+From b72f88db852104cf49cfb4762eda6e8f4fd20a70 Mon Sep 17 00:00:00 2001
+From: Chet Ramey <chet.ramey@case.edu>
+Date: Tue, 4 May 2021 14:31:05 -0400
+Subject: [PATCH] Bash-5.1 patch 7: fix version comparisons in readline startup
+ files
+
+---
+ lib/readline/bind.c | 15 ++++++++-------
+ patchlevel.h        |  2 +-
+ 2 files changed, 9 insertions(+), 8 deletions(-)
+
+diff --git a/lib/readline/bind.c b/lib/readline/bind.c
+index 87596dce..76103786 100644
+--- a/lib/readline/bind.c
++++ b/lib/readline/bind.c
+@@ -1234,7 +1234,7 @@ parser_if (char *args)
+ #endif /* VI_MODE */
+   else if (_rl_strnicmp (args, "version", 7) == 0)
+     {
+-      int rlversion, versionarg, op, previ, major, minor;
++      int rlversion, versionarg, op, previ, major, minor, opresult;
+ 
+       _rl_parsing_conditionalized_out = 1;
+       rlversion = RL_VERSION_MAJOR*10 + RL_VERSION_MINOR;
+@@ -1294,24 +1294,25 @@ parser_if (char *args)
+       switch (op)
+ 	{
+ 	case OP_EQ:
+-	  _rl_parsing_conditionalized_out = rlversion == versionarg;
++ 	  opresult = rlversion == versionarg;
+ 	  break;
+ 	case OP_NE:
+-	  _rl_parsing_conditionalized_out = rlversion != versionarg;
++	  opresult = rlversion != versionarg;
+ 	  break;
+ 	case OP_GT:
+-	  _rl_parsing_conditionalized_out = rlversion > versionarg;
++	  opresult = rlversion > versionarg;
+ 	  break;
+ 	case OP_GE:
+-	  _rl_parsing_conditionalized_out = rlversion >= versionarg;
++	  opresult = rlversion >= versionarg;
+ 	  break;
+ 	case OP_LT:
+-	  _rl_parsing_conditionalized_out = rlversion < versionarg;
++	  opresult = rlversion < versionarg;
+ 	  break;
+ 	case OP_LE:
+-	  _rl_parsing_conditionalized_out = rlversion <= versionarg;
++	  opresult = rlversion <= versionarg;
+ 	  break;
+ 	}
++      _rl_parsing_conditionalized_out = 1 - opresult;
+     }
+   /* Check to see if the first word in ARGS is the same as the
+      value stored in rl_readline_name. */
+diff --git a/patchlevel.h b/patchlevel.h
+index 6257aeeb..c5ed66ab 100644
+--- a/patchlevel.h
++++ b/patchlevel.h
+@@ -25,6 +25,6 @@
+    regexp `^#define[ 	]*PATCHLEVEL', since that's what support/mkversion.sh
+    looks for to find the patch level (for the sccs version string). */
+ 
+-#define PATCHLEVEL 6
++#define PATCHLEVEL 7
+ 
+ #endif /* _PATCHLEVEL_H_ */
+-- 
+2.29.2
+

@@ -1,0 +1,44 @@
+From f3cd936b81006df41a1c8509891dea1edeaef8e6 Mon Sep 17 00:00:00 2001
+From: Chet Ramey <chet.ramey@case.edu>
+Date: Tue, 4 May 2021 14:30:17 -0400
+Subject: [PATCH] Bash-5.1 patch 6: make sure child processes forked to execute
+ command substitutions are in the right process group
+
+---
+ patchlevel.h | 2 +-
+ subst.c      | 7 +++++++
+ 2 files changed, 8 insertions(+), 1 deletion(-)
+
+diff --git a/patchlevel.h b/patchlevel.h
+index c7f39aec..6257aeeb 100644
+--- a/patchlevel.h
++++ b/patchlevel.h
+@@ -25,6 +25,6 @@
+    regexp `^#define[ 	]*PATCHLEVEL', since that's what support/mkversion.sh
+    looks for to find the patch level (for the sccs version string). */
+ 
+-#define PATCHLEVEL 5
++#define PATCHLEVEL 6
+ 
+ #endif /* _PATCHLEVEL_H_ */
+diff --git a/subst.c b/subst.c
+index 1d24188e..462752de 100644
+--- a/subst.c
++++ b/subst.c
+@@ -6412,6 +6412,13 @@ command_substitute (string, quoted, flags)
+       /* The currently executing shell is not interactive. */
+       interactive = 0;
+ 
++#if defined (JOB_CONTROL)
++      /* Invariant: in child processes started to run command substitutions,
++	 pipeline_pgrp == shell_pgrp. Other parts of the shell assume this. */
++      if (pipeline_pgrp > 0 && pipeline_pgrp != shell_pgrp)
++	shell_pgrp = pipeline_pgrp;
++#endif
++
+       set_sigint_handler ();	/* XXX */
+ 
+       free_pushed_string_input ();
+-- 
+2.29.2
+

@@ -1,0 +1,85 @@
+From cc978a670597afc3251baca3a7db553f36946c22 Mon Sep 17 00:00:00 2001
+From: Chet Ramey <chet.ramey@case.edu>
+Date: Tue, 4 May 2021 14:29:06 -0400
+Subject: [PATCH] Bash-5.1 patch 5: fix memory leaks in compound array
+ assignments
+
+---
+ arrayfunc.c  | 11 +++--------
+ patchlevel.h |  2 +-
+ subst.c      |  2 ++
+ 3 files changed, 6 insertions(+), 9 deletions(-)
+
+diff --git a/arrayfunc.c b/arrayfunc.c
+index 8231ba1e..9338dfc7 100644
+--- a/arrayfunc.c
++++ b/arrayfunc.c
+@@ -564,12 +564,9 @@ assign_assoc_from_kvlist (var, nlist, h, flags)
+ {
+   WORD_LIST *list;
+   char *akey, *aval, *k, *v;
+-  int free_aval;
+ 
+   for (list = nlist; list; list = list->next)
+     {
+-      free_aval = 0;
+-
+       k = list->word->word;
+       v = list->next ? list->next->word->word : 0;
+ 
+@@ -577,24 +574,22 @@ assign_assoc_from_kvlist (var, nlist, h, flags)
+         list = list->next;
+ 
+       akey = expand_assignment_string_to_string (k, 0);
+-      aval = expand_assignment_string_to_string (v, 0);
+-
+       if (akey == 0 || *akey == 0)
+ 	{
+ 	  err_badarraysub (k);
+ 	  FREE (akey);
+ 	  continue;
+ 	}	      
++
++      aval = expand_assignment_string_to_string (v, 0);
+       if (aval == 0)
+ 	{
+ 	  aval = (char *)xmalloc (1);
+ 	  aval[0] = '\0';	/* like do_assignment_internal */
+-	  free_aval = 1;
+ 	}
+ 
+       bind_assoc_var_internal (var, h, akey, aval, flags);
+-      if (free_aval)
+-	free (aval);
++      free (aval);
+     }
+ }
+ 
+diff --git a/patchlevel.h b/patchlevel.h
+index e1429c24..c7f39aec 100644
+--- a/patchlevel.h
++++ b/patchlevel.h
+@@ -25,6 +25,6 @@
+    regexp `^#define[ 	]*PATCHLEVEL', since that's what support/mkversion.sh
+    looks for to find the patch level (for the sccs version string). */
+ 
+-#define PATCHLEVEL 4
++#define PATCHLEVEL 5
+ 
+ #endif /* _PATCHLEVEL_H_ */
+diff --git a/subst.c b/subst.c
+index 6132316a..1d24188e 100644
+--- a/subst.c
++++ b/subst.c
+@@ -11673,6 +11673,8 @@ expand_compound_assignment_word (tlist, flags)
+   free (value);
+ 
+   value = string_list (l);
++  dispose_words (l);
++
+   wlen = STRLEN (value);
+ 
+   /* Now, let's rebuild the string */
+-- 
+2.29.2
+

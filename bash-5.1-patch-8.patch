@@ -1,0 +1,49 @@
+From ce23728687ce9e584333367075c9deef413553fa Mon Sep 17 00:00:00 2001
+From: Chet Ramey <chet.ramey@case.edu>
+Date: Tue, 4 May 2021 14:31:53 -0400
+Subject: [PATCH] Bash-5.1 patch 8: clean up FIFOs created by redirections in
+ child processes
+
+---
+ execute_cmd.c | 8 +++++++-
+ patchlevel.h  | 2 +-
+ 2 files changed, 8 insertions(+), 2 deletions(-)
+
+diff --git a/execute_cmd.c b/execute_cmd.c
+index d2a0dd71..90129e06 100644
+--- a/execute_cmd.c
++++ b/execute_cmd.c
+@@ -5556,11 +5556,17 @@ execute_disk_command (words, redirects, command_line, pipe_in, pipe_out,
+ #if defined (PROCESS_SUBSTITUTION)
+ 	  /* Try to remove named pipes that may have been created as the
+ 	     result of redirections. */
+-	  unlink_fifo_list ();
++	  unlink_all_fifos ();
+ #endif /* PROCESS_SUBSTITUTION */
+ 	  exit (EXECUTION_FAILURE);
+ 	}
+ 
++#if defined (PROCESS_SUBSTITUTION) && !defined (HAVE_DEV_FD)
++      /* This should only contain FIFOs created as part of redirection
++	 expansion. */
++      unlink_all_fifos ();
++#endif
++
+       if (async)
+ 	interactive = old_interactive;
+ 
+diff --git a/patchlevel.h b/patchlevel.h
+index c5ed66ab..10fde2ee 100644
+--- a/patchlevel.h
++++ b/patchlevel.h
+@@ -25,6 +25,6 @@
+    regexp `^#define[ 	]*PATCHLEVEL', since that's what support/mkversion.sh
+    looks for to find the patch level (for the sccs version string). */
+ 
+-#define PATCHLEVEL 7
++#define PATCHLEVEL 8
+ 
+ #endif /* _PATCHLEVEL_H_ */
+-- 
+2.29.2
+
