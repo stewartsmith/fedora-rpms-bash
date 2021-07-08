@@ -10,13 +10,16 @@ Release: 4%{?dist}
 License: GPL-3.0-or-later
 Url: https://www.gnu.org/software/bash
 Source0: https://ftp.gnu.org/gnu/bash/bash-%{baseversion}.tar.gz
-
 # For now there isn't any doc
 #Source2: ftp://ftp.gnu.org/gnu/bash/bash-doc-%%{version}.tar.gz
 
 Source1: dot-bashrc
 Source2: dot-bash_profile
 Source3: dot-bash_logout
+Source4: https://ftp.gnu.org/gnu/bash/bash-%{baseversion}.tar.gz.sig
+# Retreived from https://tiswww.cwru.edu/~chet/gpgkey.asc
+# which is the https version of the link on http://tiswww.case.edu/php/chet/bash/bashtop.html
+Source5: chet-gpgkey.asc
 
 # Official upstream patches
 # Patches are converted to apply with '-p1'
@@ -92,6 +95,7 @@ BuildRequires:  gcc
 BuildRequires: texinfo bison
 BuildRequires: ncurses-devel
 BuildRequires: autoconf, gettext
+BuildRequires: gnupg2
 # Required for bash tests
 BuildRequires: glibc-all-langpacks
 BuildRequires: make
@@ -120,6 +124,7 @@ Requires: %{name} = %{version}-%{release}
 This package contains documentation files for %{name}.
 
 %prep
+%{gpgverify} --keyring='%{SOURCE5}' --signature='%{SOURCE4}' --data='%{SOURCE0}'
 %autosetup -n %{name}-%{baseversion} -p1
 
 echo %{version} > _distribution
