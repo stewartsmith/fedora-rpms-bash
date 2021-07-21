@@ -6,7 +6,7 @@
 Version: %{baseversion}%{patchleveltag}
 Name: bash
 Summary: The GNU Bourne Again shell
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: GPLv3+
 Url: https://www.gnu.org/software/bash
 Source0: https://ftp.gnu.org/gnu/bash/bash-%{baseversion}.tar.gz
@@ -314,6 +314,9 @@ end
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Wed Jul 21 2021 Fedora Release Engineering <releng@fedoraproject.org> - 5.1.8-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
+
 * Sat May 29 2021 Siteshwar Vashisht <svashisht@redhat.com> - 5.1.8-1
 - Update to bash-5.1 patchlevel 8
 
