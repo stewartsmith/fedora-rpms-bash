@@ -6,7 +6,7 @@
 Version: %{baseversion}%{patchleveltag}
 Name: bash
 Summary: The GNU Bourne Again shell
-Release: 2%{?dist}
+Release: 3%{?dist}
 License: GPLv3+
 Url: https://www.gnu.org/software/bash
 Source0: https://ftp.gnu.org/gnu/bash/bash-%{baseversion}.tar.gz
@@ -83,6 +83,10 @@ Patch126: bash-4.3-memleak-lc_all.patch
 # this patch disables it
 Patch127: bash-4.4-no-loadable-builtins.patch
 
+# 2020528 - Add a runtime option to enable history logging to syslog
+# This option is undocumented in upstream and is documented by this patch
+Patch128: bash-5.0-syslog-history.patch
+
 BuildRequires:  gcc
 BuildRequires: texinfo bison
 BuildRequires: ncurses-devel
@@ -130,7 +134,7 @@ autoconf
 # Recycles pids is neccessary. When bash's last fork's pid was X
 # and new fork's pid is also X, bash has to wait for this same pid.
 # Without Recycles pids bash will not wait.
-MFLAGS="CPPFLAGS=-D_GNU_SOURCE -DRECYCLES_PIDS -DDEFAULT_PATH_VALUE='\"/usr/local/bin:/usr/bin\"' `getconf LFS_CFLAGS`"
+MFLAGS="CPPFLAGS=-D_GNU_SOURCE -DRECYCLES_PIDS -DDEFAULT_PATH_VALUE='\"/usr/local/bin:/usr/bin\"' `getconf LFS_CFLAGS` -DSYSLOG_HISTORY -DSYSLOG_SHOPT=0"
 
 # work around missing deps in Makefiles
 make "$MFLAGS" version.h
@@ -314,6 +318,10 @@ end
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Fri Nov 05 2021 Siteshwar Vashisht <svashisht@redhat.com> - 5.1.8-3
+- Add a runtime option to enable history logging to syslog
+  Resolves: #2020528
+
 * Wed Jul 21 2021 Fedora Release Engineering <releng@fedoraproject.org> - 5.1.8-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
 
