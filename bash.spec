@@ -1,12 +1,12 @@
 #% define beta_tag rc2
-%define patchleveltag .8
+%define patchleveltag .12
 %define baseversion 5.1
 %bcond_without tests
 
 Version: %{baseversion}%{patchleveltag}
 Name: bash
 Summary: The GNU Bourne Again shell
-Release: 3%{?dist}
+Release: 1%{?dist}
 License: GPLv3+
 Url: https://www.gnu.org/software/bash
 Source0: https://ftp.gnu.org/gnu/bash/bash-%{baseversion}.tar.gz
@@ -20,7 +20,7 @@ Source3: dot-bash_logout
 
 # Official upstream patches
 # Patches are converted to apply with '-p1'
-%{lua:for i=1,8 do print(string.format("Patch%u: bash-5.1-patch-%u.patch\n", i, i)) end}
+%{lua:for i=1,12 do print(string.format("Patch%u: bash-5.1-patch-%u.patch\n", i, i)) end}
 
 # Other patches
 # We don't want to add '/etc:/usr/etc' in standard utils path.
@@ -318,6 +318,9 @@ end
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Fri Nov 26 2021 Siteshwar Vashisht <svashisht@redhat.com> - 5.1.12-1
+- Update to bash-5.1 patchlevel 12
+
 * Fri Nov 05 2021 Siteshwar Vashisht <svashisht@redhat.com> - 5.1.8-3
 - Add a runtime option to enable history logging to syslog
   Resolves: #2020528
