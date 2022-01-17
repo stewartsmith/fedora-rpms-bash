@@ -1,5 +1,5 @@
 #% define beta_tag rc2
-%define patchleveltag .12
+%define patchleveltag .16
 %define baseversion 5.1
 %bcond_without tests
 
@@ -20,7 +20,7 @@ Source3: dot-bash_logout
 
 # Official upstream patches
 # Patches are converted to apply with '-p1'
-%{lua:for i=1,12 do print(string.format("Patch%u: bash-5.1-patch-%u.patch\n", i, i)) end}
+%{lua:for i=1,16 do print(string.format("Patch%u: bash-5.1-patch-%u.patch\n", i, i)) end}
 
 # Other patches
 # We don't want to add '/etc:/usr/etc' in standard utils path.
@@ -318,6 +318,10 @@ end
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Mon Jan 17 2022 Siteshwar Vashisht <svashisht@redhat.com> - 5.1.16-1
+- Update to bash-5.1 patchlevel 16
+  Resolves: #2037042
+
 * Fri Nov 26 2021 Siteshwar Vashisht <svashisht@redhat.com> - 5.1.12-1
 - Update to bash-5.1 patchlevel 12
 

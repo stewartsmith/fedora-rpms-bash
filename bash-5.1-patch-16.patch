@@ -1,0 +1,53 @@
+From 9439ce094c9aa7557a9d53ac7b412a23aa66e36b Mon Sep 17 00:00:00 2001
+From: Chet Ramey <chet.ramey@case.edu>
+Date: Tue, 4 Jan 2022 17:03:45 -0500
+Subject: [PATCH] Bash-5.1 patch 16: fix interpretation of multiple instances
+ of ! in [[ conditional commands
+
+---
+ parse.y      | 2 +-
+ patchlevel.h | 2 +-
+ y.tab.c      | 2 +-
+ 3 files changed, 3 insertions(+), 3 deletions(-)
+
+diff --git a/parse.y b/parse.y
+index f25575b5..f4168c7c 100644
+--- a/parse.y
++++ b/parse.y
+@@ -4796,7 +4796,7 @@ cond_term ()
+ 	dispose_word (yylval.word);	/* not needed */
+       term = cond_term ();
+       if (term)
+-	term->flags |= CMD_INVERT_RETURN;
++	term->flags ^= CMD_INVERT_RETURN;
+     }
+   else if (tok == WORD && yylval.word->word[0] == '-' && yylval.word->word[1] && yylval.word->word[2] == 0 && test_unop (yylval.word->word))
+     {
+diff --git a/patchlevel.h b/patchlevel.h
+index 252e0819..3c226949 100644
+--- a/patchlevel.h
++++ b/patchlevel.h
+@@ -25,6 +25,6 @@
+    regexp `^#define[ 	]*PATCHLEVEL', since that's what support/mkversion.sh
+    looks for to find the patch level (for the sccs version string). */
+ 
+-#define PATCHLEVEL 15
++#define PATCHLEVEL 16
+ 
+ #endif /* _PATCHLEVEL_H_ */
+diff --git a/y.tab.c b/y.tab.c
+index c11d7aaa..78b38250 100644
+--- a/y.tab.c
++++ b/y.tab.c
+@@ -7090,7 +7090,7 @@ cond_term ()
+ 	dispose_word (yylval.word);	/* not needed */
+       term = cond_term ();
+       if (term)
+-	term->flags |= CMD_INVERT_RETURN;
++	term->flags ^= CMD_INVERT_RETURN;
+     }
+   else if (tok == WORD && yylval.word->word[0] == '-' && yylval.word->word[1] && yylval.word->word[2] == 0 && test_unop (yylval.word->word))
+     {
+-- 
+2.31.1
+
