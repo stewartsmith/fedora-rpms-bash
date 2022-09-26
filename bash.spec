@@ -6,7 +6,7 @@
 Version: %{baseversion}%{patchleveltag}
 Name: bash
 Summary: The GNU Bourne Again shell
-Release: 3%{?dist}
+Release: 4%{?dist}
 License: GPLv3+
 Url: https://www.gnu.org/software/bash
 Source0: https://ftp.gnu.org/gnu/bash/bash-%{baseversion}.tar.gz
@@ -86,6 +86,10 @@ Patch127: bash-4.4-no-loadable-builtins.patch
 # 2020528 - Add a runtime option to enable history logging to syslog
 # This option is undocumented in upstream and is documented by this patch
 Patch128: bash-5.0-syslog-history.patch
+
+# 2122331 - Heap-buffer-overflow in valid_parameter_transform
+# This patch should be removed while rebasing to bash-5.2
+Patch129: bash-5.2-check-xform.patch
 
 BuildRequires:  gcc
 BuildRequires: texinfo bison
@@ -318,6 +322,10 @@ end
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Mon Sep 26 2022 Siteshwar Vashisht <svashisht@redhat.com> - 5.1.16-4
+- Add a null check in parameter_brace_transform() function
+  Resolves: #2122331
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 5.1.16-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 
