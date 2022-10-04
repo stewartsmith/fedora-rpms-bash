@@ -1,12 +1,12 @@
 #% define beta_tag rc2
-%define patchleveltag .16
-%define baseversion 5.1
+%define patchleveltag .0
+%define baseversion 5.2
 %bcond_without tests
 
 Version: %{baseversion}%{patchleveltag}
 Name: bash
 Summary: The GNU Bourne Again shell
-Release: 4%{?dist}
+Release: 1%{?dist}
 License: GPLv3+
 Url: https://www.gnu.org/software/bash
 Source0: https://ftp.gnu.org/gnu/bash/bash-%{baseversion}.tar.gz
@@ -20,7 +20,7 @@ Source3: dot-bash_logout
 
 # Official upstream patches
 # Patches are converted to apply with '-p1'
-%{lua:for i=1,16 do print(string.format("Patch%u: bash-5.1-patch-%u.patch\n", i, i)) end}
+#{lua:for i=1,16 do print(string.format("Patch%u: bash-5.1-patch-%u.patch\n", i, i)) end}
 
 # Other patches
 # We don't want to add '/etc:/usr/etc' in standard utils path.
@@ -38,7 +38,7 @@ Patch106: bash-3.2-audit.patch
 # Source bashrc file when bash is run under ssh.
 Patch107: bash-3.2-ssh_source_bash.patch
 # Use makeinfo to generate .texi file
-Patch108: bash-infotags.patch
+# Patch108: bash-infotags.patch
 # Try to pick up latest `--rpm-requires` patch from http://git.altlinux.org/gears/b/bash4.git
 Patch109: bash-requires.patch
 Patch110: bash-setlocale.patch
@@ -55,7 +55,7 @@ Patch117: bash-4.1-examples.patch
 # when output does not succeed due to EPIPE
 Patch118: bash-4.1-broken_pipe.patch
 
-# # Enable system-wide .bash_logout for login shells
+# Enable system-wide .bash_logout for login shells
 Patch119: bash-4.2-rc2-logout.patch
 
 # Static analyzis shows some issues in bash-2.05a-interpreter.patch
@@ -86,10 +86,6 @@ Patch127: bash-4.4-no-loadable-builtins.patch
 # 2020528 - Add a runtime option to enable history logging to syslog
 # This option is undocumented in upstream and is documented by this patch
 Patch128: bash-5.0-syslog-history.patch
-
-# 2122331 - Heap-buffer-overflow in valid_parameter_transform
-# This patch should be removed while rebasing to bash-5.2
-Patch129: bash-5.2-check-xform.patch
 
 BuildRequires:  gcc
 BuildRequires: texinfo bison
@@ -322,6 +318,10 @@ end
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Tue Oct 04 2022 situ <svashisht@redhat.com> - 5.2.0-1
+- Update to bash-5.2
+  Resolves: #2129927
+
 * Mon Sep 26 2022 Siteshwar Vashisht <svashisht@redhat.com> - 5.1.16-4
 - Add a null check in parameter_brace_transform() function
   Resolves: #2122331
