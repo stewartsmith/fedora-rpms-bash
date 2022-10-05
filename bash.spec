@@ -6,7 +6,7 @@
 Version: %{baseversion}%{patchleveltag}
 Name: bash
 Summary: The GNU Bourne Again shell
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: GPLv3+
 Url: https://www.gnu.org/software/bash
 Source0: https://ftp.gnu.org/gnu/bash/bash-%{baseversion}.tar.gz
@@ -318,6 +318,10 @@ end
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Wed Oct 05 2022 Siteshwar Vashisht <svashisht@redhat.com> - 5.2.0-2
+- Bump version number
+  Related: #2129927
+
 * Tue Oct 04 2022 Siteshwar Vashisht <svashisht@redhat.com> - 5.2.0-1
 - Update to bash-5.2
   Resolves: #2129927
