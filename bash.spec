@@ -318,7 +318,7 @@ end
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
-* Tue Oct 04 2022 situ <svashisht@redhat.com> - 5.2.0-1
+* Tue Oct 04 2022 Siteshwar Vashisht <svashisht@redhat.com> - 5.2.0-1
 - Update to bash-5.2
   Resolves: #2129927
 
