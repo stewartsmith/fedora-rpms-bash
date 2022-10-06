@@ -1,12 +1,12 @@
 #% define beta_tag rc2
-%define patchleveltag .0
+%define patchlevel 2
 %define baseversion 5.2
 %bcond_without tests
 
-Version: %{baseversion}%{patchleveltag}
+Version: %{baseversion}.%{patchlevel}
 Name: bash
 Summary: The GNU Bourne Again shell
-Release: 2%{?dist}
+Release: 1%{?dist}
 License: GPLv3+
 Url: https://www.gnu.org/software/bash
 Source0: https://ftp.gnu.org/gnu/bash/bash-%{baseversion}.tar.gz
@@ -20,7 +20,9 @@ Source3: dot-bash_logout
 
 # Official upstream patches
 # Patches are converted to apply with '-p1'
-#{lua:for i=1,16 do print(string.format("Patch%u: bash-5.1-patch-%u.patch\n", i, i)) end}
+%{lua:for i=1,rpm.expand('%{patchlevel}') do
+    print(string.format('Patch%u: bash-%s-patch-%u.patch\n', i, rpm.expand('%{baseversion}'), i))
+end}
 
 # Other patches
 # We don't want to add '/etc:/usr/etc' in standard utils path.
@@ -318,6 +320,9 @@ end
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Thu Oct 06 2022 Siteshwar Vashisht <svashisht@redhat.com> - 5.2.2-1
+- Update to bash-5.2 patchlevel 2
+
 * Wed Oct 05 2022 Siteshwar Vashisht <svashisht@redhat.com> - 5.2.0-2
 - Bump version number
   Related: #2129927
