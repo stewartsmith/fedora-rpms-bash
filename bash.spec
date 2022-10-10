@@ -6,7 +6,7 @@
 Version: %{baseversion}.%{patchlevel}
 Name: bash
 Summary: The GNU Bourne Again shell
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: GPLv3+
 Url: https://www.gnu.org/software/bash
 Source0: https://ftp.gnu.org/gnu/bash/bash-%{baseversion}.tar.gz
@@ -88,6 +88,10 @@ Patch127: bash-4.4-no-loadable-builtins.patch
 # 2020528 - Add a runtime option to enable history logging to syslog
 # This option is undocumented in upstream and is documented by this patch
 Patch128: bash-5.0-syslog-history.patch
+
+# 2133097 - bash fails to handle nested expansions
+# This patch should be removed with next rebase
+Patch129: bash-5.2-nested-expansion.patch
 
 BuildRequires:  gcc
 BuildRequires: texinfo bison
@@ -320,6 +324,10 @@ end
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Mon Oct 10 2022 Siteshwar Vashisht <svashisht@redhat.com> - 5.2.2-2
+- Fix an issue with nested expansions
+  Resolves: #2133097
+
 * Thu Oct 06 2022 Siteshwar Vashisht <svashisht@redhat.com> - 5.2.2-1
 - Update to bash-5.2 patchlevel 2
 
