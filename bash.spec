@@ -6,7 +6,7 @@
 Version: %{baseversion}.%{patchlevel}
 Name: bash
 Summary: The GNU Bourne Again shell
-Release: 2%{?dist}
+Release: 3%{?dist}
 License: GPLv3+
 Url: https://www.gnu.org/software/bash
 Source0: https://ftp.gnu.org/gnu/bash/bash-%{baseversion}.tar.gz
@@ -25,8 +25,6 @@ Source3: dot-bash_logout
 end}
 
 # Other patches
-# We don't want to add '/etc:/usr/etc' in standard utils path.
-Patch101: bash-2.03-paths.patch
 # Non-interactive shells beginning with argv[0][0] == '-' should run the startup files when not in posix mode.
 Patch102: bash-2.03-profile.patch
 # https://bugzilla.redhat.com/show_bug.cgi?id=60870
@@ -140,7 +138,7 @@ autoconf
 # Recycles pids is neccessary. When bash's last fork's pid was X
 # and new fork's pid is also X, bash has to wait for this same pid.
 # Without Recycles pids bash will not wait.
-MFLAGS="CPPFLAGS=-D_GNU_SOURCE -DRECYCLES_PIDS -DDEFAULT_PATH_VALUE='\"/usr/local/bin:/usr/bin\"' `getconf LFS_CFLAGS` -DSYSLOG_HISTORY -DSYSLOG_SHOPT=0"
+MFLAGS="CPPFLAGS=-D_GNU_SOURCE -DRECYCLES_PIDS -DDEFAULT_PATH_VALUE='\"/usr/local/bin:/usr/bin\"' -DSTANDARD_UTILS_PATH='\"/bin:/usr/bin:/usr/sbin:/sbin\"' `getconf LFS_CFLAGS` -DSYSLOG_HISTORY -DSYSLOG_SHOPT=0"
 
 # work around missing deps in Makefiles
 make "$MFLAGS" version.h
@@ -324,6 +322,10 @@ end
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Tue Nov 01 2022 Debarshi Ray <rishi@fedoraproject.org> - 5.2.9-3
+- Override STANDARD_UTILS_PATH in the same way as DEFAULT_PATH_VALUE
+  Related: #2132363
+
 * Fri Nov 18 2022 Siteshwar Vashisht <svashisht@redhat.com> - 5.2.9-2
 - Fix binary file detection
   Resolves: #2135537
