@@ -1,12 +1,12 @@
 #% define beta_tag rc2
-%define patchlevel 9
+%define patchlevel 15
 %define baseversion 5.2
 %bcond_without tests
 
 Version: %{baseversion}.%{patchlevel}
 Name: bash
 Summary: The GNU Bourne Again shell
-Release: 3%{?dist}
+Release: 1%{?dist}
 License: GPLv3+
 Url: https://www.gnu.org/software/bash
 Source0: https://ftp.gnu.org/gnu/bash/bash-%{baseversion}.tar.gz
@@ -86,10 +86,6 @@ Patch127: bash-4.4-no-loadable-builtins.patch
 # 2020528 - Add a runtime option to enable history logging to syslog
 # This option is undocumented in upstream and is documented by this patch
 Patch128: bash-5.0-syslog-history.patch
-
-# 2135537 - Bash no longer executed a binary executable shell-script
-# This patch should be removed during next rebase
-Patch129: bash-5.2-file-detection.patch
 
 BuildRequires:  gcc
 BuildRequires: texinfo bison
@@ -322,7 +318,11 @@ end
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
-* Tue Nov 01 2022 Debarshi Ray <rishi@fedoraproject.org> - 5.2.9-3
+* Mon Jan 02 2023 Siteshwar Vashisht <svashisht@redhat.com> - 5.2.15-1
+- Update to bash-5.2 patchlevel 15
+  Resolves: #2152991
+
+* Fri Nov 18 2022 Debarshi Ray <rishi@fedoraproject.org> - 5.2.9-3
 - Override STANDARD_UTILS_PATH in the same way as DEFAULT_PATH_VALUE
   Related: #2132363
 
