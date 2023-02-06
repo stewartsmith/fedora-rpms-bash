@@ -6,7 +6,7 @@
 Version: %{baseversion}.%{patchlevel}
 Name: bash
 Summary: The GNU Bourne Again shell
-Release: 2%{?dist}
+Release: 3%{?dist}
 License: GPLv3+
 Url: https://www.gnu.org/software/bash
 Source0: https://ftp.gnu.org/gnu/bash/bash-%{baseversion}.tar.gz
@@ -86,6 +86,7 @@ Patch127: bash-4.4-no-loadable-builtins.patch
 # 2020528 - Add a runtime option to enable history logging to syslog
 # This option is undocumented in upstream and is documented by this patch
 Patch128: bash-5.0-syslog-history.patch
+Patch129: bash-configure-c99.patch
 
 BuildRequires:  gcc
 BuildRequires: texinfo bison
@@ -318,6 +319,9 @@ end
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Mon Feb 06 2023 Florian Weimer <fweimer@redhat.com> - 5.2.15-3
+- Fix C99 compatibility issue on configure script
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.2.15-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 
