@@ -6,8 +6,8 @@
 Version: %{baseversion}.%{patchlevel}
 Name: bash
 Summary: The GNU Bourne Again shell
-Release: 3%{?dist}
-License: GPLv3+
+Release: 4%{?dist}
+License: GPL-3.0-or-later
 Url: https://www.gnu.org/software/bash
 Source0: https://ftp.gnu.org/gnu/bash/bash-%{baseversion}.tar.gz
 
@@ -319,6 +319,9 @@ end
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Tue Apr 11 2023 Lukáš Zaoral <lzaoral@redhat.com> - 5.2.15-4
+- migrate to SPDX license format
+
 * Mon Feb 06 2023 Florian Weimer <fweimer@redhat.com> - 5.2.15-3
 - Fix C99 compatibility issue on configure script
 
